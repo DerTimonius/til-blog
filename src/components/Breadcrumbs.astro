@@ -1,0 +1,39 @@
+---
+const currentUrlPath = Astro.url.pathname.replace(/\/+$/, '');
+const breadcrumbList = currentUrlPath.split('/').slice(1);
+const breadcrumbListLength = breadcrumbList.length;
+
+breadcrumbList[0] === 'posts' &&
+  breadcrumbList.splice(0, 2, `Posts (page ${breadcrumbList[1] || 1})`);
+---
+
+<nav class="mx-auto mb-1 mt-8 w-full max-w-3xl px-4" aria-label="breadcrumb">
+  <ul class="flex">
+    <li class="inline">
+      <a class="capitalize opacity-70" href="/">Home</a>
+      <span aria-hidden="true" class="opacity-70">&nbsp;&gt;&nbsp;</span>
+    </li>
+    {
+      breadcrumbList.map((breadcrumb, index) =>
+        index + 1 === breadcrumbListLength ? (
+          <li>
+            <span class="lowercase" aria-current="page">
+              {breadcrumb}
+            </span>
+          </li>
+        ) : (
+          <li class="capitalize">
+            <a href={`/${breadcrumb}`}>{breadcrumb}</a>
+            <span aria-hidden="true">&nbsp;&gt;&nbsp;</span>
+          </li>
+        ),
+      )
+    }
+  </ul>
+</nav>
+
+<style>
+  .breadcrumb ul li span {
+    @apply opacity-70;
+  }
+</style>

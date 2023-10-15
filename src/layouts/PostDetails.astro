@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Layout from './Layout.astro';
+import Header from '~/components/Header.astro';
+import Date from '~/components/Date.astro';
+import Footer from '~/components/Footer.astro';
+import { site } from '~/utils/config';
+import slugify from 'slugify';
+import Tag from '~/components/Tag.astro';
+import dayjs from 'dayjs';
+
+export interface Props {
+  post: CollectionEntry<'blogs'>;
+}
+
+const { post } = Astro.props;
+
+const { title, description, pubDate, tags } = post.data;
+const date = dayjs(pubDate).format('DD/MM/YYYY');
+
+const { Content } = await post.render();
+---
+
+<Layout title={title} author={site.author} description={description}>
+  <Header />
+  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+    <button
+      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
+      onclick="history.back()"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg"
+        ><path
+          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        ></path>
+      </svg><span>Go back</span>
+    </button>
+  </div>
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+    <h1
+      transition:name={slugify(title)}
+      class="text-2xl font-semibold text-skin-accent"
+    >
+      {title}
+    </h1>
+    <Date datetime={date} size="lg" className="my-2" />
+    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+      <Content />
+    </article>
+
+    <ul class="my-8">
+      {tags!.map((tag) => <Tag name={slugify(tag)} />)}
+    </ul>
+  </main>
+  <Footer />
+</Layout>

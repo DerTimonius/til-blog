@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Footer from '~/components/Footer.astro';
+import Header from '~/components/Header.astro';
+import Tag from '~/components/Tag.astro';
+import Layout from '~/layouts/Layout.astro';
+import Main from '~/layouts/Main.astro';
+import { site } from '~/utils/config';
+import getTags from '~/utils/getTags';
+
+const posts = await getCollection('blogs');
+
+const tags = getTags(posts);
+---
+
+<Layout title={`Tags | ${site.title}`}>
+  <Header activeNav="tags" />
+  <Main pageTitle="Tags" pageDesc="What tags have been used so far.">
+    <ul>
+      {tags.map((tag) => <Tag name={tag} size="lg" />)}
+    </ul>
+  </Main>
+  <Footer />
+</Layout>

@@ -1,0 +1,55 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Card from '~/components/Card.astro';
+import Footer from '~/components/Footer.astro';
+import Header from '~/components/Header.astro';
+import Layout from '~/layouts/Layout.astro';
+import Main from '~/layouts/Main.astro';
+import { site } from '~/utils/config';
+import getTags from '~/utils/getTags';
+import sortPosts from '~/utils/sortPosts';
+
+export interface Props {
+  post: CollectionEntry<'blogs'>;
+  tag: string;
+}
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blogs');
+  const tags = getTags(posts);
+
+  return tags.map((tag) => {
+    return {
+      params: { tag },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+
+const posts = await getCollection(
+  'blogs',
+  ({ data }) => data.tags!.includes(tag!) && !data.isDraft,
+);
+
+const sortedPosts = sortPosts(posts);
+---
+
+<Layout title={`Tag:${tag} | ${site.title}`}>
+  <Header activeNav="tags" />
+  <Main
+    pageTitle={[`Tag:`, `${tag}`]}
+    titleTransition={tag!}
+    pageDesc={`TIL articles with the tag "${tag}" so far.`}
+  >
+    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
+    <ul>
+      {
+        sortedPosts.map(({ data, slug }) => (
+          <Card href={`/blog/${slug}`} frontmatter={data} />
+        ))
+      }
+    </ul>
+  </Main>
+  <Footer />
+</Layout>

@@ -1,0 +1,37 @@
+---
+import classNames from 'classnames';
+
+export interface Props {
+  href: string;
+  className?: string;
+  ariaLabel?: string;
+  title?: string;
+  disabled?: boolean;
+  newTab?: boolean;
+}
+
+const {
+  href,
+  className,
+  ariaLabel,
+  title,
+  disabled = false,
+  newTab = false,
+} = Astro.props;
+const linkClasses = classNames(
+  'group inline-block hover:text-skin-accent',
+  className,
+);
+---
+
+<a
+  href={disabled ? '#' : href}
+  tabindex={disabled ? '-1' : '0'}
+  class={linkClasses}
+  aria-label={ariaLabel}
+  title={title}
+  aria-disabled={disabled}
+  target={newTab ? '_blank' : '_self'}
+>
+  <slot />
+</a>
