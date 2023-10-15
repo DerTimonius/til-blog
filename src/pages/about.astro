@@ -1,0 +1,53 @@
+---
+import Footer from '~/components/Footer.astro';
+import Header from '~/components/Header.astro';
+import Layout from '~/layouts/Layout.astro';
+---
+
+<Layout title="About - DerTimonius">
+  <Header activeNav="about" />
+  <main class="mx-auto w-full max-w-3xl px-4 py-12">
+    <h1 class="text-2xl font-semibold sm:text-3xl">About</h1>
+    <p class="mb-6 mt-2 italic">Timon Jurschitsch</p>
+    <p class="my-2">
+      I'm very passionate about learning. I listen to a lot of educational
+      podcasts, I watch documentaries and read a lot of articles that may or may
+      not add something valuable. But the more knowledge I gain, I realize that
+      I don't know very much about anything.
+    </p>
+    <p class="my-2">
+      I want to change that. That's why I started this blog. The goal of this is
+      that I learn something new almost every day. It does not have to be a
+      skill or very fundamental. But writing it down will help me in a few ways:
+    </p>
+    <ul class="mx-6">
+      <li class="my-3">
+        <strong>Retention</strong>: For the brain to remember stuff the same
+        neurons and synapses have to fire multiple times. Repetition is the key,
+        but not all knowledge we come across can be immediately used. Writing it
+        down on the other hand is something one might easily do.
+      </li>
+      <li class="my-3">
+        <strong>Understanding</strong>: The most important part of the <a
+          href="https://todoist.com/inspiration/feynman-technique"
+          target="_blank"
+          rel="noreferrer"
+          class="underline hover:text-skin-accent">Feynman Technique</a
+        > is to image explaining something to a child. Breaking your knowledge
+        down into easily digestible chunks will show you gaps in said knowledge
+        that you were unaware of.
+      </li>
+      <li class="my-3">
+        <strong>Showing up</strong>: This blog should theoretically force me to
+        keep showing up in learning new things.
+      </li>
+    </ul>
+    <p class="my-2">
+      The journey from studying medicine, working as an anesthesiologist for a
+      few years, to a developer is a weird one. Trying to learn something new
+      every day will help me gain more knowledge in topics I'm not nearly as
+      knowledgeable as I want to be.
+    </p>
+  </main>
+  <Footer />
+</Layout>
