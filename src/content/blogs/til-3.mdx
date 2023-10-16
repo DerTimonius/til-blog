@@ -1,0 +1,25 @@
+---
+title: The ease of deploying to Vercel
+pubDate: 2023-10-16
+tags: ['web-dev', 'deployment']
+isDraft: false
+description: While I deployed this very blog, I was amazed by how easy it was to deploy an Astro project on Vercel
+---
+
+This is going to be a very short one, because I very much anticipated to be the deployment of this blog way more complicated than it turned out to be.
+
+## Tech stack
+
+I decided to write this blog in [Astro](https://astro.build) because I want to learn more about it - using it, the island structure and the great implementation of the [ViewTransition API](https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition).
+
+And since Vercel is a partner of Astro since the release of v3.0, I thought to myself: why not deploy it on Vercel?
+
+## Prior experience with deployments
+
+Outside of work, my experience with deploying websites was limited to `Netlify` and `fly.io`. Netlify was used for simple React apps, there were mostly no problems, fly was a different stoy: Dockerfile, database, the whole 9 yards.
+
+I was expecting some friction when deploying this blog, but actually: it was as simple as just importing a git repository and clicking deploy.
+
+It would have been harder if this blog would use for example SSR, but there is also a great [Astro adapter](https://docs.astro.build/en/guides/integrations-guide/vercel/) for this.
+
+If I have to deploy something fast, I'm pretty sure I will use Vercel again.
