@@ -2,19 +2,19 @@
 import Date from './Date.astro';
 import type { CollectionEntry } from 'astro:content';
 import dayjs from 'dayjs';
-import slugify from 'slugify';
 
 interface Props {
   href?: string;
   frontmatter: CollectionEntry<'blogs'>['data'];
   secHeading?: boolean;
+  slug: string;
 }
-const { href, frontmatter, secHeading = true } = Astro.props;
+const { href, frontmatter, slug, secHeading = true } = Astro.props;
 const { title, pubDate, description } = frontmatter;
 const date = dayjs(pubDate).format('DD/MM/YYYY');
 
 const headerProps = {
-  style: { viewTransitionName: slugify(title) },
+  style: { viewTransitionName: slug },
   className: 'text-lg font-medium decoration-dashed hover:underline',
 };
 ---

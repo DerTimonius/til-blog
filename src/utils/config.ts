@@ -6,7 +6,7 @@ export const site: Site = {
   desc: 'A little blog to share what I have learned today',
   title: 'TIL - DerTimonius',
   lightAndDarkMode: true,
-  postPerPage: 3,
+  postPerPage: 5,
 };
 
 export const logoImage = {

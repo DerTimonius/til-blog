@@ -59,6 +59,7 @@ const latestPosts = sortedPosts.slice(0, 3);
               href={`/blog/${post.slug}`}
               frontmatter={post.data}
               secHeading={false}
+              slug={post.slug}
             />
           ))
         }
