@@ -13,7 +13,7 @@ export interface Props {
 export async function getStaticPaths() {
   const posts = await getCollection('blogs', ({ data }) => !data.isDraft);
 
-  const postResult = posts.map((post) => ({
+  const postPaths = posts.map((post) => ({
     params: { slug: post.slug },
   }));
 
@@ -21,7 +21,7 @@ export async function getStaticPaths() {
     params: { slug: String(pageNum) },
   }));
 
-  return [...postResult, ...pagePaths];
+  return [...postPaths, ...pagePaths];
 }
 
 const { slug } = Astro.params;
