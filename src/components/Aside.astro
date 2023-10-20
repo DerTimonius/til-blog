@@ -1,0 +1,15 @@
+---
+interface Props {
+  header?: string;
+  text: string;
+}
+
+const { header, text } = Astro.props;
+---
+
+<section
+  class="border-dashed border-2 border-skin-accent py-2 px-6 min-h-min text-white"
+>
+  {header ? <h3 class="mt-3">{header}</h3> : null}
+  <p>{text}</p>
+</section>
