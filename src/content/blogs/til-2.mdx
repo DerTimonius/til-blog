@@ -6,6 +6,8 @@ isDraft: false
 description: While called arrays, array objects in Javascript are not really arrays in the typical computer science sense - let's explore
 ---
 
+import Aside from '~/components/Aside.astro';
+
 I recently decided to step up my knowledge in data structures and algorithms. I had some prior knowledge, but data structures is a topic where knowing more can help you tremendously at your job or any of your personal coding projects.
 
 To achieve that, I started with the great [course by ThePrimeagen](https://frontendmasters.com/courses/algorithms/) today and in the first hour he asked a question that took me by surpise:
@@ -45,6 +47,11 @@ Under the hood, JS arrays are objects with ascending integer-like keys that has 
 ```ts
 const arr = [1, 2, true, , { foo: 'bar' }];
 ```
+
+<Aside
+  header="[object Object]"
+  text="To be honest, running checking the type of arr with typeof and seeing [object Object] return might have been the biggest clue to realize that it's an object."
+/>
 
 All this means that the memory that is allocated to the array is not guaranteed to be contiguous, no information is then lost if the array grows. Removing items from the array does not lead to filling an entry with `null`.
 

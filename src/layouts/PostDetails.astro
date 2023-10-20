@@ -7,6 +7,7 @@ import Footer from '~/components/Footer.astro';
 import { site } from '~/utils/config';
 import Tag from '~/components/Tag.astro';
 import dayjs from 'dayjs';
+// import Author from '~/components/Author.astro';
 
 export interface Props {
   post: CollectionEntry<'blogs'>;
@@ -42,13 +43,13 @@ const { Content } = await post.render();
       {title}
     </h1>
     <Date datetime={date} size="lg" className="my-2" />
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
-      <Content />
-    </article>
-
+    <!-- <Author author={site.author} size="lg" /> -->
     <ul class="my-8">
       {tags!.map((tag) => <Tag name={tag} />)}
     </ul>
+    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+      <Content />
+    </article>
   </main>
   <Footer />
 </Layout>
