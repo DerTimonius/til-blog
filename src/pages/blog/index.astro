@@ -5,7 +5,7 @@ import { site } from '~/utils/config';
 import sortPosts from '~/utils/sortPosts';
 import getPageNumbers from '~/utils/pageNumbers';
 
-const posts = await getCollection('blogs');
+const posts = await getCollection('blogs', ({ data }) => !data.isDraft);
 
 const sortedPosts = sortPosts(posts);
 

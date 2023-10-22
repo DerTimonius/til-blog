@@ -15,8 +15,9 @@ export interface Props {
 
 const { post } = Astro.props;
 
-const { title, description, pubDate, tags } = post.data;
+const { title, description, pubDate, tags, updatedAt } = post.data;
 const date = dayjs(pubDate).format('DD/MM/YYYY');
+const updatedDate = dayjs(updatedAt).format('DD/MM/YYYY');
 
 const { Content } = await post.render();
 ---
@@ -49,6 +50,7 @@ const { Content } = await post.render();
     </ul>
     <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />
+      <p class="text-sm font-light italic">Last update at: {updatedDate}</p>
     </article>
   </main>
   <Footer />

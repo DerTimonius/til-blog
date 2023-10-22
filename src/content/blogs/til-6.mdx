@@ -1,0 +1,130 @@
+---
+title: The intricacies of the event loop
+pubDate: 2023-10-22
+tags: ['javascript', 'computer-science']
+isDraft: false
+description: Asynchronous code would be impossible without the event loop. But how does it work?
+---
+
+Wether you love it or hate it, Javascript is by far the most important language when looking at web development. Running on both browsers and servers, it powers a large portion of the web.
+
+If you're like me, you most likely will not be content with knowing just that fact. You want to know how stuff works. Javascript is a single-threaded language, but it can handle asynchronous code and be non-blocking? How is that possible? If it can only work with one thread, how can it execute code concurrently?
+
+## Synchronous code, heap and more
+
+Before I get into the weeds of these questions, I want to clarify a few important terms:
+
+- **Synchronous code**: Executing code synchronously means that the next line of code can only run if the previous block of code is finished (this concept is called _Run-to-completion_). This may lead to problems if it takes a long time: Imagine not being able to click on DOM elements, while the database is queried, and only after the database returned the data handling the clicks on the buttons you made in the meantime.
+- **Heap**: Objects are allocated in a heap, which is a large region of memory.
+- **Call stack**: The call stack is the order in which code will be executed. Since it's a stack, it will follow the `first in, last out` or `FILO` principle.
+- **Queue**: A queue is a data structure similar to stack, but it follows the `first in, first out` or `FIFO` principle.
+
+## Adding to the call stack
+
+Let's start with an example:
+
+```js
+function print(x) {
+  console.log(x);
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function square(n) {
+  return multiply(n, n);
+}
+
+const num = 3;
+print(square(num));
+```
+
+How will this code be added to the call stack?
+
+1. We add the `print()` call to the stack.
+2. Since the value that should be printed is not directly assigned, but changed by using it as a parameter for `square()`, `square()` is added to the call stack next.
+3. Inside `square()` another function is called -> `multiply()` is added to the call stack.
+4. `multiply()` does not call a different function, we reached the end of the stack (in this example).
+
+The stack has now a length of three and the code will be handled in the opposite direction:
+
+1. `multiply` does its thing and returns `3 * 3` and gets removed from the stack
+2. `square` returns whatever `multiply` returned and gets removed
+3. Finally, `print` takes the returned value of `square` and logs it to the console.
+4. The call stack is now empty.
+
+This shows how the V8 engine works. If you want to run code asynchronously, you have to call different APIs (WebAPIs for the browser, C++ APIs for Node.js) like the `Callback Queue` (in modern JS, it is more sensibly called `task queue` but I will refer to it as the `callback queue` in this post).
+
+## Callbacks
+
+What are callbacks?
+
+> A callback function is a function that is passed into another function as an argument and is then invoked inside the outer function to complete some kind of routine or action.
+
+[_MDN_ - Callback function](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function)
+
+Technically, we used a callback function in the example above. A different typical example are array methods:
+
+```js
+const arr = [1, 2, 3, 4];
+arr.forEach((item) => {
+  console.log(item);
+});
+```
+
+The logging of each item happens in a callback function.
+
+But what if you don't want to execute the code right at that moment, but later as some point in the future? That's the prime use case of `setTimeout`.
+
+```js
+const arr = [1, 2, 3, 4];
+arr.forEach((item) => {
+  setTimeout(() => console.log(item), 1000);
+});
+```
+
+With setTimeout, Javascript waits the specified amount of time and then adds the passed callback function to the `callback queue`. But when is this code then executed if it's in the callback queue?
+
+## Event loop
+
+Code that is queued in the callback queue is only executed if the call stack is empty. Here the `event loop` comes into play: it checks if the stack is empty and pushes the first element of the callback queue to the stack and repeats that process until the queue is empty.
+
+If we take a look at the example above, how is this code executed?
+
+1. `arr.forEach` is called and added to the stack
+2. next, the callback function is added to the stack
+3. this calls `setTimeout`, which is then handled separately
+4. the callback function of `arr.forEach` is removed for the first element from the stack
+5. when the time given to the setTimeout function has passed, its callback function is added to the callback queue
+6. steps 2-5 happen for every element of the array
+7. `arr.forEach` is now done and removed from the stack
+8. because the stack is now empty, the event loop pushes the first element of the callback queue to the stack where it gets executed
+9. step 8 repeats until the queue is empty
+
+Maybe you have used `setTimeout` before and wondered why it took longer for the code to execute than whatever milliseconds you passed. This is the reason why: the passed milliseconds only define, when the code is passed to the callback queue, where it may have to wait for a bit. If you call `setTimeout` with 0 milliseconds, this means that the code will run at the next possible point in the future but not now.
+
+## Microtask Queue vs. Callback Queue
+
+`Promises` and `async/await` were introduced with `ES6` and `ES8` respectively and are concepts that allow for easier handling of asynchronous code like database queries of API fetches.
+
+```js
+const promise = new Promise((resolve, reject) => {
+  resolve('Hello');
+});
+
+promise
+  .then((val) => console.log(`${val} world!`))
+  .then((newVal) => console.log(newVal))
+  .catch((err) => console.error(err));
+```
+
+Every `.then` is added to a queue once it callback function is finished. But not to the `callback queue`, to a different queue called `microtask queue`.
+
+The most important difference between the two is that the `microtask queue` has a higher priority and will be resolved before the `callback queue`. It makes sense, database queries and API fetches are very important and should not have to wait until a `setTimeout` has finished that has nothing to do with the microtasks.
+
+After microtasks are processed, the event loop moves on to `macrotasks`, which encompass operations like setTimeout, I/O operations, and user interactions. These macrotasks are queued in the `task queue` and are executed in the order they were added. (I know, it's a bit confusing that I leave the `callback queue` now and call it the `task queue` instead but when talking about micro- and macrotasks it makes a bit more sense)
+
+## Conclusion
+
+Knowing about the intricacies of the event loop is not necessary to be a good developer. But the knowledge you hopefully gained with this post will certainly help you understand a core concept of Javascript and asynchronous code.
