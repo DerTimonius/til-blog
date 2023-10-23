@@ -1,17 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
 import Card from '~/components/Card.astro';
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
 import Hr from '~/components/Hr.astro';
 import Link from '~/components/Link.astro';
 import Layout from '~/layouts/Layout.astro';
-import sortPosts from '~/utils/sortPosts';
+import { getLatestPosts } from '~/utils/sortPosts';
 
-const posts = await getCollection('blogs', ({ data }) => !data.isDraft);
-
-const sortedPosts = sortPosts(posts);
-const latestPosts = sortedPosts.slice(0, 3);
+const latestPosts = await getLatestPosts() 
 ---
 
 <Layout>
