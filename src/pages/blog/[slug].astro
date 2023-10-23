@@ -4,7 +4,7 @@ import PostDetails from '~/layouts/PostDetails.astro';
 import Posts from '~/layouts/Posts.astro';
 import { site } from '~/utils/config';
 import getPageNumbers from '~/utils/pageNumbers';
-import sortPosts from '~/utils/sortPosts';
+import { getSortedPosts } from '~/utils/sortPosts';
 
 export interface Props {
   post: CollectionEntry<'blogs'>;
@@ -26,10 +26,8 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-const posts = await getCollection('blogs');
 const post = await getEntry({ collection: 'blogs', slug: slug! });
-
-const sortedPosts = sortPosts(posts);
+const sortedPosts = await getSortedPosts();
 
 const totalPages = getPageNumbers(sortedPosts.length);
 
