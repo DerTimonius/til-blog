@@ -18,3 +18,10 @@ export async function getLatestPosts(
   const posts = await getSortedPosts();
   return posts.slice(0, num);
 }
+
+export async function getFeaturedPosts(): Promise<CollectionEntry<'blogs'>[]> {
+  return await getCollection(
+    'blogs',
+    ({ data }) => data.isFeatured && !data.isDraft,
+  );
+}
