@@ -1,0 +1,14 @@
+---
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'sunday'
+    labels:
+      - 'dependencies'
+      - 'security'
+    reviewers:
+      - 'DerTimonius'
+    open-pull-requests-limit: 10
