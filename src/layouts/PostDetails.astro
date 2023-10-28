@@ -6,8 +6,8 @@ import Date from '~/components/Date.astro';
 import Footer from '~/components/Footer.astro';
 import { site } from '~/utils/config';
 import Tag from '~/components/Tag.astro';
-import dayjs from 'dayjs';
 import ReadingTime from '~/components/ReadingTime.astro';
+import { formatDate } from '~/utils/formatDate';
 // import Author from '~/components/Author.astro';
 
 export interface Props {
@@ -17,8 +17,8 @@ export interface Props {
 const { post } = Astro.props;
 
 const { title, description, pubDate, tags, updatedAt } = post.data;
-const date = dayjs(pubDate).format('DD/MM/YYYY');
-const updatedDate = dayjs(updatedAt).format('DD/MM/YYYY');
+const date = formatDate(pubDate);
+const updatedDate = formatDate(updatedAt!);
 
 const { Content, remarkPluginFrontmatter } = await post.render();
 const time = remarkPluginFrontmatter.minutesRead;
@@ -26,7 +26,7 @@ const time = remarkPluginFrontmatter.minutesRead;
 
 <Layout title={title} author={site.author} description={description}>
   <Header />
-  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+  <div class="mx-auto flex w-full max-w-4xl justify-start px-2">
     <button
       class="focus-outline mb-2 mt-8 flex hover:opacity-75"
       onclick="history.back()"
@@ -38,7 +38,7 @@ const time = remarkPluginFrontmatter.minutesRead;
       </svg><span>Go back</span>
     </button>
   </div>
-  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+  <main id="main-content" class="mx-auto w-full max-w-4xl px-4 pb-12">
     <h1
       transition:name={post.slug}
       class="text-2xl font-semibold text-skin-accent"
@@ -51,7 +51,7 @@ const time = remarkPluginFrontmatter.minutesRead;
     <ul class="my-8">
       {tags!.map((tag) => <Tag name={tag} />)}
     </ul>
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+    <article id="article" role="article" class="prose mx-auto mt-8 max-w-4xl">
       <Content />
       {
         updatedAt ? (
