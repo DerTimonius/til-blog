@@ -1,3 +1,6 @@
+[![Built with Astro](https://astro.badg.es/v2/built-with-astro/small.svg)](https://astro.build)
+![Vercel](https://vercelbadge.vercel.app/api/DerTimonius/til-blog?style=for-the-badge)
+
 # TIL Blog
 
 A little blog that embraces the principles of learning in public Why don't share your journey of getting better at stuff? Everyone
@@ -18,3 +21,19 @@ The plan is to write about:
 - [MDX](https://mdxjs.com)
 - [TailwindCSS](https://tailwindcss.com/)
   - The design is heavily inspired by [AstroPaper](https://github.com/satnaing/astro-paper)
+- [Prettier](https://prettier.io/), [ESLint](https://eslint.org)
+
+## Local Development
+
+If you found an error, either in my posts or anywhere else in the page, feel free to open a PR!
+
+1. Fork the repo and clone it locally
+2. Install the dependencies
+```sh
+pnpm install
+```
+3. Run the dev server, which runs on port 4321
+```sh
+pnpm run dev
+```
+
