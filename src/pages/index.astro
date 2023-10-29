@@ -5,9 +5,10 @@ import Header from '~/components/Header.astro';
 import Hr from '~/components/Hr.astro';
 import Link from '~/components/Link.astro';
 import Layout from '~/layouts/Layout.astro';
-import { getLatestPosts } from '~/utils/sortPosts';
+import { getFeaturedPosts, getLatestPosts } from '~/utils/sortPosts';
 
-const latestPosts = await getLatestPosts() 
+const latestPosts = await getLatestPosts();
+const featuredPosts = await getFeaturedPosts();
 ---
 
 <Layout>
@@ -44,6 +45,23 @@ const latestPosts = await getLatestPosts()
       <p class="my-4">Join me and let's have some fun!</p>
     </section>
 
+    <Hr />
+
+    <section class="pb-6 pt-12">
+      <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
+      <ul>
+        {
+          featuredPosts.map((post) => (
+            <Card
+              href={`/blog/${post.slug}`}
+              frontmatter={post.data}
+              secHeading={false}
+              slug={post.slug}
+            />
+          ))
+        }
+      </ul>
+    </section>
     <Hr />
 
     <section class="pb-6 pt-12">

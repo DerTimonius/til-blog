@@ -25,3 +25,12 @@ export async function getFeaturedPosts(): Promise<CollectionEntry<'blogs'>[]> {
     ({ data }) => data.isFeatured && !data.isDraft,
   );
 }
+
+export async function getRelatedPosts(
+  slugs: string[],
+): Promise<CollectionEntry<'blogs'>[]> {
+  const posts = await getCollection('blogs', (post) =>
+    slugs.includes(post.slug),
+  );
+  return sortPosts(posts);
+}

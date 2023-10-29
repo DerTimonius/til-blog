@@ -1,12 +1,14 @@
 import type { Site, SocialObjects } from './types';
 
 export const site: Site = {
-  website: 'https://example.com/',
+  website: 'https://dertimonius.dev',
   author: 'Timon Jurschitsch',
   desc: 'A little blog to share what I have learned today',
   title: 'TIL - DerTimonius',
+  username: 'DerTimonius',
   lightAndDarkMode: true,
   postPerPage: 5,
+  ogImage: 'og.png',
 };
 
 export const logoImage = {
@@ -21,19 +23,19 @@ export const socials: SocialObjects = [
   {
     name: 'Github',
     href: 'https://github.com/dertimonius',
-    linkTitle: ` ${site.title} on Github`,
+    linkTitle: ` ${site.username} on Github`,
     active: true,
   },
   {
     name: 'Instagram',
     href: 'https://www.instagram.com/dertimonius/',
-    linkTitle: `${site.title} on Instagram`,
+    linkTitle: `${site.username} on Instagram`,
     active: false,
   },
   {
     name: 'LinkedIn',
     href: 'https://www.linkedin.com/in/timonjurschitsch/',
-    linkTitle: `${site.title} on LinkedIn`,
+    linkTitle: `${site.author} on LinkedIn`,
     active: true,
   },
   {
@@ -45,7 +47,7 @@ export const socials: SocialObjects = [
   {
     name: 'Reddit',
     href: 'https://www.reddit.com/user/dertimonius',
-    linkTitle: `${site.title} on Reddit`,
+    linkTitle: `${site.username} on Reddit`,
     active: false,
   },
 ];
