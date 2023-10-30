@@ -10,17 +10,15 @@ export interface Props {
   title?: string;
   author?: string;
   description?: string;
-  ogImage?: string;
 }
 
 const {
   title = site.title,
   author = site.author,
   description = site.desc,
-  ogImage = site.ogImage,
 } = Astro.props;
 
-const socialImageURL = new URL(ogImage ?? 'og.png', Astro.url.origin).href;
+const socialImageURL = 'https://dertimonius.dev/og.png';
 ---
 
 <!doctype html>
