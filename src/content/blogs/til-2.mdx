@@ -49,10 +49,11 @@ Under the hood, JS arrays are objects with ascending integer-like keys that has 
 const arr = [1, 2, true, , { foo: 'bar' }];
 ```
 
-<Aside
-  header="[object Object]"
-  text="To be honest, running checking the type of arr with typeof and seeing [object Object] return might have been the biggest clue to realize that it's an object."
-/>
+<Aside header="[object Object]">
+  To be honest, running checking the type of `arr` with `typeof` and seeing
+  `[object Object]` return might have been the biggest clue to realize that it's
+  an object.
+</Aside>
 
 All this means that the memory that is allocated to the array is not guaranteed to be contiguous, no information is then lost if the array grows. Removing items from the array does not lead to filling an entry with `null`.
 
