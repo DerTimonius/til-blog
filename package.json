@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@astrojs/mdx": "^1.1.3",
+    "@astrojs/mdx": "^1.1.4",
     "@astrojs/tailwind": "^5.0.2",
     "@fontsource/fira-mono": "^5.0.8",
     "@tailwindcss/typography": "^0.5.10",
