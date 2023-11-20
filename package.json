@@ -9,8 +9,10 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "lint": "eslint . --max-warnings 0",
-    "prepare": "husky install"
+    "test:e2e": "playwright test",
+    "test:e2e:debug": "playwright test --debug"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.1.5",
@@ -26,6 +28,8 @@
     "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.9.2",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "eslint": "^8.54.0",
     "eslint-config-standard-with-typescript": "^39.1.1",
@@ -34,7 +38,6 @@
     "eslint-plugin-n": "^16.3.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.33.2",
-    "husky": "^8.0.0",
     "prettier": "^3.1.0",
     "prettier-plugin-astro": "^0.12.2",
     "prettier-plugin-tailwindcss": "^0.5.7",

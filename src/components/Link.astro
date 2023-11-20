@@ -8,6 +8,7 @@ export interface Props {
   title?: string;
   disabled?: boolean;
   newTab?: boolean;
+  dataTestId?: string;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   className,
   ariaLabel,
   title,
+  dataTestId,
   disabled = false,
   newTab = false,
 } = Astro.props;
@@ -25,6 +27,7 @@ const linkClasses = classNames(
 ---
 
 <a
+  data-test-id={dataTestId}
   href={disabled ? '#' : href}
   tabindex={disabled ? '-1' : '0'}
   class={linkClasses}

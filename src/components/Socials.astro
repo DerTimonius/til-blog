@@ -20,6 +20,7 @@ const divClasses = classNames('flex-wrap justify-center gap-1 items-center', {
       .filter((social) => social.active)
       .map((social) => (
         <Link
+          dataTestId={`social-link${social.name}`}
           href={social.href}
           className="p-2 hover:rotate-6 sm:p-1"
           title={social.linkTitle}
@@ -29,7 +30,13 @@ const divClasses = classNames('flex-wrap justify-center gap-1 items-center', {
         </Link>
       ))
   }
-  <a target="_blank" href="/rss.xml" aria-label="rss feed" title="RSS Feed">
+  <a
+    data-test-id="social-link-rss"
+    target="_blank"
+    href="/rss.xml"
+    aria-label="rss feed"
+    title="RSS Feed"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="mt-1.5 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125"
