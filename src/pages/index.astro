@@ -53,6 +53,7 @@ const featuredPosts = await getFeaturedPosts();
         {
           featuredPosts.map((post) => (
             <Card
+              dataTestId={`featured-post-${post.id}`}
               href={`/blog/${post.slug}`}
               frontmatter={post.data}
               secHeading={false}
@@ -70,6 +71,7 @@ const featuredPosts = await getFeaturedPosts();
         {
           latestPosts.map((post) => (
             <Card
+              dataTestId={`latest-post-${post.id}`}
               href={`/blog/${post.slug}`}
               frontmatter={post.data}
               secHeading={false}

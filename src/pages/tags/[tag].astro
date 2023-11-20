@@ -46,7 +46,12 @@ const sortedPosts = sortPosts(posts);
     <ul>
       {
         sortedPosts.map(({ data, slug }) => (
-          <Card href={`/blog/${slug}`} frontmatter={data} {slug} />
+          <Card
+            dataTestId={`tag-post-${tag}`}
+            href={`/blog/${slug}`}
+            frontmatter={data}
+            {slug}
+          />
         ))
       }
     </ul>

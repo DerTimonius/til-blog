@@ -8,8 +8,9 @@ interface Props {
   frontmatter: CollectionEntry<'blogs'>['data'];
   secHeading?: boolean;
   slug: string;
+  dataTestId?: string;
 }
-const { href, frontmatter, slug, secHeading = true } = Astro.props;
+const { href, frontmatter, slug, secHeading = true, dataTestId } = Astro.props;
 const { title, pubDate, description } = frontmatter;
 const date = formatDate(pubDate);
 
@@ -23,6 +24,7 @@ const headerProps = {
   <a
     href={href}
     class="inline-block text-lg font-medium text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+    data-test-id={dataTestId}
   >
     {
       secHeading ? (
