@@ -9,8 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "lint": "eslint . --max-warnings 0",
-    "prepare": "husky install",
     "test:e2e": "playwright test",
     "test:e2e:debug": "playwright test --debug"
   },
@@ -38,7 +38,6 @@
     "eslint-plugin-n": "^16.3.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.33.2",
-    "husky": "^8.0.0",
     "prettier": "^3.1.0",
     "prettier-plugin-astro": "^0.12.2",
     "prettier-plugin-tailwindcss": "^0.5.7",
