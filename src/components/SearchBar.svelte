@@ -54,8 +54,8 @@
   />
 </label>
 
-{#if searchTerm.length > 2 && foundPosts.length === 0}
+{#if searchTerm.length > 2 && !foundPosts.length}
   <p>Sorry, I wasn't able to find anything!</p>
-{:else if foundPosts.length}
+{:else}
   <SearchResults {foundPosts} />
 {/if}
