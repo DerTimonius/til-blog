@@ -1,3 +1,6 @@
+import type { CollectionEntry } from 'astro:content';
+import Fuse from 'fuse.js';
+
 export type Site = {
   website: string;
   author: string;
@@ -26,3 +29,13 @@ export type SocialMedia =
   | 'LinkedIn'
   | 'Reddit'
   | 'Mail';
+
+export type SearchList = {
+  data: CollectionEntry<'blogs'>['data'];
+  slug: string;
+  title: string;
+  description: string;
+  tags: string[];
+};
+
+export type SearchResult = Fuse.FuseResult<SearchList>;

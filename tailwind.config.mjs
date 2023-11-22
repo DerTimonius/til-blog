@@ -48,6 +48,7 @@ module.exports = {
         line: withOpacity('--color-border'),
         fill: withOpacity('--color-text-base'),
         accent: withOpacity('--color-accent'),
+        light: withOpacity('--color-border-dashed'),
       },
     },
     fill: {

@@ -3,6 +3,7 @@
   import type { CollectionEntry } from 'astro:content';
   import Fuse from 'fuse.js';
   import SearchResults from './SearchResults.svelte';
+  import type { SearchList, SearchResult } from '~/utils/types';
 
   const { posts } = $props<{ posts: CollectionEntry<'blogs'>[] }>();
   const searchList = posts.map((p) => {
@@ -13,7 +14,7 @@
       slug: p.slug,
       tags: p.data.tags,
     };
-  });
+  }) as SearchList[];
   const fuse = new Fuse(searchList, {
     keys: ['title', 'description', 'tags'],
     includeMatches: true,
@@ -21,13 +22,14 @@
     threshold: 0.3,
   });
   let searchTerm = $state('');
-  let foundPosts: CollectionEntry<'blogs'>[] = $state([]);
+  let foundPosts = $state<SearchResult[]>([]);
 
   const searchPosts = () => {
     if (searchTerm.length > 2) {
-      return (foundPosts = fuse.search(
-        searchTerm,
-      ) as unknown as CollectionEntry<'blogs'>[]);
+      console.log('fuse.search(searchTerm)', fuse.search(searchTerm));
+      return (foundPosts = fuse.search(searchTerm));
+    } else {
+      return (foundPosts = []);
     }
   };
 </script>
