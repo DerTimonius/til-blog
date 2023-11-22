@@ -25,11 +25,10 @@
 
   const searchPosts = () => {
     if (searchTerm.length > 2) {
-      foundPosts = fuse.search(
+      return (foundPosts = fuse.search(
         searchTerm,
-      ) as unknown as CollectionEntry<'blogs'>[];
+      ) as unknown as CollectionEntry<'blogs'>[]);
     }
-    console.log('foundPosts', foundPosts);
   };
 </script>
 

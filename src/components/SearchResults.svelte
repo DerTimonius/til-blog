@@ -1,7 +1,5 @@
 <script lang="ts">
   const { foundPosts } = $props<{ foundPosts: any }>();
-
-  console.log('foundPosts in other component', foundPosts);
 </script>
 
 <ol class="list-none gap-6">
