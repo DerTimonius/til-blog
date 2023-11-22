@@ -4,7 +4,7 @@ test('navigate through the blog', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('h1')).toHaveText('Today I learned');
-  await expect(page.locator(`[data-test-id^="nav-link"]`)).toHaveCount(3);
+  await expect(page.locator(`[data-test-id^="nav-link"]`)).toHaveCount(4);
 
   await expect(page.locator(`[data-test-id^="featured-post"]`)).toHaveCount(3);
   await expect(page.locator(`[data-test-id^="latest-post"]`)).toHaveCount(3);
