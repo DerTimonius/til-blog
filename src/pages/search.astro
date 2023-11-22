@@ -1,0 +1,19 @@
+---
+import Footer from '~/components/Footer.astro';
+import Header from '~/components/Header.astro';
+import Layout from '~/layouts/Layout.astro';
+import Main from '~/layouts/Main.astro';
+import { site } from '~/utils/config';
+import SearchBar from '~/components/SearchBar.svelte';
+import { getSortedPosts } from '~/utils/sortPosts';
+
+const posts = await getSortedPosts();
+---
+
+<Layout title={`Search | ${site.title}`}>
+  <Header activeNav="search" />
+  <Main pageTitle="Search" pageDesc="Search any article ...">
+    <SearchBar client:load {posts} />
+  </Main>
+  <Footer />
+</Layout>
