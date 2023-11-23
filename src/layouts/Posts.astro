@@ -12,9 +12,17 @@ export interface Props {
   pageNum: number;
   totalPages: number;
   posts: CollectionEntry<'blogs'>[];
+  pageTitle?: string;
+  pageDesc?: string;
 }
 
-const { pageNum, totalPages, posts } = Astro.props;
+const {
+  pageNum,
+  totalPages,
+  posts,
+  pageTitle = 'Posts',
+  pageDesc = "What I've learned so far.",
+} = Astro.props;
 
 const prev = pageNum > 1 ? '' : 'disabled';
 const next = pageNum < totalPages ? '' : 'disabled';
@@ -22,7 +30,7 @@ const next = pageNum < totalPages ? '' : 'disabled';
 
 <Layout title={`Posts | ${site.title}`}>
   <Header activeNav="posts" />
-  <Main pageTitle="Posts" pageDesc="What I've learned so far.">
+  <Main {pageTitle} {pageDesc}>
     <ul>
       {
         posts.map(({ data, slug }, index) => (

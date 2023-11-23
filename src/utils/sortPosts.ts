@@ -19,11 +19,15 @@ export async function getLatestPosts(
   return posts.slice(0, num);
 }
 
-export async function getFeaturedPosts(): Promise<CollectionEntry<'blogs'>[]> {
-  return await getCollection(
+export async function getFeaturedPosts(
+  num?: number,
+): Promise<CollectionEntry<'blogs'>[]> {
+  const posts = await getCollection(
     'blogs',
     ({ data }) => data.isFeatured && !data.isDraft,
   );
+
+  return posts.slice(0, num ?? posts.length);
 }
 
 export async function getRelatedPosts(

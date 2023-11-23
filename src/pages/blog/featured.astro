@@ -1,0 +1,19 @@
+---
+import Posts from '~/layouts/Posts.astro';
+import { site } from '~/utils/config';
+import getPageNumbers from '~/utils/pageNumbers';
+import { getFeaturedPosts } from '~/utils/sortPosts';
+
+const sortedPosts = await getFeaturedPosts();
+const totalPages = getPageNumbers(sortedPosts.length);
+
+const paginatedPosts = sortedPosts.slice(0, site.postPerPage);
+---
+
+<Posts
+  posts={paginatedPosts}
+  pageNum={1}
+  totalPages={totalPages.length}
+  pageTitle="Featured Posts"
+  pageDesc="A curated list of my posts so far."
+/>
