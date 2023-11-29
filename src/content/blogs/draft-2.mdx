@@ -1,0 +1,75 @@
+---
+title: Explaining some JavaScript weirdness
+pubDate: 2023-11-30
+tags: ['javascript', 'computer-science']
+isDraft: true
+description: JavaScript is used as a source for a lot of programming memes. Let's explain some of them.
+---
+
+JavaScript is made fun of a lot in the world of memes. While some things actually are unique to JS, more often than not, if you would try similar things in other languages, you probably would also get unintuitive results.
+
+I want to look at some of the weird, unintuitive results and demystify how they happen.
+
+## `[].every()` always returns `true`
+
+`Array.prototype.every()` is a great function to check if every element of an array fulfills the given condition. It would seem logical that an empty array will return `false` since there is no element that could fulfill the condition.
+
+But if we take a look at the actual code, we can find the culprit:
+
+```js
+Array.prototype.every = function (callbackfn, thisArg) {
+  'use strict';
+  var T, k;
+
+  if (this == null) {
+    throw new TypeError('this is null or not defined');
+  }
+
+  var O = Object(this);
+
+  var len = O.length >>> 0;
+
+  if (typeof callbackfn !== 'function') {
+    throw new TypeError();
+  }
+
+  if (arguments.length > 1) {
+    T = thisArg;
+  }
+
+  k = 0;
+
+  while (k < len) {
+    var kValue;
+
+    if (k in O) {
+      kValue = O[k];
+      var testResult = callbackfn.call(T, kValue, k, O);
+      if (!testResult) {
+        return false;
+      }
+    }
+    k++;
+  }
+  return true;
+};
+```
+
+The function checks in a while loop if the current item does not honor the condition. If not, it returns `false`. This makes sense, if the first of 100 elements don't meet the condition, there is no reason to check the rest. If the while loop is finished, we know that the condition is true for every element and the function returns now `true`.
+
+So, if there is no element in the array, the while loop is skipped and the function gets to the `return true` immediately.
+
+A similar behavior can be found if you try to call `[].some()`. It will always return `false`. The check is pretty much the same, but with the booleans swapped. It checks for the first element that returns true and skips the rest. If none meet the condition, it returns false.
+
+## `true + true + true === 3`
+
+I don't understand why I see this all the time. The numeric value of `true` is 1, the value of `false` is 0. It's just binary.
+
+This taps into the concept of `truthiness` and `falsiness`, where only a few values are considered `false`:
+
+- `null`
+- `undefined`
+- `0`
+- `""`
+- `NaN`
+- and of course `false`
