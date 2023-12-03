@@ -2,7 +2,6 @@
 import Card from '~/components/Card.astro';
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
-import Hr from '~/components/Hr.astro';
 import Link from '~/components/Link.astro';
 import Layout from '~/layouts/Layout.astro';
 import { getFeaturedPosts, getLatestPosts } from '~/utils/sortPosts';
@@ -14,7 +13,7 @@ const featuredPosts = await getFeaturedPosts(3);
 <Layout>
   <Header />
   <main id="main-content">
-    <section id="hero" class="pb-6 pt-8">
+    <section id="hero" class="pb-6 pt-4">
       <h1 class="my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl">
         Today I learned
       </h1>
@@ -45,9 +44,7 @@ const featuredPosts = await getFeaturedPosts(3);
       <p class="my-4">Join me and let's have some fun!</p>
     </section>
 
-    <Hr />
-
-    <section class="pb-6 pt-12">
+    <section class="py-6">
       <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
       <ul>
         {
@@ -62,8 +59,6 @@ const featuredPosts = await getFeaturedPosts(3);
           ))
         }
       </ul>
-    </section>
-    <section class="pb-6 pt-12">
       <div class="my-8 text-center">
         <Link href="/blog/featured">
           All Featured Posts
@@ -75,9 +70,8 @@ const featuredPosts = await getFeaturedPosts(3);
         </Link>
       </div>
     </section>
-    <Hr />
 
-    <section class="pb-6 pt-12">
+    <section class="py-6">
       <h2 class="text-2xl font-semibold tracking-wide">Latest</h2>
       <ul>
         {
@@ -92,9 +86,6 @@ const featuredPosts = await getFeaturedPosts(3);
           ))
         }
       </ul>
-    </section>
-
-    <section class="pb-6 pt-12">
       <div class="my-8 text-center">
         <Link href="/blog">
           All Posts

@@ -8,7 +8,7 @@ test('search functionality', async ({ page }) => {
 
   await page.waitForTimeout(300);
   await page.locator('input').fill('javascript');
-  await page.keyboard.press("Enter");
+  await page.keyboard.press('Enter');
   await page.waitForTimeout(300);
   await expect(page.locator(`[data-test-id^="search-result"]`)).not.toHaveCount(
     0,
