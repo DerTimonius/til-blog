@@ -2,7 +2,7 @@
 title: Advent of Code Week 2 - getting familiar with nom
 pubDate: 2023-12-10
 tags: ['advent-of-code', 'rust']
-isDraft: true
+isDraft: false
 relatedPosts: ['til-15']
 description: Solving more Advent of Code puzzles, but most importantly getting to know how to parse string with nom
 ---
@@ -73,6 +73,22 @@ But when I started with part 2 I quickly realized that this approach would not w
 
 It takes so many steps that a `u32` to save the steps is too small! I did not expect that!
 
+At some point I realized, that the brute force method is not the way to go. The best approach is to find the number of the smallest cycle per starting position and then calculate the least common multiple. Yeah, school maths was a long time ago, this idea did take some time...
+
 ## Day 09
 
+This was pretty straight forward, after figuring out the initial parsing the only change in logic necessary was to find the first number instead of the last number of the sequence. The second part took me a bit longer than expected, at some point I noticed that I did the calculation in the wrong order (top to bottom instead of bottom to top).
+
 ## Day 10
+
+I said it before, I'm not good at working with graphs. I'm also not very good at two-dimensional arrays.
+
+And this was the worst possible combination for me. A 2D array with special characters to find a loop and calculate the farthest point. I was able to get the solutions for the basic cases, but was unable to find the solutions for the puzzle input. I did not have much time for refactoring, but I plan to do it later (when I'll find some time, probably next year).
+
+## Learnings of the week
+
+1. Switching to do better parsing with `nom` has paid dividends already. Once the parser is done, it's mostly not necessary to change it between part 1 and part 2. And even if it is necessary, changing the parser does not take a long time once you know how nom works.
+
+2. I need to get better at working with two-dimensional arrays. Two of 10 puzzles so far used them and I realized that if the problem includes traversal or pathfinding in some way, I'm pretty lost.
+
+3. I also need to get better at graphs. And I have to find better ways to think about them.
