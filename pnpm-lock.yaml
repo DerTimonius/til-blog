@@ -12,8 +12,8 @@ dependencies:
     specifier: ^4.0.1
     version: 4.0.1
   '@astrojs/svelte':
-    specifier: ^5.0.1
-    version: 5.0.1(astro@4.0.7)(svelte@5.0.0-next.26)(typescript@5.3.3)(vite@5.0.10)
+    specifier: ^5.0.2
+    version: 5.0.2(astro@4.0.7)(svelte@5.0.0-next.26)(typescript@5.3.3)(vite@5.0.10)
   '@astrojs/tailwind':
     specifier: ^5.0.4
     version: 5.0.4(astro@4.0.7)(tailwindcss@3.4.0)
@@ -191,8 +191,8 @@ packages:
       kleur: 4.1.5
     dev: false
 
-  /@astrojs/svelte@5.0.1(astro@4.0.7)(svelte@5.0.0-next.26)(typescript@5.3.3)(vite@5.0.10):
-    resolution: {integrity: sha512-MQvm0VmkiHVBb41hkKvQKtZa2YZqImdJD23dDW6EGhFxRy1GEgJ4Hm6p4T30FXrLPQUoiay/BU5U/lHDd6ZlNg==}
+  /@astrojs/svelte@5.0.2(astro@4.0.7)(svelte@5.0.0-next.26)(typescript@5.3.3)(vite@5.0.10):
+    resolution: {integrity: sha512-B5h7sRXFmNvZucQlhz8MBsrsYfmVYCtcBUdDGe4ndJyBpD+klvmw31NGqhQp4z6HqxwbSWgaAvjXt/A76cgLIA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^4.0.0
