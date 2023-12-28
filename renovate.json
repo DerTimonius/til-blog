@@ -1,6 +1,23 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+  "extends": ["config:recommended"],
+  "schedule": ["every weekend"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["eslint"],
+      "groupName": "eslint related packages",
+      "schedule": ["on the first day of the month"]
+    },
+    {
+      "matchPackagePatterns": ["astro"],
+      "groupName": "astro related packages",
+      "schedule": ["every weekend"]
+    },
+    {
+      "packageNames": ["^github-actions/"],
+      "enabled": false
+    }
+  ],
+  "labels": ["dependencies", "security"],
+  "reviewers": ["DerTimonius"]
 }
