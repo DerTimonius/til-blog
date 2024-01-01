@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "schedule": ["every weekend"],
+  "schedule": ["every two weeks"],
   "packageRules": [
     {
       "matchPackagePatterns": ["eslint"],
@@ -14,7 +14,7 @@
       "schedule": ["every weekend"]
     },
     {
-      "packageNames": ["^github-actions/"],
+      "matchPackagePatterns": ["^actions/"],
       "enabled": false
     }
   ],
