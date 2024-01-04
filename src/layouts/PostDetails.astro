@@ -8,6 +8,7 @@ import { site } from '~/utils/config';
 import Tag from '~/components/Tag.astro';
 import ReadingTime from '~/components/ReadingTime.astro';
 import { formatDate } from '~/utils/formatDate';
+import { getRelatedPosts } from '~/utils/sortPosts';
 // import Author from '~/components/Author.astro';
 
 export interface Props {
@@ -16,10 +17,12 @@ export interface Props {
 
 const { post } = Astro.props;
 
-const { title, description, pubDate, tags, updatedAt } = post.data;
+const { title, description, pubDate, tags, updatedAt, relatedPosts } =
+  post.data;
 const date = formatDate(pubDate);
 const updatedDate = formatDate(updatedAt!);
 
+const relatedArticles = relatedPosts ? await getRelatedPosts(relatedPosts) : [];
 const { Content, remarkPluginFrontmatter } = await post.render();
 const time = remarkPluginFrontmatter.minutesRead;
 ---
@@ -57,6 +60,20 @@ const time = remarkPluginFrontmatter.minutesRead;
       {
         updatedAt ? (
           <p class="text-sm font-light italic">Last update at: {updatedDate}</p>
+        ) : null
+      }
+      {
+        relatedArticles.length ? (
+          <div>
+            <h3 class="text-lg font-bold italic">Related Articles:</h3>
+            <ul>
+              {relatedArticles.map((post) => (
+                <li>
+                  <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : null
       }
     </article>

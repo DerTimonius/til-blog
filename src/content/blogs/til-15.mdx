@@ -1,0 +1,67 @@
+---
+title: Advent of Code 2023 - Learning Rust the hard way
+pubDate: 2023-12-03
+tags: ['advent-of-code', 'rust']
+isDraft: false
+relatedPosts: ['til-17']
+description: A few thoughts after doing the first Advent of Code puzzles in a new language
+---
+
+When I started to learn programming, I solved some small coding challenges on [codewars](https://codewars.com) to get better and especially to get used to work with data structures.
+
+In the last few weeks I decided to dive into Rust. I did some tutorials, finished about 70% of the [rustlings problems](https://github.com/rust-lang/rustlings), but this is of course not enough to really learn the language. The best way to do this is of course to build your own projects (I actually have an idea, already on my list for next year), but last week I got kind of bombarded with suggestions of [Advent of Code](https://adventofcode.com/2023) on Youtube.
+
+I did not know what to expect, but since I like puzzles this could be a great opportunity to learn Rust while having some fun.
+
+## Day 1
+
+So I opened day 1, looked at the problem and thought:
+
+> okay, this will be harder than expected
+
+Before I get into the problem a bit, I want to explain how Advent of Code works: you get a bit of a story surrounding the actual problem, some input to explain the situation and the solution for the test case.
+
+You program the solution in whatever language you want and then submit the solution for the much larger input. Either you're right or you have to go back to the drawing board and figure out your errors. And then you get to part 2 that builds on the thing you just solved. Neat!
+
+The first problem was not too complicated, you get a list of strings where some characters are numbers, you have to combine the the first and the last number of the string to a two-digit number and then sum all numbers. Doing this in Rust proved to be much harder than anticipated: the Rust compiler is very strict and does not recognize all safe programs.
+
+> All programs that run in Rust are safe, but not all safe programs run in Rust.
+
+_paraphrasing what Prime always says in his streams_
+
+But after some time of fighting with the compiler, I submitted the solution, it was correct first try, I was happy.
+
+Then came part two. I spent way too much time on this problem: some words in each line were also numbers and had to be considered. Which was also okay, pretty solvable, but then there was the problem that the words could overlap.
+
+And this was the crux of day 1.
+
+## Day 2
+
+This was pretty standard string parsing, getting numbers for games, getting rounds for games, getting cubes for rounds, getting amount and color for the cubes.
+
+I did this in the most complicated way possible as I have learned today while looking at some different solutions. And that is okay, I'm new to this and to this language, and doing this bad at first means that I can revisit the solutions after some time and maybe refactor them with greater knowledge of the syntax, the typical methods & data structures of the language and also external packages I could use (and I did not think about an external package at all at this point).
+
+## Day 3
+
+Which was today. And the first submission in part 1 was the first failure. I got it wrong! The test was correct, the first run on the actual input revealed a big mistake in my code, I fixed it, but the result was wrong.
+
+Basically the problem was a 2D array where some numbers had to be added together based on some condition. I think the problem was that my code did not include numbers that were at the end of a row. This took about an hour of looking at the numbers I got and the actual input and comparing the correct numbers.
+
+After I got part 1, it was not too hard to get the solution for part 2 because the code only needed some tweaking.
+
+## Plan for the coming days
+
+I'll be honest: I underestimated Advent of Code. The problems are harder than expected, but more importantly: Rust is way harder than I, a typical TypeScript dev, imagined.
+
+Looking at other peoples code made me realize that I have to change my approach to the problems:
+
+1. Use more `structs`, `enums` and `impls`
+   - This will help me keep track of the data structures I need for the problems
+2. Split up the code
+   - Currently, my code is way too bloated and would be pretty unmaintainable. If I split up the code, each portion would have a single responsibility
+3. Don't be afraid to look for external packages
+   - Day 2 can be solved very elegantly if you use [nom](https://crates.io/crates/nom), which provides very useful string parsing methods, but I did not think about this. If I have the feeling that there might be a package for this problem, I will look into it
+
+Although it has been rough thus far I will continue with this journey. Solving puzzles while learning a new language? What's not to love?
+
+I'm also doing the TypeScript version, [Advent of Typescript](https://typehero.dev/aot-2023), where the problems are much simpler. Great for a quick dopamine rush!
