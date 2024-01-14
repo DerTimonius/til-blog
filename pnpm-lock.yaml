@@ -25,7 +25,7 @@ dependencies:
     version: 0.5.10(tailwindcss@3.4.0)
   astro:
     specifier: ^4.0.7
-    version: 4.0.7(@types/node@20.10.5)(typescript@5.3.3)
+    version: 4.0.7(@types/node@20.11.0)(typescript@5.3.3)
   classnames:
     specifier: ^2.5.1
     version: 2.5.1
@@ -53,8 +53,8 @@ devDependencies:
     specifier: ^1.40.1
     version: 1.40.1
   '@types/node':
-    specifier: ^20.10.5
-    version: 20.10.5
+    specifier: ^20.11.0
+    version: 20.11.0
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.15.0
     version: 6.15.0(@typescript-eslint/parser@6.13.2)(eslint@8.55.0)(typescript@5.3.3)
@@ -155,7 +155,7 @@ packages:
       '@astrojs/markdown-remark': 4.0.1
       '@mdx-js/mdx': 3.0.0
       acorn: 8.11.2
-      astro: 4.0.7(@types/node@20.10.5)(typescript@5.3.3)
+      astro: 4.0.7(@types/node@20.11.0)(typescript@5.3.3)
       es-module-lexer: 1.4.1
       estree-util-visit: 2.0.0
       github-slugger: 2.0.0
@@ -194,7 +194,7 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.1
     dependencies:
       '@sveltejs/vite-plugin-svelte': 3.0.1(svelte@5.0.0-next.27)(vite@5.0.10)
-      astro: 4.0.7(@types/node@20.10.5)(typescript@5.3.3)
+      astro: 4.0.7(@types/node@20.11.0)(typescript@5.3.3)
       svelte: 5.0.0-next.27
       svelte2tsx: 0.6.25(svelte@5.0.0-next.27)(typescript@5.3.3)
     transitivePeerDependencies:
@@ -209,7 +209,7 @@ packages:
       astro: ^3.0.0 || ^4.0.0
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 4.0.7(@types/node@20.10.5)(typescript@5.3.3)
+      astro: 4.0.7(@types/node@20.11.0)(typescript@5.3.3)
       autoprefixer: 10.4.16(postcss@8.4.32)
       postcss: 8.4.32
       postcss-load-config: 4.0.2(postcss@8.4.32)
@@ -927,7 +927,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 3.0.1(svelte@5.0.0-next.27)(vite@5.0.10)
       debug: 4.3.4
       svelte: 5.0.0-next.27
-      vite: 5.0.10(@types/node@20.10.5)
+      vite: 5.0.10(@types/node@20.11.0)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -946,7 +946,7 @@ packages:
       magic-string: 0.30.5
       svelte: 5.0.0-next.27
       svelte-hmr: 0.15.3(svelte@5.0.0-next.27)
-      vite: 5.0.10(@types/node@20.10.5)
+      vite: 5.0.10(@types/node@20.11.0)
       vitefu: 0.2.5(vite@5.0.10)
     transitivePeerDependencies:
       - supports-color
@@ -1054,8 +1054,8 @@ packages:
       '@types/unist': 2.0.8
     dev: false
 
-  /@types/node@20.10.5:
-    resolution: {integrity: sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==}
+  /@types/node@20.11.0:
+    resolution: {integrity: sha512-o9bjXmDNcF7GbM4CNQpmi+TutCgap/K3w1JyKgxAjqx41zp9qlIAVFi0IhCNsJcXolEqLWhbFbEeL0PvYm4pcQ==}
     dependencies:
       undici-types: 5.26.5
 
@@ -1481,7 +1481,7 @@ packages:
       - supports-color
     dev: true
 
-  /astro@4.0.7(@types/node@20.10.5)(typescript@5.3.3):
+  /astro@4.0.7(@types/node@20.11.0)(typescript@5.3.3):
     resolution: {integrity: sha512-K+Ms2AAQvi6yERPuglcI69tnHyTT44JCjzqprSjw3uOwFX7N9obpLgbhmLMH1fPFTgzt3ZD7APjmtDPN51makw==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
@@ -1542,7 +1542,7 @@ packages:
       tsconfck: 3.0.0(typescript@5.3.3)
       unist-util-visit: 5.0.0
       vfile: 6.0.1
-      vite: 5.0.10(@types/node@20.10.5)
+      vite: 5.0.10(@types/node@20.11.0)
       vitefu: 0.2.5(vite@5.0.10)
       which-pm: 2.1.1
       yargs-parser: 21.1.1
@@ -6085,7 +6085,7 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /vite@5.0.10(@types/node@20.10.5):
+  /vite@5.0.10(@types/node@20.11.0):
     resolution: {integrity: sha512-2P8J7WWgmc355HUMlFrwofacvr98DAjoE52BfdbwQtyLH06XKwaL/FMnmKM2crF0iX4MpmMKoDlNCB1ok7zHCw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -6113,7 +6113,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.10.5
+      '@types/node': 20.11.0
       esbuild: 0.19.8
       postcss: 8.4.32
       rollup: 4.7.0
@@ -6129,7 +6129,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.0.10(@types/node@20.10.5)
+      vite: 5.0.10(@types/node@20.11.0)
     dev: false
 
   /web-namespaces@2.0.1:
