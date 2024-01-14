@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^2.0.2",
-    "@astrojs/rss": "^4.0.1",
+    "@astrojs/rss": "^4.0.2",
     "@astrojs/svelte": "^5.0.2",
     "@astrojs/tailwind": "^5.0.4",
     "@fontsource/fira-mono": "^5.0.8",
