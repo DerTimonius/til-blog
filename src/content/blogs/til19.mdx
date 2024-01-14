@@ -1,0 +1,243 @@
+---
+title: Using tRPC for the first time
+pubDate: 2024-01-14
+tags: ['web-dev', 'typescript']
+isDraft: false
+description: After using REST and GraphQL APIs, it's time to try a different approach of data fetching
+---
+
+Web development broken down to its core sounds simple: store data, display data, change data. But the ways to achieve this can vary greatly.
+
+I have been using REST and GraphQL APIs for some time to fetch the data from the backend and am quite familiar with them. Personally, I like GraphQL more, mostly because with the right tools it can be pretty easy to get a good amount of type-safety.
+
+But it's not completely type-safe. Yes, there are some packages that can help achieve this amount of type-safety, but it's optional. The typical workflow will probably consist of writing a GraphQL query, running it and failing because you made a small typo (or is it just me?) - or providing the wrong input for mutations.
+
+```graphql
+query UserInfo {
+  user {
+    id
+    usernmae # <- won't run because of this small typo
+    profile {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+If you need to pass input, tools can help with complaining about the wrong type or missing parameters, but it's not mandatory to use them (but do use them, it will speed up your workflow immensely).
+
+So, I wanted to try something new and with baked-in type-safety. Just for fun and to expand my knowledge of different types of APIs. Enter [tRPC](https://trpc.io).
+
+## RPC
+
+Before talking about tRPC, I should start with RPC (or _Remote Procedure Call_) first. It is a protocol invented in the 1970's that can be summed up like this:
+
+> Remote Procedure Call is a protocol that allows one program to request a service from a program located on another computer in a network. The concept is similar to a local procedure call, but the procedure (or function) is executed on a remote server rather than locally. This enables distributed computing and facilitates communication between different components or services in a networked system.
+
+So, what does that mean and what concepts does this entail?
+
+### Client-Server Communication
+
+RPC involves communication between a client and a server. The client sends a request to the server to execute a specific procedure, and the server processes the request and sends back the result.
+
+The RPC protocol aims to make this communication between client and server transparent to the developer - meaning that the developer can invoke remote procedures in a way that is similar to local procedure calls, without having to deal with the complexities of network communication.
+
+### Stubs
+
+The client and server communicate through stubs. On the client side, a client stub is responsible for packaging the procedure's parameters and sending them to the server. On the server side, a server stub receives the request, unpacks the parameters, and invokes the actual procedure.
+
+### Sequence of Events
+
+What happens when you make a call?
+
+1. The client calls the client stub, where the call is a local procedure call with parameters pushed on the stack.
+2. The stub packs the parameters (called _marshalling_) into a message and makes a SYSCALL to send the message.
+3. The message is sent by the OS to the server stub.
+4. The server stub now unpacks the parameters of the message, this is called _unmarshalling_.
+5. The server stub now calls the server procedure and returns the result with the same steps in the reverse direction.
+
+## Different Flavors of RPC
+
+Parameters and return values need to be serialized (converted to a format suitable for transmission over the network) before being sent and deserialized upon arrival. This ensures that data can be exchanged between different platforms and programming languages.
+
+Depending on the format that the values are serialized to, it's possible to distinguish different types of RPC.
+
+### XML-RPC
+
+As the name suggests, this protocol users XML to encode its calls and uses HTTP as a transport mechanism.
+
+### JSON-RPC
+
+The same as above, but replace XML with JSON.
+
+### gRPC
+
+Developed by Google, [gRPC](https://grpc.io) is a language agnostic tool that sends `protobufs` (or _protocol buffers_) which can be thought of as JSON but smaller. These are `.proto` files that in combination with the proto compiler generates code in different languages to manipulate the corresponding protocol buffer, which also provides type-safety.
+
+It uses HTTP/2 with built-in auth as the default transport protocol, providing features like multiplexing, header compression, and bidirectional streaming.
+
+## tRPC
+
+tRPC was created with type-safety in mind. Its aim is to integrate seamlessly in a TypeScript monorepo setup, where a change in the backend would lead to TypeScript errors in the frontend, catching bugs early.
+
+This TypeScript integration allows for a great developer experience by providing autocompletion in both backend and frontend.
+
+tRPC is transport protocol agnostic, meaning it can work over HTTP, Websockets, or any other transport protocol.
+
+## Working with tRPC
+
+To test tRPC I did what every developer would do - I built a small todo app. Why? It's a great combination of doing frontend work and backend work, while not being too complex.
+
+I also wanted to test the T3-stack, so I used [`create-t3-app`](https://create.t3.gg) to get the necessary boilerplate code out of the way. Not that it's much code necessary, but I wanted to get that overhead out of the way.
+
+So, I decided to go for a Next.js app with the appRouter, tRPC (of course) and the Prisma ORM. As a database, I used PostgresQL on a Docker container.
+
+My Prisma schema was pretty simple for the todo:
+
+```prisma
+model Todo {
+  id          String   @id @default(cuid())
+  done        Boolean  @default(false)
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  description String?
+}
+```
+
+### Initializing tRPC
+
+While `create-t3-app` takes care of that for you, when you setup a project by yourself, it is necessary to properly "initialize" tRPC. Don't worry, it's pretty simple.
+
+1. Define the context that allows the access of things like requests.
+
+```ts
+export const createTRPCContext = async (opts: { headers: Headers }) => {
+  return {
+    db,
+    ...opts,
+  };
+};
+```
+
+2. Initialize the API with a transformer and an error formatter (validation can be done with various different packages, the default is `zod`).
+
+```ts
+const t = initTRPC.context<typeof createTRPCContext>().create({
+  transformer: superjson,
+  errorFormatter({ shape, error }) {
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError:
+          error.cause instanceof ZodError ? error.cause.flatten() : null,
+      },
+    };
+  },
+});
+```
+
+3. Lastly, create the router and procedure.
+
+```ts
+export const createTRPCRouter = t.router;
+export const publicProcedure = t.procedure;
+```
+
+### Defining a Router
+
+The next step is to define a router that "hosts" your queries and mutations. To make it easier for yourself to not get confused, just name it with the thing you want to access plus router.
+
+```ts
+export const todoRouter = createTRPCRouter({
+  // Rest of the code
+});
+```
+
+### Adding and Calling Queries/Mutations
+
+The first thing I did after creating the `todoRouter` was to write a query that returns all todos and also a mutation to create a todo (otherwise, how would I know if the query works):
+
+```ts
+export const todoRouter = createTRPCRouter({
+  createTodo: publicProcedure
+    .input(z.object({ name: z.string(), description: z.string().nullable() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.todo.create({
+        data: {
+          description: input.description,
+          name: input.name,
+        },
+      });
+    }),
+  getAllTodos: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.todo.findMany({ orderBy: { createdAt: 'asc' } });
+  }),
+});
+```
+
+Let's look at the difference between the two:
+
+- `getAllTodos` is just a query that takes no inputs
+- `createTodo` takes an input that is defined as an object with `name` and `description` and uses `.mutation` instead of `.query`
+
+You can also pass an input to the query, like an id, to query data based off the given input.
+
+With the first steps in the backend, let's jump to the frontend, where I built a simple form component and a card component for the todos. Inside the component that lists the todos, simply call the api and watch the magic of autocomplete guide you through the process:
+
+```ts
+// TodoList.tsx
+const todos = await api.todo.getAllTodos.query();
+```
+
+Now you can access all fields of the todo that you defined in the Prisma schema: id, name, description, done etc.
+
+But this query currently won't return anything - there are no todos yet. So in the form component I added the following:
+
+```ts
+// CreateTodo.tsx
+const createTodo = api.todo.createTodo.useMutation({
+  onError: () => {
+    toast({
+      title: 'Oops',
+      description: 'Creation of todo was not possible',
+      variant: 'destructive',
+    });
+  },
+  onSuccess: (ctx) => {
+    router.refresh();
+    setName('');
+    setDescription('');
+    toast({
+      title: 'Todo created',
+      description: `Todo ${ctx.name} successfully created`,
+    });
+  },
+});
+```
+
+I did not want to use formik or react-form-hook or similar packages, so I just used the old `useState` + `onChange` combination for the name and description. When calling this mutation, we have to pass an `onSuccess` callback function to tell the program what should happen when the mutation works as expected. I added the `onError` callback as well, just because I wanted to get a notification if something fails.
+
+`router.refresh()` is necessary to retrigger the query.
+
+To actually call the mutation, we have to add something to the `onSubmit` function of the form element:
+
+```jsx
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        createTodo.mutate({ name, description });
+      }}
+    >
+```
+
+If `name` or `description` would be anything else than a string, TypeScript would start complaining until you fix the issue (yes, `description` could be null since I set it to be nullable). I added other queries and mutations like deleting or updating a todo, but I won't cover them here.
+
+## Conclusion
+
+Although I only built a very simple Todo app, I'm already hooked on using tRPC and I want to use it more in future projects. It's easy to set up, the type-safety and autocompletion increase the developer experience a lot and make it very enjoyable to use, and I felt that it simply does not get in your way.
+
+Next thing I want to do is to build another Todo app with it, but combining tRPC with SvelteKit. Never used SvelteKit before but I can imagine that this also will be a lot of fun!
