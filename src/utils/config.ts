@@ -12,10 +12,8 @@ export const site: Site = {
 };
 
 export const logoImage = {
-  enable: false,
+  enable: true,
   svg: true,
-  width: 216,
-  height: 46,
 };
 
 // TODO: add portfolio page when done

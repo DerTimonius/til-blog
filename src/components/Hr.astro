@@ -1,12 +1,19 @@
 ---
+import classNames from 'classnames';
+
 export interface Props {
   noPadding?: boolean;
   ariaHidden?: boolean;
+  className?: string;
 }
 
-const { noPadding = false, ariaHidden = true } = Astro.props;
+const { noPadding = false, ariaHidden = true, className } = Astro.props;
+const divClasses = classNames('max-w-4xl mx-auto', className, {
+  'px-0': noPadding,
+  'px-4': !noPadding,
+});
 ---
 
-<div class={`max-w-4xl mx-auto ${noPadding ? 'px-0' : 'px-4'}`}>
+<div class={divClasses}>
   <hr class="border-skin-line" aria-hidden={ariaHidden} />
 </div>
