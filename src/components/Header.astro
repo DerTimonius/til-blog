@@ -1,10 +1,9 @@
 ---
-import { site, logoImage } from '~/utils/config';
+import { site } from '~/utils/config';
 import Hr from './Hr.astro';
 import Link from './Link.astro';
 import LogoDark from '~/assets/logo-dark.svg';
 import LogoLight from '~/assets/logo-light.svg';
-import { Image } from 'astro:assets';
 
 export interface Props {
   activeNav?: 'posts' | 'tags' | 'about' | 'search';
@@ -87,16 +86,16 @@ const { activeNav } = Astro.props;
           class="relative z-20 py-1 text-xl font-semibold sm:static sm:text-2xl"
         >
           <span class="hidden sm:block">
-            <Image
+            <img
               class="logo-dark"
-              src={LogoDark}
+              src={LogoDark.src}
               alt={site.title}
               width={108}
               height={108}
             />
-            <Image
+            <img
               class="logo-light"
-              src={LogoLight}
+              src={LogoLight.src}
               alt={site.title}
               width={108}
               height={108}
