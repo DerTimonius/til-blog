@@ -8,11 +8,11 @@ export interface Props {
 
 const { name, size = 'sm' } = Astro.props;
 const linkClasses = classNames(
-  ' pr-2 group relative underline decoration-dashed hover:-top-0.5 hover:text-skin-accent focus-visible:p-1',
+  ' pr-2 group relative underline decoration-dashed hover:-top-0.5 hover:text-custom-accent focus-visible:p-1',
   { 'text-sm': size === 'sm', 'text-lg': size === 'lg' },
 );
 const svgClasses = classNames(
-  '-mr-5 h-6 w-6 scale-95 text-skin-base opacity-80 group-hover:fill-skin-accent',
+  '-mr-5 h-6 w-6 scale-95 text-custom-base opacity-80 group-hover:fill-custom-accent',
   { 'scale-75': size === 'sm', 'scale-110': size === 'lg' },
 );
 ---

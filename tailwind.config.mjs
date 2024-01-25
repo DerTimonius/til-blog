@@ -23,14 +23,14 @@ module.exports = {
 
     // extend: {
     textColor: {
-      skin: {
+      custom: {
         base: withOpacity('--color-text-base'),
         accent: withOpacity('--color-accent'),
         inverted: withOpacity('--color-fill'),
       },
     },
     backgroundColor: {
-      skin: {
+      custom: {
         fill: withOpacity('--color-fill'),
         accent: withOpacity('--color-accent'),
         inverted: withOpacity('--color-text-base'),
@@ -39,12 +39,12 @@ module.exports = {
       },
     },
     outlineColor: {
-      skin: {
+      custom: {
         fill: withOpacity('--color-accent'),
       },
     },
     borderColor: {
-      skin: {
+      custom: {
         line: withOpacity('--color-border'),
         fill: withOpacity('--color-text-base'),
         accent: withOpacity('--color-accent'),
@@ -52,7 +52,7 @@ module.exports = {
       },
     },
     fill: {
-      skin: {
+      custom: {
         base: withOpacity('--color-text-base'),
         accent: withOpacity('--color-accent'),
       },
