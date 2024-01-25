@@ -26,7 +26,6 @@
 
   const searchPosts = () => {
     if (searchTerm.length > 2) {
-      console.log('fuse.search(searchTerm)', fuse.search(searchTerm));
       return (foundPosts = fuse.search(searchTerm));
     } else {
       return (foundPosts = []);
@@ -43,10 +42,10 @@
     </svg>
   </span>
   <input
-    class="block w-full rounded border border-skin-fill
-  border-opacity-40 bg-skin-fill py-3 pl-10
+    class="block w-full rounded border border-custom-fill
+  border-opacity-40 bg-custom-fill py-3 pl-10
   pr-3 placeholder:italic placeholder:text-opacity-75
-  focus:border-skin-accent focus:outline-none"
+  focus:border-custom-accent focus:outline-none"
     placeholder="Search for anything..."
     name="search"
     bind:value={searchTerm}
