@@ -27,7 +27,9 @@ export async function getFeaturedPosts(
     ({ data }) => data.isFeatured && !data.isDraft,
   );
 
-  return posts.slice(0, num ?? posts.length);
+  return posts
+    .sort((a, b) => (dayjs(a.data.pubDate).isBefore(b.data.pubDate) ? 1 : -1))
+    .slice(0, num ?? posts.length);
 }
 
 export async function getRelatedPosts(
