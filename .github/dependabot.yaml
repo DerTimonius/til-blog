@@ -6,6 +6,17 @@ updates:
     schedule:
       interval: 'weekly'
       day: 'sunday'
+    groups:
+      astro-packages:
+        patterns:
+          - 'astro*'
+          - '@astro/*'
+      eslint-packages:
+        patterns:
+          - 'eslint*'
+      prettier-packages:
+        patterns:
+          - 'prettier*'
     labels:
       - 'dependencies'
       - 'security'
