@@ -10,7 +10,7 @@ updates:
       astro-packages:
         patterns:
           - 'astro*'
-          - '@astro/*'
+          - '@astrojs/*'
       eslint-packages:
         patterns:
           - 'eslint*'
