@@ -13,7 +13,7 @@ const posts = await getSortedPosts();
 <Layout title={`Search | ${site.title}`}>
   <Header activeNav="search" />
   <Main pageTitle="Search" pageDesc="Search any article ...">
-    <SearchBar client:load {posts} />
+    <SearchBar client:only="svelte" {posts} />
   </Main>
   <Footer />
 </Layout>
