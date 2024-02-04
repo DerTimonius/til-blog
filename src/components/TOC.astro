@@ -1,0 +1,41 @@
+---
+import TOCHeading from './TOCHeading.astro';
+
+export interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+  subheadings?: Heading[];
+}
+
+export interface Props {
+  headings: Heading[];
+  slug: string;
+}
+
+const { headings, slug } = Astro.props;
+
+function buildToc(headings: Heading[]) {
+  const toc: Heading[] = [];
+  const parentHeadings = new Map();
+  headings.forEach((h) => {
+    const heading = { ...h, subheadings: [] };
+    parentHeadings.set(heading.depth, heading);
+    if (heading.depth === 2) {
+      toc.push(heading);
+    } else {
+      parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+    }
+  });
+  return toc;
+}
+
+const toc = buildToc(headings);
+---
+
+<details class="mt-4 cursor-pointer">
+  <summary class="text-lg">Table of Content</summary>
+  <ul class="prose flex flex-col gap-0.5 text-custom-base">
+    {toc.map((heading) => <TOCHeading {heading} />)}
+  </ul>
+</details>
