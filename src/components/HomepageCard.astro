@@ -1,0 +1,38 @@
+---
+import Date from './Date.astro';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '~/utils/formatDate';
+import Link from './Link.astro';
+
+interface Props {
+  href: string;
+  frontmatter: CollectionEntry<'blogs'>['data'];
+  slug: string;
+  dataTestId?: string;
+}
+const { href, frontmatter, slug, dataTestId } = Astro.props;
+const { title, pubDate, description } = frontmatter;
+const date = formatDate(pubDate);
+
+const headerProps = {
+  style: { viewTransitionName: slug },
+  className: 'text-xl font-semibold',
+};
+---
+
+<li class="py-12">
+  <div class="space-y-2 lg:grid lg:grid-cols-4 lg:items-baseline lg:space-y-0">
+    <Date datetime={date} />
+    <div class="space-y-5 lg:col-span-3">
+      <h2 {...headerProps}>{title}</h2>
+      <p class="text-md text-gray-500 dark:text-gray-400">{description}</p>
+      <Link
+        href={href}
+        className="inline-block text-lg font-medium text-custom-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+        data-test-id={dataTestId}
+      >
+        <span>Read more</span>
+      </Link>
+    </div>
+  </div>
+</li>

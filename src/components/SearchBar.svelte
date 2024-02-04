@@ -46,7 +46,7 @@
   border-opacity-40 bg-custom-fill py-3 pl-10
   pr-3 placeholder:italic placeholder:text-opacity-75
   focus:border-custom-accent focus:outline-none"
-    placeholder="Search for anything..."
+    placeholder="Camera, JavaScript, Font, you name it..."
     name="search"
     bind:value={searchTerm}
     on:input={searchPosts}

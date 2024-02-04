@@ -7,10 +7,15 @@ const currentYear = new Date().getFullYear();
 
 export interface Props {
   noMarginTop?: boolean;
+  className?: string;
 }
 
-const { noMarginTop = false } = Astro.props;
-const footerClasses = classNames('w-full', { 'mt-auto': !noMarginTop });
+const { noMarginTop = false, className } = Astro.props;
+const footerClasses = classNames(
+  'w-full',
+  { 'mt-auto': !noMarginTop },
+  className,
+);
 ---
 
 <footer class={footerClasses}>
