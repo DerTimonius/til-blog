@@ -10,10 +10,9 @@ export interface Heading {
 
 export interface Props {
   headings: Heading[];
-  slug: string;
 }
 
-const { headings, slug } = Astro.props;
+const { headings } = Astro.props;
 
 function buildToc(headings: Heading[]) {
   const toc: Heading[] = [];
