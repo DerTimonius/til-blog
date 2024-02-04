@@ -23,7 +23,7 @@
     --color-border-dashed: 199, 80, 80;
   }
   body {
-    @apply flex min-h-[100svh] flex-col bg-custom-fill font-mono text-custom-base
+    @apply flex min-h-[100svh] flex-col p-4 bg-custom-fill font-mono text-custom-base
     selection:bg-custom-accent selection:bg-opacity-70 selection:text-custom-inverted;
   }
   section,
