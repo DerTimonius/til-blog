@@ -1,20 +1,26 @@
 ---
+import classNames from 'classnames';
 import Breadcrumbs from '~/components/Breadcrumbs.astro';
 
 interface StringTitleProp {
   pageTitle: string;
   pageDesc?: string;
+  screenReaderOnly?: boolean;
 }
 
 interface ArrayTitleProp {
   pageTitle: [string, string];
   titleTransition: string;
   pageDesc?: string;
+  screenReaderOnly?: boolean;
 }
 
 export type Props = StringTitleProp | ArrayTitleProp;
 
 const { props } = Astro;
+const descriptionClasses = classNames('mb-6 mt-2 italic', {
+  'sr-only': props.screenReaderOnly,
+});
 ---
 
 <Breadcrumbs />
@@ -31,6 +37,6 @@ const { props } = Astro;
       <h1 class="text-2xl font-semibold">{props.pageTitle}</h1>
     )
   }
-  <p class="mb-6 mt-2 italic">{props.pageDesc}</p>
+  <p class={descriptionClasses}>{props.pageDesc}</p>
   <slot />
 </main>

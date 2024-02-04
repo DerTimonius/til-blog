@@ -48,4 +48,5 @@ export const socials: SocialObjects = [
     linkTitle: `${site.username} on Reddit`,
     active: false,
   },
+  { name: 'RSS', href: '/rss.xml', linkTitle: 'RSS feed', active: true },
 ];

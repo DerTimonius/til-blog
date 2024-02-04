@@ -22,6 +22,9 @@ const { post } = Astro.props;
 
 const { title, description, pubDate, tags, updatedAt, relatedPosts } =
   post.data;
+const tagsDisplay = tags.map((tag) => {
+  return { name: tag, postsCount: 0 };
+});
 const slug = post.slug;
 const date = formatDate(pubDate);
 const updatedDate = formatDate(updatedAt!);
@@ -88,7 +91,7 @@ const time = remarkPluginFrontmatter.minutesRead;
         <div>
           <h3 class="mt-4 text-lg font-semibold">Tags</h3>
           <ul class="my-8">
-            {tags.map((tag) => <Tag name={tag} invertColors />)}
+            {tagsDisplay.map((tag) => <Tag {tag} invertColors />)}
           </ul>
         </div>
         {

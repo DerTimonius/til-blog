@@ -31,7 +31,7 @@ const next = pageNum < totalPages ? '' : 'disabled';
 <Layout title={`Posts | ${site.title}`}>
   <Header activeNav="blog" />
   <Main {pageTitle} {pageDesc}>
-    <ul>
+    <ul class="flex flex-col gap-4">
       {
         posts.map(({ data, slug }, index) => (
           <Card

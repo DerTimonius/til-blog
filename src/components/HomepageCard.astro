@@ -11,7 +11,7 @@ interface Props {
   dataTestId?: string;
 }
 const { href, frontmatter, slug, dataTestId } = Astro.props;
-const { title, pubDate, description } = frontmatter;
+const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
 
 const headerProps = {
@@ -23,8 +23,11 @@ const headerProps = {
 <li class="py-12">
   <div class="space-y-2 lg:grid lg:grid-cols-4 lg:items-baseline lg:space-y-0">
     <Date datetime={date} />
-    <div class="space-y-5 lg:col-span-3">
+    <div class="space-y-4 lg:col-span-3">
       <h2 {...headerProps}>{title}</h2>
+      <p class="text-sm uppercase text-gray-400 dark:text-gray-500">
+        {tags.map((tag) => <span>{tag} </span>)}
+      </p>
       <p class="text-md text-gray-500 dark:text-gray-400">{description}</p>
       <Link
         href={href}

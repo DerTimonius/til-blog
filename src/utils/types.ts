@@ -28,6 +28,7 @@ export type SocialMedia =
   | 'Instagram'
   | 'LinkedIn'
   | 'Reddit'
+  | 'RSS'
   | 'Mail';
 
 export type SearchList = {

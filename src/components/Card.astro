@@ -11,7 +11,7 @@ interface Props {
   dataTestId?: string;
 }
 const { href, frontmatter, slug, secHeading = true, dataTestId } = Astro.props;
-const { title, pubDate, description } = frontmatter;
+const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
 
 const headerProps = {
@@ -20,7 +20,7 @@ const headerProps = {
 };
 ---
 
-<li class="my-6">
+<li class="my-6 flex flex-col gap-2">
   <a
     href={href}
     class="inline-block text-lg font-medium text-custom-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
@@ -35,5 +35,8 @@ const headerProps = {
     }
   </a>
   <Date datetime={date} />
-  <p>{description}</p>
+  <p class="text-sm uppercase text-gray-400 dark:text-gray-500">
+    {tags.map((tag) => <span>{tag} </span>)}
+  </p>
+  <p class="text-gray-700 dark:text-gray-300">{description}</p>
 </li>

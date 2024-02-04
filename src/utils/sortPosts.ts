@@ -40,3 +40,11 @@ export async function getRelatedPosts(
   );
   return sortPosts(posts);
 }
+
+export async function getPostsByTag(tag: string) {
+  const posts = await getCollection(
+    'blogs',
+    ({ data }) => data.tags.includes(tag) && !data.isDraft,
+  );
+  return sortPosts(posts);
+}
