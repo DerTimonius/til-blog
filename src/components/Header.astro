@@ -204,7 +204,7 @@ const { activeNav } = Astro.props;
           }
         </div>
         <Hr
-          className="hidden sm:block absolute w-full px-4 top-20"
+          className="hidden sm:block absolute w-[100vw] lg:w-full px-4 top-20"
           lineColor="border-custom-accent"
         />
       </nav>
@@ -227,7 +227,7 @@ const { activeNav } = Astro.props;
     @apply absolute py-1 text-xl font-semibold sm:static sm:text-2xl;
   }
   .hamburger-menu {
-    @apply self-end -mt-8 p-2 sm:hidden;
+    @apply self-end -mt-9 p-2 pb-4 pr-4 sm:hidden;
   }
   .hamburger-menu svg {
     @apply h-6 w-6 scale-125 fill-custom-base;
