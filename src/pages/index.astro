@@ -1,7 +1,7 @@
 ---
-import Card from '~/components/Card.astro';
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
+import HomepageCard from '~/components/HomepageCard.astro';
 import Hr from '~/components/Hr.astro';
 import Link from '~/components/Link.astro';
 import Layout from '~/layouts/Layout.astro';
@@ -13,9 +13,11 @@ const featuredPosts = await getFeaturedPosts(3);
 
 <Layout>
   <Header />
-  <main id="main-content">
+  <main id="main-content" class="px-6">
     <section id="hero" class="pb-6 pt-8">
-      <h1 class="my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl">
+      <h1
+        class="my-4 inline-block text-3xl font-bold text-custom-accent sm:my-8 sm:text-5xl"
+      >
         Today I learned
       </h1>
 
@@ -35,7 +37,7 @@ const featuredPosts = await getFeaturedPosts(3);
       <p class="mt-6">
         The plan is to write about:
         <ul class="mx-6">
-          <li>Web Developlment</li>
+          <li>Web Development</li>
           <li>Computer Science</li>
           <li>Science related topics</li>
           <li>...whatever I found interesting that day!</li>
@@ -45,25 +47,24 @@ const featuredPosts = await getFeaturedPosts(3);
       <p class="my-4">Join me and let's have some fun!</p>
     </section>
 
-    <Hr />
+    <Hr className="max-w-4xl" noPadding />
 
-    <section class="pb-6 pt-12">
-      <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-      <ul>
+    <section class="py-6">
+      <h2 class="text-3xl font-semibold tracking-wide">Featured Posts</h2>
+      <ul class="divide-y divide-custom-light">
         {
           featuredPosts.map((post) => (
-            <Card
+            <HomepageCard
               dataTestId={`featured-post-${post.id}`}
               href={`/blog/${post.slug}`}
               frontmatter={post.data}
-              secHeading={false}
               slug={post.slug}
             />
           ))
         }
       </ul>
     </section>
-    <section class="pb-6 pt-12">
+    <section class="py-6">
       <div class="my-8 text-center">
         <Link href="/blog/featured">
           All Featured Posts
@@ -75,18 +76,17 @@ const featuredPosts = await getFeaturedPosts(3);
         </Link>
       </div>
     </section>
-    <Hr />
+    <Hr className="max-w-4xl" noPadding />
 
     <section class="pb-6 pt-12">
-      <h2 class="text-2xl font-semibold tracking-wide">Latest</h2>
-      <ul>
+      <h2 class="text-3xl font-semibold tracking-wide">Latest Posts</h2>
+      <ul class="divide-y divide-custom-light">
         {
           latestPosts.map((post) => (
-            <Card
+            <HomepageCard
               dataTestId={`latest-post-${post.id}`}
               href={`/blog/${post.slug}`}
               frontmatter={post.data}
-              secHeading={false}
               slug={post.slug}
             />
           ))
@@ -94,7 +94,7 @@ const featuredPosts = await getFeaturedPosts(3);
       </ul>
     </section>
 
-    <section class="pb-6 pt-12">
+    <section class="py-6">
       <div class="my-8 text-center">
         <Link href="/blog">
           All Posts

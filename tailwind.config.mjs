@@ -12,56 +12,50 @@ module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   darkMode: 'class',
   theme: {
-    // Remove the following screen breakpoint or add other breakpoints
-    // if one breakpoint is not enough for you
-    screens: {
-      sm: '640px',
-    },
-
     // Uncomment the following extend
     // if existing Tailwind color palette will be used
 
-    // extend: {
-    textColor: {
-      custom: {
-        base: withOpacity('--color-text-base'),
-        accent: withOpacity('--color-accent'),
-        inverted: withOpacity('--color-fill'),
+    extend: {
+      textColor: {
+        custom: {
+          base: withOpacity('--color-text-base'),
+          accent: withOpacity('--color-accent'),
+          inverted: withOpacity('--color-fill'),
+        },
+      },
+      backgroundColor: {
+        custom: {
+          fill: withOpacity('--color-fill'),
+          accent: withOpacity('--color-accent'),
+          inverted: withOpacity('--color-text-base'),
+          card: withOpacity('--color-card'),
+          'card-muted': withOpacity('--color-card-muted'),
+        },
+      },
+      outlineColor: {
+        custom: {
+          fill: withOpacity('--color-accent'),
+        },
+      },
+      borderColor: {
+        custom: {
+          line: withOpacity('--color-border'),
+          fill: withOpacity('--color-text-base'),
+          accent: withOpacity('--color-accent'),
+          light: withOpacity('--color-border-dashed'),
+        },
+      },
+      fill: {
+        custom: {
+          base: withOpacity('--color-text-base'),
+          accent: withOpacity('--color-accent'),
+        },
+        transparent: 'transparent',
+      },
+      fontFamily: {
+        mono: ['Fira Mono', 'monospace'],
       },
     },
-    backgroundColor: {
-      custom: {
-        fill: withOpacity('--color-fill'),
-        accent: withOpacity('--color-accent'),
-        inverted: withOpacity('--color-text-base'),
-        card: withOpacity('--color-card'),
-        'card-muted': withOpacity('--color-card-muted'),
-      },
-    },
-    outlineColor: {
-      custom: {
-        fill: withOpacity('--color-accent'),
-      },
-    },
-    borderColor: {
-      custom: {
-        line: withOpacity('--color-border'),
-        fill: withOpacity('--color-text-base'),
-        accent: withOpacity('--color-accent'),
-        light: withOpacity('--color-border-dashed'),
-      },
-    },
-    fill: {
-      custom: {
-        base: withOpacity('--color-text-base'),
-        accent: withOpacity('--color-accent'),
-      },
-      transparent: 'transparent',
-    },
-    fontFamily: {
-      mono: ['Fira Mono', 'monospace'],
-    },
-    // },
   },
   plugins: [require('@tailwindcss/typography')],
 };

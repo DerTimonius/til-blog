@@ -7,10 +7,15 @@ const currentYear = new Date().getFullYear();
 
 export interface Props {
   noMarginTop?: boolean;
+  className?: string;
 }
 
-const { noMarginTop = false } = Astro.props;
-const footerClasses = classNames('w-full', { 'mt-auto': !noMarginTop });
+const { noMarginTop = false, className } = Astro.props;
+const footerClasses = classNames(
+  'w-full',
+  { 'mt-auto': !noMarginTop },
+  className,
+);
 ---
 
 <footer class={footerClasses}>
@@ -20,7 +25,9 @@ const footerClasses = classNames('w-full', { 'mt-auto': !noMarginTop });
   >
     <Socials centered />
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
-      <span>Copyright &#169; {currentYear}</span>
+      <span>Timon Jurschitsch</span>
+      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
+      <span> &#169; {currentYear}</span>
       <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
       <span>All rights reserved.</span>
     </div>

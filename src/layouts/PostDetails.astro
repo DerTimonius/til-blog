@@ -9,7 +9,9 @@ import Tag from '~/components/Tag.astro';
 import ReadingTime from '~/components/ReadingTime.astro';
 import { formatDate } from '~/utils/formatDate';
 import { getRelatedPosts } from '~/utils/sortPosts';
-// import Author from '~/components/Author.astro';
+import TOC from '~/components/TOC.astro';
+import BackToTopButton from '~/components/BackToTopButton.astro';
+import Link from '~/components/Link.astro';
 
 export interface Props {
   post: CollectionEntry<'blogs'>;
@@ -19,64 +21,98 @@ const { post } = Astro.props;
 
 const { title, description, pubDate, tags, updatedAt, relatedPosts } =
   post.data;
+const tagsDisplay = tags.map((tag) => {
+  return { name: tag, postsCount: 0 };
+});
 const date = formatDate(pubDate);
 const updatedDate = formatDate(updatedAt!);
 
 const relatedArticles = relatedPosts ? await getRelatedPosts(relatedPosts) : [];
-const { Content, remarkPluginFrontmatter } = await post.render();
+const { Content, remarkPluginFrontmatter, headings } = await post.render();
 const time = remarkPluginFrontmatter.minutesRead;
 ---
 
 <Layout title={title} author={site.author} description={description}>
   <Header />
-  <div class="mx-auto flex w-full max-w-4xl justify-start px-2">
-    <button
-      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
-      onclick="history.back()"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
-    </button>
-  </div>
-  <main id="main-content" class="mx-auto w-full max-w-4xl px-4 pb-12">
+  <BackToTopButton />
+  <main id="main-content" class="mx-auto w-full max-w-6xl px-4 pb-12">
     <h1
       data-test-id="blog-title"
       transition:name={post.slug}
-      class="text-2xl font-semibold text-custom-accent"
+      class="text-4xl font-bold text-custom-accent text-center mt-12 mb-8"
     >
       {title}
     </h1>
-    <Date datetime={date} size="lg" className="my-2" />
-    <ReadingTime {time} size="lg" />
-    <!-- <Author author={site.author} size="lg" /> -->
-    <ul class="my-8">
-      {tags!.map((tag) => <Tag name={tag} />)}
-    </ul>
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-4xl">
-      <Content />
-      {
-        updatedAt ? (
-          <p class="text-sm font-light italic">Last update at: {updatedDate}</p>
-        ) : null
-      }
-      {
-        relatedArticles.length ? (
-          <div>
-            <h3 class="text-lg font-bold italic">Related Articles:</h3>
-            <ul>
-              {relatedArticles.map((post) => (
-                <li>
-                  <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null
-      }
-    </article>
+    <div
+      class="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:divide-y-0"
+    >
+      <dl
+        class="flex flex-col gap-4 pb-10 pt-6 lg:border-b lg:border-gray-200 lg:pt-11"
+      >
+        <div class="mx-auto flex w-full max-w-4xl justify-start">
+          <button
+            class="focus-outline flex hover:opacity-75"
+            onclick="history.back()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg"
+              ><path
+                d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+              ></path>
+            </svg><span>Go back</span>
+          </button>
+        </div>
+        <Date datetime={date} size="lg" className="my-2" />
+        <ReadingTime {time} size="lg" />
+        <div class="lg:border-b lg:border-gray-200"></div>
+        {headings.length ? <TOC {headings} /> : null}
+      </dl>
+      <div
+        class="pb-6 divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-3 lg:row-span-2 lg:pb-0"
+      >
+        <article
+          role="article"
+          class="prose mx-auto mt-8 ml-2 max-w-4xl scroll-smooth"
+        >
+          <Content />
+          {
+            updatedAt ? (
+              <p class="text-sm font-light italic">
+                Last update at: {updatedDate}
+              </p>
+            ) : null
+          }
+        </article>
+      </div>
+      <footer
+        class="!w-full divide-gray-200 text-sm font-medium dark:divide-gray-700 lg:divide-y"
+      >
+        <div>
+          <h3 class="mt-4 text-lg font-semibold">Tags</h3>
+          <ul class="my-8">
+            {tagsDisplay.map((tag) => <Tag {tag} invertColors />)}
+          </ul>
+        </div>
+        {
+          relatedArticles.length ? (
+            <div>
+              <h3 class="mt-4 text-lg font-semibold">Related Articles</h3>
+              <ul>
+                {relatedArticles.map((post) => (
+                  <li>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="text-custom-accent hover:text-custom-base"
+                    >
+                      {post.data.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null
+        }
+      </footer>
+    </div>
   </main>
-  <Footer />
+  <Footer className="max-w-6xl" />
 </Layout>

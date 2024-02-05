@@ -1,0 +1,38 @@
+<button
+  id="btt"
+  class="enter hidden bottom-12 right-12 fixed focus-outline whitespace-nowrap py-1 hover:opacity-75"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
+    <path
+      d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+    ></path>
+  </svg>
+  <span class="sr-only">Back to Top</span>
+</button>
+
+<script>
+  const button = document.getElementById('btt');
+  function visible() {
+    if (
+      document.body.scrollTop > 360 ||
+      document.documentElement.scrollTop > 360
+    ) {
+      button?.classList.add('block');
+      button?.classList.remove('hidden');
+    } else {
+      button?.classList.remove('block');
+      button?.classList.add('hidden');
+    }
+  }
+  window.onscroll = function () {
+    visible();
+  };
+
+  function backToTop() {
+    button?.addEventListener('click', () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+  }
+  backToTop();
+</script>

@@ -7,7 +7,7 @@ import Layout from '~/layouts/Layout.astro';
 import Main from '~/layouts/Main.astro';
 import { site } from '~/utils/config';
 import getTags from '~/utils/getTags';
-import { sortPosts } from '~/utils/sortPosts';
+import { getPostsByTag, sortPosts } from '~/utils/sortPosts';
 
 export interface Props {
   post: CollectionEntry<'blogs'>;
@@ -16,21 +16,18 @@ export interface Props {
 
 export async function getStaticPaths() {
   const posts = await getCollection('blogs');
-  const tags = getTags(posts);
+  const tags = await getTags(posts);
 
-  return tags.map((tag) => {
+  return tags.map(({ name }) => {
     return {
-      params: { tag },
+      params: { tag: name },
     };
   });
 }
 
 const { tag } = Astro.params;
 
-const posts = await getCollection(
-  'blogs',
-  ({ data }) => data.tags!.includes(tag!) && !data.isDraft,
-);
+const posts = await getPostsByTag(tag);
 
 const sortedPosts = sortPosts(posts);
 ---
@@ -39,11 +36,11 @@ const sortedPosts = sortPosts(posts);
   <Header activeNav="tags" />
   <Main
     pageTitle={[`Tag:`, `${tag}`]}
-    titleTransition={tag!}
+    titleTransition={tag}
     pageDesc={`TIL articles with the tag "${tag}" so far.`}
   >
     <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
-    <ul>
+    <ul class="flex flex-col gap-4">
       {
         sortedPosts.map(({ data, slug }) => (
           <Card

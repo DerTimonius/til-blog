@@ -10,14 +10,18 @@ import getTags from '~/utils/getTags';
 
 const posts = await getCollection('blogs');
 
-const tags = getTags(posts);
+const tags = await getTags(posts);
 ---
 
 <Layout title={`Tags | ${site.title}`}>
   <Header activeNav="tags" />
-  <Main pageTitle="Tags" pageDesc="What tags have been used so far.">
+  <Main
+    pageTitle="Tags"
+    pageDesc="What tags have been used so far."
+    screenReaderOnly
+  >
     <ul>
-      {tags.map((tag) => <Tag name={tag} size="lg" />)}
+      {tags.map((tag) => <Tag {tag} size="lg" showCount />)}
     </ul>
   </Main>
   <Footer />

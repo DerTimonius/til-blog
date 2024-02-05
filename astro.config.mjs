@@ -1,9 +1,9 @@
 import mdx from '@astrojs/mdx';
+import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
-import { remarkReadingTime } from './remark-reading-time.mjs';
 
-import svelte from '@astrojs/svelte';
+import { remarkReadingTime } from './remark-reading-time.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,6 +11,7 @@ export default defineConfig({
     tailwind(),
     mdx({
       remarkPlugins: [remarkReadingTime],
+      shikiConfig: { theme: 'catppuccin-mocha', wrap: true },
     }),
     svelte(),
   ],

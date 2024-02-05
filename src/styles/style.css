@@ -7,7 +7,7 @@
   html {
     --color-fill: 240, 240, 240;
     --color-text-base: 40, 39, 40;
-    --color-accent: 0, 66, 154;
+    --color-accent: 65, 107, 149;
     --color-card: 230, 230, 230;
     --color-card-muted: 205, 205, 205;
     --color-border: 236, 233, 233;
@@ -16,19 +16,19 @@
   html[class='dark'] {
     --color-fill: 13, 19, 35;
     --color-text-base: 234, 237, 243;
-    --color-accent: 255, 107, 1;
+    --color-accent: 191, 72, 72;
     --color-card: 52, 63, 96;
     --color-card-muted: 138, 51, 2;
-    --color-border: 171, 75, 8;
-    --color-border-dashed: 191, 95, 28;
+    --color-border: 191, 72, 72;
+    --color-border-dashed: 199, 80, 80;
   }
   body {
-    @apply flex min-h-[100svh] flex-col bg-custom-fill font-mono text-custom-base
+    @apply flex min-h-[100svh] flex-col p-4 bg-custom-fill font-mono text-custom-base
     selection:bg-custom-accent selection:bg-opacity-70 selection:text-custom-inverted;
   }
   section,
   footer {
-    @apply mx-auto max-w-4xl px-4;
+    @apply mx-auto max-w-4xl;
   }
   a {
     @apply outline-2 outline-offset-1 outline-custom-fill
