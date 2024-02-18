@@ -73,8 +73,7 @@ With this knowledge in mind, let's get into it!
 
 Bubblesort is a simple and straightforward (if not the easiest) sorting algorithm that repeatedly steps through a list of elements, compares adjacent items, and swaps them if they are in the wrong order (you could also say that the higher value bubbles up). This process continues until no more swaps are needed, indicating that the list is sorted.
 
-```python
-# python
+```python title="bubblesort.py"
 def bubblesort(arr):
   for i in range(len(arr)):
     for j in range(len(arr) - 1 - i):
@@ -82,8 +81,9 @@ def bubblesort(arr):
         arr[j], arr[j + 1] = arr[j + 1], arr[j]
 ```
 
-```rs
-// rust
+<br />
+
+```rs title="bubblesort.rs"
 fn bubblesort(list: $mut Vec<i32>) {
   for i in 0..list.len() {
     for j in 0..list.len() - 1 - i {
@@ -103,8 +103,7 @@ Let's look at `Insertion sort` next. It is a simple comparison-based sorting alg
 
 In the examples I'm providing, it checks if the element is smaller than the elements to its left in the sorted region. If it is, the algorithm shifts those larger elements one position to the right to make space for the current element, and then inserts the current element in its correct sorted position.
 
-```python
-# python
+```python title="insertion_sort.py"
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         value = arr[i]
@@ -118,8 +117,9 @@ def insertion_sort(arr):
     return arr
 ```
 
-```rs
-// rust
+<br />
+
+```rs title="insertion_sort.rs"
 fn insertion_sort(arr: &mut Vec<i32>) -> &mut Vec<i32> {
     for i in 1..arr.len() - 1 {
         let mut j = i - 1;
@@ -146,17 +146,16 @@ Enter `Mergesort`! This algorithm is the prime example of a `divide and conquer`
 
 In the next step, we merge the short arrays together by comparing at the first element of the right and left arrays:
 
-```ts
-// typescript
-export function mergesort(arr: number[]): number[] {
+```ts title="mergeSort.ts"
+export function mergeSort(arr: number[]): number[] {
   const length = arr.length;
   if (length === 1) return arr;
 
   const middle = Math.floor(length / 2);
   const leftHalf = arr.slice(0, middle);
   const rightHalf = arr.slice(middle, length);
-  const leftSorted = mergesort(leftHalf);
-  const rightSorted = mergesort(rightHalf);
+  const leftSorted = mergesSrt(leftHalf);
+  const rightSorted = mergeSort(rightHalf);
   return merge(leftSorted, rightSorted);
 }
 
@@ -181,8 +180,9 @@ function merge(left: number[], right: number[]): number[] {
 }
 ```
 
-```rs
-// rust
+<br />
+
+```rs title="mergesort.rs"
 pub fn mergesort(list: &mut Vec<i32>) {
     if list.len() <= 1 {
         return;
@@ -227,9 +227,8 @@ Compared to `bubblesort` and `insertion sort`, using `mergesort` is a huge incre
 
 Quicksort is another efficient sorting algorithm based on the divide-and-conquer strategy. It selects a 'pivot' element from the list and partitions the other elements into two sublists – those less than the pivot and those greater than the pivot. The algorithm then recursively sorts the sublists.
 
-```ts
-// typescript
-function quicksort(arr: number[]): number[] {
+```ts title="quickSort.ts"
+function quickSort(arr: number[]): number[] {
   if (arr.length <= 1) {
     return arr;
   }
@@ -246,12 +245,13 @@ function quicksort(arr: number[]): number[] {
     }
   }
 
-  return [...quicksort(left), pivot, ...quicksort(right)];
+  return [...quickSort(left), pivot, ...quickSort(right)];
 }
 ```
 
-```rs
-// rust
+<br />
+
+```rs title="quicksort.rs"
 fn quicksort(arr: &Vec<i32>) -> Vec<i32> {
     if arr.len() <= 1 {
         return arr.to_vec()

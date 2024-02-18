@@ -15,7 +15,7 @@ In my [last post](/blog/til-15) I wrote down the learning from the first three d
 
 I don't want to write about nom long here, but I want to share a bit of code I used in day 4:
 
-```rust
+```rust title="main.rs"
 fn parse_numbers(input: &str) -> IResult<&str, Vec<u32>> {
   let (input, numbers) = separated_list1(multispace0, parse_u32)(input)?;
   Ok((input, numbers))

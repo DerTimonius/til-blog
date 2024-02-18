@@ -13,7 +13,7 @@ I have been using REST and GraphQL APIs for some time to fetch the data from the
 
 But it's not completely type-safe. Yes, there are some packages that can help achieve this amount of type-safety, but it's optional. The typical workflow will probably consist of writing a GraphQL query, running it and failing because you made a small typo (or is it just me?) - or providing the wrong input for mutations.
 
-```graphql
+```graphql title="user.graphql"
 query UserInfo {
   user {
     id
@@ -97,7 +97,7 @@ So, I decided to go for a Next.js app with the appRouter, tRPC (of course) and t
 
 My Prisma schema was pretty simple for the todo:
 
-```prisma
+```prisma title="schema.prisma"
 model Todo {
   id          String   @id @default(cuid())
   done        Boolean  @default(false)
@@ -114,7 +114,7 @@ While `create-t3-app` takes care of that for you, when you setup a project by yo
 
 1. Define the context that allows the access of things like requests.
 
-```ts
+```ts title="src/api/trpc.ts"
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     db,
@@ -125,7 +125,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
 
 2. Initialize the API with a transformer and an error formatter (validation can be done with various different packages, the default is `zod`).
 
-```ts
+```ts title="src/api/trpc.ts"
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
@@ -143,7 +143,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
 
 3. Lastly, create the router and procedure.
 
-```ts
+```ts title="src/api/trpc.ts"
 export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 ```
@@ -152,7 +152,7 @@ export const publicProcedure = t.procedure;
 
 The next step is to define a router that "hosts" your queries and mutations. To make it easier for yourself to not get confused, just name it with the thing you want to access plus router.
 
-```ts
+```ts title="src/api/routers/todo.ts"
 export const todoRouter = createTRPCRouter({
   // Rest of the code
 });
@@ -162,7 +162,7 @@ export const todoRouter = createTRPCRouter({
 
 The first thing I did after creating the `todoRouter` was to write a query that returns all todos and also a mutation to create a todo (otherwise, how would I know if the query works):
 
-```ts
+```ts title="src/api/routers/todo.ts"
 export const todoRouter = createTRPCRouter({
   createTodo: publicProcedure
     .input(z.object({ name: z.string(), description: z.string().nullable() }))
@@ -226,7 +226,7 @@ I did not want to use formik or react-form-hook or similar packages, so I just u
 
 To actually call the mutation, we have to add something to the `onSubmit` function of the form element:
 
-```jsx
+```jsx title="CreateTodo.tsx"
     <form
       onSubmit={(e) => {
         e.preventDefault();
