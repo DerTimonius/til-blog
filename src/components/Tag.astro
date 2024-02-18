@@ -19,12 +19,6 @@ const linkClasses = classNames(
     'hover:text-custom-accent': !invertColors,
   },
 );
-const svgClasses = classNames('-mr-5 h-6 w-6 scale-95 opacity-80', {
-  'scale-75': size === 'sm',
-  'scale-110': size === 'lg',
-  'group-hover:fill-custom-accent fill-custom-base': !invertColors,
-  'group-hover:fill-custom-base fill-custom-accent': invertColors,
-});
 ---
 
 <li

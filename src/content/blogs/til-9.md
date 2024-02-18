@@ -24,7 +24,7 @@ It's commonly used for low-level DOM manipulation, such as focusing on elements,
 
 Call the `useRef` hook with an `initialValue` - if you don't know the type of value yet, use `null`:
 
-```jsx
+```jsx title="App.tsx"
 import { useRef } from 'react';
 
 function App() {
@@ -41,7 +41,7 @@ Therefore, you should avoid using refs to directly modify component state. Use u
 
 Let's build a quick form that uses a button to focus the input with ref:
 
-```jsx
+```jsx title="App.tsx"
 import { useRef, useState } from 'react';
 
 function App() {
@@ -73,7 +73,7 @@ The return value of `useRef` is local copy for the component it is used in. If y
 
 Let's say that in the example above you wrap the input in a separate component:
 
-```jsx
+```jsx title="MyInput.tsx"
 export default function MyInput({ value, onChange }) {
   return <input value={value} onChange={onChange} />;
 }
@@ -81,7 +81,7 @@ export default function MyInput({ value, onChange }) {
 
 If you now still want to use the button to focus the input, you need to wrap the component with `forwardRef`:
 
-```jsx
+```jsx title="MyInput.tsx"
 import { forwardRef } from 'react';
 
 const MyInput = forwardRef(({ value, onChange }, ref) => {
@@ -99,7 +99,7 @@ The examples above lack types. But you most likely will write your application i
 
 You can pass the type of the ref in the `useRef` call:
 
-```tsx
+```tsx title="App.tsx"
 const ref = useRef<HTMLInputElement>(null);
 ```
 
@@ -107,7 +107,7 @@ You can also use other types like `number` if you want to use it similarly to st
 
 Typing `formardRef` is a bit more complicated and expects two parameters:
 
-```tsx
+```tsx title="MyInput.tsx"
 import { forwardRef, type Dispatch, type SetStateAction } from 'react';
 
 interface MyInputProps {

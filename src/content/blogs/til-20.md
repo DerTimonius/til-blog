@@ -17,7 +17,7 @@ Before diving into the topic, I should describe how I used it. It will become cl
 
 I always tried to use it as a replacement for `as`. Let's look at the following code:
 
-```ts
+```ts error-preview
 type Event = {
   id: string;
   title: string;
@@ -58,7 +58,7 @@ const event: Event = {
   title: "The best event",
   start: 2024-01-26,
   end: 2024-01-27,
-  invitees: invitees satisfies Invitee[] // bad red squiggly will happen here
+  invitees: invitees ~~satisfies~~ Invitee[] //! Type '{ id: string; user: { id: string; firstName: string; }; }[]' does not satisfy the expected type 'Invitee[]'.
 };
 ```
 
@@ -130,36 +130,36 @@ Here two things happen:
 
 Trying `routes.settings.path` should trigger a bad red squiggly, but it doesn't. Next, we try to use `as` instead:
 
-```ts
+```ts error-preview
 type Routes = Record<string, Route>;
 type Route = { path: string; children?: Routes };
 
-const routes = {
-  events: {
-    path: '/events',
-  },
-  team: {
-    path: '/team',
-    children: {
-      assistants: {
-        path: '/team/assistants',
-      },
-      clients: {
-        path: '/team/clients',
-      },
-    },
-  },
-  settings: {
-    URL: '/settings', // error happens here
-  },
-} as Routes;
+~~const routes = {~~
+  ~~events: {~~
+  ~~  path: '/events',~~
+  ~~},~~
+  ~~team: {~~
+  ~~  path: '/team',~~
+  ~~  children: {~~
+  ~~    assistants: {~~
+  ~~      path: '/team/assistants',~~
+  ~~    },~~
+  ~~    clients: {~~
+  ~~      path: '/team/clients',~~
+  ~~    },~~
+  ~~  },~~
+  ~~},~~
+  ~~settings: {~~
+  ~~  ~~URL: '/settings'~~,
+  ~~},~~
+~~} as Routes;~~
 ```
 
 That doesn't look good. The complete variable gets a bad red squiggly (which would not happen with the first method). Imagine this variable is much larger, with more properties. It will take some time to find the erroneous property that needs to be fixed. And even if you fix the issue, the same two issues persist.
 
 It's time for `satisfies` to enter the chat:
 
-```ts
+```ts error-preview
 type Routes = Record<string, Route>;
 type Route = { path: string; children?: Routes };
 
@@ -181,7 +181,7 @@ const routes = {
 } satisfies Routes;
 
 routes.events.path; // works
-routes.settings.path; // finally a bad red squiggly
+routes.~~settings~~.path; // finally a bad red squiggly
 ```
 
 TypeScript now knows the properties of the `routes` variable: autocomplete returns, accessing issues that do not exist will trigger TypeScript to start complaining. Nice! But it would be even better if `routes.events.path` would not only be typed as `string` but actually as `/events`.

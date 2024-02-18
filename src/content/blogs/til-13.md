@@ -108,7 +108,7 @@ I expected to be able to use ternaries for conditional rendering like in React:
 
 Svelte is a bit more verbose in that sense, but I think once you get used to it also more readable:
 
-```svelte
+```svelte title="SearchBar.svelte"
 {#if searchTerm.length > 2 && !foundPosts.length}
   <p>Sorry, I wasn't able to find anything!</p>
 {:else}
@@ -141,7 +141,7 @@ Svelte is different, and because I'm stubborn I did not look up how to do this i
 
 To loop over the array a similar syntax to the conditional rendering is needed:
 
-```svelte
+```svelte title="SearchResults.svelte"
 <div>
   {#each foundPosts as foundPost}
     <h2>{foundPost.title}</h2>

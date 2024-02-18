@@ -26,7 +26,7 @@ Setting up release-please was also not as straightforward as it would be with tr
 
 It's now setup to look for pushes to the `develop` branch and then opening a PR to `main`.
 
-```yaml
+```yaml title="release.yml"
 name: Release please
 
 on:
@@ -73,7 +73,7 @@ I did some digging in the git docs and found [`updateRef`](https://git-scm.com/d
 
 Then I had to figure out, what do I need to update the branch? Well, of course we need an access token with permissions to commit. I need the branches that should be updated. And I need to specify if the action should force-push or not.
 
-```ts
+```ts title="main.ts"
 const force = core.getBooleanInput('force');
 
 const branchesInput = core.getInput('branches');
@@ -107,7 +107,7 @@ At this point I started to write unit tests to check if every function I'm writi
 
 With every piece of the puzzle I need, it's time to write the function that actually updates the branch. After some checks like _is the branch that should be updated the same as the head?_ I had to call the GitHub API using the `octokit` variable I instantiated before. It's actually just five lines of code:
 
-```ts
+```ts title="mergeBranches.ts"
 await octokit.rest.git.updateRef({
   ...repo,
   force,
@@ -126,7 +126,7 @@ After publishing the action I then created a separate repo to test if works. I h
 
 Here is a config that works:
 
-```yaml
+```yaml title="merge-branches.yml"
 name: Merge branches
 
 on:
