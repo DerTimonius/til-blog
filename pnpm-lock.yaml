@@ -25,7 +25,7 @@ dependencies:
     version: 0.5.10(tailwindcss@3.4.1)
   astro:
     specifier: ^4.4.0
-    version: 4.4.0(@types/node@20.11.17)(typescript@5.3.3)
+    version: 4.4.0(@types/node@20.11.19)(typescript@5.3.3)
   astro-expressive-code:
     specifier: ^0.32.4
     version: 0.32.4(astro@4.4.0)
@@ -62,8 +62,8 @@ devDependencies:
     specifier: ^1.41.2
     version: 1.41.2
   '@types/node':
-    specifier: ^20.11.17
-    version: 20.11.17
+    specifier: ^20.11.19
+    version: 20.11.19
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.20.0
     version: 6.20.0(@typescript-eslint/parser@6.21.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -169,7 +169,7 @@ packages:
       '@astrojs/markdown-remark': 4.2.1
       '@mdx-js/mdx': 3.0.0
       acorn: 8.11.3
-      astro: 4.4.0(@types/node@20.11.17)(typescript@5.3.3)
+      astro: 4.4.0(@types/node@20.11.19)(typescript@5.3.3)
       es-module-lexer: 1.4.1
       estree-util-visit: 2.0.0
       github-slugger: 2.0.0
@@ -208,7 +208,7 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.1
     dependencies:
       '@sveltejs/vite-plugin-svelte': 3.0.2(svelte@5.0.0-next.57)(vite@5.1.3)
-      astro: 4.4.0(@types/node@20.11.17)(typescript@5.3.3)
+      astro: 4.4.0(@types/node@20.11.19)(typescript@5.3.3)
       svelte: 5.0.0-next.57
       svelte2tsx: 0.6.27(svelte@5.0.0-next.57)(typescript@5.3.3)
     transitivePeerDependencies:
@@ -223,7 +223,7 @@ packages:
       astro: ^3.0.0 || ^4.0.0
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 4.4.0(@types/node@20.11.17)(typescript@5.3.3)
+      astro: 4.4.0(@types/node@20.11.19)(typescript@5.3.3)
       autoprefixer: 10.4.17(postcss@8.4.33)
       postcss: 8.4.33
       postcss-load-config: 4.0.2(postcss@8.4.33)
@@ -1001,7 +1001,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 3.0.2(svelte@5.0.0-next.57)(vite@5.1.3)
       debug: 4.3.4
       svelte: 5.0.0-next.57
-      vite: 5.1.3(@types/node@20.11.17)
+      vite: 5.1.3(@types/node@20.11.19)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -1020,7 +1020,7 @@ packages:
       magic-string: 0.30.7
       svelte: 5.0.0-next.57
       svelte-hmr: 0.15.3(svelte@5.0.0-next.57)
-      vite: 5.1.3(@types/node@20.11.17)
+      vite: 5.1.3(@types/node@20.11.19)
       vitefu: 0.2.5(vite@5.1.3)
     transitivePeerDependencies:
       - supports-color
@@ -1127,8 +1127,8 @@ packages:
       '@types/unist': 2.0.10
     dev: false
 
-  /@types/node@20.11.17:
-    resolution: {integrity: sha512-QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw==}
+  /@types/node@20.11.19:
+    resolution: {integrity: sha512-7xMnVEcZFu0DikYjWOlRq7NTPETrm7teqUT2WkQjrTIkEgUyyGdWsj/Zg8bEJt5TNklzbPD1X3fqfsHw3SpapQ==}
     dependencies:
       undici-types: 5.26.5
 
@@ -1566,12 +1566,12 @@ packages:
     peerDependencies:
       astro: ^3.3.0 || ^4.0.0-beta
     dependencies:
-      astro: 4.4.0(@types/node@20.11.17)(typescript@5.3.3)
+      astro: 4.4.0(@types/node@20.11.19)(typescript@5.3.3)
       hast-util-to-html: 8.0.4
       remark-expressive-code: 0.32.4
     dev: false
 
-  /astro@4.4.0(@types/node@20.11.17)(typescript@5.3.3):
+  /astro@4.4.0(@types/node@20.11.19)(typescript@5.3.3):
     resolution: {integrity: sha512-JAsMrm1Z6W4Iqg9Q7LW/6lCXrqa4jndEOlR/yu7NGNP0BrPwSM8i4+yzya6hxgsNvyyVK8ywthaNhFmqd8Z+cg==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
@@ -1636,7 +1636,7 @@ packages:
       tsconfck: 3.0.2(typescript@5.3.3)
       unist-util-visit: 5.0.0
       vfile: 6.0.1
-      vite: 5.1.3(@types/node@20.11.17)
+      vite: 5.1.3(@types/node@20.11.19)
       vitefu: 0.2.5(vite@5.1.3)
       which-pm: 2.1.1
       yargs-parser: 21.1.1
@@ -6319,7 +6319,7 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /vite@5.1.3(@types/node@20.11.17):
+  /vite@5.1.3(@types/node@20.11.19):
     resolution: {integrity: sha512-UfmUD36DKkqhi/F75RrxvPpry+9+tTkrXfMNZD+SboZqBCMsxKtO52XeGzzuh7ioz+Eo/SYDBbdb0Z7vgcDJew==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -6347,7 +6347,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.11.17
+      '@types/node': 20.11.19
       esbuild: 0.19.12
       postcss: 8.4.35
       rollup: 4.12.0
@@ -6363,7 +6363,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.1.3(@types/node@20.11.17)
+      vite: 5.1.3(@types/node@20.11.19)
     dev: false
 
   /web-namespaces@2.0.1:
