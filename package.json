@@ -26,12 +26,14 @@
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
     "fuse.js": "^7.0.0",
+    "hastscript": "^9.0.0",
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0",
     "svelte": "5.0.0-next.57",
     "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
+    "@expressive-code/core": "^0.32.4",
     "@playwright/test": "^1.41.2",
     "@types/node": "^20.11.17",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
