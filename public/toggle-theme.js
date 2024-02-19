@@ -28,6 +28,10 @@ function reflectPreference() {
     ? document.documentElement.classList.add('dark')
     : document.documentElement.classList.remove('dark');
 
+  themeValue === 'dark'
+    ? document.documentElement.setAttribute('data-theme', 'dark')
+    : document.documentElement.setAttribute('data-theme', 'light');
+
   document.querySelector('#theme-btn')?.setAttribute('aria-label', themeValue);
   document.querySelector('#theme-btn2')?.setAttribute('aria-label', themeValue);
 

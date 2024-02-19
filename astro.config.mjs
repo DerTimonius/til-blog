@@ -26,8 +26,10 @@ export default defineConfig({
     tailwind(),
     expressiveCode({
       plugins: [pluginErrorPreview()],
-
       themes: [catppuccin, synthwave],
+      themeCssRoot: 'html',
+      themeCssSelector: (theme) => `[data-theme=${theme.name}]`,
+      useDarkModeMediaQuery: true,
     }),
     svelte(),
   ],
