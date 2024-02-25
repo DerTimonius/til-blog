@@ -35,7 +35,7 @@
   "devDependencies": {
     "@expressive-code/core": "^0.32.4",
     "@playwright/test": "^1.41.2",
-    "@types/node": "^20.11.19",
+    "@types/node": "^20.11.20",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "eslint": "^8.56.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
