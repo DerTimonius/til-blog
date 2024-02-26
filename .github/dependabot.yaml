@@ -4,8 +4,7 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'weekly'
-      day: 'sunday'
+      interval: 'monthly'
     groups:
       astro-packages:
         patterns:
@@ -17,6 +16,9 @@ updates:
       prettier-packages:
         patterns:
           - 'prettier*'
+      everything:
+        patterns:
+          - '*'
     labels:
       - 'dependencies'
       - 'security'
