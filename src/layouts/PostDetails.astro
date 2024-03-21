@@ -46,7 +46,8 @@ const time = remarkPluginFrontmatter.minutesRead;
     <div
       class="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:divide-y-0"
     >
-      <dl
+      <aside
+        aria-label="sidebar top"
         class="flex flex-col gap-4 pb-10 pt-6 lg:border-b lg:border-gray-200 lg:pt-11"
       >
         <div class="mx-auto flex w-full max-w-4xl justify-start">
@@ -65,7 +66,7 @@ const time = remarkPluginFrontmatter.minutesRead;
         <ReadingTime {time} size="lg" />
         <div class="lg:border-b lg:border-gray-200"></div>
         {headings.length ? <TOC {headings} /> : null}
-      </dl>
+      </aside>
       <div
         class="pb-6 divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-3 lg:row-span-2 lg:pb-0"
       >
@@ -83,7 +84,8 @@ const time = remarkPluginFrontmatter.minutesRead;
           }
         </article>
       </div>
-      <footer
+      <aside
+        aria-label="sidebar-bottom"
         class="!w-full divide-gray-200 text-sm font-medium dark:divide-gray-700 lg:divide-y"
       >
         <div>
@@ -111,7 +113,7 @@ const time = remarkPluginFrontmatter.minutesRead;
             </div>
           ) : null
         }
-      </footer>
+      </aside>
     </div>
   </main>
   <Footer className="max-w-6xl" />

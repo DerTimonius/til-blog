@@ -29,9 +29,8 @@ const linkClasses = classNames(
 <a
   data-test-id={dataTestId}
   href={disabled ? '#' : href}
-  tabindex={disabled ? '-1' : '0'}
   class={linkClasses}
-  aria-label={ariaLabel}
+  aria-label={ariaLabel ?? title}
   title={title}
   aria-disabled={disabled}
   target={newTab ? '_blank' : '_self'}
