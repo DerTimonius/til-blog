@@ -22,12 +22,12 @@ Not only is it pretty annoying to have to wait for so long to check if the tests
 
 ## Playwright tags
 
-With the release of `v1.42.0` [Playwright](https://playwright.dev) introduced the concept of adding __tags__ to your tests and then filtering them in the command.
+With the release of `v1.42.0` [Playwright](https://playwright.dev) introduced the concept of adding **tags** to your tests and then filtering them in the command.
 
 ```ts title="navigation.spec.ts"
-test('simple navigation test', { tags: '@navigation' }, async({ page }) => {
-    // ...
-})
+test('simple navigation test', { tags: '@navigation' }, async ({ page }) => {
+  // ...
+});
 ```
 
 If you now want to test only the tests with the `@navigation` tag, you run the following command:
@@ -66,8 +66,8 @@ As the `run` command is just bash, you can write a small bash script for this. S
 This code only runs if the added label starts with `tests:`. After other code that starts the server, I use the tag with the following code:
 
 ```yaml
-      - name: Run tagged tests
-        run:  pnpm exec playwright test --grep ${{ steps.get_label_name.outputs.tag }}
+- name: Run tagged tests
+  run: pnpm exec playwright test --grep ${{ steps.get_label_name.outputs.tag }}
 ```
 
 Now only the tagged tests run and the average wait time for the tests to finished has been reduced by 50%!

@@ -38,6 +38,7 @@ const sortedPosts = sortPosts(posts);
     pageTitle={[`Tag:`, `${tag}`]}
     titleTransition={tag}
     pageDesc={`TIL articles with the tag "${tag}" so far.`}
+    screenReaderOnly
   >
     <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
     <ul class="flex flex-col gap-4">

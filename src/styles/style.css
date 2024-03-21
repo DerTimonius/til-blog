@@ -5,7 +5,7 @@
 @layer base {
   :root,
   html {
-    --color-fill: 240, 240, 240;
+    --color-fill: 247, 247, 247;
     --color-text-base: 40, 39, 40;
     --color-accent: 65, 107, 149;
     --color-card: 230, 230, 230;
@@ -16,10 +16,10 @@
   html[class='dark'] {
     --color-fill: 13, 19, 35;
     --color-text-base: 234, 237, 243;
-    --color-accent: 191, 72, 72;
+    --color-accent: 220, 81, 81;
     --color-card: 52, 63, 96;
     --color-card-muted: 138, 51, 2;
-    --color-border: 191, 72, 72;
+    --color-border: 220, 81, 81;
     --color-border-dashed: 199, 80, 80;
   }
   body {

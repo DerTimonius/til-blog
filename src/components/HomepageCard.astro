@@ -25,10 +25,10 @@ const headerProps = {
     <Date datetime={date} />
     <div class="space-y-4 lg:col-span-3">
       <h2 {...headerProps}>{title}</h2>
-      <p class="text-sm uppercase text-gray-400 dark:text-gray-500">
+      <p class="text-sm uppercase text-gray-700/90 dark:text-gray-400">
         {tags.map((tag) => <span>{tag} </span>)}
       </p>
-      <p class="text-md text-gray-500 dark:text-gray-400">{description}</p>
+      <p class="text-md text-gray-700 dark:text-gray-300">{description}</p>
       <Link
         href={href}
         className="inline-block text-lg font-medium text-custom-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
