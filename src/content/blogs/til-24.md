@@ -4,7 +4,7 @@ pubDate: 2024-03-24
 tags: ['tools', 'rust', 'cli']
 isDraft: false
 relatedPosts: ['til-7']
-isFeatured: true
+isFeatured: false
 description: Sometimes it's better to build the tools you need yourself. You will learn a lot along the way!
 ---
 
@@ -28,7 +28,7 @@ Now that I decided on what to use, I should define what I want to build (yes, I 
 What was I missing in other similar tools?
 
 1. The most important missing feature was the git integration. I want to not only display the number of files or length of a file, but also how often a file has been changed. With a lengthy `git log` command, this information should be pretty simple to get.
-2. Last time I used the tool, I had to specifically ignore directories like the _node\_modules_ that I don't really care about when figuring out which files are important. It would be nice to automatically ignore all files that can be found in the `.gitignore` file.
+2. Last time I used the tool, I had to specifically ignore directories like the _node_modules_ that I don't really care about when figuring out which files are important. It would be nice to automatically ignore all files that can be found in the `.gitignore` file.
 3. I want to be able to tell the program, how many files I want to get when looking for the largest files.
 4. It would be nice to group lockfiles and maybe even config files.
 5. A complexity calculation would also be pretty neat.

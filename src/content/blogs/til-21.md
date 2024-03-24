@@ -3,6 +3,7 @@ title: Writing my first GitHub Action
 pubDate: 2024-02-14
 tags: ['typescript', 'github-actions']
 isDraft: false
+isFeatured: true
 description: When I needed a specific action to add in my workflow, I could not find a good one. So I wrote it myself - here is how!
 ---
 
