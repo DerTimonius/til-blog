@@ -1,0 +1,228 @@
+---
+title: Building my first Rust CLI tool
+pubDate: 2024-03-24
+tags: ['tools', 'rust', 'cli']
+isDraft: false
+relatedPosts: ['til-7']
+isFeatured: true
+description: Sometimes it's better to build the tools you need yourself. You will learn a lot along the way!
+---
+
+A while back I wrote about how [terminal commands](/blog/til-7) helped me to gather come information of the most important files in a codebase. In the end, I even found an okayish tool for the job called _cloc_.
+But for me, there were things missing: no git integration for example, or no complexity calculation.
+
+I decided to build it myself, because why not? It seemed to be a great opportunity to learn a few things about how to recursively traverse a project, how to read a lot of files and how to get the information I want from them.
+
+> You can check out the project, which is called `code-peek` on [my GitHub](https://github.com/DerTimonius/code-peek) and install it locally via `cargo install --git https://github.com/DerTimonius/code-peek.git` (you need to have Rust installed on your machine)
+
+## Choosing a language
+
+If you've read the title of this post, you'll of course know on what language I landed on, but I want to explain why I chose what I chose. I'm a full-stack dev and at work I'm using TypeScript almost exclusively. I do not have a college degree in computer science, my rudimentary knowledge there is completely self taught.
+
+Therefore I don't have a lot of expertise (or even experience) with low level languages. But I felt drawn to them for some time now and after my first steps in Rust during [Advent of Code](/blog/til-15) I decided to build this tool in Rust. I contemplated about using and learning _Go_, but I figured that getting a solid, foundational knowledge in Rust, where I already know some of the syntax (unlike Go, which I never used before), might be the better option.
+
+## Defining the tool
+
+Now that I decided on what to use, I should define what I want to build (yes, I know, it would have been better to do this first, but as I already knew that this will be a CLI tool, the decision to go with Rust was an easy choice).
+
+What was I missing in other similar tools?
+
+1. The most important missing feature was the git integration. I want to not only display the number of files or length of a file, but also how often a file has been changed. With a lengthy `git log` command, this information should be pretty simple to get.
+2. Last time I used the tool, I had to specifically ignore directories like the _node\_modules_ that I don't really care about when figuring out which files are important. It would be nice to automatically ignore all files that can be found in the `.gitignore` file.
+3. I want to be able to tell the program, how many files I want to get when looking for the largest files.
+4. It would be nice to group lockfiles and maybe even config files.
+5. A complexity calculation would also be pretty neat.
+
+The last two points are optional for the moment and not part of my minimal requirements.
+
+## Getting started with _clap_
+
+What's important when writing a CLI tool as a beginner? Finding a package that helps you with displaying and parsing of the options that the user can use. In the JavaScript world, this would be something like `Commander` and `clack`, in the Rust world it's [`clap`](https://docs.rs/clap/latest/clap/). There are a few ways to write a CLI using clap, I landed on not writing structs or `Arg::new()` and using the built-in macros like `command!` or `arg!` instead.
+
+It's pretty straight forward to add arguments as flags, something I wanted to do because I have the flexibility to call specific arguments wherever I want. This way I can specify the number first and the directory afterwards and not be forced to specify the directory as the first argument at all times.
+
+At the same time, I want to keep the initial command as simple as possible, where `code-peek` alone would be enough to run the program. The nice thing about _clap_ is that you can set every argument and subcommand (which I do not use as of writing this) as optional - and you could pass initial values to them, but I decided to add them later with pattern matching.
+
+Here are all commands that you could use at the moment:
+
+```rs title="cli.rs"
+let matches = command!("code-peek")
+    .name("Code Peek")
+    .version(crate_version!())
+    .about("A CLI tool to peek into codebases and gather insights")
+    .arg(arg!([directory] -d --dir [DIRECTORY] "Directory to search, defaults to cwd").required(false))
+    .arg(arg!([num] -n --num [NUMBER]  "Number of files to display, defaults to 10").required(false))
+    .arg(
+        arg!([exclude]
+        -e --exclude [GLOB] ... "Globs to exclude other than the files in the .gitignore, expects a comma separated list. E.g. '*.txt,*.csv'"
+        )
+        .required(false),
+    )
+    .arg(arg!([all] -a --all "Display all available information").required(false))
+    .arg(arg!([group] -g --group "Group the results by its extension").required(false))
+    .arg(arg!([git] -t --git "Get git info - how many commits were made to each file").required(false))
+    .arg(
+        arg!([match]
+            -m --match [GLOB] ... "Globs to check, expects a comma separated list. E.g. '*.txt,*.csv' (Only files that match the pattern will be processed)"
+        )
+        .required(false),
+    )
+    .get_matches();
+```
+
+Now, if I want to access anything from the flags, I can use `matches.get_one(<flag>)`:
+
+```rs title="cli.rs"
+let dir = match matches.get_one::<String>("directory") {
+    Some(directory) => directory,
+    None => default_dir,
+};
+```
+
+Yes, I know I could have done something like `matches.get_one::<String>("directory").unwrap_or(default_dir)` but I like this better.
+
+## Traversing the project
+
+With all the information gathered from the arguments, in the next step I have to traverse the project in some way. I started with something like `std::fs::read_dir(dir).unwrap()`, which works, but I quickly realized that this would become pretty cumbersome as I have to manually ignore all files in the `.gitignore`. The biggest issue there is that the ignored paths/files are saved as glob patterns and I would have to use a package for this check.
+
+And since I have to use a package anyway, I started looking for a package that a) traverses the project and b) automatically ignores the files in the gitignore. After some searching I found the aptly named [`ignore` crate](https://docs.rs/ignore/latest/ignore/) that does just that. As a bonus it also provides to option to override the _walker_ which I use for excluding glob patterns that are not in the gitignore.
+
+## Getting the file information
+
+Now that I'm traversing the project correctly, it's time to start getting some information from the files. My first idea was to simply display the number of lines per file:
+
+```rs title="file.rs"
+fn get_file_info(entry: &DirEntry, dir: &str) {
+    let entry = entry.clone();
+    let file_name = entry.file_name().to_str().unwrap().to_string();
+
+    let lines = fs::read_to_string(entry.path()).unwrap().lines().count() as usize;
+    println!("{file_name} is {lines} long");
+}
+```
+
+In some projects, this would work just fine. But the moment I tried this in a project with pictures it failed. Why? Well, you can't use `fs::read_to_string()` on something that is not `utf-8`. Fixing this should be pretty simple by checking if the function errors or not:
+
+```rs title="file.rs" ins={5, 8}
+fn get_file_info(entry: &DirEntry, dir: &str) {
+    let entry = entry.clone();
+    let file_name = entry.file_name().to_str().unwrap().to_string();
+
+    if fs::read_to_string(entry.path()).is_ok() {
+        let lines = fs::read_to_string(entry.path()).unwrap().lines().count() as usize;
+        println!("{file_name} is {lines} long");
+   }
+}
+```
+
+Nice, no errors now! Now I can create the `File struct`:
+
+```rs title="file.rs" ins={3-8, 10-13, 17-23}
+fn get_file_info(entry: &DirEntry, dir: &str) {
+    let entry = entry.clone();
+    let path = entry
+        .path()
+        .unwrap()
+        .to_str()
+        .unwrap()
+        .to_string();
+    let file_name = entry.file_name().to_str().unwrap().to_string();
+    let extension = match entry.path().extension() {
+        Some(ext) => ext.to_owned(),
+        None => OsString::from("config"),
+    };
+
+    if fs::read_to_string(entry.path()).is_ok() {
+        let lines = fs::read_to_string(entry.path()).unwrap().lines().count() as usize;
+        return Some(File {
+            name: file_name,
+            path,
+            extension,
+            loc: lines,
+            commits: None,
+        });
+
+   }
+}
+```
+
+## It's time for git
+
+But this information is not the only I want to get from the files. I also want to know how often they have been changed in the past. Why? A file with 1,000 lines of code that has been changed 5 times might not be as important as a file with 150 lines of code that has been changed 90 times.
+
+How do we get this information? I actually referenced my own [blog post](/blog/til-7), where I described how to leverage infos found in `git log`. I decided to use a shorter command this time:
+
+```sh
+git log --pretty=format: --name-only | sort | uniq -c
+```
+
+But how do I actually run this? Knowing that `execa` exists for JavaScript, I just had to figure out how to do this in Rust. The great thing is that there is no need to install another package, the standard library has everything I need with `std::process::Command`. Now I can read the _stdout_, but how do I parse it? Enter `nom`, a string parsing tool I used in Advent of Code a lot.
+
+How does the output of the command look like? It starts with a singular number that represents the total number of commits, followed by the individual commits per file. I wrote a parses to take care of this:
+
+```rs title="git.rs"
+fn parse_git_commits(input: &str) -> IResult<&str, (usize, HashMap<&str, u32>)> {
+    let (input, commits) = take_till(|x| x == '\n')(input)?;
+
+    let commits = commits
+        .trim()
+        .parse::<usize>()
+        .expect("should be a valid integer");
+
+    let (input, file_info) = preceded(
+        line_ending,
+        separated_list1(
+            line_ending,
+            separated_pair(
+                preceded(multispace0, complete::u32),
+                multispace1,
+                not_line_ending,
+            ),
+        ),
+    )(input)?;
+
+    let mut file_map: HashMap<&str, u32> = HashMap::new();
+
+    for (num, name) in file_info.iter() {
+        file_map.insert(name.trim(), *num);
+    }
+
+    Ok((input, (commits, file_map)))
+}
+```
+
+I'm returning a hashmap of the files where the file is the key and the commits are the values. But why? Well, I did not add the number of commits to the files just yet. I already have a vector of files, so whatever I'm doing to get the number of commits to the file is at least _O(n)_. Using a hashmap here should speed this process up a bit as looking up the value in a hashmap is an _O(1)_ operation.
+
+```rs title="git.rs"
+for file in files.iter_mut() {
+    let commits = match file_map.get(file.path.as_str()) {
+        Some(x) => *x as usize,
+        _ => 1,
+    };
+    file.add_commits(commits)
+}
+```
+
+I also thought, why not displaying the contributors that have added the most commits to a project? That was pretty simple, I just had to use a different command:
+
+```sh
+git log --format='%aN' | sort | uniq -c | sort -nr
+```
+
+This time I had to sort the output as it actually matters.
+
+## Displaying the information
+
+The minimal requirements are almost fulfilled. In the last step I had to find a way to display the information. I knew I wanted to display them in a table of some sorts with some colors to distinguish specific parts of the result from another. Tables are always hard to do, so I looked for packages. I tried some of them and landed on [`term-table`](https://crates.io/crates/term-table). To be honest, I'm not 100% happy with it but for the moment it's fine. I probably will change it at some point, but it's not my priority now.
+
+To color the output, I found [`colored`](https://crates.io/crates/colored) which is very simple and exactly what I needed.
+
+What information gets displayed is up to the user. Adding the `-g` flag groups the information by the language used, `-t` adds the git information. With `-a` every piece of information gathered gets displayed.
+
+## Missing features
+
+Building this tool was a fun challenge, getting to know more about standard libraries, how to read files, how to trigger commands and reading the output and much more.
+
+Now that I have a simple tool that does what it's supposed to do, I can start improving it and add more features. The calculation of complexity for example is something that I want to add. At this point in time, it would be a pretty simple calculation as I only have the information of lines of code and number of commits, but in the future there might be more things I could add to the calculation.
+
+I also want to group the lockfiles and config files together in some way, I haven't decided yet. But I already know that improving the project will also improve my knowledge of Rust. And what more could I want from a pet project like this?
