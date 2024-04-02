@@ -1,7 +1,7 @@
 ---
 title: Building my first Rust CLI tool
 pubDate: 2024-03-24
-tags: ['tools', 'rust', 'cli']
+tags: ['tools', 'rust', 'cli', 'open-source']
 isDraft: false
 relatedPosts: ['til-7']
 isFeatured: false
