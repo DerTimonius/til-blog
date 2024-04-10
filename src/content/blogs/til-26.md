@@ -44,4 +44,4 @@ Hours turn into days as you scour the internet for the best Neovim plugins, colo
 
 Once you've got your Neovim setup just right - with the perfect blend of language servers, fuzzy finders, and syntax highlighters - you'll be unstoppable. Or, at the very least, you'll look like a real software engineer, sipping coffee and staring intently at your terminal while everyone else is content with their boring old IDEs.
 
-Now that you've finally embraced the ways of Vim, the only thing missing is a beautifully groomed mustache to be a complete (male) software engineer. After all, what's a true Vim master without a finely curated facial hair statement?
+Now that you've finally embraced the ways of Vim, the only thing missing is a beautifully groomed mustache to be a complete software engineer. After all, what's a true Vim master without a finely curated facial hair statement?
