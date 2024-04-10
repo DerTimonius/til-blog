@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
 import PostDetails from '~/layouts/PostDetails.astro';
 import Posts from '~/layouts/Posts.astro';
 import { site } from '~/utils/config';
+import { checkReleaseDate } from '~/utils/formatDate';
 import getPageNumbers from '~/utils/pageNumbers';
 import { getSortedPosts } from '~/utils/sortPosts';
 
@@ -11,7 +12,10 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blogs', ({ data }) => !data.isDraft);
+  const posts = await getCollection(
+    'blogs',
+    ({ data }) => !data.isDraft && checkReleaseDate(data.pubDate),
+  );
 
   const postPaths = posts.map((post) => ({
     params: { slug: post.slug },
