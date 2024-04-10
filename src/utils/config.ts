@@ -8,7 +8,7 @@ export const site: Site = {
   username: 'DerTimonius',
   lightAndDarkMode: true,
   postPerPage: 5,
-  ogImage: 'og.png',
+  ogImage: 'og-grain.png',
 };
 
 export const logoImage = {

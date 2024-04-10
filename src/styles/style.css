@@ -44,6 +44,7 @@
   }
   .prose {
     @apply prose-headings:!mb-3 prose-headings:!text-custom-base
+    prose-h2:!text-custom-accent
     prose-h3:italic prose-p:!text-custom-base
     prose-a:!text-custom-base prose-a:!decoration-dashed prose-a:underline-offset-8
     hover:prose-a:text-custom-accent prose-blockquote:!border-l-custom-accent
