@@ -29,9 +29,9 @@ export default defineConfig({
       useDarkModeMediaQuery: true,
     }),
     svelte(),
-    mdx({ remarkPlugins: [remarkReadingTime] }),
+    mdx(),
   ],
-  // markdown: {
-  //   remarkPlugins: [remarkReadingTime]
-  // }
+  markdown: {
+    remarkPlugins: [remarkReadingTime],
+  },
 });
