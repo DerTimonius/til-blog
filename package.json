@@ -15,28 +15,28 @@
     "test:e2e:debug": "playwright test --debug"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.2.2",
+    "@astrojs/mdx": "^2.3.1",
     "@astrojs/rss": "^4.0.5",
-    "@astrojs/svelte": "^5.2.0",
+    "@astrojs/svelte": "^5.4.0",
     "@astrojs/tailwind": "^5.1.0",
-    "@fontsource/fira-mono": "^5.0.8",
-    "@tailwindcss/typography": "^0.5.10",
-    "astro": "^4.4.9",
-    "astro-expressive-code": "^0.34.1",
+    "@fontsource/fira-mono": "^5.0.13",
+    "@tailwindcss/typography": "^0.5.12",
+    "astro": "^4.6.3",
+    "astro-expressive-code": "^0.35.2",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
     "fuse.js": "^7.0.0",
     "hastscript": "^9.0.0",
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0",
-    "svelte": "5.0.0-next.70",
-    "tailwindcss": "^3.4.1"
+    "svelte": "5.0.0-next.110",
+    "tailwindcss": "^3.4.3"
   },
   "devDependencies": {
-    "@expressive-code/core": "^0.33.4",
-    "@playwright/test": "^1.42.1",
-    "@types/node": "^20.11.24",
-    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@expressive-code/core": "^0.33.5",
+    "@playwright/test": "^1.43.1",
+    "@types/node": "^20.12.7",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
     "eslint": "^8.57.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-astro": "^0.33.1",
@@ -46,8 +46,8 @@
     "eslint-plugin-react": "^7.34.1",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
-    "prettier-plugin-svelte": "^3.2.2",
-    "prettier-plugin-tailwindcss": "^0.5.13",
-    "typescript": "^5.3.3"
+    "prettier-plugin-svelte": "^3.2.3",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "typescript": "^5.4.5"
   }
 }
