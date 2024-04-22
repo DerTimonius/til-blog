@@ -5,7 +5,7 @@
   import SearchResults from './SearchResults.svelte';
   import type { SearchList, SearchResult } from '~/utils/types';
 
-  const { posts } = $props<{ posts: CollectionEntry<'blogs'>[] }>();
+  const { posts }: { posts: CollectionEntry<'blogs'>[] } = $props();
   const searchList = posts.map((p) => {
     return {
       title: p.data.title,
