@@ -105,6 +105,7 @@ fn get_file_info(entry: &DirEntry, dir: &str) {
 
 In some projects, this would work just fine. But the moment I tried this in a project with pictures it failed. Why? Well, you can't use `fs::read_to_string()` on something that is not `utf-8`. Fixing this should be pretty simple by checking if the function errors or not:
 
+<!-- prettier-ignore-start -->
 <AnimateCodeBlock client:only lang="rs" previous={`fn get_file_info(entry: &DirEntry, dir: &str) {
     let entry = entry.clone();
     let file_name = entry.file_name().to_str().unwrap().to_string();
@@ -156,6 +157,7 @@ Nice, no errors now! Now I can create the `File struct`:
         println!("{file_name} is {lines} long");
     }
 }`}/>
+<!-- prettier-ignore-end -->
 
 ## It's time for git
 
