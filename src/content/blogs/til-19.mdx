@@ -7,6 +7,8 @@ isFeatured: false
 description: After using REST and GraphQL APIs, it's time to try a different approach of data fetching
 ---
 
+import AnimateCodeBlock from '~/components/AnimateCodeBlock.svelte';
+
 Web development broken down to its core sounds simple: store data, display data, change data. But the ways to achieve this can vary greatly.
 
 I have been using REST and GraphQL APIs for some time to fetch the data from the backend and am quite familiar with them. Personally, I like GraphQL more, mostly because with the right tools it can be pretty easy to get a good amount of type-safety.
@@ -162,8 +164,13 @@ export const todoRouter = createTRPCRouter({
 
 The first thing I did after creating the `todoRouter` was to write a query that returns all todos and also a mutation to create a todo (otherwise, how would I know if the query works):
 
-```ts title="src/api/routers/todo.ts"
-export const todoRouter = createTRPCRouter({
+<AnimateCodeBlock
+  client:only="svelte"
+  lang="ts"
+  previous={`export const todoRouter = createTRPCRouter({
+  // Rest of the code
+});`}
+  next={`export const todoRouter = createTRPCRouter({
   createTodo: publicProcedure
     .input(z.object({ name: z.string(), description: z.string().nullable() }))
     .mutation(async ({ ctx, input }) => {
@@ -177,8 +184,8 @@ export const todoRouter = createTRPCRouter({
   getAllTodos: publicProcedure.query(async ({ ctx }) => {
     return ctx.db.todo.findMany({ orderBy: { createdAt: 'asc' } });
   }),
-});
-```
+});`}
+/>
 
 Let's look at the difference between the two:
 
