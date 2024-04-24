@@ -8,6 +8,7 @@ updatedAt: 2023-10-20
 ---
 
 import Aside from '~/components/Aside.astro';
+import AnimateCodeBlock from '~/components/AnimateCodeBlock.svelte';
 
 I recently decided to step up my knowledge in data structures and algorithms. I had some prior knowledge, but data structures is a topic where knowing more can help you tremendously at your job or any of your personal coding projects.
 
@@ -84,28 +85,45 @@ console.log(arr);
 
 An ArrayBuffer can be described as an array of bytes whose elements cannot be accessed directly. To achieve this, it's necessary to create a view into the array first:
 
-```ts
-const arr8View = new Uint8Array(arr);
+<AnimateCodeBlock
+  client:only="svelte"
+  lang="ts"
+  previous={`const arr = new ArrayBuffer(8);
+console.log(arr);
+// ArrayBuffer {
+//   [Uint8Contents]: <00 00 00 00 00 00 00 00>,
+//   byteLength: 8
+// }`}
+  next={`const arr8View = new Uint8Array(arr);
 arr8View[1] = 12;
 console.log(arr);
 // ArrayBuffer {
 //   [Uint8Contents]: <00 0c 00 00 00 00 00 00>,
 //   byteLength: 8
-// }
-```
+// }`}
+/>
 
 By creating the view with a 8-bit offset, index 1 will be the second item (as one might expect).
 But you could also create a view with a 16-bit offset, setting a value at the first index and nothing would collide.
 
-```ts
-const arr16View = new Uint16Array(arr);
+<AnimateCodeBlock
+  client:only="svelte"
+  lang="ts"
+  next={`const arr16View = new Uint16Array(arr);
 arr16View[1] = 45;
 console.log(arr);
 // ArrayBuffer {
 //   [Uint8Contents]: <00 0c 2d 00 00 00 00 00>,
 //   byteLength: 8
-// }
-```
+// }`}
+  previous={`const arr8View = new Uint8Array(arr);
+arr8View[1] = 12;
+console.log(arr);
+// ArrayBuffer {
+//   [Uint8Contents]: <00 0c 00 00 00 00 00 00>,
+//   byteLength: 8
+// }`}
+/>
 
 Since the offset is now 16-bit instead of 8, index 1 for that view is the third item of the array.
 
