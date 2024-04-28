@@ -22,9 +22,15 @@
       ? 'catppuccin-mocha'
       : 'synthwave-84';
 
+  const reducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches;
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
+        if (reducedMotion) return;
+
         if (entry.isIntersecting) {
           observer.disconnect();
           setTimeout(() => {
