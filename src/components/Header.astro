@@ -262,6 +262,9 @@ const { activeNav } = Astro.props;
   .menu-icon.is-active .close {
     @apply opacity-100;
   }
+  svg {
+    @apply h-6 w-6 fill-custom-base group-hover:fill-custom-accent;
+  }
 </style>
 
 <script>

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
-import Tag from '~/components/Tag.astro';
+import TagWithIcon from '~/components/TagWithIcon.astro';
 import Layout from '~/layouts/Layout.astro';
 import Main from '~/layouts/Main.astro';
 import { site } from '~/utils/config';
@@ -20,8 +20,8 @@ const tags = await getTags(posts);
     pageDesc="What tags have been used so far."
     screenReaderOnly
   >
-    <ul>
-      {tags.map((tag) => <Tag {tag} size="lg" showCount />)}
+    <ul class="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      {tags.map((tag) => <TagWithIcon {tag} />)}
     </ul>
   </Main>
   <Footer />

@@ -63,7 +63,7 @@ export const socialIcons: SocialIcons = {
     </svg>`,
   RSS: `<svg
     xmlns="http://www.w3.org/2000/svg"
-    class="scale-125 fill-custom-accent"
+    class="scale-125 inline-block h-6 w-6 fill-custom-accent"
     ><path
       d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
     ></path><path
