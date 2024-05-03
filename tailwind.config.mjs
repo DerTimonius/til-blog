@@ -45,6 +45,13 @@ module.exports = {
           light: withOpacity('--color-border-dashed'),
         },
       },
+      stroke: {
+        custom: {
+          base: withOpacity('--color-text-base'),
+          accent: withOpacity('--color-accent'),
+        },
+        transparent: 'transparent',
+      },
       fill: {
         custom: {
           base: withOpacity('--color-text-base'),

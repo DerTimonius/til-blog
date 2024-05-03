@@ -98,7 +98,13 @@ br.shiki-magic-move-leave-active {
     focus-visible:no-underline focus-visible:outline-dashed;
   }
   svg {
-    @apply inline-block h-6 w-6 fill-custom-base group-hover:fill-custom-accent;
+    @apply inline-block h-6 w-6 group-hover:fill-custom-accent;
+  }
+  svg.tags {
+    @apply inline-block h-12 w-12 fill-custom-base;
+  }
+  svg.custom {
+    @apply inline-block h-12 w-12 stroke-current group-hover:fill-none group-hover:stroke-custom-accent;
   }
   svg.icon-tabler {
     @apply inline-block h-6 w-6 scale-125 fill-transparent
