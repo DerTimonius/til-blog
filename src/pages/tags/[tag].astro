@@ -7,6 +7,7 @@ import Layout from '~/layouts/Layout.astro';
 import Main from '~/layouts/Main.astro';
 import { site } from '~/utils/config';
 import getTags from '~/utils/getTags';
+import { tagIcons } from '~/utils/tagIcons';
 import { getPostsByTag, sortPosts } from '~/utils/sortPosts';
 
 export interface Props {
@@ -30,17 +31,32 @@ const { tag } = Astro.params;
 const posts = await getPostsByTag(tag);
 
 const sortedPosts = sortPosts(posts);
+const randomIdx = Math.floor(Math.random() * tagIcons.other.length);
+const icon =
+  tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
 ---
 
 <Layout title={`Tag:${tag} | ${site.title}`}>
   <Header activeNav="tags" />
   <Main
-    pageTitle={[`Tag:`, `${tag}`]}
-    titleTransition={tag}
     pageDesc={`TIL articles with the tag "${tag}" so far.`}
     screenReaderOnly
   >
-    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
+    <div class="flex flex-col gap-2 sm:gap-0 sm:items-center sm:flex-row sm:justify-between">
+      <h1
+        class="text-2xl font-semibold sm:text-3xl capitalize"
+        slot="title"
+        transition:name={tag}
+      >
+        {tag.replace(/-/g, ' ')}
+      </h1>
+      <div
+        class="border rounded-lg border-inherit h-24 w-24 flex items-center justify-center hover:bg-custom-card group"
+        transition:name={`icon-${tag}`}
+      >
+        <Fragment set:html={icon} />
+      </div>
+    </div>
     <ul class="flex flex-col gap-4">
       {
         sortedPosts.map(({ data, slug }) => (
