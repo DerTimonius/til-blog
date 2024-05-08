@@ -6,7 +6,15 @@
     previous,
     next,
     lang,
-  }: { previous: string; next: string; lang: string } = $props();
+    autoanimate = true,
+    duration = 600,
+  }: {
+    previous: string;
+    next: string;
+    lang: string;
+    autoanimate?: boolean;
+    duration?: number;
+  } = $props();
 
   let code = $state(previous);
   let container: Element | undefined = $state();
@@ -29,7 +37,7 @@
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (reducedMotion) return;
+        if (reducedMotion || !autoanimate) return;
 
         if (entry.isIntersecting) {
           observer.disconnect();
@@ -56,7 +64,7 @@
 {#await highlighter then highlighter}
   <div bind:this={container} class="relative">
     <ShikiMagicMove
-      options={{ duration: 600, stagger: 3, animateContainer: true }}
+      options={{ duration, stagger: 3, animateContainer: true }}
       onStart={() => (animating = true)}
       onEnd={() => (animating = false)}
       {theme}

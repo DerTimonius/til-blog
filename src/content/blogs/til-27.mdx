@@ -1,0 +1,502 @@
+---
+title: Animating code blocks
+pubDate: 2024-05-08
+tags: ['animation', 'svelte']
+isDraft: false
+isFeatured: false
+description: I have to come up with a great description at some point
+---
+
+import AnimateCodeBlock from '~/components/AnimateCodeBlock.svelte';
+import Aside from '~/components/Aside.astro';
+
+Let's be honest: we all like smooth animations. It doesn't matter if you're looking at satisfying animations made in Blender/Houdini (or similar tools) or great code animations like the ones in the videos of the great [Code Aesthetic channel](https://www.youtube.com/@CodeAesthetic) on Youtube. Or smooth transitions found in some websites. At least I enjoy them and I'm regularly amazed of the possibilities CSS provides.
+
+A few weeks ago I stumbled over [shiki-magic-move](https://shiki-magic-move.netlify.app/), a package by the great Anthony Fu, which allows for very nice-looking animations of code like the following.
+
+<AnimateCodeBlock autoanimate={false} client:only="svelte" previous={`function recursiveFactorial(num) {
+  // ...
+}`} next={`function recursiveFactorial(num) {
+  if (num === 1) return num;
+
+  return num \* recursiveFactorial(num - 1);
+}`} lang="ts" />
+
+When I saw these transitions, I knew I had to implement them in this in blog in some way.
+
+The journey to get to this result was both easier and harder than expected. Let me explain!
+
+## Trying the wrong approach
+
+My initial idea was to use the low-level renderer that _shiki-magic-move_ provides, in a plugin for the markdown files. The plugin should take a certain kind of markdown, parse the code in some way and then render the animation when the reader clicks a button.
+
+````markdown
+```ts animate-code
+<!-- before -->
+let animate;
+
+<!-- after -->
+let animate = true;
+```
+````
+
+As I am using [expressive-code](https://expressive-code.com/) for the code-blocks, it's actually pretty trivial to write plugins and to get the text of the code-block:
+
+```js
+export function animateCodePlugin() {
+  return: {
+    name: "Animate Code",
+    hooks: {
+      preprocessCode: (context) => {
+        if (!context.codeBlock.meta.includes("animate-code")) return;
+
+        const lines = context.codeBlock.getLines();
+      }
+    }
+  }
+}
+```
+
+`getLines()` returns an array of `ExpressiveCodeLine` which I could then use to get the correct lines by looking for the _before_ and _after_ blocks.
+
+<AnimateCodeBlock autoanimate={false} client:only="svelte" lang="js" previous={`export function animateCodePlugin() {
+  return: {
+    name: "Animate Code",
+    hooks: {
+      preprocessCode: (context) => {
+        if (!context.codeBlock.meta.includes("animate-code")) return;
+
+        const lines = context.codeBlock.getLines();
+      }
+    }
+  }
+}`} next={`function getCorrectBlocks(lines) {
+  const beforeStartingIdx = lines.findIndex((line) => line.text === "<!-- before -->") + 1;
+  const afterStartingIdx = lines.findIndex((line) => line.text === "<!-- after -->") + 1;
+
+  return {
+    beforeBlock: lines.slice(beforeStartingIdx, afterStartingIdx),
+    afterBlock: lines.slice(afterStartingIdx)
+  }
+}
+
+export function animateCodePlugin() {
+  return: {
+    name: "Animate Code",
+    hooks: {
+      preprocessCode: (context) => {
+        if (!context.codeBlock.meta.includes("animate-code")) return;
+
+        const lines = context.codeBlock.getLines();
+        const { beforeBlock, afterBlock } = getCorrectBlocks();
+      }
+    }
+  }
+}`} />
+
+In the next step I tried to pass these blocks to the `MagicMoveRenderer` and to actually render. And this is where everything broke, because I did not think of a small detail, that is completely obvious. The preprocessCode hook runs on the server/at build-time, not client-side. And the `render()` method of _MagicMoveRenderer_ of course needs access to the document.
+
+So, what do I do now? There are two options:
+
+1. Rewrite the plugin so that it does the same as the `render()` method, but with `hastscript` instead of accessing the `document` element.
+2. Take a different route and build an interactive island.
+
+## Reverse Engineering
+
+Either way, I have to take a look at the original repo and figure out how things are working. After some time and thinking, I decided to go for the interactive island.
+
+There is a React wrapper for the `MagicMoveRenderer`, but as I do not want to use React in this blog (nothing against React, but I want to learn new things and I'm using it at my job already), I want to use Svelte. The problem: there is no Svelte component (currently, there is a PR open to add it to the package that was opened shortly after I finished mine).
+
+Time for a battle plan:
+
+- I need to figure out what elements of the renderer I actually need as there are two different version, one being more lightweight than the other.
+- How do I actually translate these parts from React to Svelte
+- Find the best way to add both codes to the component
+
+I'll start with the most important thing I learned the hard way: if you try to reverse engineer something into a different framework, also double-check that you are adding the applied CSS. I did not at first, then put it into the wrong spot. Yeah.
+
+## The `<MagicMoveRenderer>`
+
+Looking at the React version of the `MagicMove` component, we can see that it calls the `MagicMoveRenderer` component, so I guess I'll start with this one. Before we add the logic, translating the JSX will lead to the following:
+
+```svelte
+<pre bind:this={container} class="shiki-magic-move-container">
+  {#if !isMounted}
+    {#each props.tokens.tokens as token}
+      {#if token.content === '\n'}
+        <br />
+      {/if}
+      <span class="shiki-magic-move-item">
+        {token.content}
+      </span>
+    {/each}
+  {/if}
+</pre>
+```
+
+The main logic is in the `useEffect` that mount the renderer, pass the options to the renderer, do pre- and post-functions if defined and call `.render()`. Translated, this looks like this:
+
+<AnimateCodeBlock autoanimate={false} lang="svelte" next={`<script lang="ts">
+  const { ...props }: MagicMoveRendererProps = $props();
+
+  let container: HTMLPreElement;
+  let renderer: MagicMoveRenderer;
+  let isMounted = $state(false);
+
+  $effect(() => {
+    if (!container) return;
+    container.innerHTML = '';
+    isMounted = true;
+    renderer = new MagicMoveRenderer(container);
+  });
+
+  $effect(() => {
+    async function render() {
+      if (!renderer) return;
+      Object.assign(renderer.options, props.options);
+      if (props.animate) {
+        if (props.previous) renderer.replace(props.previous);
+        props.onStart?.();
+        await renderer.render(props.tokens);
+        props.onEnd?.();
+      } else {
+        renderer.replace(props.tokens);
+      }
+    }
+    render();
+  });
+</script>
+
+<pre bind:this={container} class="shiki-magic-move-container">
+  {#if !isMounted}
+    {#each props.tokens.tokens as token}
+      {#if token.content === '\\n'}
+        <br />
+      {/if}
+      <span class="shiki-magic-move-item">
+        {token.content}
+      </span>
+    {/each}
+  {/if}
+</pre>
+`} previous={`<pre bind:this={container} class="shiki-magic-move-container">
+  {#if !isMounted}
+    {#each props.tokens.tokens as token}
+      {#if token.content === '\\n'}
+        <br />
+      {/if}
+      <span class="shiki-magic-move-item">
+        {token.content}
+      </span>
+    {/each}
+  {/if}
+</pre>`} client:only="svelte" />
+
+The actual `MagicMove` component mostly creates the machine and passes the result to the `MagicMoveRenderer`:
+
+```svelte
+<script lang="ts">
+  // ...
+
+  const machine = createMagicMoveMachine(
+    (code) =>
+      codeToKeyedTokens(props.highlighter, code, {
+        lang: props.lang,
+        theme: props.theme,
+      }),
+    props.options,
+  );
+  const result = $derived(machine.commit(props.code));
+</script>
+
+<MagicMoveRenderer
+  animate={true}
+  tokens={result.current}
+  previous={result.previous}
+  options={props.options}
+  onStart={props.onStart}
+  onEnd={props.onEnd}
+/>
+```
+
+But I can't really call this component in the `.mdx` files yet. Time to build the wrapper.
+
+## The `<AnimateCodeBlock>`
+
+I have to create a component that takes in the code to start the animation with and the code at the end. But first, we need the highlighter from `shiki` since we have to pass it to the `MaigcMoveRenderer`.
+
+```svelte
+<script lang="ts">
+  import { getHighlighter } from 'shiki';
+  import MagicMove from './MagicMove.svelte';
+
+  let code = $state("let animating;");
+
+  const highlighter = getHighlighter({
+    themes: ['catppuccin-mocha', 'synthwave-84'],
+    langs: ["js", "ts", "svelte", "rust"],
+  });
+</script>
+
+{#await highlighter then highlighter}
+  <MagicMove
+    lang="ts"
+    options={{ duration: 600, stagger: 3, animateContainer: true }}
+    theme="catppuccin-mocha"
+    {highlighter}
+    {code}
+  />
+  <button onclick={() => { code = "let animating = true;" }}>Toggle code</button>
+{/await}
+```
+
+With the button, we can at least check if the animation works.
+
+<AnimateCodeBlock lang="ts" autoanimate={false} previous={`let animating;`} next={`let animating = true;`} client:only="svelte" />
+
+Looking good! Let's get the correct code in here with props and change the logic a bit. And also, create a good looking button and move it to the same place the copy button is placed with `expresive-code`.
+
+<AnimateCodeBlock client:only="svelte" duration={1200} lang="svelte" autoanimate={false} previous={`<script lang="ts">
+  import { getHighlighter } from 'shiki';
+  import MagicMove from './MagicMove.svelte';
+
+  let code = $state("let animating;");
+
+  const highlighter = getHighlighter({
+    themes: ['catppuccin-mocha', 'synthwave-84'],
+    langs: ["js", "ts", "svelte", "rust"],
+  });
+</script>
+
+{#await highlighter then highlighter}
+  <MagicMove
+    lang="ts"
+    options={{ duration: 600, stagger: 3, animateContainer: true }}
+    theme="catppuccin-mocha"
+    {highlighter}
+    {code}
+  />
+  <button onclick={() => { code = "let animating = true;" }}>Toggle code</button>
+{/await}`} next={`<script lang="ts">
+  import { getHighlighter } from 'shiki';
+  import MagicMove from './MagicMove.svelte';
+
+  let {
+    previous,
+    next,
+    lang,
+  }: {
+    previous: string;
+    next: string;
+    lang: string;
+  } = $props();
+
+  let code = $state(previous);
+
+  const highlighter = getHighlighter({
+    themes: ['catppuccin-mocha', 'synthwave-84'],
+    langs: [lang],
+  });
+</script>
+
+{#await highlighter then highlighter}
+  <div class="relative">
+    <MagicMove
+      options={{ duration: 600, stagger: 3, animateContainer: true }}
+      theme="catppuccin-mocha"
+      {highlighter}
+      {code}
+      {lang}
+    />
+    <button
+      class="absolute top-0 right-0 m-2 border-1 border rounded-md p-1 border-slate-600 text-custom-base hover:bg-slate-600/50"
+      onclick={() => (code === previous ? (code = next) : (code = previous))}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+        />
+      </svg>
+    </button>
+  </div>
+{/await}`}/>
+
+So, if I want to call this component in my `.mdx` files, it would look something like this:
+
+```mdx
+<AnimateCodeBlock 
+  autoanimate={false} 
+  client:only 
+  next={`let animating = true;`} 
+  lang="ts" 
+  previous={`let animating;`} 
+/>
+```
+### `client:only`
+
+Astro is, in its core, a non-interactive framework (which means very interactive with vanilla JS, but not with the ease of other JS frameworks like React or Svelte). But the one thing I love about Astro and why I use it here is the option to create interactive islands.
+
+But Astro does not just know that this component is an interactive island - it would render the component, it's just not interactive.
+
+That's why it is necessary to add the `client:only` directive. If you use multiple frameworks, you would have to specify like `client:only="svelte"`, but as I'm only using Svelte, I don't have to.
+
+<Aside>
+In case you are wondering, there are several client directives:
+- _client:load_: should be used for UI elements that are visible from the start and should be interactive as soon as possible
+- _client:idle_: will be hydrated once the page has finished its initial load
+- _client:visible_: as the name suggest, only load the element it is in the viewport
+- _client:only_: behaves pretty similar to _client:load_ but with the difference that the server does nothing with the component.
+
+I need to use _client:only_ as the MagicMoveRenderer needs access to the `document`.
+</Aside>
+
+## Adding Autoanimation
+
+The last thing I want to add is the option to autoanimate the code block. But I can't just animate the code when the element is mounted, as a lot of elements are probably not visible in the viewport.
+
+What is the best way to check if an element is in the viewport? Enter the `IntersectionObserver`.
+
+<AnimateCodeBlock 
+  client:only="svelte" 
+  duration={1200} 
+  lang="svelte" 
+  previous={`<script lang="ts">
+  import { getHighlighter } from 'shiki';
+  import MagicMove from './MagicMove.svelte';
+
+  let {
+    previous,
+    next,
+    lang,
+  }: {
+    previous: string;
+    next: string;
+    lang: string;
+  } = $props();
+
+  let code = $state(previous);
+
+  const highlighter = getHighlighter({
+    themes: ['catppuccin-mocha', 'synthwave-84'],
+    langs: [lang],
+  });
+</script>
+
+{#await highlighter then highlighter}
+  <div class="relative">
+    <!-- ... -->
+  </div>
+{/await}`} 
+  next={`<script lang="ts">
+  import { getHighlighter } from 'shiki';
+  import MagicMove from './MagicMove.svelte';
+
+  let {
+    previous,
+    next,
+    lang,
+  }: {
+    previous: string;
+    next: string;
+    lang: string;
+  } = $props();
+
+  let code = $state(previous);
+  let container: Element | undefined = $state();
+
+  const highlighter = getHighlighter({
+    themes: ['catppuccin-mocha', 'synthwave-84'],
+    langs: [lang],
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          setTimeout(() => {
+            code = next;
+          }, 500);
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px 0px -200px 0px",
+      threshold: 1,
+    },
+  );
+
+  $effect(() => {
+    if (container) {
+      observer.observe(container);
+    }
+  });
+</script>
+
+{#await highlighter then highlighter}
+  <div bind:this={container} class="relative">
+    <!-- ... -->
+  </div>
+{/await}`} />
+
+This way the animation automatically starts whenever the code block is 200px off the bottom. And with the button, you, the reader, can still animate back and forth.
+
+But there is one thing we have to keep in mind. Some people have problems with motion, they might get distracted at best or nauseous at worst. Therefore I added a check if the user prefers reduced motion (meaning if they set it in their system settings) and not do anything with the IntersectionObserver in that case.
+
+<AnimateCodeBlock client:only="svelte" lang="ts" previous={`const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        observer.disconnect();
+        setTimeout(() => {
+          code = next;
+        }, 500);
+      }
+    });
+  },
+  {
+    root: null,
+    rootMargin: "0px 0px -200px 0px",
+    threshold: 1,
+  },
+);`} next={`const reducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)',
+).matches;
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (reducedMotion) return;
+
+      if (entry.isIntersecting) {
+        observer.disconnect();
+        setTimeout(() => {
+          code = next;
+        }, 500);
+      }
+    });
+  },
+  {
+    root: null,
+    rootMargin: "0px 0px -200px 0px",
+    threshold: 1,
+  },
+);`}/>
+
+This approach is not necessarily the best as it does not listen for live changes of the system settings, but users don't often change this setting if at all.
+
+## Conclusion
+
+This was a pretty fun exercise to do a bit of reverse engineering to add this feature. Thankfully, translating from React to Svelte is not too complicated.
+
+Maybe at some point in the future I am curious enough to try to make this into a direct plugin for `expressive-code` but until then, I am pretty happy with the results I got!
