@@ -35,10 +35,14 @@ const time = remarkPluginFrontmatter.minutesRead;
 <Layout title={title} author={site.author} description={description}>
   <Header />
   <BackToTopButton />
-  <main id="main-content" class="mx-auto w-full max-w-6xl px-4 pb-12">
+  <main
+    id="main-content"
+    class="mx-auto w-full max-w-6xl px-4 pb-12"
+    transition:name={post.slug}
+  >
     <h1
       data-test-id="blog-title"
-      transition:name={post.slug}
+      transition:name={title}
       class="text-4xl font-bold text-custom-accent text-center mt-12 mb-8"
     >
       {title}
