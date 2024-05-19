@@ -15,6 +15,7 @@
     "test:e2e:debug": "playwright test --debug"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^5.1.0",
     "@astrojs/mdx": "^2.3.1",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/svelte": "^5.4.0",
@@ -29,6 +30,7 @@
     "hastscript": "^9.0.0",
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0",
+    "rehype-autolink-headings": "^7.1.0",
     "shiki": "^1.4.0",
     "shiki-magic-move": "^0.3.7",
     "svelte": "5.0.0-next.120",

@@ -3,9 +3,12 @@ import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
 import expressiveCode, { ExpressiveCodeTheme } from 'astro-expressive-code';
 import { defineConfig } from 'astro/config';
+import { rehypeHeadingIds } from '@astrojs/markdown-remark';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import mdx from '@astrojs/mdx';
+
 import { pluginErrorPreview } from './src/plugins/error-preview-plugin';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
-import mdx from '@astrojs/mdx';
 const catppuccinJsoncString = fs.readFileSync(
   new URL('./theme.jsonc', import.meta.url),
   'utf-8',
@@ -33,5 +36,9 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [remarkReadingTime],
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+    ],
   },
 });

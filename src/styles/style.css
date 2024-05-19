@@ -136,6 +136,9 @@ br.shiki-magic-move-leave-active {
   .prose a {
     @apply break-words hover:!text-custom-accent;
   }
+  .prose h2 a {
+    @apply !no-underline !text-custom-accent hover:!underline hover:!decoration-dashed;
+  }
   .prose thead th:first-child,
   tbody td:first-child,
   tfoot td:first-child {
