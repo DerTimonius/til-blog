@@ -22,7 +22,7 @@ const spanClasses = classNames('italic', {
 });
 ---
 
-<div class={divClasses}>
+<div class={divClasses} transition:name={datetime as string}>
   <svg xmlns="http://www.w3.org/2000/svg" class={svgClasses} aria-hidden="true">
     <path
       d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"
