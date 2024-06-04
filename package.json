@@ -35,8 +35,8 @@
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "shiki": "^1.6.2",
-    "shiki-magic-move": "^0.3.7",
-    "svelte": "5.0.0-next.120",
+    "shiki-magic-move": "^0.4.2",
+    "svelte": "5.0.0-next.149",
     "tailwindcss": "^3.4.3"
   },
   "devDependencies": {
