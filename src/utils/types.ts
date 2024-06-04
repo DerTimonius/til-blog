@@ -1,5 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
-import Fuse from 'fuse.js';
+import type { FuseResult } from 'fuse.js';
 
 export type Site = {
   website: string;
@@ -39,4 +39,4 @@ export type SearchList = {
   tags: string[];
 };
 
-export type SearchResult = Fuse.FuseResult<SearchList>;
+export type SearchResult = FuseResult<SearchList>;
