@@ -86,7 +86,7 @@ br.shiki-magic-move-leave-active {
     --color-border-dashed: 199, 80, 80;
   }
   body {
-    @apply flex min-h-[100svh] flex-col p-4 bg-custom-fill font-mono text-custom-base
+    @apply flex min-h-[100svh] flex-col bg-custom-fill p-4 font-mono text-custom-base
     selection:bg-custom-accent selection:bg-opacity-70 selection:text-custom-inverted;
   }
   section,
@@ -137,7 +137,7 @@ br.shiki-magic-move-leave-active {
     @apply break-words hover:!text-custom-accent;
   }
   .prose h2 a {
-    @apply !no-underline !text-custom-accent hover:!underline hover:!decoration-dashed;
+    @apply !text-custom-accent !no-underline hover:!underline hover:!decoration-dashed;
   }
   .prose thead th:first-child,
   tbody td:first-child,

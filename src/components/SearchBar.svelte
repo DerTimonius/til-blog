@@ -37,7 +37,7 @@
   <span class="absolute inset-y-0 left-0 flex items-center pl-2 opacity-75">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="w-6 h-6 fill-custom-base"
+      class="h-6 w-6 fill-custom-base"
       aria-hidden="true"
     >
       <path

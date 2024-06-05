@@ -74,7 +74,7 @@
     />
     {#if !animating}
       <button
-        class="absolute top-0 right-0 m-2 border-1 border rounded-md p-1 border-slate-600 text-custom-base hover:bg-slate-600/50"
+        class="border-1 absolute right-0 top-0 m-2 rounded-md border border-slate-600 p-1 text-custom-base hover:bg-slate-600/50"
         onclick={() => (code === previous ? (code = next) : (code = previous))}
       >
         <svg
@@ -83,7 +83,7 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-6 h-6"
+          class="h-6 w-6"
         >
           <path
             stroke-linecap="round"
