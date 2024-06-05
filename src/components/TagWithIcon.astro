@@ -17,16 +17,16 @@ const icon =
     href={`/tags/${tag.name.toLowerCase()}`}
     transition:name={tag.name.toLowerCase()}
     data-test-id="tag"
-    class="flex flex-col items-center gap-2 group"
+    class="group flex flex-col items-center gap-2"
   >
     <div
-      class="border rounded-lg border-inherit h-24 w-24 flex items-center justify-center hover:bg-custom-card/90"
+      class="flex h-24 w-24 items-center justify-center rounded-lg border border-inherit hover:bg-custom-card/90"
       transition:name={`icon-${tag.name}`}
     >
       <Fragment set:html={icon} />
     </div>
     <p
-      class="text-wrap text-center group-hover:underline group-hover:decoration-dashed group-hover:text-custom-accent"
+      class="text-wrap text-center group-hover:text-custom-accent group-hover:underline group-hover:decoration-dashed"
     >
       {tag.name.toLowerCase()}({tag.postsCount})
     </p>

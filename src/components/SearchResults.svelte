@@ -6,7 +6,7 @@
 
 <ol class="list-none gap-6 px-6">
   {#each foundPosts as foundPost}
-    <div class="max-w-4xl mx-auto my-8">
+    <div class="mx-auto my-8 max-w-4xl">
       <li class="my-6">
         <a
           href={`/blog/${foundPost.item.slug}`}

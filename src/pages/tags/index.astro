@@ -20,7 +20,7 @@ const tags = await getTags(posts);
     pageDesc="What tags have been used so far."
     screenReaderOnly
   >
-    <ul class="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+    <ul class="mt-6 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
       {tags.map((tag) => <TagWithIcon {tag} />)}
     </ul>
   </Main>

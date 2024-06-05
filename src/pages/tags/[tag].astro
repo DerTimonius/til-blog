@@ -44,17 +44,17 @@ const icon =
     screenReaderOnly
   >
     <div
-      class="flex flex-col gap-2 sm:gap-0 sm:items-center sm:flex-row sm:justify-between"
+      class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0"
     >
       <h1
-        class="text-2xl font-semibold sm:text-3xl capitalize"
+        class="text-2xl font-semibold capitalize sm:text-3xl"
         slot="title"
         transition:name={tag}
       >
         {tag.replace(/-/g, ' ')}
       </h1>
       <div
-        class="border rounded-lg border-inherit h-24 w-24 flex items-center justify-center hover:bg-custom-card group"
+        class="group flex h-24 w-24 items-center justify-center rounded-lg border border-inherit hover:bg-custom-card"
         transition:name={`icon-${tag}`}
       >
         <Fragment set:html={icon} />

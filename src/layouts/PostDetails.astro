@@ -43,7 +43,7 @@ const time = remarkPluginFrontmatter.minutesRead;
     <h1
       data-test-id="blog-title"
       transition:name={title}
-      class="text-4xl font-bold text-custom-accent text-center mt-12 mb-8"
+      class="mb-8 mt-12 text-center text-4xl font-bold text-custom-accent"
     >
       {title}
     </h1>
@@ -74,11 +74,11 @@ const time = remarkPluginFrontmatter.minutesRead;
         {headings.length ? <TOC {headings} /> : null}
       </aside>
       <div
-        class="pb-6 divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-3 lg:row-span-2 lg:pb-0"
+        class="divide-y divide-gray-200 pb-6 dark:divide-gray-700 lg:col-span-3 lg:row-span-2 lg:pb-0"
       >
         <article
           role="article"
-          class="prose mx-auto mt-8 ml-2 max-w-4xl scroll-smooth"
+          class="prose mx-auto ml-2 mt-8 max-w-4xl scroll-smooth"
         >
           <Content />
           {
