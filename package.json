@@ -19,7 +19,7 @@
   "dependencies": {
     "@astrojs/check": "^0.7.0",
     "@astrojs/markdown-remark": "^5.1.1",
-    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/mdx": "^3.1.2",
     "@astrojs/rss": "^4.0.7",
     "@astrojs/svelte": "^5.6.0",
     "@astrojs/tailwind": "^5.1.0",
@@ -35,8 +35,8 @@
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "shiki": "^1.10.1",
-    "shiki-magic-move": "^0.3.7",
-    "svelte": "5.0.0-next.120",
+    "shiki-magic-move": "^0.4.2",
+    "svelte": "5.0.0-next.172",
     "tailwindcss": "^3.4.4"
   },
   "devDependencies": {
@@ -52,9 +52,9 @@
     "eslint-plugin-promise": "^6.4.0",
     "eslint-plugin-react": "^7.34.3",
     "prettier": "^3.3.2",
-    "prettier-plugin-astro": "^0.13.0",
+    "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-svelte": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.14",
+    "prettier-plugin-tailwindcss": "^0.6.5",
     "typescript": "^5.5.3"
   }
 }
