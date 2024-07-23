@@ -1,0 +1,72 @@
+---
+title: Thoughts on Crowdstrike and Anesthesiology
+pubDate: 2024-07-22
+tags: ['random']
+isDraft: false
+isFeatured: false
+description: Why it makes sense for anesthesiologists to be responsible and why devs are not
+---
+
+import Aside from '~/components/Aside.astro';
+
+In the wake of the recent Windows outages caused by Crowdstrike, there have been a lot of articles on how this could have happened. How is possible that an automatic updated is so poorly tested that it bluescreens all machines the software is installed?
+
+So of course there are people who try to blame individual devs who pushed the code that caused the outages.
+
+But is this fair? Is it fair to try to blame a singular person?
+
+## Responsibilities are different
+
+What inspired me to write this post, is the article [After CrowdStrike, Programmers Deserve Consequences](https://mccue.dev/pages/7-20-24-programmers-deserve-consequences). In it, the author used the example of an anesthesiologist being held legally responsible for their patients if something goes wrong and how devs have the luxury of not being responsible of problems that arise from bugs they produce.
+
+> An Anesthesiologist can expect a salary of over $300k. This is because putting you to sleep for surgery is actually kinda risky. If they do their job wrong you die. Their salary reflects the fact that they take on much of the liability for that.
+
+> Software "Engineers" are never held personally accountable for the effects their actions have on the world. That poor bastard or bastard(s) at CrowdStrike weren't paid anesthesiologist rates and yet their mistake is going to kill a lot of people. I doubt they would have signed off on anything they'd done in the last decade as being "defect-free" and yet that is the standard we rightfully hold other fields to.
+
+I don't think that this comparison is correct, for multiple reasons. As someone who has worked in both fields, it's easy to see that being responsible for patients and being responsible for the code you produce are vastly different things with vastly different implications.
+
+## Story time
+
+I want to tell a quick story about an incident I had in the operating room.
+
+<Aside>I want to preface this story that the patient was not harmed and that there were no complications or adverse effects as a result.</Aside>
+
+It happened in a lengthy surgery that filled up the soda lime (which removes the carbon dioxide from the reused air that ventilates the patient) to a point where changing it was the only option I had. The alternative was to reventilate the patient with carbon dioxide filled air, which as you can imagine is not a good idea.
+
+What's also not a good idea is to change the soda lime during a surgery. But desperate time need desperate measures, so I decided to change it.
+
+While removing the old soda lime, I instantly noticed that the necessary sealing ring has dropped and quickly went out of my zone of vision. Which is pretty bad, as the ventilator now does not ventilate the patient correctly - meaning that pretty much all air you want to be put into the patient is just lost.
+
+After some seconds of panic, I went into problem solving mode: called for help as this is a situation you cannot handle by yourself, connected an AmbuBag to an oxygen outlet and performed bag-ventilation on the patient. I also instructed other personnel in the OR to halt the surgery for the moment, and switched from a general anesthesia with Sevoflourane (a volatile narcotic) to a GA with Propofol only.
+
+While the nurse helped install the sealing ring again and ran all the checks to see if the ventilator is working as intended, I did not have much feedback on the status of the anesthesia other than the pulse and the blood pressure.
+
+At the end, this whole incident lasted for about 5 minutes but as you can imagine, these 5 minutes were pretty stressful. And while we could finish the surgery without any further problems, I was able to reflect on what happened and what I learned from it.
+
+Let's be clear, if I would not have gone into problem solving mode as quickly as I did, the whole situation could have gone south very fast. But identifying the issues at hand and possible solutions negated any possible disaster.
+
+## Why coding is different
+
+Am I the only person to blame in this story? Of course, I decided to do something that is generally advised to be avoided if possible. I made the call to do it anyway as the risks of not changing the soda lime could also have resulted in fatal problems after some time.
+
+But what if it was not me who caused the problem? What if the ventilator or some other part of machinery that ran the GA failed unexpectedly and the patient died as a result, would I have been of the hook?
+
+Maybe legally, but not morally (let's not think of harsh realities in warzones at the moment). Regardless of why there are problems with the ventilation of the patient, is your responsibility as an anesthesiologist to handle this issue correctly. If there is a blackout in the hospital and the OR goes dark, you still are responsible for your patient and have to figure out a way to safely manage the situation.
+
+Now let's look at the outages that happened last Friday. Is the dev who pushed the code to production responsible? On a technical level, of course they are. But who is saying that they weren't pressured into pushing this release as fast as possible? Or that maybe the tests they were running all went green and that they had no reason to believe that bad things would happen across the globe?
+
+We also have to remember that in critical infrastructure, whatever software is installed onto a machine has to be thoroughly tested. The fact that Crowdstrike provides a piece of sotfware which can bypass all safety measures is not a thing that the individual dev decided.
+
+Someone in the upper level has decided that this is the correct approach. The original proposal to implement this might have come from other parts, but a business decision this large has to go through management.
+
+## Conclusion
+
+While it's tempting to seek individual accountability in cases of widespread software failures, the reality of software development is far more complex.
+
+Unlike fields such as anesthesiology, where immediate, life-or-death decisions rest on a single professional, software development involves intricate systems, multiple stakeholders, and often unseen pressures.
+
+The Crowdstrike incident serves as a reminder that we need to reevaluate how we approach responsibility in the tech industry. Rather than scapegoating individual developers, we should focus on creating robust systems, improving testing processes, and fostering a culture of responsibility at all levels of an organization.
+
+But ultimately, it's the companies that profit from these systems who should bear the brunt of the responsibility when things go wrong. By holding corporations accountable, we can incentivize better practices, more thorough testing, and a more cautious approach to rolling out updates that affect critical infrastructure.
+
+As we continue to rely more heavily on software in all aspects of our lives, it's crucial that we develop a nuanced understanding of responsibility in tech. Only then can we create a safer, more reliable digital world for everyone.
