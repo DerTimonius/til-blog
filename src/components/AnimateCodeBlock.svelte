@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { getHighlighter } from 'shiki';
   import ShikiMagicMove from './ShikiMagicMove.svelte';
+  import { getHighlighter } from '../utils/shikiHighligher';
 
   let {
     previous,
@@ -20,11 +20,7 @@
   let container: Element | undefined = $state();
   let animating = $state(false);
 
-  const highlighter = getHighlighter({
-    themes: ['catppuccin-mocha', 'synthwave-84'],
-    langs: [lang],
-  });
-
+  const highlighter = getHighlighter();
   const theme =
     document.documentElement.getAttribute('data-theme') === 'dark'
       ? 'catppuccin-mocha'
@@ -62,7 +58,7 @@
 </script>
 
 {#await highlighter then highlighter}
-  <div bind:this={container} class="relative">
+  <div bind:this={container} class="relative" id="animateContainer">
     <ShikiMagicMove
       options={{ duration, stagger: 3, animateContainer: true }}
       onStart={() => (animating = true)}
