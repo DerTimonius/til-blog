@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import { checkReleaseDate } from '~/utils/formatDate';
+
+export async function getStaticPaths() {
+  const posts = await getCollection(
+    'blogs',
+    ({ data }) => !data.isDraft && checkReleaseDate(data.pubDate),
+  );
+
+  const postPaths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+
+  return postPaths;
+}
+
+const { slug } = Astro.params;
+
+return Astro.redirect(`/posts/${slug}`);
+---

@@ -29,7 +29,7 @@ const {
         page.data.map(({ data, slug }, index) => (
           <Card
             dataTestId={`blog-post-${index}`}
-            href={`/blog/${slug}`}
+            href={`/posts/${slug}`}
             frontmatter={data}
             {slug}
           />

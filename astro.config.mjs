@@ -24,7 +24,6 @@ const synthwave = ExpressiveCodeTheme.fromJSONString(synthwaveJsoncString);
 export default defineConfig({
   redirects: {
     '/blog/': '/posts/1',
-    '/blog/[...slug]': '/posts/[...slug]',
     '/posts/': '/posts/1',
     '/posts/featured': '/posts/featured/1',
   },
