@@ -10,7 +10,7 @@ test('navigate through the blog', async ({ page }) => {
   await expect(page.locator(`[data-test-id^="latest-post"]`)).toHaveCount(3);
 
   await page.locator(`[data-test-id="nav-link-blog"]`).click();
-  await expect(page).toHaveURL('/blog/1');
+  await expect(page).toHaveURL('/posts/1');
   await expect(page.locator(`[data-test-id^="blog-post"]`)).toHaveCount(5);
 
   await page.locator(`[data-test-id="blog-post-0"]`).click();
