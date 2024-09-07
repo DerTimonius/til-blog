@@ -6,7 +6,7 @@ import LogoDark from '~/assets/logo-dark.svg';
 import LogoLight from '~/assets/logo-light.svg';
 
 export interface Props {
-  activeNav?: 'blog' | 'tags' | 'about' | 'search';
+  activeNav?: 'posts' | 'tags' | 'about' | 'search';
 }
 
 const { activeNav } = Astro.props;
@@ -58,10 +58,10 @@ const { activeNav } = Astro.props;
           <li>
             <a
               data-test-id="nav-link-blog"
-              href="/blog"
-              class={activeNav === 'blog' ? 'active' : ''}
+              href="/posts"
+              class={activeNav === 'posts' ? 'active' : ''}
             >
-              Blog
+              Posts
             </a>
           </li>
           <li>

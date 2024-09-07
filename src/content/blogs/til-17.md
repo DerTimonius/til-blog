@@ -7,7 +7,7 @@ relatedPosts: ['til-15']
 description: Solving more Advent of Code puzzles, but most importantly getting to know how to parse string with nom
 ---
 
-In my [last post](/blog/til-15) I wrote down the learning from the first three days of Advent of Code. The most important lesson I felt was to start using more external packages and especially to use `nom` for the parsing of the input.
+In my [last post](/posts/til-15) I wrote down the learning from the first three days of Advent of Code. The most important lesson I felt was to start using more external packages and especially to use `nom` for the parsing of the input.
 
 ## nom
 

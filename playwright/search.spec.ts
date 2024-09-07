@@ -17,5 +17,5 @@ test('search functionality', async ({ page }) => {
   );
   await page.locator('h2').first().click();
 
-  await expect(page).toHaveURL(/\/blog\/.+/);
+  await expect(page).toHaveURL(/\/posts\/.+/);
 });

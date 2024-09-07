@@ -68,7 +68,7 @@ function binarySearch(
 
 ## `git bisect`
 
-You might wonder, why this little detour? The commit history in git is not unlike a typical array ([JS array, that is](/blog/til-2)). You can now perform a binary search on the array with the last known "good" commit and the latest commit as a bad commit.
+You might wonder, why this little detour? The commit history in git is not unlike a typical array ([JS array, that is](/posts/til-2)). You can now perform a binary search on the array with the last known "good" commit and the latest commit as a bad commit.
 
 And this is exactly what [`git bisect`](https://git-scm.com/docs/git-bisect) does: by defining a bad and a good commit, it narrows down the breaking commit by halving the array in every step.
 

@@ -87,7 +87,7 @@ The `-` operator on the other hand only works for subtracting. The string is the
 
 How can an empty array be the same as an empty string, but not the same as another array? Type coercion is to blame again, since I did not use `===` or strict equality here.
 
-When comparing the empty array against a string, the array is cast as a string. So string is the same as string. But if you compare two objects with each other (and as we know, [arrays are objects in Javascript](/blog/til-6)), they are compared by reference - you can think of memory address. Since they are separate objects they are stored in different locations in the heap.
+When comparing the empty array against a string, the array is cast as a string. So string is the same as string. But if you compare two objects with each other (and as we know, [arrays are objects in Javascript](/posts/til-6)), they are compared by reference - you can think of memory address. Since they are separate objects they are stored in different locations in the heap.
 
 ## `true != "true"`
 

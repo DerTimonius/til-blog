@@ -1,6 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
+import PostDetails from '~/layouts/PostDetails.astro';
 import { checkReleaseDate } from '~/utils/formatDate';
+
+export interface Props {
+  post: CollectionEntry<'blogs'>;
+}
 
 export async function getStaticPaths() {
   const posts = await getCollection(
@@ -17,5 +22,11 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-return Astro.redirect(`/posts/${slug}`);
+const post = await getEntry({ collection: 'blogs', slug: slug! });
+
+if (!post) {
+  return Astro.redirect('/404');
+}
 ---
+
+<PostDetails {post} />

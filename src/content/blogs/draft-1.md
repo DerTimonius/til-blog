@@ -9,7 +9,7 @@ relatedPosts: ['til-6']
 
 import Aside from '~/components/Aside.astro';
 
-I have written about [how Javascript achieves asynchrony before](/blog/til-6) but I did not write about a crucial part of asynchronous code: how to actually write it and what pitfalls you should steer clear from.
+I have written about [how Javascript achieves asynchrony before](/posts/til-6) but I did not write about a crucial part of asynchronous code: how to actually write it and what pitfalls you should steer clear from.
 
 ## Error handling
 

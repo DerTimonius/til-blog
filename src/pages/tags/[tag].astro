@@ -65,7 +65,7 @@ const icon =
         sortedPosts.map(({ data, slug }) => (
           <Card
             dataTestId={`tag-post-${tag}`}
-            href={`/blog/${slug}`}
+            href={`/posts/${slug}`}
             frontmatter={data}
             {slug}
           />

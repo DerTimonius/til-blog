@@ -22,14 +22,14 @@ const {
 ---
 
 <Layout title={`Posts | ${site.title}`}>
-  <Header activeNav="blog" />
+  <Header activeNav="posts" />
   <Main {pageTitle} {pageDesc}>
     <ul class="flex flex-col gap-4">
       {
         page.data.map(({ data, slug }, index) => (
           <Card
             dataTestId={`blog-post-${index}`}
-            href={`/blog/${slug}`}
+            href={`/posts/${slug}`}
             frontmatter={data}
             {slug}
           />
