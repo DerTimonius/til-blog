@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Posts from '~/layouts/Posts.astro';
+import { site } from '~/utils/config';
+import { getFeaturedPosts } from '~/utils/sortPosts';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const sortedPosts = await getFeaturedPosts();
+  return paginate(sortedPosts, { pageSize: site.postPerPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<Posts
+  {page}
+  pageTitle="Featured Posts"
+  pageDesc="A curated list of my posts so far."
+/>
