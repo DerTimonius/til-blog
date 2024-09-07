@@ -10,7 +10,7 @@ description: Sometimes it's better to build the tools you need yourself. You wil
 
 import AnimateCodeBlock from '~/components/AnimateCodeBlock.svelte';
 
-A while back I wrote about how [terminal commands](/blog/til-7) helped me to gather come information of the most important files in a codebase. In the end, I even found an okayish tool for the job called _cloc_.
+A while back I wrote about how [terminal commands](/posts/til-7) helped me to gather come information of the most important files in a codebase. In the end, I even found an okayish tool for the job called _cloc_.
 But for me, there were things missing: no git integration for example, or no complexity calculation.
 
 I decided to build it myself, because why not? It seemed to be a great opportunity to learn a few things about how to recursively traverse a project, how to read a lot of files and how to get the information I want from them.
@@ -21,7 +21,7 @@ I decided to build it myself, because why not? It seemed to be a great opportuni
 
 If you've read the title of this post, you'll of course know on what language I landed on, but I want to explain why I chose what I chose. I'm a full-stack dev and at work I'm using TypeScript almost exclusively. I do not have a college degree in computer science, my rudimentary knowledge there is completely self taught.
 
-Therefore I don't have a lot of expertise (or even experience) with low level languages. But I felt drawn to them for some time now and after my first steps in Rust during [Advent of Code](/blog/til-15) I decided to build this tool in Rust. I contemplated about using and learning _Go_, but I figured that getting a solid, foundational knowledge in Rust, where I already know some of the syntax (unlike Go, which I never used before), might be the better option.
+Therefore I don't have a lot of expertise (or even experience) with low level languages. But I felt drawn to them for some time now and after my first steps in Rust during [Advent of Code](/posts/til-15) I decided to build this tool in Rust. I contemplated about using and learning _Go_, but I figured that getting a solid, foundational knowledge in Rust, where I already know some of the syntax (unlike Go, which I never used before), might be the better option.
 
 ## Defining the tool
 
@@ -161,7 +161,7 @@ Nice, no errors now! Now I can create the `File struct`:
 
 But this information is not the only I want to get from the files. I also want to know how often they have been changed in the past. Why? A file with 1,000 lines of code that has been changed 5 times might not be as important as a file with 150 lines of code that has been changed 90 times.
 
-How do we get this information? I actually referenced my own [blog post](/blog/til-7), where I described how to leverage infos found in `git log`. I decided to use a shorter command this time:
+How do we get this information? I actually referenced my own [blog post](/posts/til-7), where I described how to leverage infos found in `git log`. I decided to use a shorter command this time:
 
 ```sh
 git log --pretty=format: --name-only | sort | uniq -c

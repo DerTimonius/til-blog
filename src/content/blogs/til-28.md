@@ -7,7 +7,7 @@ isFeatured: false
 description: How getting familiar with various CLI tools helped me feel at home in the terminal
 ---
 
-In the last couple of months I have switched my editor from VS Code to Neovim (yes, really, my [blog post](/blog/til-26) was the actual representation of my feelings during that process) and have switched to try to do pretty much everything in the terminal.
+In the last couple of months I have switched my editor from VS Code to Neovim (yes, really, my [blog post](/posts/til-26) was the actual representation of my feelings during that process) and have switched to try to do pretty much everything in the terminal.
 
 I have also spent a lot of time finding various CLI tools that helped me with this transition and also boosted my productivity quite a bit.
 
