@@ -1,13 +1,3 @@
 ---
-import Posts from '~/layouts/Posts.astro';
-import { site } from '~/utils/config';
-import { getSortedPosts } from '~/utils/sortPosts';
-import getPageNumbers from '~/utils/pageNumbers';
-
-const sortedPosts = await getSortedPosts();
-const totalPages = getPageNumbers(sortedPosts.length);
-
-const paginatedPosts = sortedPosts.slice(0, site.postPerPage);
+return Astro.redirect('/blog/1');
 ---
-
-<Posts posts={paginatedPosts} pageNum={1} totalPages={totalPages.length} />
