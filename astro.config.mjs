@@ -22,6 +22,10 @@ const synthwave = ExpressiveCodeTheme.fromJSONString(synthwaveJsoncString);
 
 // https://astro.build/config
 export default defineConfig({
+  redirects: {
+    '/blog/': '/blog/1',
+    '/blog/featured': '/blog/featured/1',
+  },
   integrations: [
     tailwind(),
     expressiveCode({
