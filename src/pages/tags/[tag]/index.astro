@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import getTags from '~/utils/getTags';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blogs');
+  const tags = await getTags(posts);
+
+  return tags.map(({ name }) => {
+    return { params: { tag: name }, props: { tag: name } };
+  });
+}
+
+const { tag } = Astro.props;
+
+if (tag) {
+  return Astro.rewrite(`/tags/${tag}/1`);
+}
+---

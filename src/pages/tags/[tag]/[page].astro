@@ -1,36 +1,34 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
 import Card from '~/components/Card.astro';
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
+import PaginationButtons from '~/components/PaginationButtons.astro';
 import Layout from '~/layouts/Layout.astro';
 import Main from '~/layouts/Main.astro';
 import { site } from '~/utils/config';
 import getTags from '~/utils/getTags';
 import { tagIcons } from '~/utils/tagIcons';
-import { getPostsByTag, sortPosts } from '~/utils/sortPosts';
 
-export interface Props {
-  post: CollectionEntry<'blogs'>;
-  tag: string;
-}
-
-export async function getStaticPaths() {
+export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection('blogs');
   const tags = await getTags(posts);
-
-  return tags.map(({ name }) => {
-    return {
+  return tags.flatMap(({ name }) => {
+    const tagPosts = posts.filter((post) => {
+      return post.data.tags.includes(name);
+    });
+    return paginate(tagPosts, {
       params: { tag: name },
-    };
+      pageSize: site.postPerPage,
+    });
   });
-}
+}) satisfies GetStaticPaths;
 
 const { tag } = Astro.params;
 
-const posts = await getPostsByTag(tag);
+const { page } = Astro.props;
 
-const sortedPosts = sortPosts(posts);
 const randomIdx = Math.floor(Math.random() * tagIcons.other.length);
 const icon =
   tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
@@ -62,7 +60,7 @@ const icon =
     </div>
     <ul class="flex flex-col gap-4">
       {
-        sortedPosts.map(({ data, slug }) => (
+        page.data.map(({ data, slug }) => (
           <Card
             dataTestId={`tag-post-${tag}`}
             href={`/posts/${slug}`}
@@ -73,5 +71,6 @@ const icon =
       }
     </ul>
   </Main>
+  <PaginationButtons {page} />
   <Footer />
 </Layout>
