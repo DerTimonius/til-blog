@@ -1,0 +1,133 @@
+---
+title: Random learnings of the last months
+pubDate: 2024-09-09
+tags: ['random', 'web-dev', 'database']
+isDraft: false
+isFeatured: false
+description: Since I did not necessarily learn large things, here is a list of small items I learned
+---
+
+import Aside from "~/components/Aside.astro"
+import AnimateCodeBlock from '~/components/AnimateCodeBlock.svelte';
+
+Since my last post, although a lot has happened and a lot of features have been shipped at work, I did not really know what to write about. Whatever I learned, it seemed to small to write a whole blog post about it.
+
+<Aside>
+I maybe should mention that I have released another CLI tool called [**twkb**](https://github.com/DerTimonius/twkb) and that I have written it in Go. Once I added the project view, I will write a post!
+</Aside>
+
+So I have decided to conjur up the smaller bits and pieces that I have learned in the last weeks.
+
+## Astro's built-in pagination
+
+The [4.12 release](https://astro.build/blog/astro-4120/) had a huge change: server islands. Personally, I don't have a use case for server islands, but they sound like an interesting concept.
+
+But with that release, very much under the radar, was the addition of the next and previous URL to the pagination data. Before that, you had to build the URL yourself, making the use of the built-in pagination a bit weird to work with.
+
+But last week I found the time to check if it actually is easier to implement now. So I changed the pagination of this very blog in remarkable short time, it's as simple as this:
+
+```ts
+export const getStaticPaths = (async ({ paginate }) => {
+  const sortedPosts = await getSortedPosts();
+  return paginate(sortedPosts, { pageSize: site.postPerPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+```
+
+The `page` has then all the necessary information you need:
+
+- the total number of pages
+- the next and previous urls
+- all the data for the current page
+
+What more do you need?
+
+## Prisma `include`
+
+[Prisma](https://prisma.io) is a great ORM to make database calls easier without the need to write SQL. Instead you can write something like this:
+
+```ts
+const users = await prisma.user.findUnique({
+  where: {
+    id: input.id
+  }
+})
+```
+
+As this would only return the user and no relations, it is necessary to add `select` or `include` fields:
+
+<AnimateCodeBlock autoanimate={false} client:only="svelte" previous={`const users = await prisma.user.findUnique({
+  where: {
+    id: input.id
+  }
+})`} next={`const users = await prisma.user.findUnique({
+  include: { posts: true },
+  where: {
+    id: input.id
+  }
+})`} lang="ts" />
+
+I have written code like this for a long time now, but I just recently discovered that is possible to add a `where` clause to the `include` statement.
+
+<AnimateCodeBlock autoanimate={false} client:only="svelte" previous={`const users = await prisma.user.findUnique({
+  include: { posts: true },
+  where: {
+    id: input.id
+  }
+})`} next={`const users = await prisma.user.findUnique({
+  include: { posts: { where: { likes: { gte: 10 } } } },
+  where: {
+    id: input.id
+  }
+})`} lang="ts" />
+
+## Prisma typed SQL queries
+
+Sometimes, using Prisma to get the exact data you need is not always possible. Which means to sharpen up your SQL skills to get the info you want from the database.
+
+But using `$queryRaw` has a problem: The result is not typed. When the data you need is pretty complicated, adding the types manually can be pretty cumbersome.
+
+Thankfully, the Prisma team has realized this and implemented the [TypedSQL](https://www.prisma.io/docs/orm/prisma-client/using-raw-sql/typedsql) option.
+
+To use this, you write your SQL in a normal `.sql` file and then run `prisma generate --sql`. This generated function can now be used in the `$queryRawTyped` that, as the name suggests, turns your SQL query into a typed result. Pretty neat.
+
+The downside is that at the moment, it can't really be used for CI reasons...
+
+## Insert a PR into an existing Graphite stack
+
+[Graphite](https://graphite.dev) is an awesome tool that allows for quickly stacking PRs, keeping the individual PRs small and in a monorepo setup, you could create the API endpoint in one PR and start working on the consumption of the endpoint in the frontend without having to wait for the first PR to be reviewed or merged.
+
+But sometimes, you might figure out that the last PR in stack (technicall it's a queue I just noticed...) depends on a larger thing you haven't worked on yet. So you create a new PR and want to insert it into the stack without moving PRs.
+
+And it's as simple as adding the `-i` flag to the `create` command:
+
+```sh
+gt create -aim "important commit message"
+```
+
+If you have forgotten the `-i` flag, you could also move the PR interactively with `gt move`.
+
+## There are a lot of great terminals
+
+I have written about my change [from Warp to Alacritty](/posts/til-28#warp-vs-alacritty) and even though only two months have passed since then, I have already changed the terminal again.
+
+The main reason for this change was [yazi](https://yazi-rs.github.io/), a tool to more easily and visually traverse the file system. And it also shows you a preview of the file - even images.
+
+And that was a problem. Alacritty does not support the *kitty image protocol* that allows rendering of images in the terminal. So if I want to use the terminal to its fullest, there are several options:
+
+- kitty
+- wezterm
+- ghostty
+
+Even though ghostty sounds really promising, I did not want to go through the hassle of getting into the public beta. So I landed on wezterm as the necessary configuration can be written in Lua and I have grown a bit accustomed to Lua thanks to Neovim.
+
+Maybe I can settle on [wezterm](https://wezfurlong.org/wezterm/index.html) for more than two months.
+
+## Sneaky little vim motions
+
+I recently learned a really cool motion that makes my vimming so much easier: if you want to delete something inside of parentheses, use `dib` instead of `di(`. The same for curly braces, use `diB` instead of `di{`.
+
+Why does it help me? As I am not using the ANSI layout, getting the `(` or `{` means that I have to use two different keys. Using `b` reduced this to one (okay, two if you count the shift key).
+
+Also, I started using `%` more and more. While previously I only used it to hop between the opening and closing symbol, I started to use it to quickly delete a complete function with `f{%vd`. It's not as bad as it looks!
