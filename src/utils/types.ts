@@ -29,6 +29,7 @@ export type SocialMedia =
   | 'LinkedIn'
   | 'Reddit'
   | 'RSS'
+  | 'BlueSky'
   | 'Mail';
 
 export type SearchList = {

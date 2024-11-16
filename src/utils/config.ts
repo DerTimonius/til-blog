@@ -37,6 +37,12 @@ export const socials: SocialObjects = [
     active: true,
   },
   {
+    name: 'BlueSky',
+    href: 'https://bsky.app/profile/dertimonius.dev',
+    linkTitle: `${site.author} on BlueSky`,
+    active: true,
+  },
+  {
     name: 'Mail',
     href: 'mailto:timon.jurschitsch@gmail.com',
     linkTitle: `Send an email to ${site.author}`,
