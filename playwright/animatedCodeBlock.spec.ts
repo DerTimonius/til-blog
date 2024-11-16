@@ -5,6 +5,6 @@ test('animated code block', async ({ page }) => {
 
   await expect(page.locator('#animateContainer')).not.toHaveCount(0);
   await expect(
-    page.getByText('function recursiveFactorial(num) { // ...}'),
+    page.getByText('recursiveFactorial', { exact: true }),
   ).toBeVisible();
 });

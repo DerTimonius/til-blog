@@ -25,5 +25,5 @@ test('navigate through the blog', async ({ page }) => {
   await page.locator(`[data-test-id="nav-link-about"]`).click();
   await expect(page).toHaveURL('/about');
 
-  await expect(page.locator(`[data-test-id^="social-link"]`)).toHaveCount(3);
+  await expect(page.locator(`[data-test-id^="social-link"]`)).toHaveCount(4);
 });
