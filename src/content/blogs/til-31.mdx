@@ -1,0 +1,65 @@
+---
+title: Rethinking my stance on TDD
+pubDate: 2024-11-17
+tags: ['testing', 'web-dev']
+isDraft: false
+isFeatured: false
+description: Is following the TDD standard really a waste of time or am I just wrong?
+---
+
+With more experience in the software development world and also more experience on the job, one naturally gets more important and difficult tasks to solve.
+
+In the last few weeks I have been tasked to build a new project from scratch, implement new database schemas and adjust existing ones and try to figure out a way to add something to the app what it was not necessarily built for.
+
+With our senior developer currently being unavailable (or mostly unavailable), it was up to me to come up with a good and solid plan. And yes, we are a small team.
+
+## Planning is key
+
+So I did what every sane person would do: scream internally and took out my notepad.
+
+I spent around a week of figuring out the necessary database structures, the basic implementations in the frontend and the backend, what information is missing and the best approach to building this in which order.
+
+And I was genuinely surprised by myself, when I added not only a testing strategy (which to be honest is an afterthought most of the time), but I opted for basically a *test driven development (TDD)* approach:
+
+1. Think about which GraphQL mutations are necessary
+2. Write the tests for that mutation
+3. Implement the mutation
+4. Enter the [red-green-refactor cycle](#red-green-refactor-cycle)
+
+As there are a lot of different mutations that rely on each other in at least some capacity, testing not only manually but also automated made a lot of sense to.
+
+## Is TDD bad?
+
+Well, it certainly can be argued, that blindly following the TDD approach and refusing to let the code coverage drop under 95% can lead to unnecessary tests. For example, the is no reason to test this function:
+
+```ts
+function sum(a: number, b: number): number {
+  return a + b;
+}
+```
+
+Or even a more complex function like this:
+
+```ts
+function sumArray(nums: number[]): number {
+  return nums.reduce((acc, val) => acc + val, 0);
+}
+```
+
+These functions are not susceptible to change in the future and checking it once or twice is enough. Writing tests here would be a waste of time and energy that can both be spent better elsewhere.
+
+But when it comes to more difficult situations, like mutations, that can very well be prone to be changed at some point, it absolutely makes sense to test them. Especially if the requirements under which these mutations where written could also change in the near future.
+
+## Red-Green-Refactor Cycle
+
+I entered the [red-green-refactor cycle](https://www.codecademy.com/article/tdd-red-green-refactor), meaning you write and run the tests first (they will of course fail now), implement the mutation to make the tests go green and then refactor the mutation over and over again until you end up with the most performant and valid approach.
+
+In the end, we (me and my colleague) added over 30 different tests to check if the mutations work as expected, if the input checks work as they should, if the authorization is implemented correctly etc.
+
+It might not necessarily have been the fastest approach, but I am very confident that adapting these mutations in the future will not break things (or way fewer things) when the tests are still turning green.
+
+## Conclusion
+
+While I still think that writing tests only for the sake of improving the code coverage of a repo, I feel like my negative stance toward TDD has been too harsh.
+
+There are absolutely moments, where following the principles of testing during development can be beneficial and will spare you a lot of headache in the future, when requirements change and refactors become necessary.
