@@ -12,6 +12,7 @@ import { getRelatedPosts } from '~/utils/sortPosts';
 import TOC from '~/components/TOC.astro';
 import BackToTopButton from '~/components/BackToTopButton.astro';
 import Link from '~/components/Link.astro';
+import CommentSection from '~/components/CommentSection.astro';
 
 export interface Props {
   post: CollectionEntry<'blogs'>;
@@ -19,8 +20,16 @@ export interface Props {
 
 const { post } = Astro.props;
 
-const { title, description, pubDate, tags, updatedAt, relatedPosts } =
-  post.data;
+const {
+  title,
+  description,
+  pubDate,
+  tags,
+  updatedAt,
+  relatedPosts,
+  bskyPostId,
+} = post.data;
+
 const tagsDisplay = tags.map((tag) => {
   return { name: tag, postsCount: 0 };
 });
@@ -88,6 +97,7 @@ const time = remarkPluginFrontmatter.minutesRead;
               </p>
             ) : null
           }
+          {bskyPostId ? <CommentSection postId={bskyPostId} /> : null}
         </article>
       </div>
       <aside

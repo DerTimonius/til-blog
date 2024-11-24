@@ -29,6 +29,9 @@ importers:
       '@fontsource/fira-mono':
         specifier: ^5.1.0
         version: 5.1.0
+      '@fontsource/monaspace-neon':
+        specifier: ^5.1.0
+        version: 5.1.0
       '@tailwindcss/typography':
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.15)
@@ -501,6 +504,9 @@ packages:
 
   '@fontsource/fira-mono@5.1.0':
     resolution: {integrity: sha512-6+nftSKApXyN0I9FC5GJuG5TUCh+in5OehtrXRIsHJvq38Pm//oA1kZZYNdXv99JYzLzJ3lzsTAavmS+xGLGDw==}
+
+  '@fontsource/monaspace-neon@5.1.0':
+    resolution: {integrity: sha512-nW56kEvbPwNHHYfouTEI6KR2BAcXhqjGc/KkQdDvC+bcpRFc9olZTBd+Jw+l8MhcbnFwX+GWE5VP8EUrAcshew==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -4032,6 +4038,8 @@ snapshots:
       '@expressive-code/core': 0.36.1
 
   '@fontsource/fira-mono@5.1.0': {}
+
+  '@fontsource/monaspace-neon@5.1.0': {}
 
   '@humanfs/core@0.19.1': {}
 

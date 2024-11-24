@@ -11,6 +11,7 @@ const blogCollection = defineCollection({
     updatedAt: z.date().optional(),
     relatedPosts: z.array(z.string()).optional(),
     isFeatured: z.boolean().optional(),
+    bskyPostId: z.string().optional(),
   }),
 });
 

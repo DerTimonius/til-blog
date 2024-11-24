@@ -61,6 +61,7 @@ module.exports = {
       },
       fontFamily: {
         mono: ['Fira Mono', 'monospace'],
+        neon: ['Monaspace Neon', 'monospace'],
       },
     },
   },

@@ -1,0 +1,151 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  username?: string;
+  postId: string;
+}
+
+interface BlueskyPost {
+  post: {
+    author: {
+      avatar: string;
+      displayName: string;
+      handle: string;
+    };
+    record: {
+      text: string;
+    };
+    indexedAt: string;
+    likeCount: number;
+    repostCount: number;
+    replyCount: number;
+  };
+  replies?: BlueskyPost[];
+}
+
+const { username = 'dertimonius.dev', postId } = Astro.props as Props;
+
+const blueskyLink = `https://bsky.app/profile/${username}/post/${postId}`;
+
+let comments: BlueskyPost[] = [];
+let error = null;
+
+const uri = `at://${import.meta.env.ATPROTO_DID}/app.bsky.feed.post/${postId}`;
+
+try {
+  const endpoint = `https://api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${encodeURIComponent(uri)}`;
+
+  const response = await fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch comments: ${response.status}`);
+  }
+
+  const data = (await response.json()) as {
+    thread?: { replies: BlueskyPost[] };
+  };
+
+  if (data.thread?.replies && data.thread.replies.length) {
+    comments = data.thread.replies;
+  }
+} catch (e) {
+  error = (e as { message: string }).message;
+  console.error('Error:', e);
+}
+---
+
+<div class="mt-1">
+  <h2>Comments</h2>
+  <p>
+    Reply on <a href={blueskyLink} target="_blank" rel="noopener noreferrer"
+      >Bluesky</a
+    > to join the conversation.
+  </p>
+
+  {error && <p class="font-neon">Error loading comments: {error}</p>}
+
+  {
+    !error && comments.length === 0 && (
+      <p class="font-neon text-lg">No comments yet. Be the first to comment!</p>
+    )
+  }
+
+  {
+    !error && comments.length > 0 && (
+      <div class="comments-list flex flex-col gap-4 font-neon text-custom-base/80">
+        {comments.map((comment) => (
+          <div class="mx-4 border-2 border-dashed border-custom-accent p-4">
+            <div class="flex flex-row items-center gap-4">
+              <Image
+                inferSize
+                src={comment.post.author.avatar}
+                alt={`${comment.post.author.displayName}'s avatar`}
+                class="mx-0 mb-2 h-12 w-12 rounded-[25%]"
+              />
+              <div class="mr-auto flex flex-col">
+                <span class="text-lg font-semibold">
+                  {comment.post.author.displayName}
+                </span>
+                <span class="font-mono text-sm">
+                  @{comment.post.author.handle}
+                </span>
+              </div>
+            </div>
+            <div class="mt-4">{comment.post.record.text}</div>
+            <div class="mt-2 flex justify-between">
+              <div class="flex gap-4">
+                <span>{comment.post.replyCount || 0} 💬</span>
+                <span>{comment.post.repostCount || 0} 🔁</span>
+                <span>{comment.post.likeCount || 0} ❤️</span>
+              </div>
+              <time datetime={comment.post.indexedAt}>
+                {new Date(comment.post.indexedAt).toLocaleDateString()}
+              </time>
+            </div>
+            {comment.replies && comment.replies.length > 0 && (
+              <div class="ml-6 pl-4">
+                {comment.replies.map((reply) => (
+                  <div class="mx-4 p-4">
+                    <div class="flex flex-row items-center gap-4">
+                      <Image
+                        src={reply.post.author.avatar}
+                        alt={`${reply.post.author.displayName}'s avatar`}
+                        class="mx-0 mb-2 h-12 w-12 rounded-[25%]"
+                        inferSize
+                      />
+                      <div class="mr-auto flex flex-col">
+                        <span class="text-lg font-semibold">
+                          {reply.post.author.displayName}
+                        </span>
+                        <span class="font-mono text-sm">
+                          @{reply.post.author.handle}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="mt-4">{reply.post.record.text}</div>
+                    <div class="mt-2 flex justify-between">
+                      <div class="flex gap-4">
+                        <span>{reply.post.replyCount || 0} 💬</span>
+                        <span>{reply.post.repostCount || 0} 🔁</span>
+                        <span>{reply.post.likeCount || 0} ❤️</span>
+                      </div>
+                      <time datetime={reply.post.indexedAt}>
+                        {new Date(reply.post.indexedAt).toLocaleDateString()}
+                      </time>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )
+  }
+</div>
