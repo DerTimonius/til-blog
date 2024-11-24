@@ -31,7 +31,7 @@ const blueskyLink = `https://bsky.app/profile/${username}/post/${postId}`;
 let comments: BlueskyPost[] = [];
 let error = null;
 
-const uri = `at://${import.meta.env.ATPROTO_DID}/app.bsky.feed.post/${postId}`;
+const uri = `at://${import.meta.env.PUBLIC_ATPROTO_DID}/app.bsky.feed.post/${postId}`;
 
 try {
   const endpoint = `https://api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${encodeURIComponent(uri)}`;

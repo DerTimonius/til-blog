@@ -2,5 +2,5 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly ATPROTO_DID: string;
+  readonly PUBLIC_ATPROTO_DID: string;
 }
