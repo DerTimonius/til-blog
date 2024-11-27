@@ -9,6 +9,7 @@ import mdx from '@astrojs/mdx';
 
 import { pluginErrorPreview } from './src/plugins/error-preview-plugin';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
+import vercel from '@astrojs/vercel/serverless';
 const catppuccinJsoncString = fs.readFileSync(
   new URL('./theme.jsonc', import.meta.url),
   'utf-8',
@@ -22,9 +23,12 @@ const synthwave = ExpressiveCodeTheme.fromJSONString(synthwaveJsoncString);
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'hybrid',
+
   redirects: {
     '/blog/': '/posts/1',
   },
+
   integrations: [
     tailwind(),
     expressiveCode({
@@ -37,6 +41,7 @@ export default defineConfig({
     svelte(),
     mdx(),
   ],
+
   markdown: {
     remarkPlugins: [remarkReadingTime],
     rehypePlugins: [
@@ -44,4 +49,7 @@ export default defineConfig({
       [rehypeAutolinkHeadings, { behavior: 'wrap' }],
     ],
   },
+
+  adapter: vercel(),
 });
+
