@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
+import dayjs from 'dayjs';
 import Card from '~/components/Card.astro';
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
@@ -15,9 +16,11 @@ export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection('blogs');
   const tags = await getTags(posts);
   return tags.flatMap(({ name }) => {
-    const tagPosts = posts.filter((post) => {
-      return post.data.tags.includes(name);
-    });
+    const tagPosts = posts
+      .filter((post) => {
+        return post.data.tags.includes(name);
+      })
+      .sort((a, b) => (dayjs(a.data.pubDate).isAfter(b.data.pubDate) ? -1 : 1));
     return paginate(tagPosts, {
       params: { tag: name },
       pageSize: site.postPerPage,

@@ -1,0 +1,136 @@
+---
+title: Why Go is now my goto for small CLIs
+pubDate: 2024-12-04
+tags: ['cli', 'golang']
+relatedPosts: ["til-24"]
+isFeatured: false
+description: It's simplicity and tools like bubbletea or huh make it irresistable to not use Go for small CLIs
+---
+
+A few months ago, I decided to start tinkering around with Go for a bit. I did not really have anything in mind, but after some successful PRs to Rust projects, I felt a bit annoyed by the many rules the borrow checker and the compiler enforce.
+
+So while [I know](/posts/til-24) that building CLIs with Rust is not only feasible, but that there are great tools like [Ratatui](https://ratatui.rs) to help you craft a visually appealing CLI, I did not really overcome the effort of building something in Rust.
+
+## Why Go?
+
+Honestly, there was no bigger reason. I have read mostly positive things about Go and that the learning curve is not only not as steep as Rust's learning curve, it also praised as being almost too simple (like Lua). And with a full-time job and a side-job, simple does sound pretty great in my ears.
+
+And yes, Go is very simple in its syntax, but still pretty extensive in its abilities. Looping over iterators is always a great feature, slices are superior to [JS arrays](/posts/til-2), only the type system could be better.
+
+Rust's `Option<T>` and `Result<E,T>` types is such a great pattern, I would want to have this in every single language I'm using.
+But the `interface` pattern in Go is enough to make me forget about the lack of options.
+
+## Building simple CLIs
+
+I don't know about you, but when switching between multiple branches multiple times a day, I often forget to delete the branches once they have been merged. So I end up with a list of 10+ dead branches lying around locally.
+
+While `git` allows to delete multiple branches at once, you have to know the names of the branch you want to delete and pass it to the command:
+
+```sh
+git branch -d my-branch
+
+# or force delete
+git branch -D my-branch
+```
+
+But it's not really possible to interactively delete branches. Sure, you could use something like [fzf](/posts/til-28#fzf--fd--%EF%B8%8F), but this would only work for a single branch. In other words: the perfect opportunity to build a tool for this.
+
+## The charm of the bracelet
+
+To build CLIs that look nice, there is almost no way around the tools made by [charmbracelet](https://charm.sh). Not only do they offer 7 brilliant tools themselves ([VHS for example](https://github.com/charmbracelet/vhs), a tool to create terminal gifs), their range of libraries is amazing.
+
+With just a few lines of code from any of their libraries, the CLI will start to look like it fell into the catppuccin colors. Which to me is exactly what I want!
+
+For the git tool, which I call [`gdmult`](https://github.com/DerTimonius/gdmult), I opted to use [huh](https://github.com/charmbracelet/vhs), a tool to quickly build CLI forms, which was basically everything I needed.
+
+## The actual tool
+
+In the first step, it's necessary to get and parse the branches.
+
+```go
+func getBranches() ([]string, error) {
+ cmd := exec.Command("git", "branch")
+
+ if errors.Is(cmd.Err, exec.ErrDot) {
+  cmd.Err = nil
+ }
+ var out bytes.Buffer
+ cmd.Stdout = &out
+ err := cmd.Run()
+ if err != nil {
+  return []string{}, err
+ }
+ output := out.String()
+ result := strings.Split(output, "\n")
+ var branches []string
+
+ for _, item := range result {
+  if item == "" || strings.HasPrefix(item, "*") {
+   continue
+  }
+  branches = append(branches, item)
+ }
+
+ if len(branches) == 0 {
+  return []string{}, fmt.Errorf("there are no branches I could delete here")
+ }
+
+ return branches, nil
+}
+```
+
+Next, to display the form, it only needs a few lines of code:
+
+```go
+
+func main() {
+ // ...
+ accessible, _ := strconv.ParseBool(os.Getenv("ACCESSIBLE"))
+ var options []huh.Option[string]
+ for _, branch := range branches {
+  options = append(options, huh.NewOption(branch, branch))
+ }
+
+ form := huh.NewForm(
+  huh.NewGroup(
+   huh.NewMultiSelect[string]().Options(options...).Title("What branches do you want to delete?").Value(&selectedBranches),
+  ),
+
+  huh.NewGroup(huh.NewConfirm().Title("Are you sure you want to delete the selected branches?").Affirmative("Yes").Negative("No").Value(&confirmed)),
+ ).WithAccessible(accessible)
+
+ err = form.Run()
+ // ...
+}
+```
+
+Then, it's only necessary to handle the deletion and the whole shebang is done:
+
+```go
+func deleteBranches(branches []string) ([]string, error) {
+ for idx, branch := range branches {
+  cmd := exec.Command("git", "branch", "-d", branch)
+
+  if errors.Is(cmd.Err, exec.ErrDot) {
+   cmd.Err = nil
+  }
+
+  err := cmd.Run()
+  if err != nil {
+   return branches[idx:], err
+  }
+ }
+
+ return []string{}, nil
+}
+```
+
+Of course, there are some edge cases, like how to handle the force deletion, but that's about everything I need.
+
+## Conclusion
+
+This pattern was so simple to build, that it only took me, a Go noob, a mere 90 minutes to finish the project. It also intruiged me so much, that I have replicated it twice now for similar situations.
+
+Similar tools like [bubbletea](https://github.com/charmbracelet/bubbletea) were my gotos in the [twkb project](https://github.com/DerTimonius/twkb), and also here it was a blast.
+
+With its simple while powerful syntax and the great charm libraries, building a small CLI tool with Go is not only an option, but almost mandatory.
