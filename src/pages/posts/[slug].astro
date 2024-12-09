@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-const post = await getEntry({ collection: 'blogs', slug: slug! });
+const post = await getEntry('blogs', slug);
 
 if (!post) {
   return Astro.redirect('/404');
