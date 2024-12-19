@@ -27,7 +27,7 @@
     "@fontsource/fira-mono": "^5.1.0",
     "@fontsource/monaspace-neon": "^5.1.0",
     "@tailwindcss/typography": "^0.5.15",
-    "astro": "^5.0.3",
+    "astro": "^5.0.8",
     "astro-expressive-code": "^0.38.3",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
