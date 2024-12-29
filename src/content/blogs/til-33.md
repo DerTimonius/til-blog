@@ -4,7 +4,10 @@ pubDate: 2024-12-29
 isFeatured: false
 tags: ['misc']
 description: It's time to look back at the last 12 months and check what I have learned
+bskyPostId: 3legtq3k5zs24
 ---
+
+export const prerender = false
 
 2024 is over. Well, almost, in two days and one of the most challenging years for me is done.
 
