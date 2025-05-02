@@ -1,7 +1,7 @@
 import type { CollectionEntry } from 'astro:content';
 import type { FuseResult } from 'fuse.js';
 
-export type Site = {
+export interface Site {
   website: string;
   author: string;
   desc: string;
@@ -10,7 +10,7 @@ export type Site = {
   lightAndDarkMode: boolean;
   postPerPage: number;
   username?: string;
-};
+}
 
 export type SocialObjects = {
   name: SocialMedia;
@@ -19,9 +19,7 @@ export type SocialObjects = {
   linkTitle: string;
 }[];
 
-export type SocialIcons = {
-  [social in SocialMedia]: string;
-};
+export type SocialIcons = Record<SocialMedia, string>;
 
 export type SocialMedia =
   | 'Github'
@@ -32,12 +30,12 @@ export type SocialMedia =
   | 'BlueSky'
   | 'Mail';
 
-export type SearchList = {
+export interface SearchList {
   data: CollectionEntry<'blogs'>['data'];
   slug: string;
   title: string;
   description: string;
   tags: string[];
-};
+}
 
 export type SearchResult = FuseResult<SearchList>;

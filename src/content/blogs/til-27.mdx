@@ -341,6 +341,7 @@ So, if I want to call this component in my `.mdx` files, it would look something
   previous={`let animating;`} 
 />
 ```
+
 ### `client:only`
 
 Astro is, in its core, a non-interactive framework (which means very interactive with vanilla JS, but not with the ease of other JS frameworks like React or Svelte). But the one thing I love about Astro and why I use it here is the option to create interactive islands.
@@ -365,10 +366,10 @@ The last thing I want to add is the option to autoanimate the code block. But I 
 
 What is the best way to check if an element is in the viewport? Enter the `IntersectionObserver`.
 
-<AnimateCodeBlock 
-  client:only="svelte" 
-  duration={1200} 
-  lang="svelte" 
+<AnimateCodeBlock
+  client:only="svelte"
+  duration={1200}
+  lang="svelte"
   previous={`<script lang="ts">
   import { getHighlighter } from 'shiki';
   import MagicMove from './MagicMove.svelte';
@@ -395,7 +396,7 @@ What is the best way to check if an element is in the viewport? Enter the `Inter
   <div class="relative">
     <!-- ... -->
   </div>
-{/await}`} 
+{/await}`}
   next={`<script lang="ts">
   import { getHighlighter } from 'shiki';
   import MagicMove from './MagicMove.svelte';
