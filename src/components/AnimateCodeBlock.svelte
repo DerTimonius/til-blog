@@ -1,6 +1,6 @@
 <script lang="ts">
   import ShikiMagicMove from './ShikiMagicMove.svelte';
-  import { getHighlighter } from '../utils/shikiHighligher';
+  import { createHighlighter } from 'shiki';
 
   let {
     previous,
@@ -20,7 +20,11 @@
   let container: Element | undefined = $state();
   let animating = $state(false);
 
-  const highlighter = getHighlighter();
+  const highlighter = createHighlighter({
+    themes: ['catppuccin-mocha', 'synthwave-84'],
+    langs: ['svelte', 'rs', 'ts', 'go', 'css'],
+  });
+
   const theme =
     document.documentElement.getAttribute('data-theme') === 'dark'
       ? 'catppuccin-mocha'
