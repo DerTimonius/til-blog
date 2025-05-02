@@ -9,7 +9,7 @@
     <div class="mx-auto my-8 max-w-4xl">
       <li class="my-6">
         <a
-          href={`/blog/${foundPost.item.slug}`}
+          href={`/posts/${foundPost.item.slug}`}
           class="inline-block text-lg font-medium text-custom-accent decoration-dashed underline-offset-4 focus-visible:underline-offset-0"
           data-test-id={`search-result-${foundPost.item.slug}`}
         >
