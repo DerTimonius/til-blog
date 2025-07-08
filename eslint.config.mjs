@@ -12,6 +12,7 @@ const config = tseslint.config(
       '.astro',
       '*.config.[tj]s',
       '.vscode',
+      '.vercel',
       'dist',
       '*.mjs',
       '**/toggle-theme.js',
