@@ -3,29 +3,14 @@ on:
   pull_request:
 
 jobs:
-  lint:
-    name: Lint
+  quality:
+    name: Quality checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - uses: actions/cache@v3
-        name: pnpm-cache
-        id: pnpm-cache
-        with:
-          path: |
-            **/node_modules
-            ${{ steps.pnpm-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm
+        uses: pnpm/action-setup@v4
 
       - name: Install dependencies
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
@@ -34,64 +19,8 @@ jobs:
       - name: Run ESLint
         run: pnpm lint
 
-  format:
-    name: Format
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - uses: actions/cache@v3
-        name: pnpm-cache
-        id: pnpm-cache
-        with:
-          path: |
-            **/node_modules
-            ${{ steps.pnpm-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm
-
-      - name: Install dependencies
-        if: steps.pnpm-cache.outputs.cache-hit != 'true'
-        run: pnpm install --frozen-lockfile
-
       - name: Check format
         run: pnpm format:check
-
-  astro-check:
-    name: Astro check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - uses: actions/cache@v3
-        name: pnpm-cache
-        id: pnpm-cache
-        with:
-          path: |
-            **/node_modules
-            ${{ steps.pnpm-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm
-
-      - name: Install dependencies
-        if: steps.pnpm-cache.outputs.cache-hit != 'true'
-        run: pnpm install --frozen-lockfile
 
       - name: Check astro
         run: pnpm astro check
