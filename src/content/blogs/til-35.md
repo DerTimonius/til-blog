@@ -1,6 +1,7 @@
 ---
 title: The most satisfying (and useless) TypeScript type
 pubDate: 2025-06-11
+relatedPosts: ['til-36']
 isFeatured: false
 tags: ['typescript']
 description: Type indexing and template literals lead to the creation of the most satisfying and useless TypeScript type I ever wrote

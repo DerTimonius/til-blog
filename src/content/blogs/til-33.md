@@ -1,7 +1,7 @@
 ---
 title: What I learned in 2024
 pubDate: 2024-12-29
-isFeatured: false
+isFeatured: true
 tags: ['misc']
 description: It's time to look back at the last 12 months and check what I have learned
 bskyPostId: 3legtq3k5zs24
