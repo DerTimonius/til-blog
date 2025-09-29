@@ -38,13 +38,13 @@ export const socials: SocialObjects = [
   },
   {
     name: 'BlueSky',
-    href: 'https://bsky.app/profile/dertimonius.dev',
+    href: 'https://bsky.app/profile/dertimonius.eu',
     linkTitle: `${site.author} on BlueSky`,
     active: true,
   },
   {
     name: 'Mail',
-    href: 'mailto:timon.jurschitsch@gmail.com',
+    href: 'mailto:contact@dertimonius.eu',
     linkTitle: `Send an email to ${site.author}`,
     active: false,
   },
