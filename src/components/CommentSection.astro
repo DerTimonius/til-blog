@@ -24,7 +24,7 @@ interface BlueskyPost {
   replies?: BlueskyPost[];
 }
 
-const { username = 'dertimonius.dev', postId } = Astro.props as Props;
+const { username = 'dertimonius.eu', postId } = Astro.props as Props;
 
 const blueskyLink = `https://bsky.app/profile/${username}/post/${postId}`;
 
