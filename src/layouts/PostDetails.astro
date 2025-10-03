@@ -41,7 +41,12 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 const time = remarkPluginFrontmatter.minutesRead;
 ---
 
-<Layout title={title} author={site.author} description={description}>
+<Layout
+  title={title}
+  ogImage={`/posts/${post.slug}/og.png`}
+  author={site.author}
+  description={description}
+>
   <Header />
   <BackToTopButton />
   <main
