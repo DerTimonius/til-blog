@@ -11,15 +11,17 @@ export interface Props {
   title?: string;
   author?: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   title = site.title,
   author = site.author,
   description = site.desc,
+  ogImage = 'og.png',
 } = Astro.props;
 
-const socialImageURL = `https://dertimonius.dev/${site.ogImage ?? 'og.png'}`;
+const socialImageURL = `https://blog.dertimonius.dev/${ogImage}`;
 ---
 
 <!doctype html>
