@@ -3270,8 +3270,8 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  vite@6.3.6:
-    resolution: {integrity: sha512-0msEVHJEScQbhkbVTb/4iHZdJ6SXp/AvxL2sjwYQFfBqleHtnCqv1J3sa9zbWz/6kW1m9Tfzn92vW+kZ1WV6QA==}
+  vite@6.4.1:
+    resolution: {integrity: sha512-+Oxm7q9hDoLMyJOYfUYBuHQo+dkAloi33apOPP56pzj+vsdJDzr+j1NISE5pyaAuKL4A3UD34qd0lx5+kfKp2g==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -3664,12 +3664,12 @@ snapshots:
 
   '@astrojs/svelte@7.2.0(@types/node@22.18.8)(astro@5.14.3(@types/node@22.18.8)(@vercel/functions@2.2.13)(jiti@1.21.6)(rollup@4.52.4)(typescript@5.9.3)(yaml@2.6.0))(jiti@1.21.6)(svelte@5.39.7)(typescript@5.9.3)(yaml@2.6.0)':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.39.7)(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
+      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.39.7)(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
       astro: 5.14.3(@types/node@22.18.8)(@vercel/functions@2.2.13)(jiti@1.21.6)(rollup@4.52.4)(typescript@5.9.3)(yaml@2.6.0)
       svelte: 5.39.7
       svelte2tsx: 0.7.44(svelte@5.39.7)(typescript@5.9.3)
       typescript: 5.9.3
-      vite: 6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
+      vite: 6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -4346,25 +4346,25 @@ snapshots:
     dependencies:
       acorn: 8.15.0
 
-  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.39.7)(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)))(svelte@5.39.7)(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))':
+  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.39.7)(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)))(svelte@5.39.7)(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.39.7)(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
+      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.39.7)(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
       debug: 4.4.3
       svelte: 5.39.7
-      vite: 6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
+      vite: 6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.39.7)(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))':
+  '@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.39.7)(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.39.7)(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)))(svelte@5.39.7)(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
+      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.39.7)(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)))(svelte@5.39.7)(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
       debug: 4.4.3
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.19
       svelte: 5.39.7
-      vite: 6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
-      vitefu: 1.1.1(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
+      vite: 6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
+      vitefu: 1.1.1(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -4777,8 +4777,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.17.1(@vercel/functions@2.2.13)
       vfile: 6.0.3
-      vite: 6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
-      vitefu: 1.1.1(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
+      vite: 6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
+      vitefu: 1.1.1(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.3
@@ -7202,7 +7202,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0):
+  vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0):
     dependencies:
       esbuild: 0.25.10
       fdir: 6.5.0(picomatch@4.0.3)
@@ -7216,9 +7216,9 @@ snapshots:
       jiti: 1.21.6
       yaml: 2.6.0
 
-  vitefu@1.1.1(vite@6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)):
+  vitefu@1.1.1(vite@6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)):
     optionalDependencies:
-      vite: 6.3.6(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
+      vite: 6.4.1(@types/node@22.18.8)(jiti@1.21.6)(yaml@2.6.0)
 
   volar-service-css@0.0.62(@volar/language-service@2.4.10):
     dependencies:
