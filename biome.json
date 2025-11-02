@@ -474,9 +474,5 @@
 		{ "includes": ["*.astro"], "javascript": { "globals": [] } },
 		{ "includes": ["*.astro"] },
 		{ "includes": ["*.svelte"] }
-	],
-	"assist": {
-		"enabled": true,
-		"actions": { "source": { "organizeImports": "on" } }
-	}
+	]
 }
