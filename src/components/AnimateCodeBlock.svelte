@@ -1,64 +1,64 @@
 <script lang="ts">
-  import ShikiMagicMove from './ShikiMagicMove.svelte';
-  import { createHighlighter } from 'shiki';
+import ShikiMagicMove from './ShikiMagicMove.svelte';
+import { createHighlighter } from 'shiki';
 
-  let {
-    previous,
-    next,
-    lang,
-    autoanimate = true,
-    duration = 600,
-  }: {
-    previous: string;
-    next: string;
-    lang: string;
-    autoanimate?: boolean;
-    duration?: number;
-  } = $props();
+let {
+	previous,
+	next,
+	lang,
+	autoanimate = true,
+	duration = 600,
+}: {
+	previous: string;
+	next: string;
+	lang: string;
+	autoanimate?: boolean;
+	duration?: number;
+} = $props();
 
-  let code = $state(previous);
-  let container: Element | undefined = $state();
-  let animating = $state(false);
+let code = $state(previous);
+let container: Element | undefined = $state();
+let animating = $state(false);
 
-  const highlighter = createHighlighter({
-    themes: ['catppuccin-mocha', 'synthwave-84'],
-    langs: ['svelte', 'rs', 'ts', 'go', 'css'],
-  });
+const highlighter = createHighlighter({
+	themes: ['catppuccin-mocha', 'synthwave-84'],
+	langs: ['svelte', 'rs', 'ts', 'go', 'css'],
+});
 
-  const theme =
-    document.documentElement.getAttribute('data-theme') === 'dark'
-      ? 'catppuccin-mocha'
-      : 'synthwave-84';
+const theme =
+	document.documentElement.getAttribute('data-theme') === 'dark'
+		? 'catppuccin-mocha'
+		: 'synthwave-84';
 
-  const reducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)',
-  ).matches;
+const reducedMotion = window.matchMedia(
+	'(prefers-reduced-motion: reduce)',
+).matches;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (reducedMotion || !autoanimate) return;
+const observer = new IntersectionObserver(
+	(entries) => {
+		entries.forEach((entry) => {
+			if (reducedMotion || !autoanimate) return;
 
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          setTimeout(() => {
-            code = next;
-          }, 500);
-        }
-      });
-    },
-    {
-      root: null,
-      rootMargin: `0px 0px -${window.innerHeight / 8}px 0px`,
-      threshold: 1,
-    },
-  );
+			if (entry.isIntersecting) {
+				observer.disconnect();
+				setTimeout(() => {
+					code = next;
+				}, 500);
+			}
+		});
+	},
+	{
+		root: null,
+		rootMargin: `0px 0px -${window.innerHeight / 8}px 0px`,
+		threshold: 1,
+	},
+);
 
-  $effect(() => {
-    if (container) {
-      observer.observe(container);
-    }
-  });
+$effect(() => {
+	if (container) {
+		observer.observe(container);
+	}
+});
 </script>
 
 {#await highlighter then highlighter}

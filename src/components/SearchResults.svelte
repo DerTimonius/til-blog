@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { SearchResult } from '~/utils/types';
+import type { SearchResult } from '~/utils/types';
 
-  const { foundPosts } = $props<{ foundPosts: SearchResult[] }>();
+const { foundPosts } = $props<{ foundPosts: SearchResult[] }>();
 </script>
 
 <ol class="list-none gap-6 px-6">

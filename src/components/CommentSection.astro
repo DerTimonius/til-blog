@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
 interface Props {
   username?: string;
@@ -24,7 +24,7 @@ interface BlueskyPost {
   replies?: BlueskyPost[];
 }
 
-const { username = 'dertimonius.eu', postId } = Astro.props as Props;
+const { username = "dertimonius.eu", postId } = Astro.props as Props;
 
 const blueskyLink = `https://bsky.app/profile/${username}/post/${postId}`;
 
@@ -37,9 +37,9 @@ try {
   const endpoint = `https://api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${encodeURIComponent(uri)}`;
 
   const response = await fetch(endpoint, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      Accept: 'application/json',
+      Accept: "application/json",
     },
   });
 
@@ -56,8 +56,8 @@ try {
   }
 } catch (e) {
   error = (e as { message: string }).message;
-  // eslint-disable-next-line no-console
-  console.error('Error:', e);
+  // biome-ignore lint/suspicious/noConsole: okay to use
+  console.error("Error:", e);
 }
 ---
 

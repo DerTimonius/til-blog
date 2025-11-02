@@ -5,18 +5,18 @@ import { formatDate } from '~/utils/formatDate';
 import Link from './Link.astro';
 
 interface Props {
-  href: string;
-  frontmatter: CollectionEntry<'blogs'>['data'];
-  slug: string;
-  dataTestId?: string;
+	href: string;
+	frontmatter: CollectionEntry<'blogs'>['data'];
+	slug: string;
+	dataTestId?: string;
 }
 const { href, frontmatter, slug, dataTestId } = Astro.props;
 const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
 
 const headerProps = {
-  style: { viewTransitionName: title },
-  className: 'text-xl font-semibold',
+	style: { viewTransitionName: title },
+	className: 'text-xl font-semibold',
 };
 ---
 

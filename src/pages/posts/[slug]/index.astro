@@ -4,20 +4,20 @@ import PostDetails from '~/layouts/PostDetails.astro';
 import { checkReleaseDate } from '~/utils/formatDate';
 
 export interface Props {
-  post: CollectionEntry<'blogs'>;
+	post: CollectionEntry<'blogs'>;
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection(
-    'blogs',
-    ({ data }) => !data.isDraft && checkReleaseDate(data.pubDate),
-  );
+	const posts = await getCollection(
+		'blogs',
+		({ data }) => !data.isDraft && checkReleaseDate(data.pubDate),
+	);
 
-  const postPaths = posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
+	const postPaths = posts.map((post) => ({
+		params: { slug: post.slug },
+	}));
 
-  return postPaths;
+	return postPaths;
 }
 
 const { slug } = Astro.params;
@@ -25,7 +25,7 @@ const { slug } = Astro.params;
 const post = await getEntry('blogs', slug);
 
 if (!post) {
-  return Astro.redirect('/404');
+	return Astro.redirect('/404');
 }
 ---
 

@@ -2,23 +2,23 @@
 import classNames from 'classnames';
 
 interface Props {
-  datetime: string | Date;
-  size?: 'sm' | 'lg';
-  className?: string;
+	datetime: string | Date;
+	size?: 'sm' | 'lg';
+	className?: string;
 }
 
 const { datetime, size = 'sm', className } = Astro.props;
 const divClasses = classNames(
-  'flex items-center space-x-2 opacity-80',
-  className,
+	'flex items-center space-x-2 opacity-80',
+	className,
 );
 const svgClasses = classNames('inline-block h-6 w-6 fill-custom-base', {
-  'scale-90': size === 'sm',
-  'scale-110': size === 'lg',
+	'scale-90': size === 'sm',
+	'scale-110': size === 'lg',
 });
 const spanClasses = classNames('italic', {
-  'text-sm': size === 'sm',
-  'text-base': size === 'lg',
+	'text-sm': size === 'sm',
+	'text-base': size === 'lg',
 });
 ---
 

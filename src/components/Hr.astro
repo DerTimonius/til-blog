@@ -2,21 +2,21 @@
 import classNames from 'classnames';
 
 export interface Props {
-  noPadding?: boolean;
-  ariaHidden?: boolean;
-  className?: string;
-  lineColor?: string;
+	noPadding?: boolean;
+	ariaHidden?: boolean;
+	className?: string;
+	lineColor?: string;
 }
 
 const {
-  noPadding = false,
-  ariaHidden = true,
-  className,
-  lineColor,
+	noPadding = false,
+	ariaHidden = true,
+	className,
+	lineColor,
 } = Astro.props;
 const divClasses = classNames('w-full mx-auto', className, {
-  'px-0': noPadding,
-  'px-4': !noPadding,
+	'px-0': noPadding,
+	'px-4': !noPadding,
 });
 ---
 

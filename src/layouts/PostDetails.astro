@@ -15,23 +15,23 @@ import Link from '~/components/Link.astro';
 import CommentSection from '~/components/CommentSection.astro';
 
 export interface Props {
-  post: CollectionEntry<'blogs'>;
+	post: CollectionEntry<'blogs'>;
 }
 
 const { post } = Astro.props;
 
 const {
-  title,
-  description,
-  pubDate,
-  tags,
-  updatedAt,
-  relatedPosts,
-  bskyPostId,
+	title,
+	description,
+	pubDate,
+	tags,
+	updatedAt,
+	relatedPosts,
+	bskyPostId,
 } = post.data;
 
 const tagsDisplay = tags.map((tag) => {
-  return { name: tag, postsCount: 0 };
+	return { name: tag, postsCount: 0 };
 });
 const date = formatDate(pubDate);
 const updatedDate = formatDate(updatedAt!);
