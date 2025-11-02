@@ -1,27 +1,21 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: 'monthly'
+      interval: "monthly"
     groups:
       astro-packages:
         patterns:
-          - 'astro*'
-          - '@astrojs/*'
-      eslint-packages:
-        patterns:
-          - 'eslint*'
-      prettier-packages:
-        patterns:
-          - 'prettier*'
+          - "astro*"
+          - "@astrojs/*"
       everything:
         patterns:
-          - '*'
+          - "*"
     labels:
-      - 'dependencies'
-      - 'security'
+      - "dependencies"
+      - "security"
     reviewers:
-      - 'DerTimonius'
+      - "DerTimonius"
     open-pull-requests-limit: 10
