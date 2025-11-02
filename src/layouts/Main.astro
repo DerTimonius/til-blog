@@ -3,23 +3,23 @@ import classNames from 'classnames';
 import Breadcrumbs from '~/components/Breadcrumbs.astro';
 
 interface StringTitleProp {
-  pageTitle: string;
-  pageDesc?: string;
-  screenReaderOnly?: boolean;
+	pageTitle: string;
+	pageDesc?: string;
+	screenReaderOnly?: boolean;
 }
 
 interface ArrayTitleProp {
-  pageTitle: [string, string];
-  titleTransition: string;
-  pageDesc?: string;
-  screenReaderOnly?: boolean;
+	pageTitle: [string, string];
+	titleTransition: string;
+	pageDesc?: string;
+	screenReaderOnly?: boolean;
 }
 
 export type Props = StringTitleProp | ArrayTitleProp;
 
 const { props } = Astro;
 const descriptionClasses = classNames('mb-6 mt-2 italic', {
-  'sr-only': props.screenReaderOnly,
+	'sr-only': props.screenReaderOnly,
 });
 ---
 

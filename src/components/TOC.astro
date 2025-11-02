@@ -2,31 +2,31 @@
 import TOCHeading from './TOCHeading.astro';
 
 export interface Heading {
-  depth: number;
-  slug: string;
-  text: string;
-  subheadings?: Heading[];
+	depth: number;
+	slug: string;
+	text: string;
+	subheadings?: Heading[];
 }
 
 export interface Props {
-  headings: Heading[];
+	headings: Heading[];
 }
 
 const { headings } = Astro.props;
 
 function buildToc(headings: Heading[]) {
-  const toc: Heading[] = [];
-  const parentHeadings = new Map();
-  headings.forEach((h) => {
-    const heading = { ...h, subheadings: [] };
-    parentHeadings.set(heading.depth, heading);
-    if (heading.depth === 2) {
-      toc.push(heading);
-    } else {
-      parentHeadings.get(heading.depth - 1).subheadings.push(heading);
-    }
-  });
-  return toc;
+	const toc: Heading[] = [];
+	const parentHeadings = new Map();
+	headings.forEach((h) => {
+		const heading = { ...h, subheadings: [] };
+		parentHeadings.set(heading.depth, heading);
+		if (heading.depth === 2) {
+			toc.push(heading);
+		} else {
+			parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+		}
+	});
+	return toc;
 }
 
 const toc = buildToc(headings);

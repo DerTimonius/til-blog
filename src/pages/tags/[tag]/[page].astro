@@ -13,19 +13,19 @@ import getTags from '~/utils/getTags';
 import { tagIcons } from '~/utils/tagIcons';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection('blogs');
-  const tags = await getTags(posts);
-  return tags.flatMap(({ name }) => {
-    const tagPosts = posts
-      .filter((post) => {
-        return post.data.tags.includes(name);
-      })
-      .sort((a, b) => (dayjs(a.data.pubDate).isAfter(b.data.pubDate) ? -1 : 1));
-    return paginate(tagPosts, {
-      params: { tag: name },
-      pageSize: site.postPerPage,
-    });
-  });
+	const posts = await getCollection('blogs');
+	const tags = await getTags(posts);
+	return tags.flatMap(({ name }) => {
+		const tagPosts = posts
+			.filter((post) => {
+				return post.data.tags.includes(name);
+			})
+			.sort((a, b) => (dayjs(a.data.pubDate).isAfter(b.data.pubDate) ? -1 : 1));
+		return paginate(tagPosts, {
+			params: { tag: name },
+			pageSize: site.postPerPage,
+		});
+	});
 }) satisfies GetStaticPaths;
 
 const { tag } = Astro.params;
@@ -34,7 +34,7 @@ const { page } = Astro.props;
 
 const randomIdx = Math.floor(Math.random() * tagIcons.other.length);
 const icon =
-  tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
+	tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
 ---
 
 <Layout title={`Tag:${tag} | ${site.title}`}>

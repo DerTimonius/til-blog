@@ -5,15 +5,15 @@ import Link from './Link.astro';
 import classNames from 'classnames';
 
 export interface Props {
-  centered?: boolean;
+	centered?: boolean;
 }
 
 const { centered = false } = Astro.props;
 const divClasses = classNames(
-  'flex flex-wrap justify-center gap-1 items-center',
-  {
-    flex: centered,
-  },
+	'flex flex-wrap justify-center gap-1 items-center',
+	{
+		flex: centered,
+	},
 );
 
 const socialsDisplay = socials.filter((s) => s.active);

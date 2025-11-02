@@ -1,7 +1,7 @@
 import type { SocialIcons } from '~/utils/types';
 
 export const socialIcons: SocialIcons = {
-  Github: `<svg
+	Github: `<svg
     xmlns="http://www.w3.org/2000/svg"
     class="icon-tabler"
     stroke-linecap="round"
@@ -12,7 +12,7 @@ export const socialIcons: SocialIcons = {
       d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
     ></path>
   </svg>`,
-  Instagram: `<svg
+	Instagram: `<svg
     xmlns="http://www.w3.org/2000/svg"
     class="icon-tabler"
     stroke-linecap="round"
@@ -23,7 +23,7 @@ export const socialIcons: SocialIcons = {
     <circle cx="12" cy="12" r="3"></circle>
     <line x1="16.5" y1="7.5" x2="16.5" y2="7.501"></line>
   </svg>`,
-  LinkedIn: `<svg
+	LinkedIn: `<svg
     xmlns="http://www.w3.org/2000/svg"
     class="icon-tabler"
     stroke-linecap="round"
@@ -36,7 +36,7 @@ export const socialIcons: SocialIcons = {
     <line x1="12" y1="16" x2="12" y2="11"></line>
     <path d="M16 16v-3a2 2 0 0 0 -4 0"></path>
   </svg>`,
-  Mail: `<svg
+	Mail: `<svg
       xmlns="http://www.w3.org/2000/svg"
       class="icon-tabler"
       stroke-linecap="round"
@@ -47,7 +47,7 @@ export const socialIcons: SocialIcons = {
       <polyline points="3 7 12 13 21 7"></polyline>
     </svg>`,
 
-  Reddit: `<svg
+	Reddit: `<svg
       xmlns="http://www.w3.org/2000/svg"
       class="icon-tabler"
       stroke-linecap="round"
@@ -61,7 +61,7 @@ export const socialIcons: SocialIcons = {
       <circle cx="15" cy="13" r=".5" fill="currentColor"></circle>
       <path d="M10 17c.667 .333 1.333 .5 2 .5s1.333 -.167 2 -.5"></path>
     </svg>`,
-  RSS: `<svg
+	RSS: `<svg
     xmlns="http://www.w3.org/2000/svg"
     class="scale-125 inline-block h-6 w-6 fill-custom-accent"
     ><path
@@ -70,6 +70,6 @@ export const socialIcons: SocialIcons = {
       d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
     ></path><circle cx="6" cy="18" r="2"></circle>
   </svg>`,
-  BlueSky: `<svg viewBox="0 0 64 57" class="inline-block h-6 w-6 fill-custom-base hover:fill-custom-accent"
+	BlueSky: `<svg viewBox="0 0 64 57" class="inline-block h-6 w-6 fill-custom-base hover:fill-custom-accent"
  ><path d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z"></path></svg>`,
 };

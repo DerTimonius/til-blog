@@ -3,177 +3,178 @@
 @tailwind utilities;
 
 .shiki-magic-move-container {
-  position: relative;
-  white-space: pre;
+	position: relative;
+	white-space: pre;
 }
 
 .shiki-magic-move-line-number {
-  opacity: 0.3;
-  user-select: none;
+	opacity: 0.3;
+	user-select: none;
 }
 
 .shiki-magic-move-item {
-  display: inline-block;
-  transition: color var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
+	display: inline-block;
+	transition: color var(--smm-duration, 0.5s) var(--smm-easing, "ease");
 }
 
 .shiki-magic-move-move {
-  transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
+	transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
 }
 
 .shiki-magic-move-enter-active,
 .shiki-magic-move-leave-active {
-  transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
+	transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
 }
 
 .shiki-magic-move-container-resize,
 .shiki-magic-move-container-restyle {
-  transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
-  transition-delay: calc(
-    var(--smm-duration, 0.5s) * var(--smm-delay-container, 1)
-  );
+	transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+	transition-delay: calc(
+		var(--smm-duration, 0.5s) *
+		var(--smm-delay-container, 1)
+	);
 }
 
 .shiki-magic-move-move {
-  transition-delay: calc(
-    calc(var(--smm-duration, 0.5s) * var(--smm-delay-move, 1)) +
-      var(--smm-stagger, 0)
-  );
-  z-index: 1;
+	transition-delay: calc(
+		calc(var(--smm-duration, 0.5s) * var(--smm-delay-move, 1)) +
+		var(--smm-stagger, 0)
+	);
+	z-index: 1;
 }
 
 .shiki-magic-move-enter-active {
-  transition-delay: calc(
-    calc(var(--smm-duration, 0.5s) * var(--smm-delay-enter, 1)) +
-      var(--smm-stagger, 0)
-  );
-  z-index: 1;
+	transition-delay: calc(
+		calc(var(--smm-duration, 0.5s) * var(--smm-delay-enter, 1)) +
+		var(--smm-stagger, 0)
+	);
+	z-index: 1;
 }
 
 .shiki-magic-move-leave-active {
-  transition-delay: calc(
-    calc(var(--smm-duration, 0.5s) * var(--smm-delay-leave, 1)) +
-      var(--smm-stagger, 0)
-  );
+	transition-delay: calc(
+		calc(var(--smm-duration, 0.5s) * var(--smm-delay-leave, 1)) +
+		var(--smm-stagger, 0)
+	);
 }
 
 .shiki-magic-move-enter-from,
 .shiki-magic-move-leave-to {
-  opacity: 0;
+	opacity: 0;
 }
 
 br.shiki-magic-move-leave-active {
-  display: none;
+	display: none;
 }
 @layer base {
-  :root,
-  html {
-    --color-fill: 247, 247, 247;
-    --color-text-base: 40, 39, 40;
-    --color-accent: 65, 107, 149;
-    --color-card: 230, 230, 230;
-    --color-card-muted: 205, 205, 205;
-    --color-border: 236, 233, 233;
-    --color-border-dashed: 200, 200, 200;
-  }
-  html[class='dark'] {
-    --color-fill: 13, 19, 35;
-    --color-text-base: 234, 237, 243;
-    --color-accent: 220, 81, 81;
-    --color-card: 52, 63, 96;
-    --color-card-muted: 138, 51, 2;
-    --color-border: 220, 81, 81;
-    --color-border-dashed: 199, 80, 80;
-  }
-  body {
-    @apply flex min-h-[100svh] flex-col bg-custom-fill p-4 font-mono text-custom-base selection:bg-custom-accent selection:bg-opacity-70 selection:text-custom-inverted;
-  }
-  section,
-  footer {
-    @apply mx-auto max-w-4xl;
-  }
-  a {
-    @apply outline-2 outline-offset-1 outline-custom-fill focus-visible:no-underline focus-visible:outline-dashed;
-  }
-  svg {
-    @apply inline-block h-6 w-6 group-hover:fill-custom-accent;
-  }
-  svg.tags {
-    @apply inline-block h-12 w-12 fill-custom-base;
-  }
-  svg.custom {
-    @apply inline-block h-12 w-12 stroke-current group-hover:fill-none group-hover:stroke-custom-accent;
-  }
-  svg.icon-tabler {
-    @apply inline-block h-6 w-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110;
-  }
-  .prose {
-    @apply prose-headings:!mb-3 prose-headings:!text-custom-base prose-h2:!text-custom-accent prose-h3:italic prose-p:!text-custom-base prose-a:!text-custom-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-custom-accent prose-blockquote:!border-l-custom-accent prose-blockquote:border-opacity-50 prose-blockquote:opacity-80 prose-figcaption:!text-custom-base prose-figcaption:opacity-70 prose-strong:!text-custom-base prose-code:rounded prose-code:bg-custom-card prose-code:bg-opacity-75 prose-code:p-1 prose-code:!text-custom-base prose-code:before:!content-[''] prose-code:after:!content-[''] prose-pre:!text-custom-base prose-ol:!text-custom-base prose-ul:overflow-x-clip prose-ul:!text-custom-base prose-li:marker:!text-custom-accent prose-table:text-custom-base prose-th:border prose-th:border-custom-line prose-td:border prose-td:border-custom-line prose-img:mx-auto prose-img:!mt-2 prose-img:border-2 prose-img:border-custom-line prose-hr:!border-custom-line;
-  }
-  .prose a {
-    @apply break-words hover:!text-custom-accent;
-  }
-  .prose h2 a {
-    @apply !text-custom-accent !no-underline hover:!underline hover:!decoration-dashed;
-  }
-  .prose thead th:first-child,
-  tbody td:first-child,
-  tfoot td:first-child {
-    padding-left: 0.5714286em;
-  }
-  .prose h2#table-of-contents {
-    @apply mb-2;
-  }
-  .prose details {
-    @apply inline-block cursor-pointer select-none text-custom-base;
-  }
-  .prose summary {
-    @apply focus-outline;
-  }
-  .prose h2#table-of-contents + p {
-    @apply hidden;
-  }
+	:root,
+	html {
+		--color-fill: 247, 247, 247;
+		--color-text-base: 40, 39, 40;
+		--color-accent: 65, 107, 149;
+		--color-card: 230, 230, 230;
+		--color-card-muted: 205, 205, 205;
+		--color-border: 236, 233, 233;
+		--color-border-dashed: 200, 200, 200;
+	}
+	html[class="dark"] {
+		--color-fill: 13, 19, 35;
+		--color-text-base: 234, 237, 243;
+		--color-accent: 220, 81, 81;
+		--color-card: 52, 63, 96;
+		--color-card-muted: 138, 51, 2;
+		--color-border: 220, 81, 81;
+		--color-border-dashed: 199, 80, 80;
+	}
+	body {
+		@apply flex min-h-[100svh] flex-col bg-custom-fill p-4 font-mono text-custom-base selection:bg-custom-accent selection:bg-opacity-70 selection:text-custom-inverted;
+	}
+	section,
+	footer {
+		@apply mx-auto max-w-4xl;
+	}
+	a {
+		@apply outline-2 outline-offset-1 outline-custom-fill focus-visible:no-underline focus-visible:outline-dashed;
+	}
+	svg {
+		@apply inline-block h-6 w-6 group-hover:fill-custom-accent;
+	}
+	svg.tags {
+		@apply inline-block h-12 w-12 fill-custom-base;
+	}
+	svg.custom {
+		@apply inline-block h-12 w-12 stroke-current group-hover:fill-none group-hover:stroke-custom-accent;
+	}
+	svg.icon-tabler {
+		@apply inline-block h-6 w-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110;
+	}
+	.prose {
+		@apply prose-headings:!mb-3 prose-headings:!text-custom-base prose-h2:!text-custom-accent prose-h3:italic prose-p:!text-custom-base prose-a:!text-custom-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-custom-accent prose-blockquote:!border-l-custom-accent prose-blockquote:border-opacity-50 prose-blockquote:opacity-80 prose-figcaption:!text-custom-base prose-figcaption:opacity-70 prose-strong:!text-custom-base prose-code:rounded prose-code:bg-custom-card prose-code:bg-opacity-75 prose-code:p-1 prose-code:!text-custom-base prose-code:before:!content-[''] prose-code:after:!content-[''] prose-pre:!text-custom-base prose-ol:!text-custom-base prose-ul:overflow-x-clip prose-ul:!text-custom-base prose-li:marker:!text-custom-accent prose-table:text-custom-base prose-th:border prose-th:border-custom-line prose-td:border prose-td:border-custom-line prose-img:mx-auto prose-img:!mt-2 prose-img:border-2 prose-img:border-custom-line prose-hr:!border-custom-line;
+	}
+	.prose a {
+		@apply break-words hover:!text-custom-accent;
+	}
+	.prose h2 a {
+		@apply !text-custom-accent !no-underline hover:!underline hover:!decoration-dashed;
+	}
+	.prose thead th:first-child,
+	tbody td:first-child,
+	tfoot td:first-child {
+		padding-left: 0.5714286em;
+	}
+	.prose h2#table-of-contents {
+		@apply mb-2;
+	}
+	.prose details {
+		@apply inline-block cursor-pointer select-none text-custom-base;
+	}
+	.prose summary {
+		@apply focus-outline;
+	}
+	.prose h2#table-of-contents + p {
+		@apply hidden;
+	}
 
-  /* ===== scrollbar ===== */
-  html {
-    overflow-y: scroll;
-  }
+	/* ===== scrollbar ===== */
+	html {
+		overflow-y: scroll;
+	}
 
-  /* width */
-  ::-webkit-scrollbar {
-    @apply w-3;
-  }
+	/* width */
+	::-webkit-scrollbar {
+		@apply w-3;
+	}
 
-  /* Track */
-  ::-webkit-scrollbar-track {
-    @apply bg-custom-fill;
-  }
+	/* Track */
+	::-webkit-scrollbar-track {
+		@apply bg-custom-fill;
+	}
 
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    @apply bg-custom-card;
-  }
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		@apply bg-custom-card;
+	}
 
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-custom-card-muted;
-  }
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		@apply bg-custom-card-muted;
+	}
 
-  code,
-  blockquote {
-    word-wrap: break-word;
-  }
+	code,
+	blockquote {
+		word-wrap: break-word;
+	}
 
-  pre > code {
-    white-space: pre;
-  }
+	pre > code {
+		white-space: pre;
+	}
 }
 
 @layer components {
-  .display-none {
-    @apply hidden;
-  }
-  .focus-outline {
-    @apply outline-2 outline-offset-1 outline-custom-fill focus-visible:no-underline focus-visible:outline-dashed;
-  }
+	.display-none {
+		@apply hidden;
+	}
+	.focus-outline {
+		@apply outline-2 outline-offset-1 outline-custom-fill focus-visible:no-underline focus-visible:outline-dashed;
+	}
 }

@@ -9,15 +9,15 @@ import type { Page } from 'astro';
 import PaginationButtons from '~/components/PaginationButtons.astro';
 
 export interface Props {
-  page: Page;
-  pageTitle?: string;
-  pageDesc?: string;
+	page: Page;
+	pageTitle?: string;
+	pageDesc?: string;
 }
 
 const {
-  page,
-  pageTitle = 'Posts',
-  pageDesc = "What I've learned so far.",
+	page,
+	pageTitle = 'Posts',
+	pageDesc = "What I've learned so far.",
 } = Astro.props;
 ---
 

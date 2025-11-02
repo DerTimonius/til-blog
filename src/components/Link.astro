@@ -2,27 +2,27 @@
 import classNames from 'classnames';
 
 export interface Props {
-  href: string;
-  className?: string;
-  ariaLabel?: string;
-  title?: string;
-  disabled?: boolean;
-  newTab?: boolean;
-  dataTestId?: string;
+	href: string;
+	className?: string;
+	ariaLabel?: string;
+	title?: string;
+	disabled?: boolean;
+	newTab?: boolean;
+	dataTestId?: string;
 }
 
 const {
-  href,
-  className,
-  ariaLabel,
-  title,
-  dataTestId,
-  disabled = false,
-  newTab = false,
+	href,
+	className,
+	ariaLabel,
+	title,
+	dataTestId,
+	disabled = false,
+	newTab = false,
 } = Astro.props;
 const linkClasses = classNames(
-  'group inline-block hover:text-custom-accent',
-  className,
+	'group inline-block hover:text-custom-accent',
+	className,
 );
 ---
 

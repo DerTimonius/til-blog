@@ -3,13 +3,13 @@ import type { Tag } from '~/utils/getTags';
 import { tagIcons } from '~/utils/tagIcons';
 
 export interface Props {
-  tag: Tag;
+	tag: Tag;
 }
 
 const { tag } = Astro.props;
 const randomIdx = Math.floor(Math.random() * tagIcons.other.length);
 const icon =
-  tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
+	tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
 ---
 
 <li>

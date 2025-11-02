@@ -6,15 +6,15 @@ import classNames from 'classnames';
 const currentYear = new Date().getFullYear();
 
 export interface Props {
-  noMarginTop?: boolean;
-  className?: string;
+	noMarginTop?: boolean;
+	className?: string;
 }
 
 const { noMarginTop = false, className } = Astro.props;
 const footerClasses = classNames(
-  'w-full',
-  { 'mt-auto': !noMarginTop },
-  className,
+	'w-full',
+	{ 'mt-auto': !noMarginTop },
+	className,
 );
 ---
 

@@ -5,8 +5,8 @@ import { site } from '~/utils/config';
 import { getFeaturedPosts } from '~/utils/sortPosts';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const sortedPosts = await getFeaturedPosts();
-  return paginate(sortedPosts, { pageSize: site.postPerPage });
+	const sortedPosts = await getFeaturedPosts();
+	return paginate(sortedPosts, { pageSize: site.postPerPage });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
