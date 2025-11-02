@@ -1,37 +1,37 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import Layout from './Layout.astro';
-import Header from '~/components/Header.astro';
-import Date from '~/components/Date.astro';
-import Footer from '~/components/Footer.astro';
-import { site } from '~/utils/config';
-import Tag from '~/components/Tag.astro';
-import ReadingTime from '~/components/ReadingTime.astro';
-import { formatDate } from '~/utils/formatDate';
-import { getRelatedPosts } from '~/utils/sortPosts';
-import TOC from '~/components/TOC.astro';
-import BackToTopButton from '~/components/BackToTopButton.astro';
-import Link from '~/components/Link.astro';
-import CommentSection from '~/components/CommentSection.astro';
+import type { CollectionEntry } from "astro:content";
+import Layout from "./Layout.astro";
+import Header from "~/components/Header.astro";
+import Date from "~/components/Date.astro";
+import Footer from "~/components/Footer.astro";
+import { site } from "~/utils/config";
+import Tag from "~/components/Tag.astro";
+import ReadingTime from "~/components/ReadingTime.astro";
+import { formatDate } from "~/utils/formatDate";
+import { getRelatedPosts } from "~/utils/sortPosts";
+import TOC from "~/components/TOC.astro";
+import BackToTopButton from "~/components/BackToTopButton.astro";
+import Link from "~/components/Link.astro";
+import CommentSection from "~/components/CommentSection.astro";
 
 export interface Props {
-	post: CollectionEntry<'blogs'>;
+  post: CollectionEntry<"blogs">;
 }
 
 const { post } = Astro.props;
 
 const {
-	title,
-	description,
-	pubDate,
-	tags,
-	updatedAt,
-	relatedPosts,
-	bskyPostId,
+  title,
+  description,
+  pubDate,
+  tags,
+  updatedAt,
+  relatedPosts,
+  bskyPostId,
 } = post.data;
 
 const tagsDisplay = tags.map((tag) => {
-	return { name: tag, postsCount: 0 };
+  return { name: tag, postsCount: 0 };
 });
 const date = formatDate(pubDate);
 const updatedDate = formatDate(updatedAt!);
@@ -123,7 +123,7 @@ const time = remarkPluginFrontmatter.minutesRead;
                 {relatedArticles.map((post) => (
                   <li>
                     <Link
-                      href={`/blog/${post.slug}`}
+                      href={`/posts/${post.slug}`}
                       className="text-custom-accent hover:text-custom-base"
                     >
                       {post.data.title}
