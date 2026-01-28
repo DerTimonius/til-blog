@@ -1,65 +1,65 @@
 <script lang="ts">
-  import { createHighlighter } from "shiki";
-  import { ShikiMagicMove } from "shiki-magic-move/svelte";
+import { createHighlighter } from 'shiki';
+import { ShikiMagicMove } from 'shiki-magic-move/svelte';
 
-  import "shiki-magic-move/dist/style.css";
+import 'shiki-magic-move/dist/style.css';
 
-  let {
-    previous,
-    next,
-    lang,
-    autoanimate = true,
-    duration = 600,
-  }: {
-    previous: string;
-    next: string;
-    lang: string;
-    autoanimate?: boolean;
-    duration?: number;
-  } = $props();
+let {
+	previous,
+	next,
+	lang,
+	autoanimate = true,
+	duration = 600,
+}: {
+	previous: string;
+	next: string;
+	lang: string;
+	autoanimate?: boolean;
+	duration?: number;
+} = $props();
 
-  const highlighter = createHighlighter({
-    themes: ["catppuccin-mocha"],
-    langs: ["svelte", "rs", "ts", "go", "css"],
-  });
+const highlighter = createHighlighter({
+	themes: ['catppuccin-mocha'],
+	langs: ['svelte', 'rs', 'ts', 'go', 'css'],
+});
 
-  let code = $state(previous);
-  let container: Element | undefined = $state();
-  let animating = $state(false);
+let code = $state(previous);
+let container: Element | undefined = $state();
+let animating = $state(false);
 
-  function animate() {
-    code === previous ? (code = next) : (code = previous);
-  }
+function animate() {
+	code === previous ? (code = next) : (code = previous);
+}
 
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+const reducedMotion = window.matchMedia(
+	'(prefers-reduced-motion: reduce)',
+).matches;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (reducedMotion || !autoanimate) return;
+const observer = new IntersectionObserver(
+	(entries) => {
+		entries.forEach((entry) => {
+			if (reducedMotion || !autoanimate) return;
 
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          setTimeout(() => {
-            code = next;
-          }, 500);
-        }
-      });
-    },
-    {
-      root: null,
-      rootMargin: `0px 0px -${window.innerHeight / 8}px 0px`,
-      threshold: 1,
-    },
-  );
+			if (entry.isIntersecting) {
+				observer.disconnect();
+				setTimeout(() => {
+					code = next;
+				}, 500);
+			}
+		});
+	},
+	{
+		root: null,
+		rootMargin: `0px 0px -${window.innerHeight / 8}px 0px`,
+		threshold: 1,
+	},
+);
 
-  $effect(() => {
-    if (container) {
-      observer.observe(container);
-    }
-  });
+$effect(() => {
+	if (container) {
+		observer.observe(container);
+	}
+});
 </script>
 
 {#await highlighter then highlighter}
