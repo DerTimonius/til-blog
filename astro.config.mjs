@@ -23,7 +23,7 @@ export default defineConfig({
   integrations: [
     expressiveCode({
       plugins: [pluginErrorPreview()],
-      themes: ['catppuccin-macchiato', 'catppuccin-latte'],
+      themes: ['catppuccin-mocha', 'catppuccin-latte'],
     }),
     svelte(),
     mdx(),
