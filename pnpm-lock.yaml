@@ -80,8 +80,8 @@ importers:
         specifier: ^3.13.0
         version: 3.13.0
       shiki-magic-move:
-        specifier: ^1.2.0
-        version: 1.2.0(shiki@3.13.0)(svelte@5.39.7)
+        specifier: ^1.2.1
+        version: 1.2.1(shiki@3.13.0)(svelte@5.39.7)
       svelte:
         specifier: ^5.39.7
         version: 5.39.7
@@ -2272,8 +2272,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  shiki-magic-move@1.2.0:
-    resolution: {integrity: sha512-7ZXiTRwgRDeDXkCB9x5QYcLDxpwQJSBdJAuLVPjuoTgeaZT3gxE2pM04qSy+hCfip5vJ98TfBTg7v24hWEv9ug==}
+  shiki-magic-move@1.2.1:
+    resolution: {integrity: sha512-421QfXnBNbsyOkb+gh/Sm18SSedN7pVc+ZA4gMCEF6YPtvEIntP5CojBiVz9AL0apCRsWeiZfVBEmw0oUP+uMg==}
     peerDependencies:
       react: ^18.2.0 || ^19.0.0
       shiki: ^1.0.0 || ^2.0.0 || ^3.0.0
@@ -5485,7 +5485,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shiki-magic-move@1.2.0(shiki@3.13.0)(svelte@5.39.7):
+  shiki-magic-move@1.2.1(shiki@3.13.0)(svelte@5.39.7):
     dependencies:
       diff-match-patch-es: 1.0.1
       ohash: 2.0.11
