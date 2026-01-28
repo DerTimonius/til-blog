@@ -83,7 +83,7 @@ Pretty useless, but the concept can be built upon.
 
 ## Template literals
 
-It wasn't too long ago that I learnt that you can also use template literals in TypeScript types!
+It wasn't too long ago that I have learned that you can also use template literals in TypeScript types!
 
 If we look at the `GetUser` type again, we could even rename the key for the type to be `getName` etc.
 

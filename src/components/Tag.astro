@@ -9,7 +9,7 @@ export interface Props {
 
 const { tag, size = 'sm' } = Astro.props;
 const linkClasses = classNames(
-	' pr-2 group relative underline decoration-dashed hover:-top-0.5 hover:text-custom-accent  focus-visible:p-1',
+	' pr-2 group relative underline decoration-dashed hover:-top-0.5 hover:text-accent  focus-visible:p-1',
 	{
 		'text-sm': size === 'sm',
 		'text-lg': size === 'lg',

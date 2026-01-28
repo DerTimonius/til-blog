@@ -74,7 +74,7 @@ $effect(() => {
     />
     {#if !animating}
       <button
-        class="border-1 absolute right-0 top-0 m-2 rounded-md border border-slate-600 p-1 text-custom-base hover:bg-slate-600/50"
+        class="border absolute right-0 top-0 m-2 rounded-md border border-slate-600 p-1 text-custom-base hover:bg-slate-600/50"
         onclick={() => (code === previous ? (code = next) : (code = previous))}
       >
         <svg
