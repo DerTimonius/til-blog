@@ -1,121 +1,335 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-.shiki-magic-move-container {
-	position: relative;
-	white-space: pre;
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+	--stroke-transparent: transparent;
+	--fill-transparent: transparent;
+
+	--font-mono: Fira Mono, monospace;
+	--font-neon: Monaspace Neon, monospace;
+
+	/* Theme color utilities - these will create text-*, bg-*, border-*, fill-*, stroke-*, divide-* utilities */
+	--color-base: rgb(var(--color-text-base));
+	--color-accent: rgb(var(--color-accent-rgb));
+	--color-inverted: rgb(var(--color-fill-rgb));
+	--color-fill: rgb(var(--color-fill-rgb));
+	--color-card: rgb(var(--color-card-rgb));
+	--color-line: rgb(var(--color-border-rgb));
+	--color-light: rgb(var(--color-border-dashed));
 }
 
-.shiki-magic-move-line-number {
-	opacity: 0.3;
-	user-select: none;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
+	}
 }
 
-.shiki-magic-move-item {
-	display: inline-block;
-	transition: color var(--smm-duration, 0.5s) var(--smm-easing, "ease");
-}
-
-.shiki-magic-move-move {
-	transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
-}
-
-.shiki-magic-move-enter-active,
-.shiki-magic-move-leave-active {
-	transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
-}
-
-.shiki-magic-move-container-resize,
-.shiki-magic-move-container-restyle {
-	transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
-	transition-delay: calc(
-		var(--smm-duration, 0.5s) *
-		var(--smm-delay-container, 1)
-	);
-}
-
-.shiki-magic-move-move {
-	transition-delay: calc(
-		calc(var(--smm-duration, 0.5s) * var(--smm-delay-move, 1)) +
-		var(--smm-stagger, 0)
-	);
-	z-index: 1;
-}
-
-.shiki-magic-move-enter-active {
-	transition-delay: calc(
-		calc(var(--smm-duration, 0.5s) * var(--smm-delay-enter, 1)) +
-		var(--smm-stagger, 0)
-	);
-	z-index: 1;
-}
-
-.shiki-magic-move-leave-active {
-	transition-delay: calc(
-		calc(var(--smm-duration, 0.5s) * var(--smm-delay-leave, 1)) +
-		var(--smm-stagger, 0)
-	);
-}
-
-.shiki-magic-move-enter-from,
-.shiki-magic-move-leave-to {
-	opacity: 0;
-}
-
-br.shiki-magic-move-leave-active {
+@utility display-none {
 	display: none;
+}
+
+@utility focus-outline {
+	outline-width: 2px;
+	outline-offset: 1px;
+
+	&:focus-visible {
+		text-decoration: none;
+		outline-style: dashed;
+	}
+}
+
+@layer utilities {
+	.shiki-magic-move-container {
+		position: relative;
+		white-space: pre;
+	}
+
+	.shiki-magic-move-line-number {
+		opacity: 0.3;
+		user-select: none;
+	}
+
+	.shiki-magic-move-item {
+		display: inline-block;
+		transition: color var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+	}
+
+	.shiki-magic-move-move {
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+	}
+
+	.shiki-magic-move-enter-active,
+	.shiki-magic-move-leave-active {
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+	}
+
+	.shiki-magic-move-container-resize,
+	.shiki-magic-move-container-restyle {
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition-delay: calc(
+			var(--smm-duration, 0.5s) *
+			var(--smm-delay-container, 1)
+		);
+	}
+
+	.shiki-magic-move-move {
+		transition-delay: calc(
+			calc(var(--smm-duration, 0.5s) * var(--smm-delay-move, 1)) +
+			var(--smm-stagger, 0)
+		);
+		z-index: 1;
+	}
+
+	.shiki-magic-move-enter-active {
+		transition-delay: calc(
+			calc(var(--smm-duration, 0.5s) * var(--smm-delay-enter, 1)) +
+			var(--smm-stagger, 0)
+		);
+		z-index: 1;
+	}
+
+	.shiki-magic-move-leave-active {
+		transition-delay: calc(
+			calc(var(--smm-duration, 0.5s) * var(--smm-delay-leave, 1)) +
+			var(--smm-stagger, 0)
+		);
+	}
+
+	.shiki-magic-move-enter-from,
+	.shiki-magic-move-leave-to {
+		opacity: 0;
+	}
+
+	br.shiki-magic-move-leave-active {
+		display: none;
+	}
 }
 @layer base {
 	:root,
 	html {
-		--color-fill: 247, 247, 247;
+		/* RGB values for color composition */
+		--color-fill-rgb: 247, 247, 247;
 		--color-text-base: 40, 39, 40;
-		--color-accent: 65, 107, 149;
-		--color-card: 230, 230, 230;
+		--color-accent-rgb: 65, 107, 149;
+		--color-card-rgb: 230, 230, 230;
 		--color-card-muted: 205, 205, 205;
-		--color-border: 236, 233, 233;
+		--color-border-rgb: 236, 233, 233;
 		--color-border-dashed: 200, 200, 200;
 	}
 	html[class="dark"] {
-		--color-fill: 13, 19, 35;
+		/* RGB values for color composition */
+		--color-fill-rgb: 13, 19, 35;
 		--color-text-base: 234, 237, 243;
-		--color-accent: 220, 81, 81;
-		--color-card: 52, 63, 96;
+		--color-accent-rgb: 220, 81, 81;
+		--color-card-rgb: 52, 63, 96;
 		--color-card-muted: 138, 51, 2;
-		--color-border: 220, 81, 81;
+		--color-border-rgb: 220, 81, 81;
 		--color-border-dashed: 199, 80, 80;
 	}
 	body {
-		@apply flex min-h-[100svh] flex-col bg-custom-fill p-4 font-mono text-custom-base selection:bg-custom-accent selection:bg-opacity-70 selection:text-custom-inverted;
+		display: flex;
+		min-height: 100svh;
+		flex-direction: column;
+		background-color: rgb(var(--color-fill-rgb));
+		padding: 1rem;
+		font-family:
+			Fira Mono,
+			monospace;
+		color: rgb(var(--color-text-base));
+	}
+
+	body::selection,
+	body *::selection {
+		background-color: rgba(var(--color-accent-rgb), 0.7);
+		color: rgb(var(--color-fill-rgb));
 	}
 	section,
 	footer {
-		@apply mx-auto max-w-4xl;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 56rem;
 	}
 	a {
-		@apply outline-2 outline-offset-1 outline-custom-fill focus-visible:no-underline focus-visible:outline-dashed;
+		outline-width: 2px;
+		outline-offset: 1px;
+		outline-color: rgb(var(--color-accent-rgb));
+	}
+
+	a:focus-visible {
+		text-decoration: none;
+		outline-style: dashed;
 	}
 	svg {
-		@apply inline-block h-6 w-6 group-hover:fill-custom-accent;
+		display: inline-block;
+		height: 1.5rem;
+		width: 1.5rem;
+	}
+
+	:is(:where(.group):hover *) svg {
+		fill: rgb(var(--color-accent-rgb));
 	}
 	svg.tags {
-		@apply inline-block h-12 w-12 fill-custom-base;
+		display: inline-block;
+		height: 3rem;
+		width: 3rem;
+		fill: rgb(var(--color-text-base));
 	}
 	svg.custom {
-		@apply inline-block h-12 w-12 stroke-current group-hover:fill-none group-hover:stroke-custom-accent;
+		display: inline-block;
+		height: 3rem;
+		width: 3rem;
+		stroke: currentColor;
+	}
+
+	:is(:where(.group):hover *) svg.custom {
+		fill: none;
+		stroke: rgb(var(--color-accent-rgb));
 	}
 	svg.icon-tabler {
-		@apply inline-block h-6 w-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110;
+		display: inline-block;
+		height: 1.5rem;
+		width: 1.5rem;
+		scale: 1.25;
+		fill: transparent;
+		stroke: currentColor;
+		stroke-width: 2;
+		opacity: 0.9;
 	}
-	.prose {
-		@apply prose-headings:!mb-3 prose-headings:!text-custom-base prose-h2:!text-custom-accent prose-h3:italic prose-p:!text-custom-base prose-a:!text-custom-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-custom-accent prose-blockquote:!border-l-custom-accent prose-blockquote:border-opacity-50 prose-blockquote:opacity-80 prose-figcaption:!text-custom-base prose-figcaption:opacity-70 prose-strong:!text-custom-base prose-code:rounded prose-code:bg-custom-card prose-code:bg-opacity-75 prose-code:p-1 prose-code:!text-custom-base prose-code:before:!content-[''] prose-code:after:!content-[''] prose-pre:!text-custom-base prose-ol:!text-custom-base prose-ul:overflow-x-clip prose-ul:!text-custom-base prose-li:marker:!text-custom-accent prose-table:text-custom-base prose-th:border prose-th:border-custom-line prose-td:border prose-td:border-custom-line prose-img:mx-auto prose-img:!mt-2 prose-img:border-2 prose-img:border-custom-line prose-hr:!border-custom-line;
+
+	:is(:where(.group):hover *) svg.icon-tabler {
+		fill: transparent;
+	}
+
+	@media (min-width: 640px) {
+		svg.icon-tabler {
+			scale: 1.1;
+		}
+	}
+	.prose :is(h1, h2, h3, h4, h5, h6) {
+		margin-bottom: 0.75rem !important;
+		color: rgb(var(--color-text-base)) !important;
+	}
+
+	.prose h2 {
+		color: rgb(var(--color-accent-rgb)) !important;
+	}
+
+	.prose h3 {
+		font-style: italic;
+	}
+
+	.prose p {
+		color: rgb(var(--color-text-base)) !important;
+	}
+
+	.prose a {
+		color: rgb(var(--color-text-base)) !important;
+		text-decoration-style: dashed !important;
+		text-underline-offset: 8px;
+	}
+
+	.prose:hover a {
+		color: rgb(var(--color-accent-rgb));
+	}
+
+	.prose blockquote {
+		border-left-color: rgba(var(--color-accent-rgb), 0.5) !important;
+		opacity: 0.8;
+	}
+
+	.prose figcaption {
+		color: rgb(var(--color-text-base)) !important;
+		opacity: 0.7;
+	}
+
+	.prose strong {
+		color: rgb(var(--color-text-base)) !important;
+	}
+
+	.prose code {
+		border-radius: 0.125rem;
+		background-color: rgba(var(--color-card-rgb), 0.75);
+		padding: 0.25rem;
+		color: rgb(var(--color-text-base)) !important;
+	}
+
+	.prose code::before,
+	.prose code::after {
+		content: "" !important;
+	}
+
+	.prose pre {
+		color: rgb(var(--color-text-base)) !important;
+	}
+
+	.prose ol {
+		color: rgb(var(--color-text-base)) !important;
+	}
+
+	.prose ul {
+		overflow-x: clip;
+		color: rgb(var(--color-text-base)) !important;
+	}
+
+	.prose li::marker {
+		color: rgb(var(--color-accent-rgb)) !important;
+	}
+
+	.prose table {
+		color: rgb(var(--color-text-base));
+	}
+
+	.prose th {
+		border-width: 1px;
+		border-color: rgb(var(--color-border-rgb));
+	}
+
+	.prose td {
+		border-width: 1px;
+		border-color: rgb(var(--color-border-rgb));
+	}
+
+	.prose img {
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 0.5rem !important;
+		border-width: 2px;
+		border-color: rgb(var(--color-border-rgb));
+	}
+
+	.prose hr {
+		border-color: rgb(var(--color-border-rgb)) !important;
 	}
 	.prose a {
-		@apply break-words hover:!text-custom-accent;
+		overflow-wrap: break-word;
+	}
+
+	.prose a:hover {
+		color: rgb(var(--color-accent-rgb)) !important;
 	}
 	.prose h2 a {
-		@apply !text-custom-accent !no-underline hover:!underline hover:!decoration-dashed;
+		color: rgb(var(--color-accent-rgb)) !important;
+		text-decoration: none !important;
+	}
+
+	.prose h2 a:hover {
+		text-decoration: underline !important;
+		text-decoration-style: dashed !important;
 	}
 	.prose thead th:first-child,
 	tbody td:first-child,
@@ -123,16 +337,25 @@ br.shiki-magic-move-leave-active {
 		padding-left: 0.5714286em;
 	}
 	.prose h2#table-of-contents {
-		@apply mb-2;
+		margin-bottom: 0.5rem;
 	}
 	.prose details {
-		@apply inline-block cursor-pointer select-none text-custom-base;
+		display: inline-block;
+		cursor: pointer;
+		user-select: none;
+		color: rgb(var(--color-text-base));
 	}
 	.prose summary {
-		@apply focus-outline;
+		outline-width: 2px;
+		outline-offset: 1px;
+	}
+
+	.prose summary:focus-visible {
+		text-decoration: none;
+		outline-style: dashed;
 	}
 	.prose h2#table-of-contents + p {
-		@apply hidden;
+		display: none;
 	}
 
 	/* ===== scrollbar ===== */
@@ -142,22 +365,22 @@ br.shiki-magic-move-leave-active {
 
 	/* width */
 	::-webkit-scrollbar {
-		@apply w-3;
+		width: 0.75rem;
 	}
 
 	/* Track */
 	::-webkit-scrollbar-track {
-		@apply bg-custom-fill;
+		background-color: rgb(var(--color-fill-rgb));
 	}
 
 	/* Handle */
 	::-webkit-scrollbar-thumb {
-		@apply bg-custom-card;
+		background-color: rgb(var(--color-card-rgb));
 	}
 
 	/* Handle on hover */
 	::-webkit-scrollbar-thumb:hover {
-		@apply bg-custom-card-muted;
+		background-color: rgb(var(--color-card-muted));
 	}
 
 	code,
@@ -167,14 +390,5 @@ br.shiki-magic-move-leave-active {
 
 	pre > code {
 		white-space: pre;
-	}
-}
-
-@layer components {
-	.display-none {
-		@apply hidden;
-	}
-	.focus-outline {
-		@apply outline-2 outline-offset-1 outline-custom-fill focus-visible:no-underline focus-visible:outline-dashed;
 	}
 }

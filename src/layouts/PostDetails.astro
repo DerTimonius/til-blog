@@ -57,7 +57,7 @@ const time = remarkPluginFrontmatter.minutesRead;
     <h1
       data-test-id="blog-title"
       transition:name={title}
-      class="mb-8 mt-12 text-center text-4xl font-bold text-custom-accent"
+      class="mb-8 mt-12 text-center text-4xl font-bold text-accent"
     >
       {title}
     </h1>
@@ -75,7 +75,7 @@ const time = remarkPluginFrontmatter.minutesRead;
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 fill-custom-base"
+              class="h-6 w-6 fill-base"
               ><path
                 d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
               ></path>
@@ -107,7 +107,7 @@ const time = remarkPluginFrontmatter.minutesRead;
       </div>
       <aside
         aria-label="sidebar-bottom"
-        class="!w-full divide-gray-200 text-sm font-medium dark:divide-gray-700 lg:divide-y"
+        class="w-full! divide-gray-200 text-sm font-medium dark:divide-gray-700 lg:divide-y"
       >
         <div>
           <h3 class="mt-4 text-lg font-semibold">Tags</h3>
@@ -124,7 +124,7 @@ const time = remarkPluginFrontmatter.minutesRead;
                   <li>
                     <Link
                       href={`/posts/${post.slug}`}
-                      className="text-custom-accent hover:text-custom-base"
+                      className="text-accent hover:text-base"
                     >
                       {post.data.title}
                     </Link>

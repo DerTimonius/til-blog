@@ -1,6 +1,8 @@
 <script lang="ts">
-import ShikiMagicMove from './ShikiMagicMove.svelte';
 import { createHighlighter } from 'shiki';
+import { ShikiMagicMove } from 'shiki-magic-move/svelte';
+
+import 'shiki-magic-move/dist/style.css';
 
 let {
 	previous,
@@ -16,19 +18,18 @@ let {
 	duration?: number;
 } = $props();
 
+const highlighter = createHighlighter({
+	themes: ['catppuccin-mocha'],
+	langs: ['svelte', 'rs', 'ts', 'go', 'css'],
+});
+
 let code = $state(previous);
 let container: Element | undefined = $state();
 let animating = $state(false);
 
-const highlighter = createHighlighter({
-	themes: ['catppuccin-mocha', 'synthwave-84'],
-	langs: ['svelte', 'rs', 'ts', 'go', 'css'],
-});
-
-const theme =
-	document.documentElement.getAttribute('data-theme') === 'dark'
-		? 'catppuccin-mocha'
-		: 'synthwave-84';
+function animate() {
+	code === previous ? (code = next) : (code = previous);
+}
 
 const reducedMotion = window.matchMedia(
 	'(prefers-reduced-motion: reduce)',
@@ -62,28 +63,30 @@ $effect(() => {
 </script>
 
 {#await highlighter then highlighter}
-  <div bind:this={container} class="relative" id="animateContainer">
+  <div bind:this={container} class="relative" id="animate-container">
     <ShikiMagicMove
-      options={{ duration, stagger: 3, animateContainer: true }}
+      options={{ duration, stagger: 0.3, lineNumbers: true }}
       onStart={() => (animating = true)}
       onEnd={() => (animating = false)}
-      {theme}
+      theme="catppuccin-mocha"
+      {lang}
       {highlighter}
       {code}
-      {lang}
     />
     {#if !animating}
       <button
-        class="border-1 absolute right-0 top-0 m-2 rounded-md border border-slate-600 p-1 text-custom-base hover:bg-slate-600/50"
-        onclick={() => (code === previous ? (code = next) : (code = previous))}
+        class="border absolute right-0 top-0 m-2 rounded-md border-slate-600 p-1 text-custom-base hover:bg-slate-600/50"
+        onclick={animate}
+        aria-label="Animate"
       >
         <svg
-          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden={true}
+          class="h-6 w-6"
           fill="none"
-          viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="h-6 w-6"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             stroke-linecap="round"

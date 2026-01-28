@@ -1,11 +1,11 @@
 import svelte from '@astrojs/svelte';
-import tailwind from '@astrojs/tailwind';
 import expressiveCode from 'astro-expressive-code';
 import { defineConfig } from 'astro/config';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import mdx from '@astrojs/mdx';
 
+import tailwindcss from "@tailwindcss/vite"
 import { pluginErrorPreview } from './src/plugins/error-preview-plugin';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import vercel from '@astrojs/vercel';
@@ -21,10 +21,9 @@ export default defineConfig({
   },
 
   integrations: [
-    tailwind(),
     expressiveCode({
       plugins: [pluginErrorPreview()],
-      themes: ['catppuccin-macchiato', 'catppuccin-latte'],
+      themes: ['catppuccin-mocha', 'catppuccin-latte'],
     }),
     svelte(),
     mdx(),
@@ -39,5 +38,6 @@ export default defineConfig({
   },
 
   adapter: vercel(),
+  vite: {plugins: [tailwindcss()]}
 });
 

@@ -14,7 +14,7 @@ const { activeNav } = Astro.props;
 
 <header>
   <a
-    class="absolute -top-full left-16 z-50 bg-custom-accent px-3 py-2 text-custom-inverted transition-all focus:top-4"
+    class="absolute -top-full left-16 z-50 bg-accent px-3 py-2 text-inverted transition-all focus:top-4"
     id="skip-to-content"
     href="#main-content"
   >
@@ -82,7 +82,7 @@ const { activeNav } = Astro.props;
               About
             </a>
           </li>
-          <li class="!col-span-1 sm:!hidden">
+          <li class="col-span-1! sm:hidden!">
             <Link
               href="/search"
               className={`focus-outline p-3 sm:p-1 ${
@@ -103,7 +103,7 @@ const { activeNav } = Astro.props;
 
           {
             site.lightAndDarkMode ? (
-              <li class="!col-span-1 sm:!hidden">
+              <li class="col-span-1! sm:hidden!">
                 <button
                   id="theme-btn"
                   class="focus-outline p-3 sm:p-1"
@@ -155,7 +155,7 @@ const { activeNav } = Astro.props;
           <span class="block sm:hidden">{site.title}</span>
         </a>
         <div
-          class="order-3 hidden h-full w-full justify-center space-x-4 sm:flex"
+          class="order-3 hidden h-full w-full justify-end space-x-4 sm:flex items-center"
           id="menu-buttons"
         >
           <Link
@@ -204,8 +204,8 @@ const { activeNav } = Astro.props;
           }
         </div>
         <Hr
-          className="absolute top-[98px] hidden w-[100vw] px-4 sm:block lg:w-full"
-          lineColor="border-custom-accent"
+          className="absolute top-[98px] hidden w-screen px-4 sm:block lg:w-full"
+          lineColor="border-accent"
         />
       </nav>
     </div>
@@ -215,55 +215,164 @@ const { activeNav } = Astro.props;
 
 <style>
   #skip-to-content {
-    @apply absolute -top-full left-16 z-50 bg-custom-accent px-3 py-2 text-custom-inverted transition-all focus:top-4;
+    position: absolute;
+    top: -100%;
+    left: 4rem;
+    z-index: 50;
+    background-color: rgb(var(--color-accent-rgb));
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: rgb(var(--color-fill-rgb));
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  #skip-to-content:focus {
+    top: 1rem;
   }
   .nav-container {
-    @apply mx-auto flex max-w-4xl flex-col items-center justify-between sm:flex-row;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    max-width: 56rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media (min-width: 640px) {
+    .nav-container {
+      flex-direction: row;
+    }
   }
   .top-nav-wrap {
-    @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-8;
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  @media (min-width: 640px) {
+    .top-nav-wrap {
+      align-items: center;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
   }
   .logo {
-    @apply absolute py-1 text-xl font-semibold sm:static sm:text-2xl;
+    position: absolute;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+  }
+  @media (min-width: 640px) {
+    .logo {
+      position: static;
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
   }
   .hamburger-menu {
-    @apply -mt-9 self-end p-2 pb-4 pr-4 sm:hidden;
+    margin-top: -2.25rem;
+    align-self: flex-end;
+    padding: 0.5rem;
+    padding-bottom: 1rem;
+    padding-right: 1rem;
+  }
+  @media (min-width: 640px) {
+    .hamburger-menu {
+      display: none;
+    }
   }
   .hamburger-menu svg {
-    @apply h-6 w-6 scale-125 fill-custom-base;
+    height: 1.5rem;
+    width: 1.5rem;
+    scale: 1.25;
+    fill: rgb(var(--color-text-base));
   }
   nav ul {
-    @apply mt-4 w-44 grid-cols-2 grid-rows-4 gap-x-2 gap-y-2 sm:ml-0 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0;
+    margin-top: 1rem;
+    width: 11rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  @media (min-width: 640px) {
+    nav ul {
+      margin-left: 0;
+      margin-top: 0;
+      display: flex;
+      width: auto;
+      column-gap: 1.25rem;
+      row-gap: 0;
+    }
   }
   nav ul li {
-    @apply col-span-2 flex items-center justify-center;
+    grid-column: span 2 / span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   nav ul li a {
-    @apply w-full px-4 py-3 text-center font-medium hover:text-custom-accent sm:my-0 sm:px-2 sm:py-1;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    text-align: center;
+    font-weight: 500;
+  }
+  nav ul li a:hover {
+    color: rgb(var(--color-accent-rgb));
+  }
+  @media (min-width: 640px) {
+    nav ul li a {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
   }
   nav ul li:nth-last-child(2) a {
-    @apply w-auto;
+    width: auto;
   }
   nav a.active {
-    @apply text-custom-accent underline decoration-wavy decoration-2 underline-offset-4;
+    color: rgb(var(--color-accent-rgb));
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
   nav a.active svg {
-    @apply fill-custom-accent;
+    fill: rgb(var(--color-accent-rgb));
   }
   .menu-icon line {
-    @apply transition-opacity duration-75 ease-in-out;
+    transition-property: opacity;
+    transition-duration: 75ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
   .menu-icon .close {
     opacity: 0;
   }
   .menu-icon.is-active .line {
-    @apply opacity-0;
+    opacity: 0;
   }
   .menu-icon.is-active .close {
-    @apply opacity-100;
+    opacity: 1;
   }
   svg {
-    @apply h-6 w-6 fill-custom-base group-hover:fill-custom-accent;
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: rgb(var(--color-text-base));
+  }
+  :is(:where(.group):hover *) svg {
+    fill: rgb(var(--color-accent-rgb));
   }
 </style>
 

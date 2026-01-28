@@ -16,7 +16,7 @@ const featuredPosts = await getFeaturedPosts(3);
   <main id="main-content" class="px-6">
     <section id="hero" class="pb-6 pt-8">
       <h1
-        class="my-4 inline-block text-3xl font-bold text-custom-accent sm:my-8 sm:text-5xl"
+        class="my-4 inline-block text-3xl font-bold text-accent sm:my-8 sm:text-5xl"
       >
         Today I learned
       </h1>
@@ -51,7 +51,7 @@ const featuredPosts = await getFeaturedPosts(3);
 
     <section class="py-6">
       <h2 class="text-3xl font-semibold tracking-wide">Featured Posts</h2>
-      <ul class="divide-y divide-custom-light">
+      <ul class="divide-y divide-light">
         {
           featuredPosts.map((post) => (
             <HomepageCard
@@ -70,7 +70,7 @@ const featuredPosts = await getFeaturedPosts(3);
           All Featured Posts
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 fill-custom-base"
+            class="h-6 w-6 fill-base"
             ><path
               d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
             ></path>
@@ -82,7 +82,7 @@ const featuredPosts = await getFeaturedPosts(3);
 
     <section class="pb-6 pt-12">
       <h2 class="text-3xl font-semibold tracking-wide">Latest Posts</h2>
-      <ul class="divide-y divide-custom-light">
+      <ul class="divide-y divide-light">
         {
           latestPosts.map((post) => (
             <HomepageCard
@@ -102,7 +102,7 @@ const featuredPosts = await getFeaturedPosts(3);
           All Posts
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 fill-custom-base"
+            class="h-6 w-6 fill-base"
             ><path
               d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
             ></path>

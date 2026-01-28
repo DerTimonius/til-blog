@@ -44,9 +44,17 @@ const {
 
 <style>
   .disabled {
-    @apply pointer-events-none select-none opacity-50 hover:text-custom-base group-hover:fill-custom-base;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
   }
-  .disabled-svg {
-    @apply group-hover:!fill-custom-base;
+  .disabled:hover {
+    color: rgb(var(--color-text-base));
+  }
+  :is(:where(.group):hover *) .disabled {
+    fill: rgb(var(--color-text-base));
+  }
+  :is(:where(.group):hover *) .disabled-svg {
+    fill: rgb(var(--color-text-base)) !important;
   }
 </style>

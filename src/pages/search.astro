@@ -4,7 +4,7 @@ import Header from '~/components/Header.astro';
 import Layout from '~/layouts/Layout.astro';
 import Main from '~/layouts/Main.astro';
 import { site } from '~/utils/config';
-import SearchBar from '~/components/SearchBar.svelte';
+import SearchBar from '~/components/svelte/SearchBar.svelte';
 import { getSortedPosts } from '~/utils/sortPosts';
 
 const posts = await getSortedPosts();
