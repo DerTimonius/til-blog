@@ -63,7 +63,7 @@
 </script>
 
 {#await highlighter then highlighter}
-  <div bind:this={container} class="relative">
+  <div bind:this={container} class="relative" id="animate-container">
     <ShikiMagicMove
       options={{ duration, stagger: 0.3, lineNumbers: true }}
       onStart={() => (animating = true)}
