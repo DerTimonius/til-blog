@@ -1,0 +1,142 @@
+---
+title: "Moving from Elasticsearch to Meilisearch: the good, the bad, the surprise"
+pubDate: 2026-02-17
+isFeatured: false
+tags: ['web-dev', "database", "javascript"]
+description: How migrating our internal search engine made fixing bugs easier and increased overall developer experience
+---
+
+import Aside from "~/components/Aside.astro"
+
+At my main job, one of the main features is a user search to find relevant users in your region who can offer assistance for certain assistance types. The search goes both ways between clients and assistants, and can be refined with a lot of filters.
+
+The whole search grew very complex where at some points, my dev team had problems pinpointing why certain users received the search results they received.
+
+A few months back, almost a year ago actually, I made the decision to switch our user search engine from [Elasticsearch](https://elastic.co) to [Meilisearch](https://www.meilisearch.com/).
+
+## Rationale for the switch
+
+Elasticsearch is a very powerful tool where you can not only add filters with `must` and `must not` filters, but also `should` clauses with certain `boost` values.
+
+But with the power it presents also comes complexity. At a certain point (and yes, also due to lack of comments or general documentation), especially after the initial lead developer of the project left, no one knew why some filters were `must` clauses, why others were `should` clauses and why the `boost` values of those had a huge range without further explanation.
+
+I did some deep diving into the actual values that are stored in our search database. I also tried to understand why which filters were added the way they were. And at some point, while I was able to grasp the way our search worked, I had difficulty putting it into words. Since I have spent the time to dig into it, I would be the one to teach the other devs what is going on.
+
+Around the same time, I discovered Meilisearch (and also made some small contributions). I was impressed with the docs, the developer experience was much better and it could offer a improvement in query speed.
+
+So I decided to give it a quick try.
+
+## Doing some greenfielding
+
+I spun up the official docker image locally, created a quick script to get mock data with a similar structure I would need, create the index and run some queries.
+
+The first thing I noticed (making direct http calls to localhost): damn, this is fast! 500 entries in the search database and I got the result in under 10ms.
+
+Then, when trying to add some filters, I got a very straight forward error:
+
+> Index `user`: Attribute `email` is not filterable. Available filterable attributes are: `id`.
+
+And not only was the error great, it also offered a link to the docs which explain the error and lead you other parts of the docs where you will learn how to fix the error!
+
+Since you have to define which attributes on an object is filterable, you need to make a call to `<meiliurl>/indexes/<index>/settings/filterable-attributes` with the attributes you want to add.
+
+<Aside>
+Sort of, you also have to add the attributes that are already in the list. It will be overwritten with the list you give it.
+</Aside>
+
+If your objects have a lot of keys, it would also make sense to restrict which keys should be searchable. Meilisearch has exactly this feature: same thing as above, but use `/searchable-attributes` instead and the engine will only look for the query string in those attributes.
+
+## Adding, updating and deleting documents
+
+Because we use TypeScript full-stack for type-safety, I installed the JS version of the Meilisearch SDK and rewrote the previous adding and updating of the documents.
+
+The nice part: you can actually do this with a single method `.updateDocuments`. Even if the document you want to add doesn't exist yet, this method just adds it to the provided index.
+
+We also don't have to do any more weird coercive gymnastics to get our geo-point data into the correct shape that Elasticsearch needed. For ES, if you don't create the correct type first, it will infer a `[lat, lon]` array just as an array of floats and it will under no circumstances perform any geo-point search against it (yes, we have shot ourselves in the foot with that one more than once).
+
+With Meilisearch, it expects a certain shape:
+
+```json
+{
+  "_geo": {
+    "lat": "number",
+    "lon": "number"
+  }
+}
+```
+
+And as long as your documents adhere to that structure (and you have added `_geo` to the filterable attributes), you can perform geo-point searches with a given distance, which is pretty neat.
+
+## Filtering
+
+This was a pain point before, it was so bad that I took the decision to switch to Meilisearch in the first place. There were some gems in our composed filter like this one:
+
+```ts
+const filters = [
+  {
+    bool: {
+      should: [
+        ...availability.map((avl) => ({
+          term: { avl },
+        })),
+        {
+          term: { schedule },
+        },
+        ...(!jobTypesOnly
+          ? jobTypes.map((job) => ({
+              term: { job },
+            }))
+          : []),
+        ...branchIds.map((branchId) => ({
+          term: { branchId: { boost: 3, value: branchId } },
+        })),
+      ],
+    },
+  },
+
+  gender.length > 0
+    ? {
+        bool: {
+          should: [
+            ...gender.map((g) => ({
+              term: { "gender.keyword": { boost: 20, value: g } },
+            })),
+          ],
+        },
+      }
+    : null,
+  // and much much more
+];
+```
+
+And those were only part of the should clauses.
+
+With Meilisearch, you just need to build an array of strings. So the code that creates the filters now looks more like this:
+
+```ts
+const filters = ['workStatus = ACTIVE'] as (string | string[])[];
+if (params.excludedUserIds.length) {
+  filters.push(`userId NOT IN [${params.excludedUserIds}]`);
+}
+if (params.gender.length) {
+  const arr = ['gender NOT EXISTS'];
+  for (const gender of params.gender) {
+    arr.push(`gender = ${gender}`);
+  }
+  filters.push(arr);
+}
+```
+
+Much more readable, more digestible, way easier to debug.
+
+The eagle-eyed among you might have noticed that we have defined the filter array type as `(string | string[])[]`, so either an array of strings or string arrays. Nested arrays are the Meilisearch way of defining `OR` clauses.
+
+So the statements in the first level array will be treated as `AND` while all nested arrays are treated as `OR`.
+
+## Conclusion
+
+At this point, you might be wondering if I'm getting paid for all this praise. I am not, after experiencing the vast difference in productivity between the two search engines, I just had to write about it.
+
+In the title of this blog post, I promised to also show the bad I encountered while making the switch. I could not really find any, other than the fact that it's actually called `indexes` and not `indices`. I stumble across this every single time I have to write a direct API call...
+
+I am using Meilisearch in three different production projects at the moment and it will for sure be my search engine of choice for the foreseeable future.
