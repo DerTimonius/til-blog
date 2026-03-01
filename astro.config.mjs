@@ -9,6 +9,7 @@ import tailwindcss from "@tailwindcss/vite"
 import { pluginErrorPreview } from './src/plugins/error-preview-plugin';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import vercel from '@astrojs/vercel';
+import { pluginLanguageLogo } from "ec-lang-logo"
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,7 +23,10 @@ export default defineConfig({
 
   integrations: [
     expressiveCode({
-      plugins: [pluginErrorPreview()],
+      plugins: [pluginErrorPreview(), pluginLanguageLogo({
+        color: "mono",
+        excludedLangs: ["json"]
+      })],
       themes: ['catppuccin-mocha', 'catppuccin-latte'],
     }),
     svelte(),

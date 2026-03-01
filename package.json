@@ -39,6 +39,7 @@
 		"astro-expressive-code": "^0.41.6",
 		"classnames": "^2.5.1",
 		"dayjs": "^1.11.18",
+		"ec-lang-logo": "^1.0.4",
 		"fuse.js": "^7.1.0",
 		"hastscript": "^9.0.1",
 		"mdast-util-to-string": "^4.0.0",
