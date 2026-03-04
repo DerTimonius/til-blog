@@ -1,0 +1,196 @@
+---
+title: "Releasing my first npm package: ec-lang-logo"
+pubDate: 2026-03-04
+isFeatured: false
+tags: ['typescript']
+description: It was about time that I came up with an idea for a package. Even if it's a small one.
+---
+
+import Aside from "~/components/Aside.astro"
+
+This blog uses [Expressive Code](https://expressive-code.com/) for the code blocks as it's a great tool to highlight certain lines, add insertions and deletions, file title and so much more.
+
+But there was one thing I missed: badges with the language logo at the bottom right of the code block. Since writing plugins for Expressive Code is very straightforward (also thanks to the [comprehensive guide in their docs](https://expressive-code.com/guides/developing-plugins/#writing-your-own-plugin)), I decided to give it a shot.
+
+<Aside>
+  This post will focus on the plugin, all learnings of releasing my first npm package will be discussed in another post.
+  </Aside>
+
+## What is it?
+
+As mentioned above, the main goal of the plugin was to add language logos to the bottom right of any code block.
+
+```ts
+type User = {
+  name: string;
+  age: number;
+  role: 'admin' | 'user';
+};
+```
+
+The logos are the svg versions of the [Simple Icons package](https://simpleicons.org). Notice that you have to hover the code block to see the logo with its full opacity.
+
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "time"
+)
+
+type Server struct {
+    port     string
+    timeout  time.Duration
+    handlers map[string]http.HandlerFunc
+}
+
+func NewServer(port string) *Server {
+    return &Server{
+        port:     port,
+        timeout:  30 * time.Second,
+        handlers: make(map[string]http.HandlerFunc),
+    }
+}
+
+func (s *Server) Start() error {
+    fmt.Printf("Server starting on port %s\n", s.port)
+    return http.ListenAndServe(":"+s.port, nil)
+}
+```
+
+## Installation & Usage
+
+To install, run the following command with the package manager of your choice:
+
+```sh
+npm install ec-lang-logo
+# pnpm install ec-lang-logo
+# bun install ec-lang-logo
+# yarn add ec-lang-logo
+```
+
+Then, in your expressive code config, add the plugin:
+
+```js
+expressiveCode({
+  plugins: [pluginLanguageLogo()],
+})
+```
+
+### Customization
+
+There are two overall settings you can pass: `color` and `excludedLangs`.
+
+```js
+expressiveCode({
+  plugins: [pluginLanguageLogo({
+    color: "mono", // accepts `mono` | `original` | any hex code
+    excludedLangs: ["json"] // accepts any language the plugin supports
+  })],
+})
+```
+
+<Aside>
+  The `original` color comes from the Simple Icons package. Languages whose logos are comprised of multiple colors, like Python, will only show one color.
+  </Aside>
+
+It's also possible to define the color on an individual code block level with `badge-color=<color>` (in the meta block). I have added `badge-color=original` to the next block.
+
+```swift badge-color=original
+import Foundation
+
+struct Task {
+    let id: UUID
+    let title: String
+    var isCompleted: Bool
+    let priority: Priority
+    
+    enum Priority: String, CaseIterable {
+        case low = "🟢"
+        case medium = "🟡" 
+        case high = "🔴"
+    }
+}
+
+class TaskManager {
+    private var tasks: [Task] = []
+    
+    func addTask(title: String, priority: Task.Priority = .medium) {
+        let newTask = Task(id: UUID(), title: title, isCompleted: false, priority: priority)
+        tasks.append(newTask)
+    }
+    
+    func completeTask(id: UUID) {
+        if let index = tasks.firstIndex(where: { $0.id == id }) {
+            tasks[index].isCompleted = true
+        }
+    }
+}
+```
+
+For this Rust block, I have added specified the color to be `#FDBF35` (the accent color in [docs.rs](https://docs.rs))
+
+```rust badge-color=#FDBF35
+use std::collections::HashMap;
+
+#[derive(Debug)]
+struct Inventory {
+    items: HashMap<String, u32>,
+}
+
+impl Inventory {
+    fn new() -> Self {
+        Self {
+            items: HashMap::new(),
+        }
+    }
+    
+    fn add_item(&mut self, name: String, quantity: u32) {
+        *self.items.entry(name).or_insert(0) += quantity;
+    }
+    
+    fn remove_item(&mut self, name: &str, quantity: u32) -> Result<(), String> {
+        match self.items.get_mut(name) {
+            Some(current) if *current >= quantity => {
+                *current -= quantity;
+                Ok(())
+            }
+            Some(_) => Err("Insufficient quantity".to_string()),
+            None => Err("Item not found".to_string()),
+        }
+    }
+}
+```
+
+You can also hide the icon with `hide-badge`.
+
+```json hide-badge
+{
+  "version": "v2",
+  "userId": "d893a19f-3767-4b15-9a1b-5be0a5e2a717"
+}
+```
+
+The plugin currently supports the following languages (and how to access the logos).
+
+- *JavaScript*: with `js` and `javascript`
+- *TypeScript*: with `ts` and `typescript`
+- *Go*: with `go`
+- *Rust*: with `rs` and `rust`
+- *Zig*: with `zig`
+- *Swift*: with `swift`
+- *Python*: with `py` and `python`
+- *Ruby*: with `rb` and `ruby`
+- *Kotlin*: with `kt` and `kotlin`
+- *Dart*: with `dart`
+- *SQL*: with `sql`
+- *Bash*: with `bash`, `sh` and `shell`
+- *YAML*: with `yml` and `yaml`
+
+It also supports web-frameworks and libraries like `React` (with `tsx` and `jsx`), `Astro`, `Svelte`, `Vue` and `Angular`. You can find some examples for those [this blog post](/posts/til-13).
+
+## Feedback & Contributions
+
+If you encounter any issues and problems, feel free to [open an issue](https://github.com/DerTimonius/ec-lang-logo/issues/new).
+If there's a language missing that you want to add to the list of supported languages, I'm happy to accept a pull request!

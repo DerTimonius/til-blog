@@ -55,6 +55,9 @@ importers:
       dayjs:
         specifier: ^1.11.18
         version: 1.11.18
+      ec-lang-logo:
+        specifier: ^1.0.4
+        version: 1.0.4(@expressive-code/core@0.41.6)
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
@@ -1334,6 +1337,11 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
+  ec-lang-logo@1.0.4:
+    resolution: {integrity: sha512-gS3n0nKKi/8qUOh4hvEC1WIHeUr+JgRPt+f5Ajc5Rr3zTuRcuo/gFLJpRige3b4Hd+el6uhgeMM5JzTDCaU0DA==}
+    peerDependencies:
+      '@expressive-code/core': ^0.41.3
+
   emmet@2.4.11:
     resolution: {integrity: sha512-23QPJB3moh/U9sT4rQzGgeyyGIrcM+GH5uVYg2C6wZIxAIJq7Ng3QLT79tl8FUwDXhyq9SusfknOrofAKqvgyQ==}
 
@@ -2301,6 +2309,10 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  simple-icons@16.10.0:
+    resolution: {integrity: sha512-62kuxaG3pE+cFNerudUtwb9BLmudzayHrlHkvU9gf8Nxcj7VYOm9dh3WNbGaFk60aQtfnRyzViZaouFG2B45kg==}
+    engines: {node: '>=0.12.18'}
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
@@ -4067,6 +4079,11 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
+  ec-lang-logo@1.0.4(@expressive-code/core@0.41.6):
+    dependencies:
+      '@expressive-code/core': 0.41.6
+      simple-icons: 16.10.0
+
   emmet@2.4.11:
     dependencies:
       '@emmetio/abbreviation': 2.3.3
@@ -5516,6 +5533,8 @@ snapshots:
       '@types/hast': 3.0.4
 
   signal-exit@4.1.0: {}
+
+  simple-icons@16.10.0: {}
 
   sisteransi@1.0.5: {}
 

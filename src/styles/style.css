@@ -174,10 +174,16 @@
 		text-decoration: none;
 		outline-style: dashed;
 	}
+
 	svg {
 		display: inline-block;
 		height: 1.5rem;
 		width: 1.5rem;
+	}
+
+	.ec-lang-logo svg {
+		height: 36px;
+		width: 36px;
 	}
 
 	:is(:where(.group):hover *) svg {
