@@ -33,6 +33,10 @@ export default defineConfig({
     mdx(),
   ],
 
+  image: {
+    remotePatterns: [{protocol: "https", hostname: "**.bsky.app"}]
+  },
+
   markdown: {
     remarkPlugins: [remarkReadingTime],
     rehypePlugins: [
