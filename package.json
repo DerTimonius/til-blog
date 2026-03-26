@@ -34,7 +34,7 @@
 		"@astrojs/mdx": "^4.3.13",
 		"@astrojs/rss": "^4.0.15",
 		"@astrojs/svelte": "^7.2.5",
-		"@astrojs/vercel": "^9.0.4",
+		"@astrojs/vercel": "^10.0.2",
 		"@fontsource/fira-mono": "^5.2.7",
 		"@fontsource/monaspace-neon": "^5.2.5",
 		"@tailwindcss/typography": "^0.5.19",
