@@ -42,7 +42,7 @@ export async function getRelatedPosts(
 ): Promise<CollectionEntry<'blogs'>[]> {
 	const posts = await getCollection(
 		'blogs',
-		(post) => slugs.includes(post.slug) && checkReleaseDate(post.data.pubDate),
+		(post) => slugs.includes(post.id) && checkReleaseDate(post.data.pubDate),
 	);
 	return sortPosts(posts);
 }

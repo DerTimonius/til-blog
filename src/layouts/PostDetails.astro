@@ -13,6 +13,7 @@ import TOC from '~/components/TOC.astro';
 import BackToTopButton from '~/components/BackToTopButton.astro';
 import Link from '~/components/Link.astro';
 import CommentSection from '~/components/CommentSection.astro';
+import { render } from 'astro:content';
 
 export interface Props {
 	post: CollectionEntry<'blogs'>;
@@ -37,13 +38,13 @@ const date = formatDate(pubDate);
 const updatedDate = formatDate(updatedAt!);
 
 const relatedArticles = relatedPosts ? await getRelatedPosts(relatedPosts) : [];
-const { Content, remarkPluginFrontmatter, headings } = await post.render();
+const { Content, remarkPluginFrontmatter, headings } = await render(post);
 const time = remarkPluginFrontmatter.minutesRead;
 ---
 
 <Layout
   title={title}
-  ogImage={`/posts/${post.slug}/og.png`}
+  ogImage={`/posts/${post.id}/og.png`}
   author={site.author}
   description={description}
 >
@@ -52,7 +53,7 @@ const time = remarkPluginFrontmatter.minutesRead;
   <main
     id="main-content"
     class="mx-auto w-full max-w-6xl px-4 pb-12"
-    transition:name={post.slug}
+    transition:name={post.id}
   >
     <h1
       data-test-id="blog-title"
@@ -123,7 +124,7 @@ const time = remarkPluginFrontmatter.minutesRead;
                 {relatedArticles.map((post) => (
                   <li>
                     <Link
-                      href={`/posts/${post.slug}`}
+                      href={`/posts/${post.id}`}
                       className="text-accent hover:text-base"
                     >
                       {post.data.title}

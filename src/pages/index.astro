@@ -56,9 +56,9 @@ const featuredPosts = await getFeaturedPosts(3);
           featuredPosts.map((post) => (
             <HomepageCard
               dataTestId={`featured-post-${post.id}`}
-              href={`/posts/${post.slug}`}
+              href={`/posts/${post.id}`}
               frontmatter={post.data}
-              slug={post.slug}
+              slug={post.id}
             />
           ))
         }
@@ -87,9 +87,9 @@ const featuredPosts = await getFeaturedPosts(3);
           latestPosts.map((post) => (
             <HomepageCard
               dataTestId={`latest-post-${post.id}`}
-              href={`/posts/${post.slug}`}
+              href={`/posts/${post.id}`}
               frontmatter={post.data}
-              slug={post.slug}
+              slug={post.id}
             />
           ))
         }

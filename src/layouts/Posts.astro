@@ -7,9 +7,10 @@ import Card from '~/components/Card.astro';
 import Footer from '~/components/Footer.astro';
 import type { Page } from 'astro';
 import PaginationButtons from '~/components/PaginationButtons.astro';
+import type { getCollection } from 'astro:content';
 
 export interface Props {
-	page: Page;
+	page: Page<Awaited<ReturnType<typeof getCollection<'blogs'>>>[number]>;
 	pageTitle?: string;
 	pageDesc?: string;
 }
@@ -26,12 +27,12 @@ const {
   <Main {pageTitle} {pageDesc}>
     <ul class="flex flex-col gap-4">
       {
-        page.data.map(({ data, slug }, index) => (
+        page.data.map(({ data, id }, index) => (
           <Card
             dataTestId={`blog-post-${index}`}
-            href={`/posts/${slug}`}
+            href={`/posts/${id}`}
             frontmatter={data}
-            {slug}
+            slug={id}
           />
         ))
       }
