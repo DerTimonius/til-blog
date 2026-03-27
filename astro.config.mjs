@@ -31,10 +31,9 @@ export default defineConfig({
 					excludedLangs: ['json'],
 				}),
 				pluginMagicMove({
-					theme: 'tokyo-night',
+					theme: 'catppuccin-mocha',
 					duration: 400,
 					stagger: 5,
-					buttonPosition: 'top-right',
 				}),
 			],
 			themes: ['catppuccin-mocha', 'catppuccin-latte'],

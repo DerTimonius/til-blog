@@ -44,7 +44,7 @@
 		"classnames": "^2.5.1",
 		"dayjs": "^1.11.18",
 		"ec-lang-logo": "^1.1.0",
-		"ec-magic-move": "link:../ec-magic-move",
+		"ec-magic-move": "^1.0.0",
 		"fuse.js": "^7.1.0",
 		"hastscript": "^9.0.1",
 		"mdast-util-to-string": "^4.0.0",

@@ -8,8 +8,6 @@ isFeatured: true
 description: Sometimes it's better to build the tools you need yourself. You will learn a lot along the way!
 ---
 
-import AnimateCodeBlock from '~/components/svelte/AnimateCodeBlock.svelte';
-
 A while back I wrote about how [terminal commands](/posts/til-7) helped me to gather come information of the most important files in a codebase. In the end, I even found an okayish tool for the job called _cloc_.
 But for me, there were things missing: no git integration for example, or no complexity calculation.
 
@@ -105,13 +103,15 @@ fn get_file_info(entry: &DirEntry, dir: &str) {
 
 In some projects, this would work just fine. But the moment I tried this in a project with pictures it failed. Why? Well, you can't use `fs::read_to_string()` on something that is not `utf-8`. Fixing this should be pretty simple by checking if the function errors or not:
 
-<AnimateCodeBlock client:only lang="rs" previous={`fn get_file_info(entry: &DirEntry, dir: &str) {
+```rs hide-badge magic-move-before={1-7} magic-move-after={8-16}
+fn get_file_info(entry: &DirEntry, dir: &str) {
     let entry = entry.clone();
     let file_name = entry.file_name().to_str().unwrap().to_string();
 
     let lines = fs::read_to_string(entry.path()).unwrap().lines().count() as usize;
     println!("{file_name} is {lines} long");
-}`} next={`fn get_file_info(entry: &DirEntry, dir: &str) {
+}
+fn get_file_info(entry: &DirEntry, dir: &str) {
     let entry = entry.clone();
     let file_name = entry.file_name().to_str().unwrap().to_string();
 
@@ -119,11 +119,22 @@ In some projects, this would work just fine. But the moment I tried this in a pr
         let lines = fs::read_to_string(entry.path()).unwrap().lines().count() as usize;
         println!("{file_name} is {lines} long");
     }
-}`}/>
+}
+```
 
 Nice, no errors now! Now I can create the `File struct`:
 
-<AnimateCodeBlock client:only="svelte" lang="rs" next={`fn get_file_info(entry: &DirEntry, dir: &str) {
+```rs hide-badge magic-move-before={1-10} magic-move-after={10-34}
+fn get_file_info(entry: &DirEntry, dir: &str) {
+    let entry = entry.clone();
+    let file_name = entry.file_name().to_str().unwrap().to_string();
+
+    if fs::read_to_string(entry.path()).is_ok() {
+        let lines = fs::read_to_string(entry.path()).unwrap().lines().count() as usize;
+        println!("{file_name} is {lines} long");
+    }
+}
+fn get_file_info(entry: &DirEntry, dir: &str) {
     let entry = entry.clone();
     let path = entry
         .path()
@@ -147,15 +158,8 @@ Nice, no errors now! Now I can create the `File struct`:
             commits: None,
         });
     }
-}`} previous={`fn get_file_info(entry: &DirEntry, dir: &str) {
-    let entry = entry.clone();
-    let file_name = entry.file_name().to_str().unwrap().to_string();
-
-    if fs::read_to_string(entry.path()).is_ok() {
-        let lines = fs::read_to_string(entry.path()).unwrap().lines().count() as usize;
-        println!("{file_name} is {lines} long");
-    }
-}`}/>
+}
+```
 
 ## It's time for git
 

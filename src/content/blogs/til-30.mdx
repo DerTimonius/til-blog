@@ -8,7 +8,6 @@ description: Since I did not necessarily learn large things, here is a list of s
 ---
 
 import Aside from "~/components/Aside.astro"
-import AnimateCodeBlock from '~/components/svelte/AnimateCodeBlock.svelte';
 
 Since my last post, although a lot has happened and a lot of features have been shipped at work, I did not really know what to write about. Whatever I learned, it seemed to small to write a whole blog post about it.
 
@@ -57,30 +56,36 @@ const users = await prisma.user.findUnique({
 
 As this would only return the user and no relations, it is necessary to add `select` or `include` fields:
 
-<AnimateCodeBlock autoanimate={false} client:only="svelte" previous={`const users = await prisma.user.findUnique({
+```ts hide-badge magic-move-before={1-5} magic-move-after={6-11}
+const users = await prisma.user.findUnique({
   where: {
     id: input.id
   }
-})`} next={`const users = await prisma.user.findUnique({
+});
+const users = await prisma.user.findUnique({
   include: { posts: true },
   where: {
     id: input.id
   }
-})`} lang="ts" />
+});
+```
 
 I have written code like this for a long time now, but I just recently discovered that is possible to add a `where` clause to the `include` statement.
 
-<AnimateCodeBlock autoanimate={false} client:only="svelte" previous={`const users = await prisma.user.findUnique({
+```ts hide-badge magic-move-before={1-6} magic-move-after={7-12}
+const users = await prisma.user.findUnique({
   include: { posts: true },
   where: {
     id: input.id
   }
-})`} next={`const users = await prisma.user.findUnique({
+});
+const users = await prisma.user.findUnique({
   include: { posts: { where: { likes: { gte: 10 } } } },
   where: {
     id: input.id
   }
-})`} lang="ts" />
+});
+```
 
 ## Prisma typed SQL queries
 

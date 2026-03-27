@@ -7,8 +7,6 @@ isFeatured: false
 description: After using REST and GraphQL APIs, it's time to try a different approach of data fetching
 ---
 
-import AnimateCodeBlock from '~/components/svelte/AnimateCodeBlock.svelte';
-
 Web development broken down to its core sounds simple: store data, display data, change data. But the ways to achieve this can vary greatly.
 
 I have been using REST and GraphQL APIs for some time to fetch the data from the backend and am quite familiar with them. Personally, I like GraphQL more, mostly because with the right tools it can be pretty easy to get a good amount of type-safety.
@@ -125,7 +123,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
 };
 ```
 
-2. Initialize the API with a transformer and an error formatter (validation can be done with various different packages, the default is `zod`).
+1. Initialize the API with a transformer and an error formatter (validation can be done with various different packages, the default is `zod`).
 
 ```ts title="src/api/trpc.ts"
 const t = initTRPC.context<typeof createTRPCContext>().create({
@@ -143,7 +141,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
 });
 ```
 
-3. Lastly, create the router and procedure.
+1. Lastly, create the router and procedure.
 
 ```ts title="src/api/trpc.ts"
 export const createTRPCRouter = t.router;
@@ -164,13 +162,11 @@ export const todoRouter = createTRPCRouter({
 
 The first thing I did after creating the `todoRouter` was to write a query that returns all todos and also a mutation to create a todo (otherwise, how would I know if the query works):
 
-<AnimateCodeBlock
-  client:only="svelte"
-  lang="ts"
-  previous={`export const todoRouter = createTRPCRouter({
+```ts hide-badge magic-move-before={1-3} magic-move-after={4-18}
+export const todoRouter = createTRPCRouter({
   // Rest of the code
-});`}
-  next={`export const todoRouter = createTRPCRouter({
+});
+export const todoRouter = createTRPCRouter({
   createTodo: publicProcedure
     .input(z.object({ name: z.string(), description: z.string().nullable() }))
     .mutation(async ({ ctx, input }) => {
@@ -184,8 +180,8 @@ The first thing I did after creating the `todoRouter` was to write a query that 
   getAllTodos: publicProcedure.query(async ({ ctx }) => {
     return ctx.db.todo.findMany({ orderBy: { createdAt: 'asc' } });
   }),
-});`}
-/>
+});
+```
 
 Let's look at the difference between the two:
 
