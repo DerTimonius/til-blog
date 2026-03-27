@@ -11,6 +11,7 @@
 			"h3": "^1.15.6",
 			"lodash": "^4.17.23",
 			"minimatch": "^9.0.7",
+			"path-to-regexp": "^6.3.0",
 			"picomatch": "^2.3.2",
 			"rollup": "^4.59.0",
 			"smol-toml": "^1.6.1",
