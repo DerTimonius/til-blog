@@ -63,12 +63,12 @@ const icon =
     </div>
     <ul class="flex flex-col gap-4">
       {
-        page.data.map(({ data, slug }) => (
+        page.data.map(({ data, id }) => (
           <Card
             dataTestId={`tag-post-${tag}`}
-            href={`/posts/${slug}`}
+            href={`/posts/${id}`}
             frontmatter={data}
-            {slug}
+            slug={id}
           />
         ))
       }

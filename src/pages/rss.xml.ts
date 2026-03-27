@@ -8,8 +8,8 @@ export async function GET() {
 		title: site.title,
 		description: site.desc,
 		site: site.website,
-		items: posts.map(({ data: { title, description, ...data }, slug }) => ({
-			link: `posts/${slug}`,
+		items: posts.map(({ data: { title, description, ...data }, id }) => ({
+			link: `posts/${id}`,
 			title,
 			description,
 			pubDate: new Date(data.pubDate),

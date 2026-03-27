@@ -5,7 +5,7 @@ import { generateSvg } from '~/utils/generateSvg';
 export async function getStaticPaths() {
 	const posts = await getCollection('blogs');
 	return posts.map((post) => ({
-		params: { slug: post.slug },
+		params: { slug: post.id },
 		props: post,
 	}));
 }
