@@ -30,7 +30,12 @@ export default defineConfig({
 					color: 'mono',
 					excludedLangs: ['json'],
 				}),
-				pluginMagicMove({ theme: 'tokyo-night', duration: 400, stagger: 5 }),
+				pluginMagicMove({
+					theme: 'tokyo-night',
+					duration: 400,
+					stagger: 5,
+					buttonPosition: 'top-right',
+				}),
 			],
 			themes: ['catppuccin-mocha', 'catppuccin-latte'],
 			themeCssSelector: (theme) => `[data-theme='${theme.type}']`,

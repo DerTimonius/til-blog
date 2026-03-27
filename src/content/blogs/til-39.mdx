@@ -16,6 +16,13 @@ type User = {
   age: number;
   role: 'admin' | 'user';
 };
+type User = {
+  id: string;
+  name: string;
+  age: number;
+  role: 'admin' | 'user' | "editor";
+  sessionId: string;
+};
 ```
 
 something text
@@ -71,21 +78,4 @@ func (s *Server) Start() error {
     fmt.Printf("Server starting on port %s\n", s.port)
     return http.ListenAndServe(":"+s.port, nil)
 }
-```
-
-something error
-
-```ts magic-move-before={1-7} magic-move-after={6-12} hide-badge
-type User = {
-  name: string;
-  age: number;
-  role: 'admin' | 'user';
-};
-type User = {
-  id: string;
-  name: string;
-  age: number;
-  role: 'admin' | 'user' | "editor";
-  sessionId: string;
-};
 ```
