@@ -124,7 +124,7 @@ fn get_file_info(entry: &DirEntry, dir: &str) {
 
 Nice, no errors now! Now I can create the `File struct`:
 
-```rs hide-badge magic-move-before={1-10} magic-move-after={10-34}
+```rs hide-badge magic-move-before={1-9} magic-move-after={10-34}
 fn get_file_info(entry: &DirEntry, dir: &str) {
     let entry = entry.clone();
     let file_name = entry.file_name().to_str().unwrap().to_string();

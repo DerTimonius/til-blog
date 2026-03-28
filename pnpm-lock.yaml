@@ -69,8 +69,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(@expressive-code/core@0.41.6)
       ec-magic-move:
-        specifier: ^1.0.0
-        version: 1.0.0(@expressive-code/core@0.41.6)(@expressive-code/plugin-shiki@0.41.6)(shiki@3.13.0)(svelte@5.53.7)
+        specifier: ^1.0.1
+        version: 1.0.1(@expressive-code/core@0.41.6)(@expressive-code/plugin-shiki@0.41.6)(shiki@3.13.0)(svelte@5.53.7)
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
@@ -1427,8 +1427,8 @@ packages:
     peerDependencies:
       '@expressive-code/core': ^0.41.3
 
-  ec-magic-move@1.0.0:
-    resolution: {integrity: sha512-v3xTo2XeJZi9D4CKvF/bJsKYo77Z5bGZkAaIHW5RO/yURo3tSxBUiusv0cE4xTF4522VxCLk8EhGdf/S5AnwuA==}
+  ec-magic-move@1.0.1:
+    resolution: {integrity: sha512-iLEU5y7JCxPJ3Bsvt24K+/gzivDN4Ks0431ysc9ZGMivf9MZWB9x+LKCZ28LbIlBnZZRYIakCX81+KuneqXo/Q==}
     peerDependencies:
       '@expressive-code/core': ^0.41.7
       '@expressive-code/plugin-shiki': ^0.41.7
@@ -4090,7 +4090,7 @@ snapshots:
       '@expressive-code/core': 0.41.6
       simple-icons: 16.10.0
 
-  ec-magic-move@1.0.0(@expressive-code/core@0.41.6)(@expressive-code/plugin-shiki@0.41.6)(shiki@3.13.0)(svelte@5.53.7):
+  ec-magic-move@1.0.1(@expressive-code/core@0.41.6)(@expressive-code/plugin-shiki@0.41.6)(shiki@3.13.0)(svelte@5.53.7):
     dependencies:
       '@expressive-code/core': 0.41.6
       '@expressive-code/plugin-shiki': 0.41.6
