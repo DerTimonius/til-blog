@@ -37,31 +37,46 @@ const icon =
 	tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
 ---
 
-<Layout title={`Tag:${tag} | ${site.title}`}>
+<Layout title={`Tag: ${tag} | ${site.title}`}>
   <Header activeNav="tags" />
-  <Main
-    pageDesc={`TIL articles with the tag "${tag}" so far.`}
-    pageTitle=""
-    screenReaderOnly
-  >
-    <div
-      class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0"
-    >
-      <h1
-        class="text-2xl font-semibold capitalize sm:text-3xl"
-        slot="title"
-        transition:name={tag}
-      >
-        {tag.replace(/-/g, ' ')}
-      </h1>
-      <div
-        class="group flex h-24 w-24 items-center justify-center rounded-lg border border-inherit hover:bg-card"
-        transition:name={`icon-${tag}`}
-      >
-        <Fragment set:html={icon} />
+  
+  <!-- Tag Header Section -->
+  <section class="border-b-[3px] border-line px-4 py-12 sm:px-6 sm:py-16">
+    <div class="mx-auto max-w-4xl">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <div class="mb-3 flex items-center gap-2">
+            <span class="brutalist-tag-label">Tag</span>
+            <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+              {page.total} posts
+            </span>
+          </div>
+          <h1
+            class="font-display text-5xl leading-none tracking-wide sm:text-6xl"
+            transition:name={tag}
+          >
+            {tag?.replace(/-/g, ' ')}
+          </h1>
+        </div>
+        
+        <div
+          class="brutalist-tag-icon flex h-20 w-20 items-center justify-center border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] sm:h-24 sm:w-24"
+          transition:name={`icon-${tag}`}
+        >
+          <Fragment set:html={icon} />
+        </div>
       </div>
     </div>
-    <ul class="flex flex-col gap-4">
+  </section>
+
+  <Main pageTitle="" pageDesc="" screenReaderOnly>
+    <div class="mb-6 flex items-center justify-between">
+      <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+    </div>
+    
+    <ul class="grid gap-6">
       {
         page.data.map(({ data, id }) => (
           <Card
@@ -74,6 +89,44 @@ const icon =
       }
     </ul>
   </Main>
+  
   <PaginationButtons {page} />
   <Footer />
 </Layout>
+
+<style>
+  .brutalist-tag-label {
+    display: inline-block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.75rem;
+    border: 2px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-accent-rgb));
+    color: rgb(var(--color-fill-rgb));
+  }
+
+  .brutalist-tag-icon {
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-tag-icon:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0 0 rgb(var(--color-accent-rgb));
+  }
+
+  .brutalist-tag-icon :global(svg) {
+    width: 2.5rem;
+    height: 2.5rem;
+    fill: rgb(var(--color-text-base));
+  }
+
+  @media (min-width: 640px) {
+    .brutalist-tag-icon :global(svg) {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+</style>

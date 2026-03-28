@@ -1,7 +1,6 @@
 ---
 import { socials } from '~/utils/config';
 import { socialIcons } from '~/assets/socialIcons';
-import Link from './Link.astro';
 import classNames from 'classnames';
 
 export interface Props {
@@ -10,9 +9,9 @@ export interface Props {
 
 const { centered = false } = Astro.props;
 const divClasses = classNames(
-	'flex flex-wrap justify-center gap-1 items-center',
+	'flex flex-wrap items-center gap-2',
 	{
-		flex: centered,
+		'justify-center': centered,
 	},
 );
 
@@ -21,21 +20,49 @@ const socialsDisplay = socials.filter((s) => s.active);
 
 <div class={divClasses}>
   {
-    socialsDisplay.map((social, index) => (
-      <>
-        <Link
-          dataTestId={`social-link${social.name}`}
-          href={social.href}
-          className="p-2 hover:rotate-6 sm:p-1"
-          title={social.linkTitle}
-          newTab
-        >
-          <Fragment set:html={socialIcons[social.name]} />
-        </Link>
-        {index !== socialsDisplay.length - 1 ? (
-          <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-        ) : null}
-      </>
+    socialsDisplay.map((social) => (
+      <a
+        href={social.href}
+        class="social-link"
+        title={social.linkTitle}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-test-id={`social-link-${social.name}`}
+      >
+        <Fragment set:html={socialIcons[social.name]} />
+      </a>
     ))
   }
 </div>
+
+<style>
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-fill-rgb));
+    color: rgb(var(--color-text-base));
+    transition: all 0.15s ease;
+  }
+
+  .social-link:hover {
+    background-color: rgb(var(--color-accent-rgb));
+    border-color: rgb(var(--color-accent-rgb));
+    color: rgb(var(--color-fill-rgb));
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
+  }
+
+  .social-link svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentColor;
+  }
+
+  .social-link:hover svg {
+    fill: currentColor;
+  }
+</style>

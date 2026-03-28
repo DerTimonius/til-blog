@@ -12,23 +12,101 @@ const icon =
 	tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
 ---
 
-<li>
+<li class="group">
   <a
     href={`/tags/${tag.name.toLowerCase()}`}
     transition:name={tag.name.toLowerCase()}
     data-test-id="tag"
-    class="group flex flex-col items-center gap-2"
+    class="brutalist-tag-card"
   >
     <div
-      class="flex h-24 w-24 items-center justify-center rounded-lg border border-inherit hover:bg-card/90"
+      class="brutalist-tag-icon"
       transition:name={`icon-${tag.name}`}
     >
       <Fragment set:html={icon} />
     </div>
-    <p
-      class="text-wrap text-center group-hover:text-accent group-hover:underline group-hover:decoration-dashed"
-    >
-      {tag.name.toLowerCase()}({tag.postsCount})
-    </p>
+    <div class="brutalist-tag-info">
+      <span class="brutalist-tag-name">{tag.name.toLowerCase()}</span>
+      <span class="brutalist-tag-count">{tag.count} posts</span>
+    </div>
   </a>
 </li>
+
+<style>
+  .brutalist-tag-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+    border: 3px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-fill-rgb));
+    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+
+  .brutalist-tag-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0 0 rgb(var(--color-accent-rgb));
+    border-color: rgb(var(--color-accent-rgb));
+  }
+
+  .brutalist-tag-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border: 2px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-card-rgb));
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-tag-card:hover .brutalist-tag-icon {
+    background-color: rgb(var(--color-accent-rgb));
+    border-color: rgb(var(--color-accent-rgb));
+  }
+
+  .brutalist-tag-icon :global(svg) {
+    width: 2rem;
+    height: 2rem;
+    fill: rgb(var(--color-text-base));
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-tag-card:hover .brutalist-tag-icon :global(svg) {
+    fill: rgb(var(--color-fill-rgb));
+  }
+
+  .brutalist-tag-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .brutalist-tag-name {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgb(var(--color-text-base));
+    transition: color 0.15s ease;
+  }
+
+  .brutalist-tag-card:hover .brutalist-tag-name {
+    color: rgb(var(--color-accent-rgb));
+  }
+
+  .brutalist-tag-count {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgb(var(--color-text-base));
+    opacity: 0.7;
+  }
+</style>

@@ -1,17 +1,57 @@
 <button
   id="btt"
-  class="enter focus-outline fixed bottom-12 right-12 hidden whitespace-nowrap py-1 hover:opacity-75"
+  class="brutalist-back-to-top"
+  aria-label="Back to top"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="h-6 w-6 rotate-90 fill-accent"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
   >
-    <path
-      d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-    ></path>
+    <line x1="12" y1="19" x2="12" y2="5"></line>
+    <polyline points="5 12 12 5 19 12"></polyline>
   </svg>
-  <span class="sr-only">Back to Top</span>
 </button>
+
+<style>
+  .brutalist-back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 3px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-accent-rgb));
+    color: rgb(var(--color-fill-rgb));
+    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
+    cursor: pointer;
+    transition: all 0.15s ease;
+    z-index: 50;
+  }
+
+  .brutalist-back-to-top:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
+  }
+
+  .brutalist-back-to-top:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 rgb(var(--color-text-base));
+  }
+
+  .brutalist-back-to-top.block {
+    display: flex;
+  }
+</style>
 
 <script>
   const button = document.getElementById('btt');
@@ -38,4 +78,12 @@
     });
   }
   backToTop();
+
+  // Re-run on view transitions
+  document.addEventListener('astro:after-swap', () => {
+    window.onscroll = function () {
+      visible();
+    };
+    backToTop();
+  });
 </script>

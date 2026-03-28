@@ -22,10 +22,19 @@ const {
 } = Astro.props;
 ---
 
-<Layout title={`Posts | ${site.title}`}>
+<Layout title={`${pageTitle} | ${site.title}`}>
   <Header activeNav="posts" />
   <Main {pageTitle} {pageDesc}>
-    <ul class="flex flex-col gap-4">
+    <div class="mb-6 flex items-center justify-between">
+      <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+        {page.total} total posts
+      </span>
+      <span class="font-ui text-sm font-semibold uppercase tracking-wider">
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+    </div>
+    
+    <ul class="grid gap-6">
       {
         page.data.map(({ data, id }, index) => (
           <Card

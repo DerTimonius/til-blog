@@ -2,7 +2,6 @@
 import Date from './Date.astro';
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '~/utils/formatDate';
-import Link from './Link.astro';
 
 interface Props {
 	href: string;
@@ -13,32 +12,77 @@ interface Props {
 const { href, frontmatter, slug, dataTestId } = Astro.props;
 const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
-
-const headerProps = {
-	style: { viewTransitionName: title },
-	className: 'text-xl font-semibold',
-};
 ---
 
-<li class="py-12">
-  <div
-    class="space-y-2 lg:grid lg:grid-cols-4 lg:items-baseline lg:space-y-0"
-    transition:name={slug}
+<li class="group" transition:name={slug}>
+  <a 
+    href={href}
+    class="block border-b-[3px] border-line py-8 transition-all hover:bg-card hover:px-4 sm:py-10"
+    data-test-id={dataTestId}
   >
-    <Date datetime={date} />
-    <div class="space-y-4 lg:col-span-3">
-      <h2 {...headerProps}>{title}</h2>
-      <p class="text-sm uppercase text-gray-700/90 dark:text-gray-400">
-        {tags.map((tag) => <span>{tag} </span>)}
-      </p>
-      <p class="text-md text-gray-700 dark:text-gray-300">{description}</p>
-      <Link
-        href={href}
-        className="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
-        {dataTestId}
-      >
-        <span>Read more</span>
-      </Link>
-    </div>
-  </div>
+    <article class="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6">
+      <!-- Date column -->
+      <div class="flex-shrink-0 sm:w-28">
+        <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+          {date}
+        </span>
+      </div>
+
+      <!-- Content column -->
+      <div class="flex-1 space-y-3">
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span class="brutalist-micro-tag">{tag}</span>
+          ))}
+        </div>
+
+        <!-- Title -->
+        <h2 class="font-display text-2xl leading-tight tracking-wide text-base transition-colors group-hover:text-accent sm:text-3xl">
+          {title}
+        </h2>
+
+        <!-- Description -->
+        <p class="font-body text-base leading-relaxed text-base/80 max-w-2xl">
+          {description}
+        </p>
+
+        <!-- Read more indicator -->
+        <div class="inline-flex items-center gap-2 pt-2 font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+          <span>Read article</span>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="16" 
+            height="16" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="2.5" 
+            stroke-linecap="square" 
+            stroke-linejoin="miter"
+            class="transition-transform group-hover:translate-x-1"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </div>
+    </article>
+  </a>
 </li>
+
+<style>
+  /* Micro tag style for homepage */
+  .brutalist-micro-tag {
+    display: inline-block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.5rem;
+    border: 2px solid rgb(var(--color-border-rgb));
+    color: rgb(var(--color-text-base));
+    opacity: 0.8;
+  }
+</style>

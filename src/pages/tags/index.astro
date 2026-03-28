@@ -17,10 +17,15 @@ const tags = await getTags(posts);
   <Header activeNav="tags" />
   <Main
     pageTitle="Tags"
-    pageDesc="What tags have been used so far."
-    screenReaderOnly
+    pageDesc="Browse all topics covered in this blog."
   >
-    <ul class="mt-6 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
+    <div class="mb-8 border-b-[3px] border-line pb-4">
+      <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+        {tags.length} topics available
+      </span>
+    </div>
+    
+    <ul class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {tags.map((tag) => <TagWithIcon {tag} />)}
     </ul>
   </Main>

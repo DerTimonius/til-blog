@@ -1,64 +1,162 @@
 <script lang="ts">
-// @ts-ignore
-import type { CollectionEntry } from 'astro:content';
-import Fuse from 'fuse.js';
-import SearchResults from './SearchResults.svelte';
-import type { SearchList, SearchResult } from '~/utils/types';
+  import type { CollectionEntry } from "astro:content";
+  import Fuse from "fuse.js";
+  import SearchResults from "./SearchResults.svelte";
+  import type { SearchList, SearchResult } from "~/utils/types";
 
-const { posts }: { posts: CollectionEntry<'blogs'>[] } = $props();
-const searchList = posts.map((p) => {
-	return {
-		title: p.data.title,
-		description: p.data.description,
-		data: p.data,
-		slug: p.slug,
-		tags: p.data.tags,
-	};
-}) as SearchList[];
-const fuse = new Fuse(searchList, {
-	keys: ['title', 'description', 'tags'],
-	includeMatches: true,
-	minMatchCharLength: 2,
-	threshold: 0.3,
-});
-let searchTerm = $state('');
-let foundPosts = $state<SearchResult[]>([]);
+  const { posts }: { posts: CollectionEntry<"blogs">[] } = $props();
+  const searchList = $derived(
+    posts.map((p) => {
+      return {
+        title: p.data.title,
+        description: p.data.description,
+        data: p.data,
+        slug: p.id,
+        tags: p.data.tags,
+      };
+    }),
+  ) as SearchList[];
+  const fuse = new Fuse(searchList, {
+    keys: ["title", "description", "tags"],
+    includeMatches: true,
+    minMatchCharLength: 2,
+    threshold: 0.3,
+  });
+  let searchTerm = $state("");
+  let foundPosts = $state<SearchResult[]>([]);
 
-const searchPosts = () => {
-	if (searchTerm.length > 2) {
-		return (foundPosts = fuse.search(searchTerm));
-	} else {
-		return (foundPosts = []);
-	}
-};
+  const searchPosts = () => {
+    if (searchTerm.length > 2) {
+      return (foundPosts = fuse.search(searchTerm));
+    } else {
+      return (foundPosts = []);
+    }
+  };
 </script>
 
-<label class="relative block">
-  <span class="absolute inset-y-0 left-0 flex items-center pl-2 opacity-75">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6 fill-custom-base"
-      aria-hidden="true"
-    >
-      <path
-        d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"
-      ></path>
-    </svg>
-  </span>
-  <input
-    class="block w-full rounded border border-custom-fill
-  border-opacity-40 bg-custom-fill py-3 pl-10
-  pr-3 placeholder:italic placeholder:text-opacity-75
-  focus:border-custom-accent focus:outline-none"
-    placeholder="Camera, JavaScript, Font, you name it..."
-    name="search"
-    bind:value={searchTerm}
-    oninput={searchPosts}
-  />
-</label>
+<div class="brutalist-search-container">
+  <label class="brutalist-search-label">
+    <span class="brutalist-search-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="square"
+        stroke-linejoin="miter"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </span>
+    <input
+      class="brutalist-search-input"
+      placeholder="Search for topics, JavaScript, CSS, etc..."
+      name="search"
+      bind:value={searchTerm}
+      oninput={searchPosts}
+    />
+  </label>
 
-{#if searchTerm.length > 2 && !foundPosts.length}
-  <p>Sorry, I wasn't able to find anything!</p>
-{:else}
-  <SearchResults {foundPosts} />
-{/if}
+  {#if searchTerm.length > 2 && !foundPosts.length}
+    <div class="brutalist-no-results">
+      <div class="brutalist-no-results-box">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="square"
+          stroke-linejoin="miter"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <p class="font-ui text-sm font-semibold uppercase tracking-wider">
+          No results found
+        </p>
+        <p class="font-body text-sm opacity-70">Try a different search term</p>
+      </div>
+    </div>
+  {:else}
+    <SearchResults {foundPosts} />
+  {/if}
+</div>
+
+<style>
+  .brutalist-search-container {
+    margin-bottom: 2rem;
+  }
+
+  .brutalist-search-label {
+    display: block;
+    position: relative;
+  }
+
+  .brutalist-search-icon {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    color: rgb(var(--color-accent-rgb));
+  }
+
+  .brutalist-search-input {
+    display: block;
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1rem;
+    border: 3px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-fill-rgb));
+    color: rgb(var(--color-text-base));
+    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
+    transition: all 0.15s ease;
+    outline: none;
+  }
+
+  .brutalist-search-input::placeholder {
+    color: rgb(var(--color-text-base));
+    opacity: 0.5;
+    font-style: italic;
+  }
+
+  .brutalist-search-input:focus {
+    border-color: rgb(var(--color-accent-rgb));
+    box-shadow: 4px 4px 0 0 rgb(var(--color-accent-rgb));
+    transform: translate(-2px, -2px);
+  }
+
+  .brutalist-no-results {
+    margin-top: 2rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .brutalist-no-results-box {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 2rem 3rem;
+    border: 3px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-card-rgb));
+    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
+    color: rgb(var(--color-text-base));
+  }
+
+  .brutalist-no-results-box svg {
+    color: rgb(var(--color-accent-rgb));
+    margin-bottom: 0.5rem;
+  }
+</style>

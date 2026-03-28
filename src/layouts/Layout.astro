@@ -2,8 +2,9 @@
 import { site } from '~/utils/config';
 import '~/styles/style.css';
 import { ClientRouter } from 'astro:transitions';
-import '@fontsource/fira-mono';
-import '@fontsource/monaspace-neon';
+import '@fontsource/bebas-neue';
+import '@fontsource/literata';
+import '@fontsource/space-grotesk';
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -28,7 +29,7 @@ const socialImageURL = `https://blog.dertimonius.dev/${ogImage}`;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
 

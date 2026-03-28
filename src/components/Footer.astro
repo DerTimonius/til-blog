@@ -1,5 +1,4 @@
 ---
-import Hr from './Hr.astro';
 import Socials from './Socials.astro';
 import classNames from 'classnames';
 
@@ -12,38 +11,68 @@ export interface Props {
 
 const { noMarginTop = false, className } = Astro.props;
 const footerClasses = classNames(
-	'w-full',
+	'w-full border-t-[3px] border-line bg-card',
 	{ 'mt-auto': !noMarginTop },
 	className,
 );
 ---
 
 <footer class={footerClasses}>
-  <Hr noPadding />
-  <div
-    class="flex flex-col items-center justify-between py-6 sm:flex-row-reverse sm:py-2"
-  >
-    <Socials centered />
-    <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
-      <span>Timon Jurschitsch</span>
-      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-      <span> &#169; {currentYear}</span>
-      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-      <span>All rights reserved.</span>
+  <div class="mx-auto max-w-4xl">
+    <!-- Top section with grid -->
+    <div class="grid grid-cols-1 gap-8 border-b-[3px] border-line px-4 py-8 sm:grid-cols-2 sm:px-6">
+      <!-- Brand section -->
+      <div class="space-y-3">
+        <h3 class="font-display text-xl tracking-wide">Timon Jurschitsch</h3>
+        <p class="font-body text-sm leading-relaxed text-base/70 max-w-xs">
+          Writing about learning in public. Sharing the journey of getting better at stuff.
+        </p>
+      </div>
+
+      <!-- Links section -->
+      <div class="space-y-3 sm:text-right">
+        <h4 class="font-ui text-xs font-semibold uppercase tracking-wider text-accent">Connect</h4>
+        <div class="flex flex-wrap gap-3 sm:justify-end">
+          <Socials />
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom section with copyright -->
+    <div class="flex flex-col items-center justify-between gap-2 px-4 py-4 sm:flex-row sm:px-6">
+      <span class="font-ui text-xs font-medium uppercase tracking-wider text-base/60">
+        © {currentYear} — All rights reserved
+      </span>
+      <span class="font-ui text-xs font-medium uppercase tracking-wider text-base/60">
+        Built with <span class="text-accent">Astro</span>
+      </span>
     </div>
   </div>
 </footer>
 
 <style>
-  .link-button {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-    padding: 0.5rem;
+  /* Social icon styling override */
+  :global(footer .social-link) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-fill-rgb));
+    transition: all 0.15s ease;
   }
-  .link-button:hover {
-    rotate: 6deg;
+
+  :global(footer .social-link:hover) {
+    background-color: rgb(var(--color-accent-rgb));
+    border-color: rgb(var(--color-accent-rgb));
+    color: rgb(var(--color-fill-rgb));
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
   }
-  .link-button svg {
-    scale: 1.25;
+
+  :global(footer .social-link svg) {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 </style>

@@ -2,101 +2,314 @@
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
 import HomepageCard from '~/components/HomepageCard.astro';
-import Hr from '~/components/Hr.astro';
 import Link from '~/components/Link.astro';
 import Layout from '~/layouts/Layout.astro';
 import { getFeaturedPosts, getLatestPosts } from '~/utils/sortPosts';
 
-const latestPosts = await getLatestPosts();
+const latestPosts = await getLatestPosts(5);
 const featuredPosts = await getFeaturedPosts(3);
 ---
 
 <Layout>
   <Header />
-  <main id="main-content" class="px-6">
-    <section id="hero" class="pb-6 pt-8">
-      <h1
-        class="my-4 inline-block text-3xl font-bold text-accent sm:my-8 sm:text-5xl"
-      >
-        Today I learned
-      </h1>
+  
+  <main id="main-content" class="flex-1">
+    <!-- Hero Section -->
+    <section id="hero" class="border-b-[3px] border-line px-4 py-16 sm:px-6 sm:py-20">
+      <div class="mx-auto max-w-4xl">
+        <div class="brutalist-hero-box border-[3px] border-line bg-card p-6 sm:p-10">
+          <div class="mb-6 flex flex-wrap items-center gap-3">
+            <span class="brutalist-tag">Learning in Public</span>
+            <span class="brutalist-tag-outline">Since 2024</span>
+          </div>
+          
+          <h1 class="font-display text-5xl leading-none tracking-wide text-base sm:text-7xl lg:text-8xl">
+            Today I<br/>Learned
+          </h1>
+          
+          <div class="mt-8 max-w-xl space-y-4 font-body text-lg leading-relaxed text-base/90">
+            <p>
+              A little blog that embraces the principles of 
+              <a href="https://www.swyx.io/learn-in-public" class="brutalist-inline-link" target="_blank" rel="noopener noreferrer">
+                learning in public
+              </a>.
+              Why not share your journey of getting better at stuff?
+            </p>
+            <p>
+              Everyone started somewhere. I want to keep learning about interesting things 
+              and getting better at various topics.
+            </p>
+          </div>
 
-      <p class="my-2">
-        A little blog that embraces the principles of <a
-          href="https://www.swyx.io/learn-in-public"
-          referrerpolicy="no-referrer"
-          target="_blank"
-        >
-          <i>learning in public</i></a
-        >. Why don't share your journey of getting better at stuff? Everyone
-        started somewehere.
-      </p><p>
-        I want to keep learning about interesting things, to keep getting better
-        at various topics.
-      </p>
-      <p class="mt-6">
-        The plan is to write about:
-        <ul class="mx-6">
-          <li>Web Development</li>
-          <li>Computer Science</li>
-          <li>Science related topics</li>
-          <li>...whatever I found interesting that day!</li>
-        </ul>
-      </p>
-
-      <p class="my-4">Join me and let's have some fun!</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/posts" class="brutalist-btn">
+              <span>Read all posts</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="/about" class="brutalist-btn-outline">
+              About me
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <Hr className="max-w-4xl" noPadding />
+    <!-- Featured Posts Section -->
+    {featuredPosts.length > 0 && (
+      <section class="px-4 py-12 sm:px-6 sm:py-16">
+        <div class="mx-auto max-w-4xl">
+          <div class="mb-8 flex items-end justify-between border-b-[3px] border-line pb-4">
+            <h2 class="font-display text-3xl tracking-wide sm:text-4xl">
+              Featured
+            </h2>
+            <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+              {featuredPosts.length} articles
+            </span>
+          </div>
+          
+          <ul class="space-y-0 divide-y-[3px] divide-line">
+            {featuredPosts.map((post) => (
+              <HomepageCard
+                dataTestId={`featured-post-${post.id}`}
+                href={`/posts/${post.id}`}
+                frontmatter={post.data}
+                slug={post.id}
+              />
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
 
-    <section class="py-6">
-      <h2 class="text-3xl font-semibold tracking-wide">Featured Posts</h2>
-      <ul class="divide-y divide-light">
-        {
-          featuredPosts.map((post) => (
-            <HomepageCard
-              dataTestId={`featured-post-${post.id}`}
-              href={`/posts/${post.id}`}
-              frontmatter={post.data}
-              slug={post.id}
-            />
-          ))
-        }
-      </ul>
-    </section>
-    <Hr className="max-w-4xl" noPadding />
-
-    <section class="pb-6 pt-12">
-      <h2 class="text-3xl font-semibold tracking-wide">Latest Posts</h2>
-      <ul class="divide-y divide-light">
-        {
-          latestPosts.map((post) => (
+    <!-- Latest Posts Section -->
+    <section class="border-t-[3px] border-line bg-card px-4 py-12 sm:px-6 sm:py-16">
+      <div class="mx-auto max-w-4xl">
+        <div class="mb-8 flex items-end justify-between border-b-[3px] border-line pb-4">
+          <h2 class="font-display text-3xl tracking-wide sm:text-4xl">
+            Latest Posts
+          </h2>
+          <a href="/posts" class="brutalist-text-link font-ui text-sm font-semibold uppercase tracking-wider">
+            View all
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" class="inline-block">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+        
+        <ul class="space-y-0 divide-y-[3px] divide-line">
+          {latestPosts.map((post) => (
             <HomepageCard
               dataTestId={`latest-post-${post.id}`}
               href={`/posts/${post.id}`}
               frontmatter={post.data}
               slug={post.id}
             />
-          ))
-        }
-      </ul>
+          ))}
+        </ul>
+
+        <div class="mt-10 text-center">
+          <a href="/posts" class="brutalist-btn inline-flex">
+            <span>Explore all posts</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <section class="py-6">
-      <div class="my-8 text-center">
-        <Link href="/posts">
-          All Posts
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 fill-base"
-            ><path
-              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-            ></path>
-          </svg>
-        </Link>
+    <!-- Topics/Tags Preview -->
+    <section class="px-4 py-12 sm:px-6 sm:py-16">
+      <div class="mx-auto max-w-4xl">
+        <div class="brutalist-box border-[3px] border-line bg-fill p-6 sm:p-8">
+          <h2 class="font-display text-2xl tracking-wide sm:text-3xl">
+            Topics I Write About
+          </h2>
+          <p class="mt-3 font-body text-base text-base/80">
+            The plan is to cover whatever I found interesting that day.
+          </p>
+          
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="/tags/web-development" class="brutalist-tag-large">Web Development</a>
+            <a href="/tags/computer-science" class="brutalist-tag-large">Computer Science</a>
+            <a href="/tags/science" class="brutalist-tag-large">Science</a>
+            <a href="/tags/learning" class="brutalist-tag-large">Learning</a>
+            <a href="/tags/productivity" class="brutalist-tag-large">Productivity</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <Footer />
 </Layout>
+
+<style>
+  /* Brutalist hero box */
+  .brutalist-hero-box {
+    box-shadow: 6px 6px 0 0 rgb(var(--color-text-base));
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-hero-box:hover {
+    box-shadow: 8px 8px 0 0 rgb(var(--color-accent-rgb));
+  }
+
+  /* Tag styles */
+  .brutalist-tag {
+    display: inline-block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.9rem;
+    border: 2px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-accent-rgb));
+    color: rgb(var(--color-fill-rgb));
+  }
+
+  .brutalist-tag-outline {
+    display: inline-block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.9rem;
+    border: 2px solid rgb(var(--color-border-rgb));
+    background-color: transparent;
+    color: rgb(var(--color-text-base));
+  }
+
+  .brutalist-tag-large {
+    display: inline-block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.6rem 1.2rem;
+    border: 3px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-fill-rgb));
+    color: rgb(var(--color-text-base));
+    text-decoration: none;
+    transition: all 0.15s ease;
+    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
+  }
+
+  .brutalist-tag-large:hover {
+    background-color: rgb(var(--color-accent-rgb));
+    color: rgb(var(--color-fill-rgb));
+    border-color: rgb(var(--color-accent-rgb));
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 0 rgb(var(--color-text-base));
+    text-decoration: none;
+  }
+
+  /* Brutalist button */
+  .brutalist-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.875rem 1.5rem;
+    border: 3px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-text-base));
+    color: rgb(var(--color-fill-rgb));
+    box-shadow: 4px 4px 0 0 rgb(var(--color-accent-rgb));
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+
+  .brutalist-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 rgb(var(--color-accent-rgb));
+    text-decoration: none;
+    color: rgb(var(--color-fill-rgb));
+  }
+
+  .brutalist-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 rgb(var(--color-accent-rgb));
+  }
+
+  /* Outline button */
+  .brutalist-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.875rem 1.5rem;
+    border: 3px solid rgb(var(--color-border-rgb));
+    background-color: transparent;
+    color: rgb(var(--color-text-base));
+    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+
+  .brutalist-btn-outline:hover {
+    background-color: rgb(var(--color-card-rgb));
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
+    text-decoration: none;
+    color: rgb(var(--color-text-base));
+  }
+
+  /* Text link */
+  .brutalist-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: rgb(var(--color-accent-rgb));
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-text-link:hover {
+    text-decoration-thickness: 3px;
+    gap: 0.5rem;
+  }
+
+  /* Inline link */
+  .brutalist-inline-link {
+    color: rgb(var(--color-accent-rgb));
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-inline-link:hover {
+    text-decoration-thickness: 3px;
+    background-color: rgba(var(--color-accent-rgb), 0.1);
+    padding: 0 2px;
+    margin: 0 -2px;
+  }
+
+  /* Box */
+  .brutalist-box {
+    box-shadow: 5px 5px 0 0 rgb(var(--color-text-base));
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-box:hover {
+    box-shadow: 7px 7px 0 0 rgb(var(--color-accent-rgb));
+  }
+</style>

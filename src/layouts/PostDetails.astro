@@ -50,93 +50,173 @@ const time = remarkPluginFrontmatter.minutesRead;
 >
   <Header />
   <BackToTopButton />
+  
   <main
     id="main-content"
-    class="mx-auto w-full max-w-6xl px-4 pb-12"
+    class="flex-1"
     transition:name={post.id}
   >
-    <h1
-      data-test-id="blog-title"
-      transition:name={title}
-      class="mb-8 mt-12 text-center text-4xl font-bold text-accent"
-    >
-      {title}
-    </h1>
-    <div
-      class="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:divide-y-0"
-    >
-      <aside
-        aria-label="sidebar top"
-        class="flex flex-col gap-4 pb-10 pt-6 lg:border-b lg:border-gray-200 lg:pt-11"
-      >
-        <div class="mx-auto flex w-full max-w-4xl justify-start">
+    <!-- Article Header -->
+    <header class="border-b-[3px] border-line px-4 py-12 sm:px-6 sm:py-16">
+      <div class="mx-auto max-w-4xl">
+        <!-- Breadcrumb/Back -->
+        <div class="mb-6 flex items-center gap-2">
           <button
-            class="focus-outline flex hover:opacity-75"
+            class="brutalist-back-btn"
             onclick="history.back()"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 fill-base"
-              ><path
-                d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-              ></path>
-            </svg><span>Go back</span>
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back</span>
           </button>
         </div>
-        <Date datetime={date} size="lg" className="my-2" />
-        <ReadingTime {time} size="lg" />
-        <div class="lg:border-b lg:border-gray-200"></div>
-        {headings.length ? <TOC {headings} /> : null}
-      </aside>
-      <div
-        class="divide-y divide-gray-200 pb-6 dark:divide-gray-700 lg:col-span-3 lg:row-span-2 lg:pb-0"
-      >
+
+        <!-- Title -->
+        <h1
+          data-test-id="blog-title"
+          transition:name={title}
+          class="font-display text-4xl leading-none tracking-wide sm:text-5xl lg:text-6xl"
+        >
+          {title}
+        </h1>
+
+        <!-- Meta info -->
+        <div class="mt-6 flex flex-wrap items-center gap-4">
+          <Date datetime={date} size="lg" />
+          <span class="text-accent">•</span>
+          <ReadingTime {time} size="lg" />
+        </div>
+
+        <!-- Tags -->
+        <div class="mt-4 flex flex-wrap gap-2">
+          {tagsDisplay.map((tag) => (
+            <Tag {tag} size="sm" />
+          ))}
+        </div>
+      </div>
+    </header>
+
+    <!-- Main content area -->
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+      <div class="grid gap-8 lg:grid-cols-[280px_1fr]">
+        <!-- Sidebar with TOC -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-8 space-y-6">
+            {headings.length ? (
+              <div class="brutalist-sidebar-section border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
+                <h2 class="mb-4 font-display text-xl tracking-wide">Contents</h2>
+                <TOC {headings} />
+              </div>
+            ) : null}
+
+            {relatedArticles.length ? (
+              <div class="brutalist-sidebar-section border-[3px] border-line bg-fill p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
+                <h2 class="mb-4 font-display text-xl tracking-wide">Related</h2>
+                <ul class="space-y-3">
+                  {relatedArticles.map((post) => (
+                    <li>
+                      <Link
+                        href={`/posts/${post.id}`}
+                        className="brutalist-related-link text-sm"
+                      >
+                        {post.data.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        </aside>
+
+        <!-- Article content -->
         <article
           role="article"
-          class="prose mx-auto ml-2 mt-8 max-w-4xl scroll-smooth"
+          class="prose max-w-3/4"
         >
           <Content />
-          {
-            updatedAt ? (
-              <p class="text-sm font-light italic">
-                Last update at: {updatedDate}
+          
+          {updatedAt && (
+            <div class="mt-12 border-t-[3px] border-line pt-6">
+              <p class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
+                Last updated: {updatedDate}
               </p>
-            ) : null
-          }
-          {bskyPostId ? <CommentSection postId={bskyPostId} /> : null}
+            </div>
+          )}
         </article>
       </div>
-      <aside
-        aria-label="sidebar-bottom"
-        class="w-full! divide-gray-200 text-sm font-medium dark:divide-gray-700 lg:divide-y"
-      >
-        <div>
-          <h3 class="mt-4 text-lg font-semibold">Tags</h3>
-          <ul class="my-8">
-            {tagsDisplay.map((tag) => <Tag {tag} />)}
-          </ul>
-        </div>
-        {
-          relatedArticles.length ? (
-            <div>
-              <h3 class="mt-4 text-lg font-semibold">Related Articles</h3>
-              <ul>
-                {relatedArticles.map((post) => (
-                  <li>
-                    <Link
-                      href={`/posts/${post.id}`}
-                      className="text-accent hover:text-base"
-                    >
-                      {post.data.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null
-        }
-      </aside>
     </div>
+
+    <!-- Comments section -->
+    {bskyPostId && (
+      <div class="mx-auto max-w-4xl border-t-[3px] border-line px-4 py-12 sm:px-6">
+        <CommentSection postId={bskyPostId} />
+      </div>
+    )}
   </main>
-  <Footer className="max-w-6xl" />
+  
+  <Footer />
 </Layout>
+
+<style>
+  .brutalist-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 1rem;
+    border: 2px solid rgb(var(--color-border-rgb));
+    background-color: rgb(var(--color-fill-rgb));
+    color: rgb(var(--color-text-base));
+    transition: all 0.15s ease;
+    cursor: pointer;
+  }
+
+  .brutalist-back-btn:hover {
+    background-color: rgb(var(--color-card-rgb));
+    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
+    transform: translate(-1px, -1px);
+  }
+
+  .brutalist-sidebar-section {
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-sidebar-section:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 rgb(var(--color-accent-rgb));
+  }
+
+  .brutalist-related-link {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    padding: 0.25rem 0;
+    color: rgb(var(--color-text-base));
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-related-link:hover {
+    color: rgb(var(--color-accent-rgb));
+    text-decoration-thickness: 2px;
+    padding-left: 0.5rem;
+  }
+</style>
