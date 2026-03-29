@@ -1,7 +1,7 @@
 ---
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
-import HomepageCard from '~/components/HomepageCard.astro';
+import Card from '~/components/Card.astro';
 import Layout from '~/layouts/Layout.astro';
 import { getLatestPosts } from '~/utils/sortPosts';
 
@@ -132,10 +132,10 @@ const boxClasses =
 					</a>
 				</div>
 
-				<ul class="space-y-0 divide-y-[3px] divide-line">
+				<section class="space-y-4 divide-y-[3px] divide-line">
 					{
 						latestPosts.map((post) => (
-							<HomepageCard
+							<Card
 								dataTestId={`latest-post-${post.id}`}
 								href={`/posts/${post.id}`}
 								frontmatter={post.data}
@@ -143,7 +143,7 @@ const boxClasses =
 							/>
 						))
 					}
-				</ul>
+				</section>
 
 				<div class="mt-10 text-center">
 					<a href="/posts" class={`${btnClasses} inline-flex`}>

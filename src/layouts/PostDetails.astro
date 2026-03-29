@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
 import Header from '~/components/Header.astro';
-import Date from '~/components/Date.astro';
+import FormattedDate from '~/components/FormattedDate.astro';
 import Footer from '~/components/Footer.astro';
 import { site } from '~/utils/config';
 import Tag from '~/components/Tag.astro';
@@ -96,7 +96,7 @@ const relatedLinkClasses =
 
 				<!-- Meta info -->
 				<div class="mt-6 flex flex-wrap items-center gap-4">
-					<Date datetime={date} size="lg" />
+					<FormattedDate datetime={date} size="lg" />
 					<span class="text-accent">•</span>
 					<ReadingTime {time} size="lg" />
 				</div>
