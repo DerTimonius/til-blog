@@ -1,6 +1,6 @@
 <button
   id="btt"
-  class="brutalist-back-to-top"
+  class="fixed bottom-8 right-8 z-50 hidden items-center justify-center w-14 h-14 border-[3px] border-line bg-accent text-inverted shadow-[4px_4px_0_0_rgb(var(--color-text-base))] cursor-pointer transition-all duration-150 hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] active:translate-x-1 active:translate-y-1 active:shadow-none [&.block]:flex"
   aria-label="Back to top"
 >
   <svg
@@ -18,40 +18,6 @@
     <polyline points="5 12 12 5 19 12"></polyline>
   </svg>
 </button>
-
-<style>
-  .brutalist-back-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    border: 3px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
-    cursor: pointer;
-    transition: all 0.15s ease;
-    z-index: 50;
-  }
-
-  .brutalist-back-to-top:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
-  }
-
-  .brutalist-back-to-top:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0 0 0 0 rgb(var(--color-text-base));
-  }
-
-  .brutalist-back-to-top.block {
-    display: flex;
-  }
-</style>
 
 <script>
   const button = document.getElementById('btt');

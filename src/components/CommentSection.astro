@@ -59,16 +59,32 @@ try {
 	// biome-ignore lint/suspicious/noConsole: okay to use
 	console.error('Error:', e);
 }
+
+const containerClasses = 'font-body';
+
+const linkClasses = 'inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 border-2 border-accent bg-fill text-accent no-underline transition-all duration-150 hover:bg-accent hover:text-inverted hover:no-underline';
+
+const boxClasses = 'flex flex-col items-center gap-3 p-8 border-[3px] border-line bg-card text-center text-base';
+
+const errorBoxClasses = 'border-accent';
+
+const boxIconClasses = 'text-accent mb-2';
+
+const commentClasses = 'border-[3px] border-line bg-card p-4 transition-all duration-150 hover:shadow-[4px_4px_0_0_rgb(var(--color-text-base))]';
+
+const repliesClasses = 'mt-4 pl-6 border-l-[3px] border-accent flex flex-col gap-3';
+
+const replyClasses = 'p-3 bg-fill/50 border-2 border-line';
 ---
 
-<div class="brutalist-comments">
+<div class={containerClasses}>
   <div class="mb-6 flex items-center justify-between border-b-[3px] border-line pb-4">
     <h2 class="font-display text-2xl tracking-wide">Comments</h2>
     <a 
       href={blueskyLink} 
       target="_blank" 
       rel="noopener noreferrer"
-      class="brutalist-comment-link"
+      class={linkClasses}
     >
       <span>Reply on Bluesky</span>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
@@ -80,7 +96,7 @@ try {
   </div>
 
   {error && (
-    <div class="brutalist-error-box">
+    <div class={`${boxClasses} ${errorBoxClasses}`}>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -92,7 +108,7 @@ try {
   )}
 
   {!error && comments.length === 0 && (
-    <div class="brutalist-empty-box">
+    <div class={boxClasses}>
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
       </svg>
@@ -104,7 +120,7 @@ try {
   {!error && comments.length > 0 && (
     <div class="comments-list space-y-4">
       {comments.map((comment) => (
-        <div class="brutalist-comment">
+        <div class={commentClasses}>
           <div class="flex items-start gap-4">
             <Image
               inferSize
@@ -159,9 +175,9 @@ try {
           </div>
 
           {comment.replies && comment.replies.length > 0 && (
-            <div class="brutalist-replies">
+            <div class={repliesClasses}>
               {comment.replies.map((reply) => (
-                <div class="brutalist-reply">
+                <div class={replyClasses}>
                   <div class="flex items-start gap-3">
                     <Image
                       src={reply.post.author.avatar}
@@ -205,81 +221,3 @@ try {
     </div>
   )}
 </div>
-
-<style>
-  .brutalist-comments {
-    font-family: "Literata", Georgia, serif;
-  }
-
-  .brutalist-comment-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.5rem 1rem;
-    border: 2px solid rgb(var(--color-accent-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-accent-rgb));
-    text-decoration: none;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-comment-link:hover {
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    text-decoration: none;
-  }
-
-  .brutalist-error-box,
-  .brutalist-empty-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 2rem;
-    border: 3px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-card-rgb));
-    text-align: center;
-    color: rgb(var(--color-text-base));
-  }
-
-  .brutalist-error-box {
-    border-color: rgb(var(--color-accent-rgb));
-  }
-
-  .brutalist-error-box svg,
-  .brutalist-empty-box svg {
-    color: rgb(var(--color-accent-rgb));
-    margin-bottom: 0.5rem;
-  }
-
-  .brutalist-comment {
-    border: 3px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-card-rgb));
-    padding: 1rem;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-comment:hover {
-    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
-  }
-
-  .brutalist-replies {
-    margin-top: 1rem;
-    padding-left: 1.5rem;
-    border-left: 3px solid rgb(var(--color-accent-rgb));
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .brutalist-reply {
-    padding: 0.75rem;
-    background-color: rgba(var(--color-fill-rgb), 0.5);
-    border: 2px solid rgb(var(--color-border-rgb));
-  }
-</style>

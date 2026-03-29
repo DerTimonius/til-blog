@@ -6,6 +6,16 @@ export interface Props {
 }
 
 const { page } = Astro.props;
+
+const btnClasses = 'inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-3 px-5 border-[3px] border-line bg-fill text-base shadow-[3px_3px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:bg-accent hover:text-inverted hover:border-accent hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_0_rgb(var(--color-text-base))] hover:no-underline';
+
+const btnDisabledClasses = 'opacity-40 cursor-not-allowed shadow-none hover:bg-fill hover:text-base hover:border-line hover:translate-x-0 hover:translate-y-0 hover:shadow-none';
+
+const btnPrevClasses = 'hover:-translate-x-0.5 hover:translate-y-0.5';
+
+const btnNextClasses = 'hover:translate-x-0.5 hover:translate-y-0.5';
+
+const indicatorClasses = 'inline-block font-ui text-sm font-semibold uppercase tracking-widest py-2 px-4 border-2 border-line bg-card text-base';
 ---
 
 {
@@ -16,7 +26,7 @@ const { page } = Astro.props;
         {page.url.prev ? (
           <a
             href={page.url.prev}
-            class="brutalist-page-btn brutalist-page-btn-prev"
+            class={`${btnClasses} ${btnPrevClasses}`}
             aria-label="Go to previous page"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
@@ -27,7 +37,7 @@ const { page } = Astro.props;
             <span class="sm:hidden">Prev</span>
           </a>
         ) : (
-          <span class="brutalist-page-btn brutalist-page-btn-disabled">
+          <span class={`${btnClasses} ${btnDisabledClasses}`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
@@ -40,7 +50,7 @@ const { page } = Astro.props;
 
       {/* Page Info */}
       <div class="px-4">
-        <span class="brutalist-page-indicator">
+        <span class={indicatorClasses}>
           {page.currentPage} / {page.lastPage}
         </span>
       </div>
@@ -50,7 +60,7 @@ const { page } = Astro.props;
         {page.url.next ? (
           <a
             href={page.url.next}
-            class="brutalist-page-btn brutalist-page-btn-next"
+            class={`${btnClasses} ${btnNextClasses}`}
             aria-label="Go to next page"
           >
             <span>Next</span>
@@ -60,7 +70,7 @@ const { page } = Astro.props;
             </svg>
           </a>
         ) : (
-          <span class="brutalist-page-btn brutalist-page-btn-disabled">
+          <span class={`${btnClasses} ${btnDisabledClasses}`}>
             <span>Next</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -72,69 +82,3 @@ const { page } = Astro.props;
     </nav>
   ) : null
 }
-
-<style>
-  /* Pagination button styles */
-  .brutalist-page-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.75rem 1.25rem;
-    border: 3px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-text-base));
-    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
-    transition: all 0.15s ease;
-    text-decoration: none;
-  }
-
-  .brutalist-page-btn:hover {
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    border-color: rgb(var(--color-accent-rgb));
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0 0 rgb(var(--color-text-base));
-    text-decoration: none;
-  }
-
-  .brutalist-page-btn-prev:hover {
-    transform: translate(-2px, 2px);
-  }
-
-  .brutalist-page-btn-next:hover {
-    transform: translate(2px, 2px);
-  }
-
-  .brutalist-page-btn-disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-
-  .brutalist-page-btn-disabled:hover {
-    background-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-text-base));
-    border-color: rgb(var(--color-border-rgb));
-    transform: none;
-    box-shadow: none;
-  }
-
-  /* Page indicator */
-  .brutalist-page-indicator {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.5rem 1rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-card-rgb));
-    color: rgb(var(--color-text-base));
-  }
-</style>

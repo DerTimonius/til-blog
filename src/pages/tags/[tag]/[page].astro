@@ -35,6 +35,10 @@ const { page } = Astro.props;
 const randomIdx = Math.floor(Math.random() * tagIcons.other.length);
 const icon =
 	tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
+
+const tagLabelClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.35rem] px-3 border-2 border-line bg-accent text-inverted';
+
+const tagIconClasses = 'flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))] [&_svg]:w-10 [&_svg]:h-10 [&_svg]:fill-base sm:[&_svg]:w-12 sm:[&_svg]:h-12';
 ---
 
 <Layout title={`Tag: ${tag} | ${site.title}`}>
@@ -46,7 +50,7 @@ const icon =
       <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div class="mb-3 flex items-center gap-2">
-            <span class="brutalist-tag-label">Tag</span>
+            <span class={tagLabelClasses}>Tag</span>
             <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
               {page.total} posts
             </span>
@@ -60,7 +64,7 @@ const icon =
         </div>
         
         <div
-          class="brutalist-tag-icon flex h-20 w-20 items-center justify-center border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] sm:h-24 sm:w-24"
+          class={tagIconClasses}
           transition:name={`icon-${tag}`}
         >
           <Fragment set:html={icon} />
@@ -93,40 +97,3 @@ const icon =
   <PaginationButtons {page} />
   <Footer />
 </Layout>
-
-<style>
-  .brutalist-tag-label {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.35rem 0.75rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-  }
-
-  .brutalist-tag-icon {
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-tag-icon:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 7px 7px 0 0 rgb(var(--color-accent-rgb));
-  }
-
-  .brutalist-tag-icon :global(svg) {
-    width: 2.5rem;
-    height: 2.5rem;
-    fill: rgb(var(--color-text-base));
-  }
-
-  @media (min-width: 640px) {
-    .brutalist-tag-icon :global(svg) {
-      width: 3rem;
-      height: 3rem;
-    }
-  }
-</style>

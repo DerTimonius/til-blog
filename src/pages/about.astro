@@ -3,6 +3,18 @@ import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
 import Layout from '~/layouts/Layout.astro';
 import { site } from '~/utils/config';
+
+const tagClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-accent text-inverted';
+
+const tagOutlineClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-transparent text-base';
+
+const listBoxClasses = 'my-8 border-[3px] border-line bg-card p-6 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
+
+const sidebarBoxClasses = 'border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5';
+
+const sidebarBoxAccentClasses = 'border-[3px] border-line bg-fill p-5 shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5';
+
+const sidebarLinkClasses = 'flex items-center gap-2 font-ui text-sm font-medium p-2 border-2 border-transparent text-base no-underline transition-all duration-150 hover:border-line hover:bg-fill hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px hover:no-underline';
 ---
 
 <Layout title={`About | ${site.title}`}>
@@ -12,8 +24,8 @@ import { site } from '~/utils/config';
     <section class="border-b-[3px] border-line px-4 py-12 sm:px-6 sm:py-16">
       <div class="mx-auto max-w-4xl">
         <div class="mb-6 flex items-center gap-3">
-          <span class="brutalist-tag">About</span>
-          <span class="brutalist-tag-outline">The author</span>
+          <span class={tagClasses}>About</span>
+          <span class={tagOutlineClasses}>The author</span>
         </div>
         <h1 class="font-display text-5xl tracking-wide sm:text-6xl lg:text-7xl">
           Timon<br/>Jurschitsch
@@ -40,7 +52,7 @@ import { site } from '~/utils/config';
               skill or very fundamental. But writing it down will help me in a few ways:
             </p>
 
-            <div class="brutalist-list-box my-8 border-[3px] border-line bg-card p-6 shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
+            <div class={listBoxClasses}>
               <ul class="space-y-4">
                 <li class="flex gap-4">
                   <span class="flex-shrink-0 font-display text-2xl text-accent">01</span>
@@ -92,10 +104,10 @@ import { site } from '~/utils/config';
 
           <!-- Sidebar -->
           <div class="space-y-6">
-            <div class="brutalist-sidebar-box border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
+            <div class={sidebarBoxClasses}>
               <h3 class="mb-4 font-display text-xl tracking-wide">Connect</h3>
               <div class="space-y-3">
-                <a href="/posts" class="brutalist-sidebar-link group flex items-center gap-2">
+                <a href="/posts" class={sidebarLinkClasses}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
@@ -105,7 +117,7 @@ import { site } from '~/utils/config';
                   </svg>
                   <span>All Posts</span>
                 </a>
-                <a href="/search" class="brutalist-sidebar-link group flex items-center gap-2">
+                <a href="/search" class={sidebarLinkClasses}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -115,7 +127,7 @@ import { site } from '~/utils/config';
               </div>
             </div>
 
-            <div class="brutalist-sidebar-box border-[3px] border-line bg-fill p-5 shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))]">
+            <div class={sidebarBoxAccentClasses}>
               <h3 class="mb-3 font-display text-xl tracking-wide text-accent">Status</h3>
               <p class="font-body text-sm opacity-80">
                 Currently learning in public. Writing about web development, computer science, 
@@ -129,70 +141,3 @@ import { site } from '~/utils/config';
   </main>
   <Footer />
 </Layout>
-
-<style>
-  .brutalist-tag {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0.9rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-  }
-
-  .brutalist-tag-outline {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0.9rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: transparent;
-    color: rgb(var(--color-text-base));
-  }
-
-  .brutalist-list-box {
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-list-box:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 0 rgb(var(--color-accent-rgb));
-  }
-
-  .brutalist-sidebar-box {
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-sidebar-box:hover {
-    transform: translate(-2px, -2px);
-  }
-
-  .brutalist-sidebar-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 500;
-    padding: 0.5rem;
-    border: 2px solid transparent;
-    color: rgb(var(--color-text-base));
-    text-decoration: none;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-sidebar-link:hover {
-    border-color: rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
-    transform: translate(-1px, -1px);
-    text-decoration: none;
-  }
-</style>

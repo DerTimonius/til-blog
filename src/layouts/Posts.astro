@@ -51,20 +51,3 @@ const {
   <PaginationButtons {page} />
   <Footer noMarginTop={page.total > 1} />
 </Layout>
-
-<style>
-  .disabled {
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.5;
-  }
-  .disabled:hover {
-    color: rgb(var(--color-text-base));
-  }
-  :is(:where(.group):hover *) .disabled {
-    fill: rgb(var(--color-text-base));
-  }
-  :is(:where(.group):hover *) .disabled-svg {
-    fill: rgb(var(--color-text-base)) !important;
-  }
-</style>

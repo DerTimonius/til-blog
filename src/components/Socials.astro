@@ -16,6 +16,10 @@ const divClasses = classNames(
 );
 
 const socialsDisplay = socials.filter((s) => s.active);
+
+const linkClasses = 'inline-flex items-center justify-center w-10 h-10 border-2 border-line bg-fill text-base transition-all duration-150 hover:bg-accent hover:border-accent hover:text-inverted hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))]';
+
+const iconClasses = '[&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-current';
 ---
 
 <div class={divClasses}>
@@ -23,7 +27,7 @@ const socialsDisplay = socials.filter((s) => s.active);
     socialsDisplay.map((social) => (
       <a
         href={social.href}
-        class="social-link"
+        class={`${linkClasses} ${iconClasses}`}
         title={social.linkTitle}
         target="_blank"
         rel="noopener noreferrer"
@@ -34,35 +38,3 @@ const socialsDisplay = socials.filter((s) => s.active);
     ))
   }
 </div>
-
-<style>
-  .social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-text-base));
-    transition: all 0.15s ease;
-  }
-
-  .social-link:hover {
-    background-color: rgb(var(--color-accent-rgb));
-    border-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    transform: translate(-2px, -2px);
-    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
-  }
-
-  .social-link svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    fill: currentColor;
-  }
-
-  .social-link:hover svg {
-    fill: currentColor;
-  }
-</style>

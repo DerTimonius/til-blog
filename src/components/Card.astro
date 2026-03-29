@@ -13,16 +13,24 @@ interface Props {
 const { href, frontmatter, slug, secHeading = true, dataTestId } = Astro.props;
 const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
+
+const cardClasses = 'border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
+
+const tagClasses = 'inline-block font-ui text-[0.7rem] font-semibold uppercase tracking-wider py-[0.35rem] px-3 border-2 border-line bg-fill text-base no-underline transition-all duration-150 hover:bg-accent hover:text-inverted hover:border-accent hover:-translate-x-px hover:-translate-y-px hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]';
+
+const linkClasses = 'text-accent underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:decoration-[3px]';
+
+const noUnderlineClasses = 'no-underline hover:no-underline';
 ---
 
 <li class="group" transition:name={slug}>
-  <article class="brutalist-card p-5 sm:p-6">
+  <article class={`${cardClasses} p-5 sm:p-6`}>
     <div class="mb-4 flex flex-wrap items-center gap-2">
-      <span class="brutalist-tag">
+      <span class={tagClasses}>
         {date}
       </span>
       {tags.slice(0, 3).map((tag) => (
-        <a href={`/tags/${tag}`} class="brutalist-tag hover-lift">
+        <a href={`/tags/${tag}`} class={`${tagClasses} hover:-translate-x-px hover:-translate-y-px`}>
           {tag}
         </a>
       ))}
@@ -30,7 +38,7 @@ const date = formatDate(pubDate);
 
     <a 
       href={href} 
-      class="block no-underline"
+      class={`block ${noUnderlineClasses}`}
       data-test-id={dataTestId}
     >
       {secHeading ? (
@@ -51,7 +59,7 @@ const date = formatDate(pubDate);
     <div class="mt-4 flex items-center gap-2">
       <a 
         href={href}
-        class="brutalist-link group/link inline-flex items-center gap-1 font-ui text-sm font-semibold uppercase tracking-wider"
+        class={`${linkClasses} group/link inline-flex items-center gap-1 font-ui text-sm font-semibold uppercase tracking-wider`}
         data-test-id={`${dataTestId}-read-more`}
       >
         Read more
@@ -74,64 +82,3 @@ const date = formatDate(pubDate);
     </div>
   </article>
 </li>
-
-<style>
-  /* Brutalist card */
-  .brutalist-card {
-    border: 3px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-card-rgb));
-    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 0 rgb(var(--color-accent-rgb));
-  }
-
-  /* Brutalist tag/chip */
-  .brutalist-tag {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.35rem 0.75rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-text-base));
-    text-decoration: none;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-tag:hover {
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    border-color: rgb(var(--color-accent-rgb));
-    transform: translate(-1px, -1px);
-    box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
-  }
-
-  /* Link with arrow */
-  .brutalist-link {
-    color: rgb(var(--color-accent-rgb));
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-link:hover {
-    text-decoration-thickness: 3px;
-  }
-
-  /* No underline utility */
-  .no-underline {
-    text-decoration: none;
-  }
-
-  .no-underline:hover {
-    text-decoration: none;
-  }
-</style>

@@ -2,13 +2,17 @@
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/, '');
 const breadcrumbList = currentUrlPath.split('/').slice(1);
 const breadcrumbListLength = breadcrumbList.length;
+
+const crumbClasses = 'inline-block py-[0.35rem] px-3 border-2 border-transparent text-base no-underline opacity-70 transition-all duration-150 hover:opacity-100 hover:border-line hover:bg-card hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px';
+
+const crumbActiveClasses = 'inline-block py-[0.35rem] px-3 border-2 border-line bg-accent text-inverted';
 ---
 
 <nav class="mx-auto mb-6 mt-8 w-full max-w-4xl px-4 sm:px-6" aria-label="breadcrumb">
   <ul class="flex flex-wrap items-center gap-2 font-ui text-sm font-medium uppercase tracking-wider">
     <li class="inline">
       <a 
-        class="brutalist-crumb" 
+        class={crumbClasses} 
         href="/"
       >
         Home
@@ -24,7 +28,7 @@ const breadcrumbListLength = breadcrumbList.length;
         index + 1 === breadcrumbListLength ? (
           <li>
             <span 
-              class="brutalist-crumb-active" 
+              class={crumbActiveClasses}
               aria-current="page"
             >
               {breadcrumb.replace(/-/g, ' ')}
@@ -35,7 +39,7 @@ const breadcrumbListLength = breadcrumbList.length;
             <li>
               <a 
                 href={`/${breadcrumb}`}
-                class="brutalist-crumb"
+                class={crumbClasses}
               >
                 {breadcrumb.replace(/-/g, ' ')}
               </a>
@@ -51,31 +55,3 @@ const breadcrumbListLength = breadcrumbList.length;
     }
   </ul>
 </nav>
-
-<style>
-  .brutalist-crumb {
-    display: inline-block;
-    padding: 0.35rem 0.75rem;
-    border: 2px solid transparent;
-    color: rgb(var(--color-text-base));
-    text-decoration: none;
-    opacity: 0.7;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-crumb:hover {
-    opacity: 1;
-    border-color: rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-card-rgb));
-    box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
-    transform: translate(-1px, -1px);
-  }
-
-  .brutalist-crumb-active {
-    display: inline-block;
-    padding: 0.35rem 0.75rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-  }
-</style>

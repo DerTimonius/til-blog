@@ -8,6 +8,24 @@ import { getFeaturedPosts, getLatestPosts } from '~/utils/sortPosts';
 
 const latestPosts = await getLatestPosts(5);
 const featuredPosts = await getFeaturedPosts(3);
+
+const heroBoxClasses = 'border-[3px] border-line bg-card p-6 sm:p-10 shadow-[6px_6px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[8px_8px_0_0_rgb(var(--color-accent-rgb))]';
+
+const tagClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-accent text-inverted';
+
+const tagOutlineClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-transparent text-base';
+
+const tagLargeClasses = 'inline-block font-ui text-sm font-semibold uppercase tracking-wider py-[0.6rem] px-5 border-[3px] border-line bg-fill text-base no-underline transition-all duration-150 shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:bg-accent hover:text-inverted hover:border-accent hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_rgb(var(--color-text-base))] hover:no-underline';
+
+const btnClasses = 'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider py-[0.875rem] px-6 border-[3px] border-line bg-base text-inverted shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 no-underline hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-accent-rgb))] hover:text-inverted active:translate-x-1 active:translate-y-1 active:shadow-none';
+
+const btnOutlineClasses = 'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider py-[0.875rem] px-6 border-[3px] border-line bg-transparent text-base shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:bg-card hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:text-base hover:no-underline';
+
+const textLinkClasses = 'inline-flex items-center gap-1 text-accent underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:decoration-[3px] hover:gap-2';
+
+const inlineLinkClasses = 'text-accent decoration-2 underline-offset-[3px] font-ui font-medium transition-all duration-150 hover:decoration-[3px] hover:bg-accent/10 hover:px-0.5 hover:-mx-0.5';
+
+const boxClasses = 'border-[3px] border-line bg-fill p-6 sm:p-8 shadow-[5px_5px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))]';
 ---
 
 <Layout>
@@ -17,10 +35,10 @@ const featuredPosts = await getFeaturedPosts(3);
     <!-- Hero Section -->
     <section id="hero" class="border-b-[3px] border-line px-4 py-16 sm:px-6 sm:py-20">
       <div class="mx-auto max-w-4xl">
-        <div class="brutalist-hero-box border-[3px] border-line bg-card p-6 sm:p-10">
+        <div class={heroBoxClasses}>
           <div class="mb-6 flex flex-wrap items-center gap-3">
-            <span class="brutalist-tag">Learning in Public</span>
-            <span class="brutalist-tag-outline">Since 2024</span>
+            <span class={tagClasses}>Learning in Public</span>
+            <span class={tagOutlineClasses}>Since 2024</span>
           </div>
           
           <h1 class="font-display text-5xl leading-none tracking-wide text-base sm:text-7xl lg:text-8xl">
@@ -30,7 +48,7 @@ const featuredPosts = await getFeaturedPosts(3);
           <div class="mt-8 max-w-xl space-y-4 font-body text-lg leading-relaxed text-base/90">
             <p>
               A little blog that embraces the principles of 
-              <a href="https://www.swyx.io/learn-in-public" class="brutalist-inline-link" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.swyx.io/learn-in-public" class={inlineLinkClasses} target="_blank" rel="noopener noreferrer">
                 learning in public
               </a>.
               Why not share your journey of getting better at stuff?
@@ -42,14 +60,14 @@ const featuredPosts = await getFeaturedPosts(3);
           </div>
 
           <div class="mt-8 flex flex-wrap gap-3">
-            <a href="/posts" class="brutalist-btn">
+            <a href="/posts" class={btnClasses}>
               <span>Read all posts</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </a>
-            <a href="/about" class="brutalist-btn-outline">
+            <a href="/about" class={btnOutlineClasses}>
               About me
             </a>
           </div>
@@ -91,7 +109,7 @@ const featuredPosts = await getFeaturedPosts(3);
           <h2 class="font-display text-3xl tracking-wide sm:text-4xl">
             Latest Posts
           </h2>
-          <a href="/posts" class="brutalist-text-link font-ui text-sm font-semibold uppercase tracking-wider">
+          <a href="/posts" class={textLinkClasses}>
             View all
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" class="inline-block">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -112,7 +130,7 @@ const featuredPosts = await getFeaturedPosts(3);
         </ul>
 
         <div class="mt-10 text-center">
-          <a href="/posts" class="brutalist-btn inline-flex">
+          <a href="/posts" class={`${btnClasses} inline-flex`}>
             <span>Explore all posts</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -126,7 +144,7 @@ const featuredPosts = await getFeaturedPosts(3);
     <!-- Topics/Tags Preview -->
     <section class="px-4 py-12 sm:px-6 sm:py-16">
       <div class="mx-auto max-w-4xl">
-        <div class="brutalist-box border-[3px] border-line bg-fill p-6 sm:p-8">
+        <div class={boxClasses}>
           <h2 class="font-display text-2xl tracking-wide sm:text-3xl">
             Topics I Write About
           </h2>
@@ -135,11 +153,11 @@ const featuredPosts = await getFeaturedPosts(3);
           </p>
           
           <div class="mt-6 flex flex-wrap gap-3">
-            <a href="/tags/web-development" class="brutalist-tag-large">Web Development</a>
-            <a href="/tags/computer-science" class="brutalist-tag-large">Computer Science</a>
-            <a href="/tags/science" class="brutalist-tag-large">Science</a>
-            <a href="/tags/learning" class="brutalist-tag-large">Learning</a>
-            <a href="/tags/productivity" class="brutalist-tag-large">Productivity</a>
+            <a href="/tags/web-development" class={tagLargeClasses}>Web Development</a>
+            <a href="/tags/computer-science" class={tagLargeClasses}>Computer Science</a>
+            <a href="/tags/science" class={tagLargeClasses}>Science</a>
+            <a href="/tags/learning" class={tagLargeClasses}>Learning</a>
+            <a href="/tags/productivity" class={tagLargeClasses}>Productivity</a>
           </div>
         </div>
       </div>
@@ -148,168 +166,3 @@ const featuredPosts = await getFeaturedPosts(3);
 
   <Footer />
 </Layout>
-
-<style>
-  /* Brutalist hero box */
-  .brutalist-hero-box {
-    box-shadow: 6px 6px 0 0 rgb(var(--color-text-base));
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-hero-box:hover {
-    box-shadow: 8px 8px 0 0 rgb(var(--color-accent-rgb));
-  }
-
-  /* Tag styles */
-  .brutalist-tag {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0.9rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-  }
-
-  .brutalist-tag-outline {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0.9rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: transparent;
-    color: rgb(var(--color-text-base));
-  }
-
-  .brutalist-tag-large {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.6rem 1.2rem;
-    border: 3px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-text-base));
-    text-decoration: none;
-    transition: all 0.15s ease;
-    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
-  }
-
-  .brutalist-tag-large:hover {
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    border-color: rgb(var(--color-accent-rgb));
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 0 rgb(var(--color-text-base));
-    text-decoration: none;
-  }
-
-  /* Brutalist button */
-  .brutalist-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: "Space Grotesk", sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.875rem 1.5rem;
-    border: 3px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-text-base));
-    color: rgb(var(--color-fill-rgb));
-    box-shadow: 4px 4px 0 0 rgb(var(--color-accent-rgb));
-    transition: all 0.15s ease;
-    text-decoration: none;
-  }
-
-  .brutalist-btn:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 0 rgb(var(--color-accent-rgb));
-    text-decoration: none;
-    color: rgb(var(--color-fill-rgb));
-  }
-
-  .brutalist-btn:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0 0 0 0 rgb(var(--color-accent-rgb));
-  }
-
-  /* Outline button */
-  .brutalist-btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: "Space Grotesk", sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.875rem 1.5rem;
-    border: 3px solid rgb(var(--color-border-rgb));
-    background-color: transparent;
-    color: rgb(var(--color-text-base));
-    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
-    transition: all 0.15s ease;
-    text-decoration: none;
-  }
-
-  .brutalist-btn-outline:hover {
-    background-color: rgb(var(--color-card-rgb));
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
-    text-decoration: none;
-    color: rgb(var(--color-text-base));
-  }
-
-  /* Text link */
-  .brutalist-text-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    color: rgb(var(--color-accent-rgb));
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-text-link:hover {
-    text-decoration-thickness: 3px;
-    gap: 0.5rem;
-  }
-
-  /* Inline link */
-  .brutalist-inline-link {
-    color: rgb(var(--color-accent-rgb));
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
-    font-family: "Space Grotesk", sans-serif;
-    font-weight: 500;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-inline-link:hover {
-    text-decoration-thickness: 3px;
-    background-color: rgba(var(--color-accent-rgb), 0.1);
-    padding: 0 2px;
-    margin: 0 -2px;
-  }
-
-  /* Box */
-  .brutalist-box {
-    box-shadow: 5px 5px 0 0 rgb(var(--color-text-base));
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-box:hover {
-    box-shadow: 7px 7px 0 0 rgb(var(--color-accent-rgb));
-  }
-</style>

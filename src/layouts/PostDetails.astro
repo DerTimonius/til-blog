@@ -40,6 +40,15 @@ const updatedDate = formatDate(updatedAt!);
 const relatedArticles = relatedPosts ? await getRelatedPosts(relatedPosts) : [];
 const { Content, remarkPluginFrontmatter, headings } = await render(post);
 const time = remarkPluginFrontmatter.minutesRead;
+
+const backBtnClasses =
+	'inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 border-2 border-line bg-fill text-base transition-all duration-150 cursor-pointer hover:bg-card hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px';
+
+const sidebarSectionClasses =
+	'border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
+
+const relatedLinkClasses =
+	'block font-ui py-1 text-base no-underline underline decoration-1 underline-offset-[3px] transition-all duration-150 hover:text-accent hover:decoration-2 hover:pl-2';
 ---
 
 <Layout
@@ -62,7 +71,7 @@ const time = remarkPluginFrontmatter.minutesRead;
         <!-- Breadcrumb/Back -->
         <div class="mb-6 flex items-center gap-2">
           <button
-            class="brutalist-back-btn"
+            class={backBtnClasses}
             onclick="history.back()"
           >
             <svg
@@ -115,21 +124,21 @@ const time = remarkPluginFrontmatter.minutesRead;
         <aside class="hidden lg:block">
           <div class="sticky top-8 space-y-6">
             {headings.length ? (
-              <div class="brutalist-sidebar-section border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
+              <div class={sidebarSectionClasses}>
                 <h2 class="mb-4 font-display text-xl tracking-wide">Contents</h2>
                 <TOC {headings} />
               </div>
             ) : null}
 
             {relatedArticles.length ? (
-              <div class="brutalist-sidebar-section border-[3px] border-line bg-fill p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
+              <div class={sidebarSectionClasses}>
                 <h2 class="mb-4 font-display text-xl tracking-wide">Related</h2>
                 <ul class="space-y-3">
                   {relatedArticles.map((post) => (
                     <li>
                       <Link
                         href={`/posts/${post.id}`}
-                        className="brutalist-related-link text-sm"
+                        className={`${relatedLinkClasses} text-sm`}
                       >
                         {post.data.title}
                       </Link>
@@ -169,54 +178,3 @@ const time = remarkPluginFrontmatter.minutesRead;
   
   <Footer />
 </Layout>
-
-<style>
-  .brutalist-back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.5rem 1rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-text-base));
-    transition: all 0.15s ease;
-    cursor: pointer;
-  }
-
-  .brutalist-back-btn:hover {
-    background-color: rgb(var(--color-card-rgb));
-    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
-    transform: translate(-1px, -1px);
-  }
-
-  .brutalist-sidebar-section {
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-sidebar-section:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 0 rgb(var(--color-accent-rgb));
-  }
-
-  .brutalist-related-link {
-    display: block;
-    font-family: "Space Grotesk", sans-serif;
-    padding: 0.25rem 0;
-    color: rgb(var(--color-text-base));
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-related-link:hover {
-    color: rgb(var(--color-accent-rgb));
-    text-decoration-thickness: 2px;
-    padding-left: 0.5rem;
-  }
-</style>

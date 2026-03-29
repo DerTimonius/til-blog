@@ -27,7 +27,7 @@ export default defineConfig({
 			plugins: [
 				pluginErrorPreview(),
 				pluginLanguageLogo({
-					color: 'mono',
+					color: 'theme',
 					excludedLangs: ['json'],
 				}),
 				pluginMagicMove({

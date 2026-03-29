@@ -9,12 +9,24 @@ export interface Props {
 }
 
 const { tag, size = 'sm' } = Astro.props;
+
 const linkClasses = classNames(
-	'brutalist-tag-item',
-	{
-		'text-xs': size === 'sm',
-		'text-sm': size === 'lg',
-	}
+  'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider',
+  'py-[0.4rem] px-[0.8rem] border-2 border-line bg-fill text-base no-underline',
+  'transition-all duration-150 shadow-[2px_2px_0_0_rgb(var(--color-text-base))]',
+  'hover:bg-accent hover:text-inverted hover:border-accent',
+  'hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_rgb(var(--color-text-base))]',
+  'hover:no-underline',
+  {
+    'text-xs': size === 'sm',
+    'text-sm': size === 'lg',
+  }
+);
+
+const tagIconClasses = classNames(
+  'inline-flex items-center justify-center w-[1.2rem] h-[1.2rem]',
+  '[&_svg]:w-full [&_svg]:h-full [&_svg]:fill-current',
+  'group-hover:[&_svg]:fill-inverted'
 );
 
 // Get icon for this tag if it exists
@@ -31,72 +43,7 @@ const icon = tagIcon || fallbackIcon;
     class={linkClasses}
     data-test-id="tag"
   >
-    <span class="tag-icon" set:html={icon} />
+    <span class={tagIconClasses} set:html={icon} />
     <span>{tag.name.toLowerCase()}</span>
-    <span class="tag-count">{tag.count}</span>
   </a>
 </li>
-
-<style>
-  .brutalist-tag-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: "Space Grotesk", sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0.8rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-text-base));
-    text-decoration: none;
-    transition: all 0.15s ease;
-    box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
-  }
-
-  .brutalist-tag-item:hover {
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    border-color: rgb(var(--color-accent-rgb));
-    transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
-    text-decoration: none;
-  }
-
-  .tag-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.2rem;
-    height: 1.2rem;
-  }
-
-  .tag-icon :global(svg) {
-    width: 100%;
-    height: 100%;
-    fill: currentColor;
-  }
-
-  .brutalist-tag-item:hover .tag-icon :global(svg) {
-    fill: rgb(var(--color-fill-rgb));
-  }
-
-  .tag-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.5rem;
-    height: 1.5rem;
-    padding: 0 0.4rem;
-    font-size: 0.7em;
-    background-color: rgb(var(--color-card-rgb));
-    border: 2px solid rgb(var(--color-border-rgb));
-  }
-
-  .brutalist-tag-item:hover .tag-count {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-color: rgb(var(--color-fill-rgb));
-    color: rgb(var(--color-fill-rgb));
-  }
-</style>

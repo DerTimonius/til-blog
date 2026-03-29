@@ -13,6 +13,14 @@ const navItems = [
 	{ name: 'Tags', href: '/tags', id: 'tags' },
 	{ name: 'About', href: '/about', id: 'about' },
 ];
+
+const navLinkClasses = 'inline-flex items-center justify-center font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 border-2 border-transparent text-base no-underline transition-all duration-150 hover:border-line hover:bg-card hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px';
+
+const navLinkActiveClasses = 'border-line bg-accent text-inverted shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:bg-base hover:text-inverted';
+
+const mobileLinkClasses = 'block font-ui text-lg font-semibold uppercase tracking-wider p-4 border-2 border-transparent border-b-2 border-b-line text-base no-underline transition-all duration-150 hover:border-line hover:bg-card hover:pl-6 last:border-b-0';
+
+const mobileLinkActiveClasses = 'bg-accent text-inverted border-line';
 ---
 
 <header class="fixed left-0 right-0 top-0 z-50 w-full border-b-[3px] border-line bg-fill/95 backdrop-blur-sm">
@@ -46,7 +54,7 @@ const navItems = [
         {navItems.map((item) => (
           <a
             href={item.href}
-            class={`brutalist-nav-link ${activeNav === item.id ? 'active' : ''}`}
+            class={`${navLinkClasses} ${activeNav === item.id ? navLinkActiveClasses : ''}`}
             data-test-id={`nav-link-${item.id}`}
           >
             {item.name}
@@ -56,7 +64,7 @@ const navItems = [
         <!-- Search link -->
         <a
           href="/search"
-          class={`brutalist-nav-link p-2 ${activeNav === 'search' ? 'active' : ''}`}
+          class={`${navLinkClasses} p-2 ${activeNav === 'search' ? navLinkActiveClasses : ''}`}
           aria-label="Search"
           data-test-id="nav-link-search"
         >
@@ -80,7 +88,7 @@ const navItems = [
         {site.lightAndDarkMode && (
           <button
             id="theme-btn"
-            class="brutalist-nav-link p-2"
+            class={`${navLinkClasses} p-2 group/theme`}
             title="Toggle light & dark mode"
             aria-label="Toggle theme"
             aria-live="polite"
@@ -89,7 +97,7 @@ const navItems = [
             <svg
               xmlns="http://www.w3.org/2000/svg"
               id="moon-svg"
-              class="block h-5 w-5 dark:hidden"
+              class="block h-5 w-5 dark:hidden transition-transform duration-200 group-hover/theme:rotate-[15deg]"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -102,7 +110,7 @@ const navItems = [
             <svg
               xmlns="http://www.w3.org/2000/svg"
               id="sun-svg"
-              class="hidden h-5 w-5 dark:block"
+              class="hidden h-5 w-5 dark:block transition-transform duration-200 group-hover/theme:rotate-[15deg]"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -126,7 +134,7 @@ const navItems = [
 
       <!-- Mobile menu button -->
       <button
-        class="hamburger-menu brutalist-nav-link p-2 sm:hidden"
+        class={`hamburger-menu ${navLinkClasses} p-2 sm:hidden`}
         aria-label="Open Menu"
         aria-expanded="false"
         aria-controls="menu-items"
@@ -143,11 +151,11 @@ const navItems = [
           stroke-linejoin="miter"
           class="menu-icon"
         >
-          <line x1="3" y1="6" x2="21" y2="6" class="line-open"></line>
-          <line x1="3" y1="12" x2="21" y2="12" class="line-open"></line>
-          <line x1="3" y1="18" x2="21" y2="18" class="line-open"></line>
-          <line x1="18" y1="6" x2="6" y2="18" class="line-close hidden"></line>
-          <line x1="6" y1="6" x2="18" y2="18" class="line-close hidden"></line>
+          <line x1="3" y1="6" x2="21" y2="6" class="line-open transition-opacity duration-200"></line>
+          <line x1="3" y1="12" x2="21" y2="12" class="line-open transition-opacity duration-200"></line>
+          <line x1="3" y1="18" x2="21" y2="18" class="line-open transition-opacity duration-200"></line>
+          <line x1="18" y1="6" x2="6" y2="18" class="line-close hidden transition-opacity duration-200"></line>
+          <line x1="6" y1="6" x2="18" y2="18" class="line-close hidden transition-opacity duration-200"></line>
         </svg>
       </button>
     </div>
@@ -161,7 +169,7 @@ const navItems = [
         {navItems.map((item) => (
           <a
             href={item.href}
-            class={`brutalist-mobile-link ${activeNav === item.id ? 'active' : ''}`}
+            class={`${mobileLinkClasses} ${activeNav === item.id ? mobileLinkActiveClasses : ''}`}
             data-test-id={`mobile-nav-link-${item.id}`}
           >
             {item.name}
@@ -169,7 +177,7 @@ const navItems = [
         ))}
         <a
           href="/search"
-          class={`brutalist-mobile-link ${activeNav === 'search' ? 'active' : ''}`}
+          class={`${mobileLinkClasses} ${activeNav === 'search' ? mobileLinkActiveClasses : ''}`}
           data-test-id="mobile-nav-link-search"
         >
           Search
@@ -180,80 +188,7 @@ const navItems = [
 </header>
 
 <style>
-  /* Brutalist navigation link style */
-  .brutalist-nav-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.5rem 1rem;
-    border: 2px solid transparent;
-    color: rgb(var(--color-text-base));
-    text-decoration: none;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-nav-link:hover {
-    border-color: rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-card-rgb));
-    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
-    transform: translate(-1px, -1px);
-  }
-
-  .brutalist-nav-link.active {
-    border-color: rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
-  }
-
-  .brutalist-nav-link.active:hover {
-    background-color: rgb(var(--color-text-base));
-    color: rgb(var(--color-fill-rgb));
-  }
-
-  /* Mobile navigation links */
-  .brutalist-mobile-link {
-    display: block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 1.125rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 1rem;
-    border: 2px solid transparent;
-    border-bottom: 2px solid rgb(var(--color-border-rgb));
-    color: rgb(var(--color-text-base));
-    text-decoration: none;
-    transition: all 0.15s ease;
-  }
-
-  .brutalist-mobile-link:last-child {
-    border-bottom: none;
-  }
-
-  .brutalist-mobile-link:hover {
-    border-color: rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-card-rgb));
-    padding-left: 1.5rem;
-  }
-
-  .brutalist-mobile-link.active {
-    background-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    border-color: rgb(var(--color-border-rgb));
-  }
-
-  /* Hamburger menu animation */
-  .menu-icon .line-open,
-  .menu-icon .line-close {
-    transition: opacity 0.2s ease;
-  }
-
+  /* Hamburger menu animation - keeping these as they involve complex state transitions */
   .menu-icon.is-active .line-open {
     opacity: 0;
   }
@@ -264,15 +199,6 @@ const navItems = [
 
   .menu-icon.is-active .line-close.hidden {
     display: block;
-  }
-
-  /* Theme button specific */
-  #theme-btn:hover svg {
-    transform: rotate(15deg);
-  }
-
-  #theme-btn svg {
-    transition: transform 0.2s ease;
   }
 </style>
 

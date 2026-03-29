@@ -32,23 +32,8 @@ function buildToc(headings: Heading[]) {
 const toc = buildToc(headings);
 ---
 
-<nav class="brutalist-toc" aria-label="Table of Contents">
-  <ul class="brutalist-toc-list">
+<nav class="font-ui" aria-label="Table of Contents">
+  <ul class="flex flex-col gap-1 list-none m-0 p-0">
     {toc.map((heading) => <TOCHeading {heading} />)}
   </ul>
 </nav>
-
-<style>
-  .brutalist-toc {
-    font-family: "Space Grotesk", sans-serif;
-  }
-
-  .brutalist-toc-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin: 0;
-    padding: 0;
-  }
-</style>

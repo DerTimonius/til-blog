@@ -12,6 +12,8 @@ interface Props {
 const { href, frontmatter, slug, dataTestId } = Astro.props;
 const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
+
+const microTagClasses = 'inline-block font-ui text-[0.65rem] font-semibold uppercase tracking-wider py-[0.2rem] px-2 border-2 border-line text-base opacity-80';
 ---
 
 <li class="group" transition:name={slug}>
@@ -33,7 +35,7 @@ const date = formatDate(pubDate);
         <!-- Tags -->
         <div class="flex flex-wrap gap-2">
           {tags.map((tag) => (
-            <span class="brutalist-micro-tag">{tag}</span>
+            <span class={microTagClasses}>{tag}</span>
           ))}
         </div>
 
@@ -70,19 +72,3 @@ const date = formatDate(pubDate);
     </article>
   </a>
 </li>
-
-<style>
-  /* Micro tag style for homepage */
-  .brutalist-micro-tag {
-    display: inline-block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.2rem 0.5rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    color: rgb(var(--color-text-base));
-    opacity: 0.8;
-  }
-</style>
