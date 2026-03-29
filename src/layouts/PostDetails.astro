@@ -150,7 +150,50 @@ const relatedLinkClasses =
 				</aside>
 
 				<!-- Article content -->
-				<article role="article" class="prose max-w-3/4">
+				<article role="article" class="prose max-w-[80dvw]">
+					<!-- Mobile TOC Accordion -->
+					{
+						headings.length ? (
+							<details class="mobile-toc-accordion lg:hidden mb-6 border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
+								<summary class="mobile-toc-summary list-none cursor-pointer inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 bg-fill text-base transition-all duration-150 hover:bg-card w-full border-b-[3px] border-line">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="18"
+										height="18"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2.5"
+										stroke-linecap="square"
+										stroke-linejoin="miter"
+									>
+										<line x1="4" y1="9" x2="20" y2="9" />
+										<line x1="4" y1="15" x2="20" y2="15" />
+										<line x1="4" y1="5" x2="20" y2="5" />
+									</svg>
+									<span>Table of Contents</span>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2.5"
+										stroke-linecap="square"
+										stroke-linejoin="miter"
+										class="mobile-toc-chevron ml-auto"
+									>
+										<polyline points="6 9 12 15 18 9" />
+									</svg>
+								</summary>
+								<div class="mobile-toc-content p-4">
+									<TOC {headings} />
+								</div>
+							</details>
+						) : null
+					}
+
 					<Content />
 
 					{
@@ -178,3 +221,42 @@ const relatedLinkClasses =
 
 	<Footer />
 </Layout>
+
+<style>
+	/* Enable smooth height animation using modern CSS */
+	.mobile-toc-accordion {
+		interpolate-size: allow-keywords;
+	}
+
+	.mobile-toc-content {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.35s ease;
+	}
+
+	.mobile-toc-accordion[open] .mobile-toc-content {
+		grid-template-rows: 1fr;
+	}
+
+	.mobile-toc-content > * {
+		overflow: hidden;
+	}
+
+	/* Rotate chevron when accordion is open */
+	.mobile-toc-accordion[open] .mobile-toc-chevron {
+		transform: rotate(180deg);
+	}
+
+	.mobile-toc-chevron {
+		transition: transform 0.35s ease;
+	}
+
+	/* Summary hover effect matching the sidebar style */
+	.mobile-toc-accordion:hover {
+		box-shadow: 0 0 0 2px rgb(var(--color-accent-rgb));
+	}
+
+	.mobile-toc-summary:hover {
+		box-shadow: 0 2px 0 0 rgb(var(--color-text-base));
+	}
+</style>
