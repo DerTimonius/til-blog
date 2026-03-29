@@ -18,61 +18,74 @@ const footerClasses = classNames(
 ---
 
 <footer class={footerClasses}>
-  <div class="mx-auto max-w-4xl">
-    <!-- Top section with grid -->
-    <div class="grid grid-cols-1 gap-8 border-b-[3px] border-line px-4 py-8 sm:grid-cols-2 sm:px-6">
-      <!-- Brand section -->
-      <div class="space-y-3">
-        <h3 class="font-display text-xl tracking-wide">Timon Jurschitsch</h3>
-        <p class="font-body text-sm leading-relaxed text-base/70 max-w-xs">
-          Writing about learning in public. Sharing the journey of getting better at stuff.
-        </p>
-      </div>
+	<div class="mx-auto max-w-4xl">
+		<!-- Top section with grid -->
+		<div
+			class="grid grid-cols-1 gap-8 border-b-[3px] border-line px-4 py-8 sm:grid-cols-2 sm:px-6"
+		>
+			<!-- Brand section -->
+			<div class="space-y-3">
+				<h3 class="font-display text-xl tracking-wide">Timon Jurschitsch</h3>
+				<p class="max-w-xs font-body text-sm leading-relaxed text-base/70">
+					Writing about learning in public. Sharing the journey of getting
+					better at stuff.
+				</p>
+			</div>
 
-      <!-- Links section -->
-      <div class="space-y-3 sm:text-right">
-        <h4 class="font-ui text-xs font-semibold uppercase tracking-wider text-accent">Connect</h4>
-        <div class="flex flex-wrap gap-3 sm:justify-end">
-          <Socials />
-        </div>
-      </div>
-    </div>
+			<!-- Links section -->
+			<div class="space-y-3 sm:text-right">
+				<h4
+					class="font-ui text-xs font-semibold tracking-wider text-accent uppercase"
+				>
+					Connect
+				</h4>
+				<div class="flex flex-wrap gap-3 sm:justify-end">
+					<Socials />
+				</div>
+			</div>
+		</div>
 
-    <!-- Bottom section with copyright -->
-    <div class="flex flex-col items-center justify-between gap-2 px-4 py-4 sm:flex-row sm:px-6">
-      <span class="font-ui text-xs font-medium uppercase tracking-wider text-base/60">
-        © {currentYear} — All rights reserved
-      </span>
-      <span class="font-ui text-xs font-medium uppercase tracking-wider text-base/60">
-        Built with <span class="text-accent">Astro</span>
-      </span>
-    </div>
-  </div>
+		<!-- Bottom section with copyright -->
+		<div
+			class="flex flex-col items-center justify-between gap-2 px-4 py-4 sm:flex-row sm:px-6"
+		>
+			<span
+				class="font-ui text-xs font-medium tracking-wider text-base/60 uppercase"
+			>
+				© {currentYear} — All rights reserved
+			</span>
+			<span
+				class="font-ui text-xs font-medium tracking-wider text-base/60 uppercase"
+			>
+				Built with <span class="text-accent">Astro</span>
+			</span>
+		</div>
+	</div>
 </footer>
 
 <style>
-  /* Social icon styling override for footer context */
-  :global(footer .social-link) {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 2px solid rgb(var(--color-border-rgb));
-    background-color: rgb(var(--color-fill-rgb));
-    transition: all 0.15s ease;
-  }
+	/* Social icon styling override for footer context */
+	:global(footer .social-link) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border: 2px solid rgb(var(--color-border-rgb));
+		background-color: rgb(var(--color-fill-rgb));
+		transition: all 0.15s ease;
+	}
 
-  :global(footer .social-link:hover) {
-    background-color: rgb(var(--color-accent-rgb));
-    border-color: rgb(var(--color-accent-rgb));
-    color: rgb(var(--color-fill-rgb));
-    transform: translate(-2px, -2px);
-    box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
-  }
+	:global(footer .social-link:hover) {
+		background-color: rgb(var(--color-accent-rgb));
+		border-color: rgb(var(--color-accent-rgb));
+		color: rgb(var(--color-fill-rgb));
+		transform: translate(-2px, -2px);
+		box-shadow: 3px 3px 0 0 rgb(var(--color-text-base));
+	}
 
-  :global(footer .social-link svg) {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
+	:global(footer .social-link svg) {
+		width: 1.25rem;
+		height: 1.25rem;
+	}
 </style>

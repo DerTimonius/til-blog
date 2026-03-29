@@ -9,7 +9,7 @@ interface Props {
 
 const { time, size = 'sm', className } = Astro.props;
 const divClasses = classNames(
-	'inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider text-accent',
+	'inline-flex items-center gap-2 font-ui text-sm font-semibold tracking-wider text-accent uppercase',
 	{
 		'text-xs': size === 'sm',
 		'text-sm': size === 'lg',
@@ -19,20 +19,20 @@ const divClasses = classNames(
 ---
 
 <span class={divClasses}>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2.5"
-    stroke-linecap="square"
-    stroke-linejoin="miter"
-    aria-hidden="true"
-  >
-    <circle cx="12" cy="12" r="10"></circle>
-    <polyline points="12 6 12 12 16 14"></polyline>
-  </svg>
-  <span>{time}</span>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="14"
+		height="14"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2.5"
+		stroke-linecap="square"
+		stroke-linejoin="miter"
+		aria-hidden="true"
+	>
+		<circle cx="12" cy="12" r="10"></circle>
+		<polyline points="12 6 12 12 16 14"></polyline>
+	</svg>
+	<span>{time}</span>
 </span>

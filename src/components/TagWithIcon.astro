@@ -11,21 +11,27 @@ const Icon = tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.fallback;
 ---
 
 <li class="group">
-  <a
-    href={`/tags/${tag.name.toLowerCase()}`}
-    transition:name={tag.name.toLowerCase()}
-    data-test-id="tag"
-    class="flex flex-col items-center gap-4 p-6 sm:p-4 border-[3px] border-line bg-fill shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))] hover:border-accent"
-  >
-    <div
-      class="flex items-center justify-center w-16 h-16 border-2 border-line bg-card transition-all duration-150 group-hover:bg-accent group-hover:border-accent [&_svg]:w-8 [&_svg]:h-8 [&_svg]:stroke-base group-hover:[&_svg]:stroke-inverted"
-      transition:name={`icon-${tag.name}`}
-    >
-      <Icon />
-    </div>
-    <div class="flex flex-col items-center gap-1 text-center">
-      <span class="font-display text-2xl tracking-wider uppercase text-base transition-colors duration-150 group-hover:text-accent">{tag.name.toLowerCase()}</span>
-      <span class="font-ui text-xs font-semibold uppercase tracking-wider text-base opacity-70">{tag.postsCount} posts</span>
-    </div>
-  </a>
+	<a
+		href={`/tags/${tag.name.toLowerCase()}`}
+		transition:name={tag.name.toLowerCase()}
+		data-test-id="tag"
+		class="flex flex-col items-center gap-4 border-[3px] border-line bg-fill p-6 no-underline shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:border-accent hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))] sm:p-4"
+	>
+		<div
+			class="flex h-16 w-16 items-center justify-center border-2 border-line bg-card transition-all duration-150 group-hover:border-accent group-hover:bg-accent [&_svg]:h-8 [&_svg]:w-8 [&_svg]:stroke-base group-hover:[&_svg]:stroke-inverted"
+			transition:name={`icon-${tag.name}`}
+		>
+			<Icon />
+		</div>
+		<div class="flex flex-col items-center gap-1 text-center">
+			<span
+				class="font-display text-2xl tracking-wider text-base uppercase transition-colors duration-150 group-hover:text-accent"
+				>{tag.name.toLowerCase()}</span
+			>
+			<span
+				class="font-ui text-xs font-semibold tracking-wider text-base uppercase opacity-70"
+				>{tag.postsCount} posts</span
+			>
+		</div>
+	</a>
 </li>

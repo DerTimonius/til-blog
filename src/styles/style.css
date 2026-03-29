@@ -1,6 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -8,9 +8,9 @@
 	--stroke-transparent: transparent;
 	--fill-transparent: transparent;
 
-	--font-display: "Bebas Neue", sans-serif;
-	--font-body: "Literata", serif;
-	--font-ui: "Space Grotesk", sans-serif;
+	--font-display: 'Bebas Neue', sans-serif;
+	--font-body: 'Literata', serif;
+	--font-ui: 'Space Grotesk', sans-serif;
 
 	/* Theme color utilities */
 	--color-base: rgb(var(--color-text-base));
@@ -88,31 +88,30 @@
 
 	.shiki-magic-move-item {
 		display: inline-block;
-		transition: color var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition: color var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
 	}
 
 	.shiki-magic-move-move {
-		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
 	}
 
 	.shiki-magic-move-enter-active,
 	.shiki-magic-move-leave-active {
-		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
 	}
 
 	.shiki-magic-move-container-resize,
 	.shiki-magic-move-container-restyle {
-		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
 		transition-delay: calc(
-			var(--smm-duration, 0.5s) *
-			var(--smm-delay-container, 1)
+			var(--smm-duration, 0.5s) * var(--smm-delay-container, 1)
 		);
 	}
 
 	.shiki-magic-move-move {
 		transition-delay: calc(
 			calc(var(--smm-duration, 0.5s) * var(--smm-delay-move, 1)) +
-			var(--smm-stagger, 0)
+				var(--smm-stagger, 0)
 		);
 		z-index: 1;
 	}
@@ -120,7 +119,7 @@
 	.shiki-magic-move-enter-active {
 		transition-delay: calc(
 			calc(var(--smm-duration, 0.5s) * var(--smm-delay-enter, 1)) +
-			var(--smm-stagger, 0)
+				var(--smm-stagger, 0)
 		);
 		z-index: 1;
 	}
@@ -128,7 +127,7 @@
 	.shiki-magic-move-leave-active {
 		transition-delay: calc(
 			calc(var(--smm-duration, 0.5s) * var(--smm-delay-leave, 1)) +
-			var(--smm-stagger, 0)
+				var(--smm-stagger, 0)
 		);
 	}
 
@@ -154,7 +153,7 @@
 		--color-border-dashed: 180, 180, 170;
 	}
 
-	html[class="dark"] {
+	html[class='dark'] {
 		--color-fill-rgb: 26, 26, 26;
 		--color-text-base: 232, 232, 227;
 		--color-accent-rgb: 100, 149, 237;
@@ -169,7 +168,7 @@
 		min-height: 100svh;
 		flex-direction: column;
 		background-color: rgb(var(--color-fill-rgb));
-		font-family: "Literata", Georgia, serif;
+		font-family: 'Literata', Georgia, serif;
 		color: rgb(var(--color-text-base));
 		line-height: 1.7;
 		/* Account for fixed header height */
@@ -193,7 +192,7 @@
 	h4,
 	h5,
 	h6 {
-		font-family: "Bebas Neue", sans-serif;
+		font-family: 'Bebas Neue', sans-serif;
 		font-weight: 400;
 		letter-spacing: 0.02em;
 		line-height: 1.1;
@@ -225,7 +224,7 @@
 
 	/* Brutalist link style */
 	a {
-		font-family: "Space Grotesk", sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		font-weight: 500;
 		text-decoration: underline;
 		text-decoration-thickness: 2px;
@@ -302,7 +301,7 @@
 
 	/* Prose content styling */
 	.prose :is(h1, h2, h3, h4, h5, h6) {
-		font-family: "Bebas Neue", sans-serif;
+		font-family: 'Bebas Neue', sans-serif;
 		font-weight: 400;
 		margin-bottom: 0.75rem !important;
 		color: rgb(var(--color-text-base)) !important;
@@ -330,13 +329,13 @@
 
 	.prose p {
 		color: rgb(var(--color-text-base)) !important;
-		font-family: "Literata", Georgia, serif;
+		font-family: 'Literata', Georgia, serif;
 		line-height: 1.8;
 		margin-bottom: 1.25rem;
 	}
 
 	.prose a {
-		font-family: "Space Grotesk", sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		color: rgb(var(--color-accent-rgb)) !important;
 		text-decoration: underline;
 		text-decoration-thickness: 2px;
@@ -364,7 +363,7 @@
 	.prose figcaption {
 		color: rgb(var(--color-text-base)) !important;
 		opacity: 0.7;
-		font-family: "Space Grotesk", sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		font-size: 0.875rem;
 	}
 
@@ -378,14 +377,14 @@
 		background-color: rgb(var(--color-card-rgb));
 		padding: 0.2rem 0.4rem;
 		color: rgb(var(--color-text-base)) !important;
-		font-family: "Space Grotesk", monospace;
+		font-family: 'Space Grotesk', monospace;
 		font-size: 0.9em;
 		border: 2px solid rgb(var(--color-border-rgb));
 	}
 
 	.prose code::before,
 	.prose code::after {
-		content: "" !important;
+		content: '' !important;
 	}
 
 	.prose pre {
@@ -420,7 +419,7 @@
 		border-width: 2px;
 		border-color: rgb(var(--color-border-rgb));
 		background-color: rgb(var(--color-card-rgb));
-		font-family: "Space Grotesk", sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		font-weight: 600;
 		text-transform: uppercase;
 		padding: 0.75rem;
@@ -479,7 +478,7 @@
 	.prose summary {
 		outline-width: 2px;
 		outline-offset: 1px;
-		font-family: "Space Grotesk", sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		font-weight: 600;
 	}
 
@@ -533,7 +532,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
-		font-family: "Space Grotesk", sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -573,7 +572,7 @@
 	/* Tag/Chips style */
 	.brutalist-tag {
 		display: inline-block;
-		font-family: "Space Grotesk", sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		font-size: 0.75rem;
 		font-weight: 600;
 		text-transform: uppercase;

@@ -110,10 +110,10 @@ With every piece of the puzzle I need, it's time to write the function that actu
 
 ```ts title="mergeBranches.ts"
 await octokit.rest.git.updateRef({
-  ...repo,
-  force,
-  sha,
-  ref: `heads/${branch}`,
+	...repo,
+	force,
+	sha,
+	ref: `heads/${branch}`,
 });
 ```
 

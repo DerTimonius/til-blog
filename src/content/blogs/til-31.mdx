@@ -7,7 +7,8 @@ isFeatured: false
 description: Is following the TDD standard really a waste of time or am I just wrong?
 bskyPostId: 3lboqrxdocs27
 ---
-export const prerender = false
+
+export const prerender = false;
 
 With more experience in the software development world and also more experience on the job, one naturally gets more important and difficult tasks to solve.
 
@@ -21,7 +22,7 @@ So I did what every sane person would do: scream internally and took out my note
 
 I spent around a week of figuring out the necessary database structures, the basic implementations in the frontend and the backend, what information is missing and the best approach to building this in which order.
 
-And I was genuinely surprised by myself, when I added not only a testing strategy (which to be honest is an afterthought most of the time), but I opted for basically a *test driven development (TDD)* approach:
+And I was genuinely surprised by myself, when I added not only a testing strategy (which to be honest is an afterthought most of the time), but I opted for basically a _test driven development (TDD)_ approach:
 
 1. Think about which GraphQL mutations are necessary
 2. Write the tests for that mutation
@@ -36,7 +37,7 @@ Well, it certainly can be argued, that blindly following the TDD approach and re
 
 ```ts
 function sum(a: number, b: number): number {
-  return a + b;
+	return a + b;
 }
 ```
 
@@ -44,7 +45,7 @@ Or even a more complex function like this:
 
 ```ts
 function sumArray(nums: number[]): number {
-  return nums.reduce((acc, val) => acc + val, 0);
+	return nums.reduce((acc, val) => acc + val, 0);
 }
 ```
 

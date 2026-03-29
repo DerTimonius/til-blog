@@ -26,15 +26,15 @@ Let's start with an example:
 
 ```js
 function print(x) {
-  console.log(x);
+	console.log(x);
 }
 
 function multiply(a, b) {
-  return a * b;
+	return a * b;
 }
 
 function square(n) {
-  return multiply(n, n);
+	return multiply(n, n);
 }
 
 const num = 3;
@@ -70,7 +70,7 @@ Technically, we used a callback function in the example above. A different typic
 ```js
 const arr = [1, 2, 3, 4];
 arr.forEach((item) => {
-  console.log(item);
+	console.log(item);
 });
 ```
 
@@ -81,7 +81,7 @@ But what if you don't want to execute the code right at that moment, but later a
 ```js
 const arr = [1, 2, 3, 4];
 arr.forEach((item) => {
-  setTimeout(() => console.log(item), 1000);
+	setTimeout(() => console.log(item), 1000);
 });
 ```
 
@@ -111,13 +111,13 @@ Maybe you have used `setTimeout` before and wondered why it took longer for the 
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  resolve('Hello');
+	resolve('Hello');
 });
 
 promise
-  .then((val) => console.log(`${val} world!`))
-  .then((newVal) => console.log(newVal))
-  .catch((err) => console.error(err));
+	.then((val) => console.log(`${val} world!`))
+	.then((newVal) => console.log(newVal))
+	.catch((err) => console.error(err));
 ```
 
 Every `.then` is added to a queue once it callback function is finished. But not to the `callback queue`, to a different queue called `microtask queue`.

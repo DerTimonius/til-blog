@@ -32,26 +32,26 @@ The following is the actual function used for the pages directory in [Next.js](h
  * Recursively parse directory for page URLs.
  */
 function parseUrlForPages(urlprefix: string, directory: string) {
-  fsReadDirSyncCache[directory] ??= fs.readdirSync(directory, {
-    withFileTypes: true,
-  });
-  const res = [];
-  fsReadDirSyncCache[directory].forEach((dirent) => {
-    if (/(\.(j|t)sx?)$/.test(dirent.name)) {
-      if (/^index(\.(j|t)sx?)$/.test(dirent.name)) {
-        res.push(
-          `${urlprefix}${dirent.name.replace(/^index(\.(j|t)sx?)$/, '')}`,
-        );
-      }
-      res.push(`${urlprefix}${dirent.name.replace(/(\.(j|t)sx?)$/, '')}`);
-    } else {
-      const dirPath = path.join(directory, dirent.name);
-      if (dirent.isDirectory() && !dirent.isSymbolicLink()) {
-        res.push(...parseUrlForPages(urlprefix + dirent.name + '/', dirPath));
-      }
-    }
-  });
-  return res;
+	fsReadDirSyncCache[directory] ??= fs.readdirSync(directory, {
+		withFileTypes: true,
+	});
+	const res = [];
+	fsReadDirSyncCache[directory].forEach((dirent) => {
+		if (/(\.(j|t)sx?)$/.test(dirent.name)) {
+			if (/^index(\.(j|t)sx?)$/.test(dirent.name)) {
+				res.push(
+					`${urlprefix}${dirent.name.replace(/^index(\.(j|t)sx?)$/, '')}`,
+				);
+			}
+			res.push(`${urlprefix}${dirent.name.replace(/(\.(j|t)sx?)$/, '')}`);
+		} else {
+			const dirPath = path.join(directory, dirent.name);
+			if (dirent.isDirectory() && !dirent.isSymbolicLink()) {
+				res.push(...parseUrlForPages(urlprefix + dirent.name + '/', dirPath));
+			}
+		}
+	});
+	return res;
 }
 ```
 
@@ -86,17 +86,17 @@ I did the following for this blog:
 
 ```ts
 export async function getStaticPaths() {
-  const posts = await getCollection('blogs', ({ data }) => !data.isDraft);
+	const posts = await getCollection('blogs', ({ data }) => !data.isDraft);
 
-  const postPaths = posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
+	const postPaths = posts.map((post) => ({
+		params: { slug: post.slug },
+	}));
 
-  const pagePaths = getPageNumbers(posts.length).map((pageNum) => ({
-    params: { slug: String(pageNum) },
-  }));
+	const pagePaths = getPageNumbers(posts.length).map((pageNum) => ({
+		params: { slug: String(pageNum) },
+	}));
 
-  return [...postPaths, ...pagePaths];
+	return [...postPaths, ...pagePaths];
 }
 ```
 

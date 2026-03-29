@@ -42,58 +42,61 @@ const tagIconClasses =
 ---
 
 <Layout title={`Tag: ${tag} | ${site.title}`}>
-  <Header activeNav="tags" />
-  
-  <!-- Tag Header Section -->
-  <section class="border-b-[3px] border-line px-4 py-12 sm:px-6 sm:py-16">
-    <div class="mx-auto max-w-4xl">
-      <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <div class="mb-3 flex items-center gap-2">
-            <span class={tagLabelClasses}>Tag</span>
-            <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
-              {page.total} posts
-            </span>
-          </div>
-          <h1
-            class="font-display text-5xl leading-none tracking-wide sm:text-6xl"
-            transition:name={tag}
-          >
-            {tag?.replace(/-/g, ' ')}
-          </h1>
-        </div>
-        
-        <div
-          class={tagIconClasses}
-          transition:name={`icon-${tag}`}
-        >
-          <Icon />
-        </div>
-      </div>
-    </div>
-  </section>
+	<Header activeNav="tags" />
 
-  <Main pageTitle="" pageDesc="" screenReaderOnly>
-    <div class="mb-6 flex items-center justify-between">
-      <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
-        Page {page.currentPage} of {page.lastPage}
-      </span>
-    </div>
-    
-    <ul class="grid gap-6">
-      {
-        page.data.map(({ data, id }) => (
-          <Card
-            dataTestId={`tag-post-${tag}`}
-            href={`/posts/${id}`}
-            frontmatter={data}
-            slug={id}
-          />
-        ))
-      }
-    </ul>
-  </Main>
-  
-  <PaginationButtons {page} />
-  <Footer />
+	<!-- Tag Header Section -->
+	<section class="border-b-[3px] border-line px-4 py-12 sm:px-6 sm:py-16">
+		<div class="mx-auto max-w-4xl">
+			<div
+				class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between"
+			>
+				<div>
+					<div class="mb-3 flex items-center gap-2">
+						<span class={tagLabelClasses}>Tag</span>
+						<span
+							class="font-ui text-sm font-semibold tracking-wider text-accent uppercase"
+						>
+							{page.total} posts
+						</span>
+					</div>
+					<h1
+						class="font-display text-5xl leading-none tracking-wide sm:text-6xl"
+						transition:name={tag}
+					>
+						{tag?.replace(/-/g, ' ')}
+					</h1>
+				</div>
+
+				<div class={tagIconClasses} transition:name={`icon-${tag}`}>
+					<Icon />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<Main pageTitle="" pageDesc="" screenReaderOnly>
+		<div class="mb-6 flex items-center justify-between">
+			<span
+				class="font-ui text-sm font-semibold tracking-wider text-accent uppercase"
+			>
+				Page {page.currentPage} of {page.lastPage}
+			</span>
+		</div>
+
+		<ul class="grid gap-6">
+			{
+				page.data.map(({ data, id }) => (
+					<Card
+						dataTestId={`tag-post-${tag}`}
+						href={`/posts/${id}`}
+						frontmatter={data}
+						slug={id}
+					/>
+				))
+			}
+		</ul>
+	</Main>
+
+	<PaginationButtons {page} />
+	<Footer />
 </Layout>

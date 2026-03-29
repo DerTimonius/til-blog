@@ -10,50 +10,64 @@ const crumbActiveClasses =
 	'inline-block py-[0.35rem] px-3 border-2 border-line bg-accent text-inverted';
 ---
 
-<nav class="mx-auto mb-6 mt-8 w-full max-w-4xl px-4 sm:px-6" aria-label="breadcrumb">
-  <ul class="flex flex-wrap items-center gap-2 font-ui text-sm font-medium uppercase tracking-wider">
-    <li class="inline">
-      <a 
-        class={crumbClasses} 
-        href="/"
-      >
-        Home
-      </a>
-    </li>
-    <li aria-hidden="true" class="text-accent">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
-        <polyline points="9 18 15 12 9 6"></polyline>
-      </svg>
-    </li>
-    {
-      breadcrumbList.map((breadcrumb, index) =>
-        index + 1 === breadcrumbListLength ? (
-          <li>
-            <span 
-              class={crumbActiveClasses}
-              aria-current="page"
-            >
-              {breadcrumb.replace(/-/g, ' ')}
-            </span>
-          </li>
-        ) : (
-          <>
-            <li>
-              <a 
-                href={`/${breadcrumb}`}
-                class={crumbClasses}
-              >
-                {breadcrumb.replace(/-/g, ' ')}
-              </a>
-            </li>
-            <li aria-hidden="true" class="text-accent">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </li>
-          </>
-        ),
-      )
-    }
-  </ul>
+<nav
+	class="mx-auto mt-8 mb-6 w-full max-w-4xl px-4 sm:px-6"
+	aria-label="breadcrumb"
+>
+	<ul
+		class="flex flex-wrap items-center gap-2 font-ui text-sm font-medium tracking-wider uppercase"
+	>
+		<li class="inline">
+			<a class={crumbClasses} href="/"> Home </a>
+		</li>
+		<li aria-hidden="true" class="text-accent">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="14"
+				height="14"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2.5"
+				stroke-linecap="square"
+				stroke-linejoin="miter"
+			>
+				<polyline points="9 18 15 12 9 6"></polyline>
+			</svg>
+		</li>
+		{
+			breadcrumbList.map((breadcrumb, index) =>
+				index + 1 === breadcrumbListLength ? (
+					<li>
+						<span class={crumbActiveClasses} aria-current="page">
+							{breadcrumb.replace(/-/g, ' ')}
+						</span>
+					</li>
+				) : (
+					<>
+						<li>
+							<a href={`/${breadcrumb}`} class={crumbClasses}>
+								{breadcrumb.replace(/-/g, ' ')}
+							</a>
+						</li>
+						<li aria-hidden="true" class="text-accent">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="14"
+								height="14"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2.5"
+								stroke-linecap="square"
+								stroke-linejoin="miter"
+							>
+								<polyline points="9 18 15 12 9 6" />
+							</svg>
+						</li>
+					</>
+				),
+			)
+		}
+	</ul>
 </nav>

@@ -27,8 +27,8 @@
 		"preview": "astro preview",
 		"astro": "astro",
 		"check": "astro check",
-		"format": "exec biome format --write",
-		"format:check": "exec biome format",
+		"format": "prettier . --write",
+		"format:check": "prettier . --check",
 		"lint": "exec biome lint --write",
 		"lint:check": "exec biome lint",
 		"test:e2e": "playwright test",
@@ -74,6 +74,9 @@
 		"@expressive-code/core": "^0.41.6",
 		"@playwright/test": "^1.55.1",
 		"@types/node": "^22.18.8",
+		"prettier": "^3.8.1",
+		"prettier-plugin-astro": "^0.14.1",
+		"prettier-plugin-tailwindcss": "^0.7.2",
 		"typescript": "^5.9.3"
 	}
 }

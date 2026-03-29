@@ -16,18 +16,18 @@ const socialsDisplay = socials.filter((s) => s.active);
 ---
 
 <div class={divClasses}>
-  {
-    socialsDisplay.map((social) => (
-      <a
-        href={social.href}
-    class="inline-flex items-center justify-center w-10 h-10 border-2 border-line bg-fill text-base transition-all duration-150 hover:bg-accent hover:border-accent hover:text-inverted hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))]  '[&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-current'"
-        title={social.linkTitle}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-test-id={`social-link-${social.name}`}
-      >
-        <Fragment set:html={socialIcons[social.name]} />
-      </a>
-    ))
-  }
+	{
+		socialsDisplay.map((social) => (
+			<a
+				href={social.href}
+				class="'[&_svg]:w-5 [&_svg]:fill-current' inline-flex h-10 w-10 items-center justify-center border-2 border-line bg-fill text-base transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-inverted hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))] [&_svg]:h-5"
+				title={social.linkTitle}
+				target="_blank"
+				rel="noopener noreferrer"
+				data-test-id={`social-link-${social.name}`}
+			>
+				<Fragment set:html={socialIcons[social.name]} />
+			</a>
+		))
+	}
 </div>

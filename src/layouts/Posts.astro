@@ -23,31 +23,33 @@ const {
 ---
 
 <Layout title={`${pageTitle} | ${site.title}`}>
-  <Header activeNav="posts" />
-  <Main {pageTitle} {pageDesc}>
-    <div class="mb-6 flex items-center justify-between">
-      <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
-        {page.total} total posts
-      </span>
-      <span class="font-ui text-sm font-semibold uppercase tracking-wider">
-        Page {page.currentPage} of {page.lastPage}
-      </span>
-    </div>
-    
-    <ul class="grid gap-6">
-      {
-        page.data.map(({ data, id }, index) => (
-          <Card
-            dataTestId={`blog-post-${index}`}
-            href={`/posts/${id}`}
-            frontmatter={data}
-            slug={id}
-          />
-        ))
-      }
-    </ul>
-  </Main>
+	<Header activeNav="posts" />
+	<Main {pageTitle} {pageDesc}>
+		<div class="mb-6 flex items-center justify-between">
+			<span
+				class="font-ui text-sm font-semibold tracking-wider text-accent uppercase"
+			>
+				{page.total} total posts
+			</span>
+			<span class="font-ui text-sm font-semibold tracking-wider uppercase">
+				Page {page.currentPage} of {page.lastPage}
+			</span>
+		</div>
 
-  <PaginationButtons {page} />
-  <Footer noMarginTop={page.total > 1} />
+		<ul class="grid gap-6">
+			{
+				page.data.map(({ data, id }, index) => (
+					<Card
+						dataTestId={`blog-post-${index}`}
+						href={`/posts/${id}`}
+						frontmatter={data}
+						slug={id}
+					/>
+				))
+			}
+		</ul>
+	</Main>
+
+	<PaginationButtons {page} />
+	<Footer noMarginTop={page.total > 1} />
 </Layout>

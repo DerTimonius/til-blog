@@ -7,12 +7,14 @@ isFeatured: false
 description: Since I did not necessarily learn large things, here is a list of small items I learned
 ---
 
-import Aside from "~/components/Aside.astro"
+import Aside from '~/components/Aside.astro';
 
 Since my last post, although a lot has happened and a lot of features have been shipped at work, I did not really know what to write about. Whatever I learned, it seemed to small to write a whole blog post about it.
 
 <Aside>
-I maybe should mention that I have released another CLI tool called [**twkb**](https://github.com/DerTimonius/twkb) and that I have written it in Go. Once I added the project view, I will write a post!
+	I maybe should mention that I have released another CLI tool called
+	[**twkb**](https://github.com/DerTimonius/twkb) and that I have written it in
+	Go. Once I added the project view, I will write a post!
 </Aside>
 
 So I have decided to conjur up the smaller bits and pieces that I have learned in the last weeks.
@@ -27,8 +29,8 @@ But last week I found the time to check if it actually is easier to implement no
 
 ```ts
 export const getStaticPaths = (async ({ paginate }) => {
-  const sortedPosts = await getSortedPosts();
-  return paginate(sortedPosts, { pageSize: site.postPerPage });
+	const sortedPosts = await getSortedPosts();
+	return paginate(sortedPosts, { pageSize: site.postPerPage });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
@@ -48,25 +50,25 @@ What more do you need?
 
 ```ts
 const users = await prisma.user.findUnique({
-  where: {
-    id: input.id
-  }
-})
+	where: {
+		id: input.id,
+	},
+});
 ```
 
 As this would only return the user and no relations, it is necessary to add `select` or `include` fields:
 
 ```ts hide-badge magic-move-before={1-5} magic-move-after={6-11}
 const users = await prisma.user.findUnique({
-  where: {
-    id: input.id
-  }
+	where: {
+		id: input.id,
+	},
 });
 const users = await prisma.user.findUnique({
-  include: { posts: true },
-  where: {
-    id: input.id
-  }
+	include: { posts: true },
+	where: {
+		id: input.id,
+	},
 });
 ```
 
@@ -74,16 +76,16 @@ I have written code like this for a long time now, but I just recently discovere
 
 ```ts hide-badge magic-move-before={1-6} magic-move-after={7-12}
 const users = await prisma.user.findUnique({
-  include: { posts: true },
-  where: {
-    id: input.id
-  }
+	include: { posts: true },
+	where: {
+		id: input.id,
+	},
 });
 const users = await prisma.user.findUnique({
-  include: { posts: { where: { likes: { gte: 10 } } } },
-  where: {
-    id: input.id
-  }
+	include: { posts: { where: { likes: { gte: 10 } } } },
+	where: {
+		id: input.id,
+	},
 });
 ```
 
@@ -119,7 +121,7 @@ I have written about my change [from Warp to Alacritty](/posts/til-28#warp-vs-al
 
 The main reason for this change was [yazi](https://yazi-rs.github.io/), a tool to more easily and visually traverse the file system. And it also shows you a preview of the file - even images.
 
-And that was a problem. Alacritty does not support the *kitty image protocol* that allows rendering of images in the terminal. So if I want to use the terminal to its fullest, there are several options:
+And that was a problem. Alacritty does not support the _kitty image protocol_ that allows rendering of images in the terminal. So if I want to use the terminal to its fullest, there are several options:
 
 - kitty
 - wezterm

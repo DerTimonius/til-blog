@@ -11,10 +11,10 @@ export interface Props {
 const { tag, size = 'sm' } = Astro.props;
 
 const linkClasses = classNames(
-	'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider',
-	'py-[0.4rem] px-[0.8rem] border-2 border-line bg-fill text-base no-underline',
-	'transition-all duration-150 shadow-[2px_2px_0_0_rgb(var(--color-text-base))]',
-	'hover:bg-accent hover:text-inverted hover:border-accent',
+	'inline-flex items-center gap-2 font-ui font-semibold tracking-wider uppercase',
+	'border-2 border-line bg-fill px-[0.8rem] py-[0.4rem] text-base no-underline',
+	'shadow-[2px_2px_0_0_rgb(var(--color-text-base))] transition-all duration-150',
+	'hover:border-accent hover:bg-accent hover:text-inverted',
 	'hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_rgb(var(--color-text-base))]',
 	'hover:no-underline',
 	{
@@ -29,13 +29,15 @@ const Icon = tagIcon || tagIcons.fallback;
 ---
 
 <li class={size === 'sm' ? 'inline-block' : 'inline-block m-1'}>
-  <a
-    href={`/tags/${tag.name.toLowerCase()}`}
-    transition:name={tag.name.toLowerCase()}
-    class={linkClasses}
-    data-test-id="tag"
-  >
-    <Icon class="inline-flex items-center justify-center w-[1.2rem] h-[1.2rem] [&_svg]:w-full [&_svg]:h-full [&_svg]:fill-current group-hover:[&_svg]:fill-inverted" />
-    <span>{tag.name.toLowerCase()}</span>
-  </a>
+	<a
+		href={`/tags/${tag.name.toLowerCase()}`}
+		transition:name={tag.name.toLowerCase()}
+		class={linkClasses}
+		data-test-id="tag"
+	>
+		<Icon
+			class="inline-flex h-[1.2rem] w-[1.2rem] items-center justify-center [&_svg]:h-full [&_svg]:w-full [&_svg]:fill-current group-hover:[&_svg]:fill-inverted"
+		/>
+		<span>{tag.name.toLowerCase()}</span>
+	</a>
 </li>

@@ -9,20 +9,20 @@ const { heading } = Astro.props;
 ---
 
 <li class="m-0 p-0">
-  <a 
-    href={'#' + heading.slug} 
-    aria-label={heading.text}
-    class="block py-[0.35rem] px-2 text-sm font-medium text-base no-underline border-l-2 border-transparent transition-all duration-150 hover:text-accent hover:border-accent hover:pl-3 hover:bg-accent/5"
-  >
-    {heading.text}
-  </a>
-  {
-    heading.subheadings && heading.subheadings.length > 0 ? (
-    <ul class="list-none m-0 p-0 pl-4 border-l border-line">
-        {heading.subheadings.map((subheading) => (
-          <Astro.self heading={subheading} />
-        ))}
-      </ul>
-    ) : null
-  }
+	<a
+		href={'#' + heading.slug}
+		aria-label={heading.text}
+		class="block border-l-2 border-transparent px-2 py-[0.35rem] text-sm font-medium text-base no-underline transition-all duration-150 hover:border-accent hover:bg-accent/5 hover:pl-3 hover:text-accent"
+	>
+		{heading.text}
+	</a>
+	{
+		heading.subheadings && heading.subheadings.length > 0 ? (
+			<ul class="m-0 list-none border-l border-line p-0 pl-4">
+				{heading.subheadings.map((subheading) => (
+					<Astro.self heading={subheading} />
+				))}
+			</ul>
+		) : null
+	}
 </li>

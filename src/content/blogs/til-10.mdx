@@ -35,11 +35,11 @@ A recursive function is a function that calls itself (with a different parameter
 
 ```ts
 function factorial(n) {
-  if (n === 0) {
-    return 1;
-  }
+	if (n === 0) {
+		return 1;
+	}
 
-  return n * factorial(n - 1);
+	return n * factorial(n - 1);
 }
 ```
 
@@ -148,35 +148,35 @@ In the next step, we merge the short arrays together by comparing at the first e
 
 ```ts title="mergeSort.ts"
 export function mergeSort(arr: number[]): number[] {
-  const length = arr.length;
-  if (length === 1) return arr;
+	const length = arr.length;
+	if (length === 1) return arr;
 
-  const middle = Math.floor(length / 2);
-  const leftHalf = arr.slice(0, middle);
-  const rightHalf = arr.slice(middle, length);
-  const leftSorted = mergesSrt(leftHalf);
-  const rightSorted = mergeSort(rightHalf);
-  return merge(leftSorted, rightSorted);
+	const middle = Math.floor(length / 2);
+	const leftHalf = arr.slice(0, middle);
+	const rightHalf = arr.slice(middle, length);
+	const leftSorted = mergesSrt(leftHalf);
+	const rightSorted = mergeSort(rightHalf);
+	return merge(leftSorted, rightSorted);
 }
 
 function merge(left: number[], right: number[]): number[] {
-  const sorted: number[] = [];
-  while (left.length && right.length) {
-    if (left[0] < right[0]) {
-      sorted.push(left[0]);
-      left.shift();
-    } else {
-      sorted.push(right[0]);
-      right.shift();
-    }
-  }
-  if (left.length) {
-    sorted.push(...left);
-  }
-  if (right.length) {
-    sorted.push(...right);
-  }
-  return sorted;
+	const sorted: number[] = [];
+	while (left.length && right.length) {
+		if (left[0] < right[0]) {
+			sorted.push(left[0]);
+			left.shift();
+		} else {
+			sorted.push(right[0]);
+			right.shift();
+		}
+	}
+	if (left.length) {
+		sorted.push(...left);
+	}
+	if (right.length) {
+		sorted.push(...right);
+	}
+	return sorted;
 }
 ```
 
@@ -229,23 +229,23 @@ Quicksort is another efficient sorting algorithm based on the divide-and-conquer
 
 ```ts title="quickSort.ts"
 function quickSort(arr: number[]): number[] {
-  if (arr.length <= 1) {
-    return arr;
-  }
+	if (arr.length <= 1) {
+		return arr;
+	}
 
-  const pivot = arr[0];
-  const left: number[] = [];
-  const right: number[] = [];
+	const pivot = arr[0];
+	const left: number[] = [];
+	const right: number[] = [];
 
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] < pivot) {
-      left.push(arr[i]);
-    } else {
-      right.push(arr[i]);
-    }
-  }
+	for (let i = 1; i < arr.length; i++) {
+		if (arr[i] < pivot) {
+			left.push(arr[i]);
+		} else {
+			right.push(arr[i]);
+		}
+	}
 
-  return [...quickSort(left), pivot, ...quickSort(right)];
+	return [...quickSort(left), pivot, ...quickSort(right)];
 }
 ```
 

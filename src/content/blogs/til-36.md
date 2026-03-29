@@ -19,9 +19,9 @@ Before I introduce the type helpers, I want to show the type we will be working 
 
 ```ts
 interface DataSource {
-  url?: string;
-  path?: string;
-  dataString?: string;
+	url?: string;
+	path?: string;
+	dataString?: string;
 }
 ```
 
@@ -35,7 +35,7 @@ I opened up the TypeScript playground and started with a `NonNullable` to check 
 
 ```ts
 type AtLeastOne<T> = {
-  [K in keyof T]: NonNullable<T[K]>;
+	[K in keyof T]: NonNullable<T[K]>;
 };
 
 type Opts = AtLeastOne<DataSource>;
@@ -50,7 +50,7 @@ Okay, this did not really work, as `NonNullable` only removes `null` from types 
 
 ```ts
 type AtLeastOne<T> = {
-  [K in keyof T]-?: NonNullable<T[K]>;
+	[K in keyof T]-?: NonNullable<T[K]>;
 };
 
 type Opts = AtLeastOne<DataSource>;
@@ -67,7 +67,7 @@ So I have to dig a bit deeper. What happens when I create a mapped type of a map
 
 ```ts
 export type AtLeastOne<T> = {
-  [K in keyof T]: { [L in K]-?: NonNullable<T[L]> };
+	[K in keyof T]: { [L in K]-?: NonNullable<T[L]> };
 };
 
 type Opts = AtLeastOne<DataSource>;
@@ -116,9 +116,9 @@ Could `never` be the answer?
 
 ```ts
 export type ExactlyOne<T> = {
-  [K in keyof T]: {
-    [L in K]-?: NonNullable<T[L]>;
-  } & Record<Exclude<keyof T, K>, never>;
+	[K in keyof T]: {
+		[L in K]-?: NonNullable<T[L]>;
+	} & Record<Exclude<keyof T, K>, never>;
 }[keyof T];
 
 type Opts = ExactlyOne<DataSource>;
@@ -170,12 +170,12 @@ Once again, we can build from the previous one by telling TypeScript that 0 keys
 
 ```ts
 export type AtMostOne<T> =
-  | {}
-  | {
-      [K in keyof T]: {
-        [L in K]-?: NonNullable<T[L]>;
-      } & Partial<Record<Exclude<keyof T, K>, never>>;
-    }[keyof T];
+	| {}
+	| {
+			[K in keyof T]: {
+				[L in K]-?: NonNullable<T[L]>;
+			} & Partial<Record<Exclude<keyof T, K>, never>>;
+	  }[keyof T];
 ```
 
 This could work if it wasn't for the TypeScript quirk of an empty object actually being anything but `null` or `undefined`. So, you could also pass `12345` here and it would be happy, which is not ideal.

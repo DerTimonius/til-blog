@@ -18,7 +18,7 @@ export type Color = 'orange' | 'green' | 'pink' | 'brown';
 export type Location = 'border' | 'bg' | 'text' | 'stroke';
 
 type ThemeColors = {
-  [C in Color]: { [L in Location]: `${L}-${'theme' | 'accent'}-${C}` };
+	[C in Color]: { [L in Location]: `${L}-${'theme' | 'accent'}-${C}` };
 };
 ```
 
@@ -28,14 +28,14 @@ With this type, when writing an object that satisfies the `ThemeColors` type, gi
 
 ```ts
 const colors = {
-  orange: {
-    // hitting ctrl+space in the `orange` object shows "border" | "bg" | "text" | "stroke"
-    stroke: 'stroke-accent-orange',
-    // hitting ctrl+space after adding `border` shows us "border-accent-orange" | "border-theme-orange"
-    border: 'border-accent-orange',
-    // ...
-  },
-  // ...
+	orange: {
+		// hitting ctrl+space in the `orange` object shows "border" | "bg" | "text" | "stroke"
+		stroke: 'stroke-accent-orange',
+		// hitting ctrl+space after adding `border` shows us "border-accent-orange" | "border-theme-orange"
+		border: 'border-accent-orange',
+		// ...
+	},
+	// ...
 } satisfies ThemeColors;
 ```
 
@@ -55,9 +55,9 @@ Let's take this type for example:
 
 ```ts
 type User = {
-  name: string;
-  age: number;
-  role: 'admin' | 'user';
+	name: string;
+	age: number;
+	role: 'admin' | 'user';
 };
 ```
 
@@ -67,7 +67,7 @@ But we can take this one step further. When using an object with `[K in Type]` a
 
 ```ts
 type GetUser = {
-  [K in keyof User]: () => User[K];
+	[K in keyof User]: () => User[K];
 };
 // in the end, this is
 // {
@@ -89,7 +89,7 @@ If we look at the `GetUser` type again, we could even rename the key for the typ
 
 ```ts
 type GetUser = {
-  [K in keyof User as `get${Capitalize<K>}`]: () => User[K];
+	[K in keyof User as `get${Capitalize<K>}`]: () => User[K];
 };
 // in the end, this is
 // {

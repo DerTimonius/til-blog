@@ -25,209 +25,243 @@ const mobileLinkClasses =
 const mobileLinkActiveClasses = 'bg-accent text-inverted border-line';
 ---
 
-<header class="fixed left-0 right-0 top-0 z-50 w-full border-b-[3px] border-line bg-fill/95 backdrop-blur-sm">
-  <!-- Skip to content link -->
-  <a
-    class="absolute -top-full left-4 z-50 border-[3px] border-line bg-accent px-4 py-2 font-ui text-sm font-semibold uppercase tracking-wider text-inverted transition-all focus:top-4"
-    id="skip-to-content"
-    href="#main-content"
-  >
-    Skip to content
-  </a>
+<header
+	class="fixed top-0 right-0 left-0 z-50 w-full border-b-[3px] border-line bg-fill/95 backdrop-blur-sm"
+>
+	<!-- Skip to content link -->
+	<a
+		class="absolute -top-full left-4 z-50 border-[3px] border-line bg-accent px-4 py-2 font-ui text-sm font-semibold tracking-wider text-inverted uppercase transition-all focus:top-4"
+		id="skip-to-content"
+		href="#main-content"
+	>
+		Skip to content
+	</a>
 
-  <div class="mx-auto flex max-w-4xl flex-col items-stretch">
-    <!-- Main navigation bar -->
-    <div class="flex items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
-      <!-- Logo / Site Title -->
-      <a 
-        href="/" 
-        class="group flex flex-col"
-      >
-        <span class="font-display text-2xl leading-none tracking-wide sm:text-3xl">
-          {site.title}
-        </span>
-        <span class="font-ui text-xs font-medium uppercase tracking-wider text-accent sm:text-sm">
-          Today I Learned
-        </span>
-      </a>
+	<div class="mx-auto flex max-w-4xl flex-col items-stretch">
+		<!-- Main navigation bar -->
+		<div class="flex items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
+			<!-- Logo / Site Title -->
+			<a href="/" class="group flex flex-col">
+				<span
+					class="font-display text-2xl leading-none tracking-wide sm:text-3xl"
+				>
+					{site.title}
+				</span>
+				<span
+					class="font-ui text-xs font-medium tracking-wider text-accent uppercase sm:text-sm"
+				>
+					Today I Learned
+				</span>
+			</a>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden items-center gap-1 sm:flex">
-        {navItems.map((item) => (
-          <a
-            href={item.href}
-            class={`${navLinkClasses} ${activeNav === item.id ? navLinkActiveClasses : ''}`}
-            data-test-id={`nav-link-${item.id}`}
-          >
-            {item.name}
-          </a>
-        ))}
-        
-        <!-- Search link -->
-        <a
-          href="/search"
-          class={`${navLinkClasses} p-2 ${activeNav === 'search' ? navLinkActiveClasses : ''}`}
-          aria-label="Search"
-          data-test-id="nav-link-search"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="square"
-            stroke-linejoin="miter"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </a>
+			<!-- Desktop Navigation -->
+			<nav class="hidden items-center gap-1 sm:flex">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class={`${navLinkClasses} ${activeNav === item.id ? navLinkActiveClasses : ''}`}
+							data-test-id={`nav-link-${item.id}`}
+						>
+							{item.name}
+						</a>
+					))
+				}
 
-        <!-- Theme toggle -->
-        {site.lightAndDarkMode && (
-          <button
-            id="theme-btn"
-            class={`${navLinkClasses} p-2 group/theme`}
-            title="Toggle light & dark mode"
-            aria-label="Toggle theme"
-            aria-live="polite"
-            data-test-id="darkmode-button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              id="moon-svg"
-              class="block h-5 w-5 dark:hidden transition-transform duration-200 group-hover/theme:rotate-[15deg]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              id="sun-svg"
-              class="hidden h-5 w-5 dark:block transition-transform duration-200 group-hover/theme:rotate-[15deg]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-            >
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-          </button>
-        )}
-      </nav>
+				<!-- Search link -->
+				<a
+					href="/search"
+					class={`${navLinkClasses} p-2 ${activeNav === 'search' ? navLinkActiveClasses : ''}`}
+					aria-label="Search"
+					data-test-id="nav-link-search"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2.5"
+						stroke-linecap="square"
+						stroke-linejoin="miter"
+					>
+						<circle cx="11" cy="11" r="8"></circle>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+					</svg>
+				</a>
 
-      <!-- Mobile menu button -->
-      <button
-        class={`hamburger-menu ${navLinkClasses} p-2 sm:hidden`}
-        aria-label="Open Menu"
-        aria-expanded="false"
-        aria-controls="menu-items"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="square"
-          stroke-linejoin="miter"
-          class="menu-icon"
-        >
-          <line x1="3" y1="6" x2="21" y2="6" class="line-open transition-opacity duration-200"></line>
-          <line x1="3" y1="12" x2="21" y2="12" class="line-open transition-opacity duration-200"></line>
-          <line x1="3" y1="18" x2="21" y2="18" class="line-open transition-opacity duration-200"></line>
-          <line x1="18" y1="6" x2="6" y2="18" class="line-close hidden transition-opacity duration-200"></line>
-          <line x1="6" y1="6" x2="18" y2="18" class="line-close hidden transition-opacity duration-200"></line>
-        </svg>
-      </button>
-    </div>
+				<!-- Theme toggle -->
+				{
+					site.lightAndDarkMode && (
+						<button
+							id="theme-btn"
+							class={`${navLinkClasses} group/theme p-2`}
+							title="Toggle light & dark mode"
+							aria-label="Toggle theme"
+							aria-live="polite"
+							data-test-id="darkmode-button"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								id="moon-svg"
+								class="block h-5 w-5 transition-transform duration-200 group-hover/theme:rotate-[15deg] dark:hidden"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2.5"
+								stroke-linecap="square"
+								stroke-linejoin="miter"
+							>
+								<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+							</svg>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								id="sun-svg"
+								class="hidden h-5 w-5 transition-transform duration-200 group-hover/theme:rotate-[15deg] dark:block"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2.5"
+								stroke-linecap="square"
+								stroke-linejoin="miter"
+							>
+								<circle cx="12" cy="12" r="5" />
+								<line x1="12" y1="1" x2="12" y2="3" />
+								<line x1="12" y1="21" x2="12" y2="23" />
+								<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+								<line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+								<line x1="1" y1="12" x2="3" y2="12" />
+								<line x1="21" y1="12" x2="23" y2="12" />
+								<line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+								<line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+							</svg>
+						</button>
+					)
+				}
+			</nav>
 
-    <!-- Mobile Navigation -->
-    <nav 
-      id="mobile-nav" 
-      class="hidden border-t-[3px] border-line bg-card sm:hidden"
-    >
-      <div class="flex flex-col p-4">
-        {navItems.map((item) => (
-          <a
-            href={item.href}
-            class={`${mobileLinkClasses} ${activeNav === item.id ? mobileLinkActiveClasses : ''}`}
-            data-test-id={`mobile-nav-link-${item.id}`}
-          >
-            {item.name}
-          </a>
-        ))}
-        <a
-          href="/search"
-          class={`${mobileLinkClasses} ${activeNav === 'search' ? mobileLinkActiveClasses : ''}`}
-          data-test-id="mobile-nav-link-search"
-        >
-          Search
-        </a>
-      </div>
-    </nav>
-  </div>
+			<!-- Mobile menu button -->
+			<button
+				class={`hamburger-menu ${navLinkClasses} p-2 sm:hidden`}
+				aria-label="Open Menu"
+				aria-expanded="false"
+				aria-controls="menu-items"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="square"
+					stroke-linejoin="miter"
+					class="menu-icon"
+				>
+					<line
+						x1="3"
+						y1="6"
+						x2="21"
+						y2="6"
+						class="line-open transition-opacity duration-200"></line>
+					<line
+						x1="3"
+						y1="12"
+						x2="21"
+						y2="12"
+						class="line-open transition-opacity duration-200"></line>
+					<line
+						x1="3"
+						y1="18"
+						x2="21"
+						y2="18"
+						class="line-open transition-opacity duration-200"></line>
+					<line
+						x1="18"
+						y1="6"
+						x2="6"
+						y2="18"
+						class="line-close hidden transition-opacity duration-200"></line>
+					<line
+						x1="6"
+						y1="6"
+						x2="18"
+						y2="18"
+						class="line-close hidden transition-opacity duration-200"></line>
+				</svg>
+			</button>
+		</div>
+
+		<!-- Mobile Navigation -->
+		<nav
+			id="mobile-nav"
+			class="hidden border-t-[3px] border-line bg-card sm:hidden"
+		>
+			<div class="flex flex-col p-4">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class={`${mobileLinkClasses} ${activeNav === item.id ? mobileLinkActiveClasses : ''}`}
+							data-test-id={`mobile-nav-link-${item.id}`}
+						>
+							{item.name}
+						</a>
+					))
+				}
+				<a
+					href="/search"
+					class={`${mobileLinkClasses} ${activeNav === 'search' ? mobileLinkActiveClasses : ''}`}
+					data-test-id="mobile-nav-link-search"
+				>
+					Search
+				</a>
+			</div>
+		</nav>
+	</div>
 </header>
 
 <style>
-  /* Hamburger menu animation - keeping these as they involve complex state transitions */
-  .menu-icon.is-active .line-open {
-    opacity: 0;
-  }
+	/* Hamburger menu animation - keeping these as they involve complex state transitions */
+	.menu-icon.is-active .line-open {
+		opacity: 0;
+	}
 
-  .menu-icon.is-active .line-close {
-    opacity: 1;
-  }
+	.menu-icon.is-active .line-close {
+		opacity: 1;
+	}
 
-  .menu-icon.is-active .line-close.hidden {
-    display: block;
-  }
+	.menu-icon.is-active .line-close.hidden {
+		display: block;
+	}
 </style>
 
 <script>
-  function toggleNav() {
-    const menuBtn = document.querySelector('.hamburger-menu');
-    const menuIcon = document.querySelector('.menu-icon');
-    const mobileNav = document.querySelector('#mobile-nav');
+	function toggleNav() {
+		const menuBtn = document.querySelector('.hamburger-menu');
+		const menuIcon = document.querySelector('.menu-icon');
+		const mobileNav = document.querySelector('#mobile-nav');
 
-    menuBtn?.addEventListener('click', () => {
-      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      
-      menuIcon?.classList.toggle('is-active');
-      menuBtn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-      menuBtn.setAttribute(
-        'aria-label',
-        isExpanded ? 'Open Menu' : 'Close Menu',
-      );
-      
-      if (mobileNav) {
-        mobileNav.classList.toggle('hidden');
-      }
-    });
-  }
+		menuBtn?.addEventListener('click', () => {
+			const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
 
-  toggleNav();
+			menuIcon?.classList.toggle('is-active');
+			menuBtn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+			menuBtn.setAttribute(
+				'aria-label',
+				isExpanded ? 'Open Menu' : 'Close Menu',
+			);
 
-  // Runs on view transitions navigation
-  document.addEventListener('astro:after-swap', toggleNav);
+			if (mobileNav) {
+				mobileNav.classList.toggle('hidden');
+			}
+		});
+	}
+
+	toggleNav();
+
+	// Runs on view transitions navigation
+	document.addEventListener('astro:after-swap', toggleNav);
 </script>

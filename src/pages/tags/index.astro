@@ -14,20 +14,19 @@ const tags = await getTags(posts);
 ---
 
 <Layout title={`Tags | ${site.title}`}>
-  <Header activeNav="tags" />
-  <Main
-    pageTitle="Tags"
-    pageDesc="Browse all topics covered in this blog."
-  >
-    <div class="mb-8 border-b-[3px] border-line pb-4">
-      <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
-        {tags.length} topics available
-      </span>
-    </div>
-    
-    <ul class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {tags.map((tag) => <TagWithIcon {tag} />)}
-    </ul>
-  </Main>
-  <Footer />
+	<Header activeNav="tags" />
+	<Main pageTitle="Tags" pageDesc="Browse all topics covered in this blog.">
+		<div class="mb-8 border-b-[3px] border-line pb-4">
+			<span
+				class="font-ui text-sm font-semibold tracking-wider text-accent uppercase"
+			>
+				{tags.length} topics available
+			</span>
+		</div>
+
+		<ul class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+			{tags.map((tag) => <TagWithIcon {tag} />)}
+		</ul>
+	</Main>
+	<Footer />
 </Layout>

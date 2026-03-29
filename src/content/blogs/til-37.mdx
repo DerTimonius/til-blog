@@ -1,12 +1,12 @@
 ---
-title: "Moving from Elasticsearch to Meilisearch: the good, the bad, the surprise"
+title: 'Moving from Elasticsearch to Meilisearch: the good, the bad, the surprise'
 pubDate: 2026-02-17
 isFeatured: false
-tags: ['web-dev', "database", "javascript"]
+tags: ['web-dev', 'database', 'javascript']
 description: How migrating our internal search engine made fixing bugs easier and increased overall developer experience
 ---
 
-import Aside from "~/components/Aside.astro"
+import Aside from '~/components/Aside.astro';
 
 At my main job, one of the main features is a user search to find relevant users in your region who can offer assistance for certain assistance types. The search goes both ways between clients and assistants, and can be refined with a lot of filters.
 
@@ -41,7 +41,8 @@ And not only was the error great, it also offered a link to the docs which expla
 Since you have to define which attributes on an object is filterable, you need to make a call to `<meiliurl>/indexes/<index>/settings/filterable-attributes` with the attributes you want to add.
 
 <Aside>
-Sort of, you also have to add the attributes that are already in the list. It will be overwritten with the list you give it.
+	Sort of, you also have to add the attributes that are already in the list. It
+	will be overwritten with the list you give it.
 </Aside>
 
 If your objects have a lot of keys, it would also make sense to restrict which keys should be searchable. Meilisearch has exactly this feature: same thing as above, but use `/searchable-attributes` instead and the engine will only look for the query string in those attributes.
@@ -58,10 +59,10 @@ With Meilisearch, it expects a certain shape:
 
 ```json
 {
-  "_geo": {
-    "lat": "number",
-    "lon": "number"
-  }
+	"_geo": {
+		"lat": "number",
+		"lon": "number"
+	}
 }
 ```
 
@@ -73,39 +74,39 @@ This was a pain point before, it was so bad that I took the decision to switch t
 
 ```ts
 const filters = [
-  {
-    bool: {
-      should: [
-        ...availability.map((avl) => ({
-          term: { avl },
-        })),
-        {
-          term: { schedule },
-        },
-        ...(!jobTypesOnly
-          ? jobTypes.map((job) => ({
-              term: { job },
-            }))
-          : []),
-        ...branchIds.map((branchId) => ({
-          term: { branchId: { boost: 3, value: branchId } },
-        })),
-      ],
-    },
-  },
+	{
+		bool: {
+			should: [
+				...availability.map((avl) => ({
+					term: { avl },
+				})),
+				{
+					term: { schedule },
+				},
+				...(!jobTypesOnly
+					? jobTypes.map((job) => ({
+							term: { job },
+						}))
+					: []),
+				...branchIds.map((branchId) => ({
+					term: { branchId: { boost: 3, value: branchId } },
+				})),
+			],
+		},
+	},
 
-  gender.length > 0
-    ? {
-        bool: {
-          should: [
-            ...gender.map((g) => ({
-              term: { "gender.keyword": { boost: 20, value: g } },
-            })),
-          ],
-        },
-      }
-    : null,
-  // and much much more
+	gender.length > 0
+		? {
+				bool: {
+					should: [
+						...gender.map((g) => ({
+							term: { 'gender.keyword': { boost: 20, value: g } },
+						})),
+					],
+				},
+			}
+		: null,
+	// and much much more
 ];
 ```
 
@@ -116,14 +117,14 @@ With Meilisearch, you just need to build an array of strings. So the code that c
 ```ts
 const filters = ['workStatus = ACTIVE'] as (string | string[])[];
 if (params.excludedUserIds.length) {
-  filters.push(`userId NOT IN [${params.excludedUserIds}]`);
+	filters.push(`userId NOT IN [${params.excludedUserIds}]`);
 }
 if (params.gender.length) {
-  const arr = ['gender NOT EXISTS'];
-  for (const gender of params.gender) {
-    arr.push(`gender = ${gender}`);
-  }
-  filters.push(arr);
+	const arr = ['gender NOT EXISTS'];
+	for (const gender of params.gender) {
+		arr.push(`gender = ${gender}`);
+	}
+	filters.push(arr);
 }
 ```
 

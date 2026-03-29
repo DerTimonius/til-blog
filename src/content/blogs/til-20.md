@@ -77,20 +77,20 @@ type Routes = Record<string, Route>;
 type Route = { path: string; children?: Routes };
 
 const routes = {
-  events: {
-    path: '/events',
-  },
-  team: {
-    path: '/team',
-    children: {
-      assistants: {
-        path: '/team/assistants',
-      },
-      clients: {
-        path: '/team/clients',
-      },
-    },
-  },
+	events: {
+		path: '/events',
+	},
+	team: {
+		path: '/team',
+		children: {
+			assistants: {
+				path: '/team/assistants',
+			},
+			clients: {
+				path: '/team/clients',
+			},
+		},
+	},
 };
 ```
 
@@ -103,20 +103,20 @@ type Routes = Record<string, Route>;
 type Route = { path: string; children?: Routes };
 
 const routes: Routes = {
-  events: {
-    path: '/events',
-  },
-  team: {
-    path: '/team',
-    children: {
-      assistants: {
-        path: '/team/assistants',
-      },
-      clients: {
-        path: '/team/clients',
-      },
-    },
-  },
+	events: {
+		path: '/events',
+	},
+	team: {
+		path: '/team',
+		children: {
+			assistants: {
+				path: '/team/assistants',
+			},
+			clients: {
+				path: '/team/clients',
+			},
+		},
+	},
 };
 
 routes.events.path; // works
@@ -195,20 +195,20 @@ type Routes = Record<string, Route>;
 type Route = { path: string; children?: Routes };
 
 const routes = {
-  events: {
-    path: '/events',
-  },
-  team: {
-    path: '/team',
-    children: {
-      assistants: {
-        path: '/team/assistants',
-      },
-      clients: {
-        path: '/team/clients',
-      },
-    },
-  },
+	events: {
+		path: '/events',
+	},
+	team: {
+		path: '/team',
+		children: {
+			assistants: {
+				path: '/team/assistants',
+			},
+			clients: {
+				path: '/team/clients',
+			},
+		},
+	},
 } as const satisfies Routes;
 
 // will now actually be inferred with the string values!
