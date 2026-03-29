@@ -2,30 +2,37 @@
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
 import HomepageCard from '~/components/HomepageCard.astro';
-import Link from '~/components/Link.astro';
 import Layout from '~/layouts/Layout.astro';
-import { getFeaturedPosts, getLatestPosts } from '~/utils/sortPosts';
+import { getLatestPosts } from '~/utils/sortPosts';
 
 const latestPosts = await getLatestPosts(5);
-const featuredPosts = await getFeaturedPosts(3);
 
-const heroBoxClasses = 'border-[3px] border-line bg-card p-6 sm:p-10 shadow-[6px_6px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[8px_8px_0_0_rgb(var(--color-accent-rgb))]';
+const heroBoxClasses =
+	'border-[3px] border-line bg-card p-6 sm:p-10 shadow-[6px_6px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[8px_8px_0_0_rgb(var(--color-accent-rgb))]';
 
-const tagClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-accent text-inverted';
+const tagClasses =
+	'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-accent text-inverted';
 
-const tagOutlineClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-transparent text-base';
+const tagOutlineClasses =
+	'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-transparent text-base';
 
-const tagLargeClasses = 'inline-block font-ui text-sm font-semibold uppercase tracking-wider py-[0.6rem] px-5 border-[3px] border-line bg-fill text-base no-underline transition-all duration-150 shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:bg-accent hover:text-inverted hover:border-accent hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_rgb(var(--color-text-base))] hover:no-underline';
+const tagLargeClasses =
+	'inline-block font-ui text-sm font-semibold uppercase tracking-wider py-[0.6rem] px-5 border-[3px] border-line bg-fill text-base no-underline transition-all duration-150 shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:bg-accent hover:text-inverted hover:border-accent hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_rgb(var(--color-text-base))] hover:no-underline';
 
-const btnClasses = 'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider py-[0.875rem] px-6 border-[3px] border-line bg-base text-inverted shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 no-underline hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-accent-rgb))] hover:text-inverted active:translate-x-1 active:translate-y-1 active:shadow-none';
+const btnClasses =
+	'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider py-[0.875rem] px-6 border-[3px] border-line bg-base text-inverted shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 no-underline hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-accent-rgb))] hover:text-inverted active:translate-x-1 active:translate-y-1 active:shadow-none';
 
-const btnOutlineClasses = 'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider py-[0.875rem] px-6 border-[3px] border-line bg-transparent text-base shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:bg-card hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:text-base hover:no-underline';
+const btnOutlineClasses =
+	'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider py-[0.875rem] px-6 border-[3px] border-line bg-transparent text-base shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:bg-card hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:text-base hover:no-underline';
 
-const textLinkClasses = 'inline-flex items-center gap-1 text-accent underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:decoration-[3px] hover:gap-2';
+const textLinkClasses =
+	'inline-flex items-center gap-1 text-accent underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:decoration-[3px] hover:gap-2';
 
-const inlineLinkClasses = 'text-accent decoration-2 underline-offset-[3px] font-ui font-medium transition-all duration-150 hover:decoration-[3px] hover:bg-accent/10 hover:px-0.5 hover:-mx-0.5';
+const inlineLinkClasses =
+	'text-accent decoration-2 underline-offset-[3px] font-ui font-medium transition-all duration-150 hover:decoration-[3px] hover:bg-accent/10 hover:px-0.5 hover:-mx-0.5';
 
-const boxClasses = 'border-[3px] border-line bg-fill p-6 sm:p-8 shadow-[5px_5px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))]';
+const boxClasses =
+	'border-[3px] border-line bg-fill p-6 sm:p-8 shadow-[5px_5px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))]';
 ---
 
 <Layout>
@@ -74,33 +81,6 @@ const boxClasses = 'border-[3px] border-line bg-fill p-6 sm:p-8 shadow-[5px_5px_
         </div>
       </div>
     </section>
-
-    <!-- Featured Posts Section -->
-    {featuredPosts.length > 0 && (
-      <section class="px-4 py-12 sm:px-6 sm:py-16">
-        <div class="mx-auto max-w-4xl">
-          <div class="mb-8 flex items-end justify-between border-b-[3px] border-line pb-4">
-            <h2 class="font-display text-3xl tracking-wide sm:text-4xl">
-              Featured
-            </h2>
-            <span class="font-ui text-sm font-semibold uppercase tracking-wider text-accent">
-              {featuredPosts.length} articles
-            </span>
-          </div>
-          
-          <ul class="space-y-0 divide-y-[3px] divide-line">
-            {featuredPosts.map((post) => (
-              <HomepageCard
-                dataTestId={`featured-post-${post.id}`}
-                href={`/posts/${post.id}`}
-                frontmatter={post.data}
-                slug={post.id}
-              />
-            ))}
-          </ul>
-        </div>
-      </section>
-    )}
 
     <!-- Latest Posts Section -->
     <section class="border-t-[3px] border-line bg-card px-4 py-12 sm:px-6 sm:py-16">

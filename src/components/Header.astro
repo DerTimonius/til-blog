@@ -1,6 +1,5 @@
 ---
 import { site } from '~/utils/config';
-import Link from './Link.astro';
 
 export interface Props {
 	activeNav?: 'posts' | 'tags' | 'about' | 'search';
@@ -14,11 +13,14 @@ const navItems = [
 	{ name: 'About', href: '/about', id: 'about' },
 ];
 
-const navLinkClasses = 'inline-flex items-center justify-center font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 border-2 border-transparent text-base no-underline transition-all duration-150 hover:border-line hover:bg-card hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px';
+const navLinkClasses =
+	'inline-flex items-center justify-center font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 border-2 border-transparent text-base no-underline transition-all duration-150 hover:border-line hover:bg-card hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px';
 
-const navLinkActiveClasses = 'border-line bg-accent text-inverted shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:bg-base hover:text-inverted';
+const navLinkActiveClasses =
+	'border-line bg-accent text-inverted shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:bg-base hover:text-inverted';
 
-const mobileLinkClasses = 'block font-ui text-lg font-semibold uppercase tracking-wider p-4 border-2 border-transparent border-b-2 border-b-line text-base no-underline transition-all duration-150 hover:border-line hover:bg-card hover:pl-6 last:border-b-0';
+const mobileLinkClasses =
+	'block font-ui text-lg font-semibold uppercase tracking-wider p-4 border-2 border-transparent border-b-2 border-b-line text-base no-underline transition-all duration-150 hover:border-line hover:bg-card hover:pl-6 last:border-b-0';
 
 const mobileLinkActiveClasses = 'bg-accent text-inverted border-line';
 ---

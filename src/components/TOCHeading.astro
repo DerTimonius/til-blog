@@ -6,24 +6,19 @@ interface Props {
 }
 
 const { heading } = Astro.props;
-
-const linkClasses =
-	'block py-[0.35rem] px-2 text-sm font-medium text-base no-underline border-l-2 border-transparent transition-all duration-150 hover:text-accent hover:border-accent hover:pl-3 hover:bg-accent/5';
-
-const sublistClasses = 'list-none m-0 p-0 pl-4 border-l border-line';
 ---
 
 <li class="m-0 p-0">
   <a 
     href={'#' + heading.slug} 
     aria-label={heading.text}
-    class={linkClasses}
+    class="block py-[0.35rem] px-2 text-sm font-medium text-base no-underline border-l-2 border-transparent transition-all duration-150 hover:text-accent hover:border-accent hover:pl-3 hover:bg-accent/5"
   >
     {heading.text}
   </a>
   {
     heading.subheadings && heading.subheadings.length > 0 ? (
-      <ul class={sublistClasses}>
+    <ul class="list-none m-0 p-0 pl-4 border-l border-line">
         {heading.subheadings.map((subheading) => (
           <Astro.self heading={subheading} />
         ))}

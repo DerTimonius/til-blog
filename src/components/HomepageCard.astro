@@ -1,5 +1,4 @@
 ---
-import Date from './Date.astro';
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '~/utils/formatDate';
 
@@ -12,8 +11,6 @@ interface Props {
 const { href, frontmatter, slug, dataTestId } = Astro.props;
 const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
-
-const microTagClasses = 'inline-block font-ui text-[0.65rem] font-semibold uppercase tracking-wider py-[0.2rem] px-2 border-2 border-line text-base opacity-80';
 ---
 
 <li class="group" transition:name={slug}>
@@ -35,7 +32,7 @@ const microTagClasses = 'inline-block font-ui text-[0.65rem] font-semibold upper
         <!-- Tags -->
         <div class="flex flex-wrap gap-2">
           {tags.map((tag) => (
-            <span class={microTagClasses}>{tag}</span>
+            <span class="inline-block font-ui text-[0.65rem] font-semibold uppercase tracking-wider py-[0.2rem] px-2 border-2 border-line text-base opacity-80">{tag}</span>
           ))}
         </div>
 

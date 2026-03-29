@@ -11,29 +11,21 @@ export interface Props {
 const { tag, size = 'sm' } = Astro.props;
 
 const linkClasses = classNames(
-  'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider',
-  'py-[0.4rem] px-[0.8rem] border-2 border-line bg-fill text-base no-underline',
-  'transition-all duration-150 shadow-[2px_2px_0_0_rgb(var(--color-text-base))]',
-  'hover:bg-accent hover:text-inverted hover:border-accent',
-  'hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_rgb(var(--color-text-base))]',
-  'hover:no-underline',
-  {
-    'text-xs': size === 'sm',
-    'text-sm': size === 'lg',
-  }
-);
-
-const tagIconClasses = classNames(
-  'inline-flex items-center justify-center w-[1.2rem] h-[1.2rem]',
-  '[&_svg]:w-full [&_svg]:h-full [&_svg]:fill-current',
-  'group-hover:[&_svg]:fill-inverted'
+	'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider',
+	'py-[0.4rem] px-[0.8rem] border-2 border-line bg-fill text-base no-underline',
+	'transition-all duration-150 shadow-[2px_2px_0_0_rgb(var(--color-text-base))]',
+	'hover:bg-accent hover:text-inverted hover:border-accent',
+	'hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_rgb(var(--color-text-base))]',
+	'hover:no-underline',
+	{
+		'text-xs': size === 'sm',
+		'text-sm': size === 'lg',
+	},
 );
 
 // Get icon for this tag if it exists
 const tagIcon = tagIcons[tag.name as keyof typeof tagIcons] ?? null;
-const randomIdx = Math.floor(Math.random() * tagIcons.other.length);
-const fallbackIcon = tagIcons.other[randomIdx];
-const icon = tagIcon || fallbackIcon;
+const Icon = tagIcon || tagIcons.fallback;
 ---
 
 <li class={size === 'sm' ? 'inline-block' : 'inline-block m-1'}>
@@ -43,7 +35,7 @@ const icon = tagIcon || fallbackIcon;
     class={linkClasses}
     data-test-id="tag"
   >
-    <span class={tagIconClasses} set:html={icon} />
+    <Icon class="inline-flex items-center justify-center w-[1.2rem] h-[1.2rem] [&_svg]:w-full [&_svg]:h-full [&_svg]:fill-current group-hover:[&_svg]:fill-inverted" />
     <span>{tag.name.toLowerCase()}</span>
   </a>
 </li>

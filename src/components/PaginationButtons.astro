@@ -7,15 +7,18 @@ export interface Props {
 
 const { page } = Astro.props;
 
-const btnClasses = 'inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-3 px-5 border-[3px] border-line bg-fill text-base shadow-[3px_3px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:bg-accent hover:text-inverted hover:border-accent hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_0_rgb(var(--color-text-base))] hover:no-underline';
+const btnClasses =
+	'inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-3 px-5 border-[3px] border-line bg-fill text-base shadow-[3px_3px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:bg-accent hover:text-inverted hover:border-accent hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_0_rgb(var(--color-text-base))] hover:no-underline';
 
-const btnDisabledClasses = 'opacity-40 cursor-not-allowed shadow-none hover:bg-fill hover:text-base hover:border-line hover:translate-x-0 hover:translate-y-0 hover:shadow-none';
+const btnDisabledClasses =
+	'opacity-40 cursor-not-allowed shadow-none hover:bg-fill hover:text-base hover:border-line hover:translate-x-0 hover:translate-y-0 hover:shadow-none';
 
 const btnPrevClasses = 'hover:-translate-x-0.5 hover:translate-y-0.5';
 
 const btnNextClasses = 'hover:translate-x-0.5 hover:translate-y-0.5';
 
-const indicatorClasses = 'inline-block font-ui text-sm font-semibold uppercase tracking-widest py-2 px-4 border-2 border-line bg-card text-base';
+const indicatorClasses =
+	'inline-block font-ui text-sm font-semibold uppercase tracking-widest py-2 px-4 border-2 border-line bg-card text-base';
 ---
 
 {

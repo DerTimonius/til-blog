@@ -3,9 +3,11 @@ const currentUrlPath = Astro.url.pathname.replace(/\/+$/, '');
 const breadcrumbList = currentUrlPath.split('/').slice(1);
 const breadcrumbListLength = breadcrumbList.length;
 
-const crumbClasses = 'inline-block py-[0.35rem] px-3 border-2 border-transparent text-base no-underline opacity-70 transition-all duration-150 hover:opacity-100 hover:border-line hover:bg-card hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px';
+const crumbClasses =
+	'inline-block py-[0.35rem] px-3 border-2 border-transparent text-base no-underline opacity-70 transition-all duration-150 hover:opacity-100 hover:border-line hover:bg-card hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px';
 
-const crumbActiveClasses = 'inline-block py-[0.35rem] px-3 border-2 border-line bg-accent text-inverted';
+const crumbActiveClasses =
+	'inline-block py-[0.35rem] px-3 border-2 border-line bg-accent text-inverted';
 ---
 
 <nav class="mx-auto mb-6 mt-8 w-full max-w-4xl px-4 sm:px-6" aria-label="breadcrumb">

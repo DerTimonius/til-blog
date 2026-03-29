@@ -1,5 +1,4 @@
 ---
-import Date from './Date.astro';
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '~/utils/formatDate';
 
@@ -14,11 +13,14 @@ const { href, frontmatter, slug, secHeading = true, dataTestId } = Astro.props;
 const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
 
-const cardClasses = 'border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
+const cardClasses =
+	'border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
 
-const tagClasses = 'inline-block font-ui text-[0.7rem] font-semibold uppercase tracking-wider py-[0.35rem] px-3 border-2 border-line bg-fill text-base no-underline transition-all duration-150 hover:bg-accent hover:text-inverted hover:border-accent hover:-translate-x-px hover:-translate-y-px hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]';
+const tagClasses =
+	'inline-block font-ui text-[0.7rem] font-semibold uppercase tracking-wider py-[0.35rem] px-3 border-2 border-line bg-fill text-base no-underline transition-all duration-150 hover:bg-accent hover:text-inverted hover:border-accent hover:-translate-x-px hover:-translate-y-px hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]';
 
-const linkClasses = 'text-accent underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:decoration-[3px]';
+const linkClasses =
+	'text-accent underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:decoration-[3px]';
 
 const noUnderlineClasses = 'no-underline hover:no-underline';
 ---

@@ -8,18 +8,11 @@ export interface Props {
 }
 
 const { centered = false } = Astro.props;
-const divClasses = classNames(
-	'flex flex-wrap items-center gap-2',
-	{
-		'justify-center': centered,
-	},
-);
+const divClasses = classNames('flex flex-wrap items-center gap-2', {
+	'justify-center': centered,
+});
 
 const socialsDisplay = socials.filter((s) => s.active);
-
-const linkClasses = 'inline-flex items-center justify-center w-10 h-10 border-2 border-line bg-fill text-base transition-all duration-150 hover:bg-accent hover:border-accent hover:text-inverted hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))]';
-
-const iconClasses = '[&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-current';
 ---
 
 <div class={divClasses}>
@@ -27,7 +20,7 @@ const iconClasses = '[&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-current';
     socialsDisplay.map((social) => (
       <a
         href={social.href}
-        class={`${linkClasses} ${iconClasses}`}
+    class="inline-flex items-center justify-center w-10 h-10 border-2 border-line bg-fill text-base transition-all duration-150 hover:bg-accent hover:border-accent hover:text-inverted hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))]  '[&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-current'"
         title={social.linkTitle}
         target="_blank"
         rel="noopener noreferrer"

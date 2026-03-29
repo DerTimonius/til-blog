@@ -20,7 +20,7 @@ export type Props = StringTitleProp | ArrayTitleProp;
 const { props } = Astro;
 const descriptionClasses = classNames(
 	'mb-8 mt-4 max-w-2xl font-body text-lg leading-relaxed text-base/80',
-	{ 'sr-only': props.screenReaderOnly }
+	{ 'sr-only': props.screenReaderOnly },
 );
 ---
 

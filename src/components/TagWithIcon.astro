@@ -7,19 +7,7 @@ export interface Props {
 }
 
 const { tag } = Astro.props;
-const randomIdx = Math.floor(Math.random() * tagIcons.other.length);
-const icon =
-	tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.other[randomIdx];
-
-const cardClasses = 'flex flex-col items-center gap-4 p-6 sm:p-4 border-[3px] border-line bg-fill shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))] hover:border-accent';
-
-const iconClasses = 'flex items-center justify-center w-16 h-16 border-2 border-line bg-card transition-all duration-150 group-hover:bg-accent group-hover:border-accent [&_svg]:w-8 [&_svg]:h-8 [&_svg]:fill-base group-hover:[&_svg]:fill-inverted';
-
-const infoClasses = 'flex flex-col items-center gap-1 text-center';
-
-const nameClasses = 'font-display text-2xl tracking-wider uppercase text-base transition-colors duration-150 group-hover:text-accent';
-
-const countClasses = 'font-ui text-xs font-semibold uppercase tracking-wider text-base opacity-70';
+const Icon = tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.fallback;
 ---
 
 <li class="group">
@@ -27,17 +15,17 @@ const countClasses = 'font-ui text-xs font-semibold uppercase tracking-wider tex
     href={`/tags/${tag.name.toLowerCase()}`}
     transition:name={tag.name.toLowerCase()}
     data-test-id="tag"
-    class={cardClasses}
+    class="flex flex-col items-center gap-4 p-6 sm:p-4 border-[3px] border-line bg-fill shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 no-underline hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))] hover:border-accent"
   >
     <div
-      class={iconClasses}
+      class="flex items-center justify-center w-16 h-16 border-2 border-line bg-card transition-all duration-150 group-hover:bg-accent group-hover:border-accent [&_svg]:w-8 [&_svg]:h-8 [&_svg]:stroke-base group-hover:[&_svg]:stroke-inverted"
       transition:name={`icon-${tag.name}`}
     >
-      <Fragment set:html={icon} />
+      <Icon />
     </div>
-    <div class={infoClasses}>
-      <span class={nameClasses}>{tag.name.toLowerCase()}</span>
-      <span class={countClasses}>{tag.count} posts</span>
+    <div class="flex flex-col items-center gap-1 text-center">
+      <span class="font-display text-2xl tracking-wider uppercase text-base transition-colors duration-150 group-hover:text-accent">{tag.name.toLowerCase()}</span>
+      <span class="font-ui text-xs font-semibold uppercase tracking-wider text-base opacity-70">{tag.postsCount} posts</span>
     </div>
   </a>
 </li>

@@ -23,20 +23,6 @@ export async function getLatestPosts(
 	return posts.slice(0, num);
 }
 
-export async function getFeaturedPosts(
-	num?: number,
-): Promise<CollectionEntry<'blogs'>[]> {
-	const posts = await getCollection(
-		'blogs',
-		({ data }) =>
-			data.isFeatured && !data.isDraft && checkReleaseDate(data.pubDate),
-	);
-
-	return posts
-		.sort((a, b) => (dayjs(a.data.pubDate).isBefore(b.data.pubDate) ? 1 : -1))
-		.slice(0, num ?? posts.length);
-}
-
 export async function getRelatedPosts(
 	slugs: string[],
 ): Promise<CollectionEntry<'blogs'>[]> {

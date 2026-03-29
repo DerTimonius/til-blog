@@ -4,17 +4,23 @@ import Header from '~/components/Header.astro';
 import Layout from '~/layouts/Layout.astro';
 import { site } from '~/utils/config';
 
-const tagClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-accent text-inverted';
+const tagClasses =
+	'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-accent text-inverted';
 
-const tagOutlineClasses = 'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-transparent text-base';
+const tagOutlineClasses =
+	'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-transparent text-base';
 
-const listBoxClasses = 'my-8 border-[3px] border-line bg-card p-6 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
+const listBoxClasses =
+	'my-8 border-[3px] border-line bg-card p-6 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
 
-const sidebarBoxClasses = 'border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5';
+const sidebarBoxClasses =
+	'border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5';
 
-const sidebarBoxAccentClasses = 'border-[3px] border-line bg-fill p-5 shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5';
+const sidebarBoxAccentClasses =
+	'border-[3px] border-line bg-fill p-5 shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5';
 
-const sidebarLinkClasses = 'flex items-center gap-2 font-ui text-sm font-medium p-2 border-2 border-transparent text-base no-underline transition-all duration-150 hover:border-line hover:bg-fill hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px hover:no-underline';
+const sidebarLinkClasses =
+	'flex items-center gap-2 font-ui text-sm font-medium p-2 border-2 border-transparent text-base no-underline transition-all duration-150 hover:border-line hover:bg-fill hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px hover:no-underline';
 ---
 
 <Layout title={`About | ${site.title}`}>
