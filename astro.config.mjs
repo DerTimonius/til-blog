@@ -14,6 +14,7 @@ import { pluginMagicMove } from 'ec-magic-move';
 
 // https://astro.build/config
 export default defineConfig({
+	devToolbar: { enabled: false },
 	prefetch: {
 		prefetchAll: true,
 	},

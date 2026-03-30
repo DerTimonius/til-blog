@@ -41,15 +41,9 @@ importers:
       '@astrojs/vercel':
         specifier: ^10.0.3
         version: 10.0.3(astro@6.1.1(@types/node@22.18.8)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.31.1)(rollup@4.59.0)(typescript@5.9.3)(yaml@2.8.3))(rollup@4.59.0)(svelte@5.53.7)
-      '@fontsource/bebas-neue':
-        specifier: ^5.2.7
-        version: 5.2.7
       '@fontsource/fira-mono':
         specifier: ^5.2.7
         version: 5.2.7
-      '@fontsource/literata':
-        specifier: ^5.2.8
-        version: 5.2.8
       '@fontsource/monaspace-neon':
         specifier: ^5.2.5
         version: 5.2.5
@@ -496,14 +490,8 @@ packages:
   '@expressive-code/plugin-text-markers@0.41.7':
     resolution: {integrity: sha512-Ewpwuc5t6eFdZmWlFyeuy3e1PTQC0jFvw2Q+2bpcWXbOZhPLsT7+h8lsSIJxb5mS7wZko7cKyQ2RLYDyK6Fpmw==}
 
-  '@fontsource/bebas-neue@5.2.7':
-    resolution: {integrity: sha512-DsmBrmq55d9BCU0mt4DT4RZDdH8vhWRKEUOfbuNB1EEjMuwbtFvM8N+3gIlkYSFbsb10P8Q19BV5OdpMu2h0fA==}
-
   '@fontsource/fira-mono@5.2.7':
     resolution: {integrity: sha512-wYrAn6i3nH6luqQBZxtWUpl4UTUvs9AEbEeZxksPMwIqyjRRaxHTNW3c2VfM50gabS2IS7pT8lVWS2USB4ukYA==}
-
-  '@fontsource/literata@5.2.8':
-    resolution: {integrity: sha512-Rj3eEQeu7+yBw9ZjXxcRiKDDrhbhpCyb0b79VJVCjDF1fdgJ8gDr9C1SRFLwfi+VaHEkhJDnRGm25fq1Yk+wNg==}
 
   '@fontsource/monaspace-neon@5.2.5':
     resolution: {integrity: sha512-TjSSuHC37DroyhP5YCKRCAxdUb3In/uqHzqqW/8Ul+JWilz37d8lr8jFeapnbD3QdYXgiQoU2Rf/CmTdyl06DA==}
@@ -3290,11 +3278,7 @@ snapshots:
     dependencies:
       '@expressive-code/core': 0.41.7
 
-  '@fontsource/bebas-neue@5.2.7': {}
-
   '@fontsource/fira-mono@5.2.7': {}
-
-  '@fontsource/literata@5.2.8': {}
 
   '@fontsource/monaspace-neon@5.2.5': {}
 

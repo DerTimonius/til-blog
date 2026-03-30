@@ -8,7 +8,7 @@ test('search functionality', async ({ page }) => {
 
 	await page.waitForTimeout(300);
 	await page
-		.getByPlaceholder('Camera, JavaScript, Font, you name it...')
+		.getByPlaceholder('Search for topics, JavaScript')
 		.fill('javascript');
 	await page.keyboard.press('Enter');
 	await page.waitForTimeout(300);

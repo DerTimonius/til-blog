@@ -84,7 +84,7 @@ const { foundPosts } = $props<{ foundPosts: SearchResult[] }>();
   }
 
   .brutalist-result-title {
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     font-size: 1.75rem;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -98,7 +98,7 @@ const { foundPosts } = $props<{ foundPosts: SearchResult[] }>();
   }
 
   .brutalist-result-description {
-    font-family: "Literata", Georgia, serif;
+    font-family: "Fira Mono", monospace;
     font-size: 1rem;
     line-height: 1.6;
     color: rgb(var(--color-text-base));
