@@ -36,6 +36,10 @@ export default defineConfig({
 					stagger: 5,
 				}),
 			],
+			styleOverrides: {
+				codeFontFamily:
+					"'Monaspace Neon', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+			},
 			themes: ['poimandres', 'rose-pine-dawn'],
 			themeCssSelector: (theme) => `[data-theme='${theme.type}']`,
 		}),

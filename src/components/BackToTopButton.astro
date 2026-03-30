@@ -1,6 +1,6 @@
 <button
 	id="btt"
-	class="fixed right-8 bottom-8 z-50 hidden h-14 w-14 cursor-pointer items-center justify-center border-[3px] border-line bg-accent text-inverted shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] active:translate-x-1 active:translate-y-1 active:shadow-none [&.block]:flex"
+	class="group fixed right-8 bottom-8 z-50 hidden h-14 w-14 cursor-pointer items-center justify-center border-[3px] border-line bg-fill text-inverted shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-accent hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] active:translate-x-1 active:translate-y-1 active:shadow-none [&.block]:flex"
 	aria-label="Back to top"
 >
 	<svg
@@ -8,8 +8,8 @@
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
+		class="stroke-accent group-hover:stroke-fill"
 		fill="none"
-		stroke="currentColor"
 		stroke-width="2.5"
 		stroke-linecap="square"
 		stroke-linejoin="miter"
@@ -39,8 +39,7 @@
 
 	function backToTop() {
 		button?.addEventListener('click', () => {
-			document.body.scrollTop = 0;
-			document.documentElement.scrollTop = 0;
+			window.scrollTo({ top: 0, behavior: 'smooth' });
 		});
 	}
 	backToTop();

@@ -8,9 +8,10 @@
 	--stroke-transparent: transparent;
 	--fill-transparent: transparent;
 
-	--font-display: 'Bebas Neue', sans-serif;
-	--font-body: 'Literata', serif;
+	--font-display: 'Space Grotesk', sans-serif;
+	--font-body: 'Fira Mono', monospace;
 	--font-ui: 'Space Grotesk', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
 
 	/* Theme color utilities */
 	--color-base: rgb(var(--color-text-base));
@@ -22,7 +23,7 @@
 	--color-light: rgb(var(--color-border-dashed));
 }
 
-/* Brutalist border reset - everything gets a visible border */
+/* Geometric border reset */
 @layer base {
 	*,
 	::after,
@@ -38,8 +39,8 @@
 }
 
 @utility focus-outline {
-	outline-width: 3px;
-	outline-offset: 2px;
+	outline-width: 2px;
+	outline-offset: 3px;
 
 	&:focus-visible {
 		text-decoration: none;
@@ -48,30 +49,22 @@
 	}
 }
 
-/* Brutalist box shadow utility */
-@utility brutal-shadow {
-	box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
+/* Geometric utilities */
+@utility geo-shadow {
+	box-shadow: 8px 8px 0 0 rgb(var(--color-accent-rgb));
 }
 
-@utility brutal-shadow-sm {
-	box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
-}
-
-@utility brutal-shadow-lg {
-	box-shadow: 6px 6px 0 0 rgb(var(--color-text-base));
-}
-
-@utility brutal-shadow-accent {
+@utility geo-shadow-sm {
 	box-shadow: 4px 4px 0 0 rgb(var(--color-accent-rgb));
 }
 
-@utility brutal-border {
-	border-width: 3px;
+@utility geo-border {
+	border-width: 2px;
 	border-style: solid;
 }
 
-@utility brutal-border-thick {
-	border-width: 4px;
+@utility geo-border-thick {
+	border-width: 3px;
 	border-style: solid;
 }
 
@@ -146,7 +139,7 @@
 	html {
 		--color-fill-rgb: 245, 245, 240;
 		--color-text-base: 26, 26, 26;
-		--color-accent-rgb: 41, 98, 255;
+		--color-accent-rgb: 255, 3, 0;
 		--color-card-rgb: 235, 235, 230;
 		--color-card-muted: 220, 220, 215;
 		--color-border-rgb: 26, 26, 26;
@@ -168,53 +161,47 @@
 		min-height: 100svh;
 		flex-direction: column;
 		background-color: rgb(var(--color-fill-rgb));
-		font-family: 'Literata', Georgia, serif;
+		font-family: 'Fira Mono', monospace;
 		color: rgb(var(--color-text-base));
 		line-height: 1.7;
-		/* Account for fixed header height */
+		/* Account for fixed header */
 		padding-top: 70px;
-		/* Prevent horizontal overflow */
-		overflow-x: hidden;
 		max-width: 100vw;
 	}
 
-	/* Selection with accent color */
+	/* Selection */
 	body::selection,
 	body *::selection {
 		background-color: rgb(var(--color-accent-rgb));
 		color: rgb(var(--color-fill-rgb));
 	}
 
-	/* Typography scale - Brutalist display fonts for headings */
 	h1,
 	h2,
 	h3,
 	h4,
 	h5,
 	h6 {
-		font-family: 'Bebas Neue', sans-serif;
-		font-weight: 400;
-		letter-spacing: 0.02em;
-		line-height: 1.1;
+		font-family: 'Space Grotesk', sans-serif;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		line-height: 0.95;
 		text-transform: uppercase;
 	}
 
 	h1 {
-		font-size: clamp(2.5rem, 8vw, 5rem);
+		font-size: clamp(3rem, 10vw, 7rem);
 	}
 
 	h2 {
-		font-size: clamp(1.8rem, 5vw, 3rem);
-		border-bottom: 3px solid rgb(var(--color-border-rgb));
-		padding-bottom: 0.5rem;
-		margin-bottom: 1.5rem;
+		font-size: clamp(2rem, 5vw, 3.5rem);
 	}
 
 	h3 {
-		font-size: clamp(1.4rem, 3vw, 2rem);
+		font-size: clamp(1.5rem, 4vw, 2.5rem);
 	}
 
-	/* Section and content constraints */
+	/* Section constraints */
 	section,
 	footer {
 		margin-left: auto;
@@ -222,25 +209,22 @@
 		max-width: 56rem;
 	}
 
-	/* Brutalist link style */
+	/* Geometric link style */
 	a {
 		font-family: 'Space Grotesk', sans-serif;
 		font-weight: 500;
-		text-decoration: underline;
-		text-decoration-thickness: 2px;
-		text-underline-offset: 4px;
+		text-decoration: none;
 		color: rgb(var(--color-text-base));
-		transition: all 0.15s ease;
+		transition: all 0.2s ease;
 	}
 
 	a:hover {
 		color: rgb(var(--color-accent-rgb));
-		text-decoration-thickness: 3px;
 	}
 
 	a:focus-visible {
-		outline: 3px solid rgb(var(--color-accent-rgb));
-		outline-offset: 2px;
+		outline: 2px solid rgb(var(--color-accent-rgb));
+		outline-offset: 3px;
 	}
 
 	/* SVG icons */
@@ -299,28 +283,23 @@
 		}
 	}
 
-	/* Prose content styling */
+	/* Prose content styling - Kept intact */
 	.prose :is(h1, h2, h3, h4, h5, h6) {
-		font-family: 'Bebas Neue', sans-serif;
-		font-weight: 400;
+		font-family: 'Space Grotesk', sans-serif;
+		font-weight: 700;
 		margin-bottom: 0.75rem !important;
 		color: rgb(var(--color-text-base)) !important;
 		text-transform: uppercase;
-		letter-spacing: 0.02em;
+		letter-spacing: -0.02em;
 	}
 
 	.prose h1 {
 		font-size: clamp(2rem, 6vw, 3.5rem);
-		border-bottom: 4px solid rgb(var(--color-border-rgb));
-		padding-bottom: 0.75rem;
-		margin-bottom: 1.5rem !important;
 	}
 
 	.prose h2 {
 		font-size: clamp(1.6rem, 4vw, 2.5rem);
-		color: rgb(var(--color-text-base)) !important;
-		border-bottom: 3px solid rgb(var(--color-border-rgb));
-		padding-bottom: 0.5rem;
+		color: rgb(var(--color-accent-rgb)) !important;
 	}
 
 	.prose h3 {
@@ -329,8 +308,8 @@
 
 	.prose p {
 		color: rgb(var(--color-text-base)) !important;
-		font-family: 'Literata', Georgia, serif;
-		line-height: 1.8;
+		font-family: 'Fira Mono', monospace;
+		line-height: 1.7;
 		margin-bottom: 1.25rem;
 	}
 
@@ -351,7 +330,7 @@
 	}
 
 	.prose blockquote {
-		border-left-width: 4px !important;
+		border-left-width: 3px !important;
 		border-left-color: rgb(var(--color-accent-rgb)) !important;
 		padding-left: 1.5rem;
 		font-style: italic;
@@ -377,7 +356,6 @@
 		background-color: rgb(var(--color-card-rgb));
 		padding: 0.2rem 0.4rem;
 		color: rgb(var(--color-text-base)) !important;
-		font-family: 'Space Grotesk', monospace;
 		font-size: 0.9em;
 		border: 2px solid rgb(var(--color-border-rgb));
 	}
@@ -389,7 +367,7 @@
 
 	.prose pre {
 		color: rgb(var(--color-text-base)) !important;
-		border: 3px solid rgb(var(--color-border-rgb));
+		border: 2px solid rgb(var(--color-border-rgb));
 		border-radius: 0;
 		background-color: rgb(var(--color-card-rgb));
 	}
@@ -410,13 +388,13 @@
 
 	.prose table {
 		color: rgb(var(--color-text-base));
-		border: 3px solid rgb(var(--color-border-rgb));
+		border: 2px solid rgb(var(--color-border-rgb));
 		border-collapse: separate;
 		border-spacing: 0;
 	}
 
 	.prose th {
-		border-width: 2px;
+		border-width: 1px;
 		border-color: rgb(var(--color-border-rgb));
 		background-color: rgb(var(--color-card-rgb));
 		font-family: 'Space Grotesk', sans-serif;
@@ -435,9 +413,9 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 0.5rem !important;
-		border-width: 3px;
+		border-width: 2px;
 		border-color: rgb(var(--color-border-rgb));
-		box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
+		box-shadow: 6px 6px 0 0 rgb(var(--color-accent-rgb));
 	}
 
 	.prose hr {
@@ -446,7 +424,7 @@
 	}
 
 	.prose h2 a {
-		color: rgb(var(--color-text-base)) !important;
+		color: rgb(var(--color-accent-rgb)) !important;
 		text-decoration: none !important;
 	}
 
@@ -491,26 +469,24 @@
 		display: none;
 	}
 
-	/* ===== scrollbar - Brutalist style ===== */
+	/* ===== scrollbar - Geometric style ===== */
 	html {
 		overflow-y: scroll;
 	}
 
 	/* width */
 	::-webkit-scrollbar {
-		width: 1rem;
+		width: 8px;
 	}
 
 	/* Track */
 	::-webkit-scrollbar-track {
 		background-color: rgb(var(--color-fill-rgb));
-		border-left: 2px solid rgb(var(--color-border-rgb));
 	}
 
 	/* Handle */
 	::-webkit-scrollbar-thumb {
-		background-color: rgb(var(--color-card-rgb));
-		border: 2px solid rgb(var(--color-border-rgb));
+		background-color: rgb(var(--color-border-rgb));
 	}
 
 	/* Handle on hover */
@@ -525,67 +501,5 @@
 
 	pre > code {
 		white-space: pre;
-	}
-
-	/* Brutalist button style */
-	.brutalist-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-family: 'Space Grotesk', sans-serif;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		padding: 0.75rem 1.5rem;
-		border: 3px solid rgb(var(--color-border-rgb));
-		background-color: rgb(var(--color-card-rgb));
-		box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
-		transition: all 0.15s ease;
-		cursor: pointer;
-	}
-
-	.brutalist-btn:hover {
-		transform: translate(2px, 2px);
-		box-shadow: 2px 2px 0 0 rgb(var(--color-text-base));
-		background-color: rgb(var(--color-accent-rgb));
-		color: rgb(var(--color-fill-rgb));
-	}
-
-	.brutalist-btn:active {
-		transform: translate(4px, 4px);
-		box-shadow: 0 0 0 0 rgb(var(--color-text-base));
-	}
-
-	/* Brutalist card style */
-	.brutalist-card {
-		border: 3px solid rgb(var(--color-border-rgb));
-		background-color: rgb(var(--color-card-rgb));
-		box-shadow: 4px 4px 0 0 rgb(var(--color-text-base));
-		transition: all 0.15s ease;
-	}
-
-	.brutalist-card:hover {
-		transform: translate(-2px, -2px);
-		box-shadow: 6px 6px 0 0 rgb(var(--color-accent-rgb));
-	}
-
-	/* Tag/Chips style */
-	.brutalist-tag {
-		display: inline-block;
-		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.75rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		padding: 0.25rem 0.75rem;
-		border: 2px solid rgb(var(--color-border-rgb));
-		background-color: rgb(var(--color-fill-rgb));
-		transition: all 0.15s ease;
-	}
-
-	.brutalist-tag:hover {
-		background-color: rgb(var(--color-accent-rgb));
-		color: rgb(var(--color-fill-rgb));
-		border-color: rgb(var(--color-accent-rgb));
 	}
 }
