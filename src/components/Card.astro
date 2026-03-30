@@ -12,29 +12,23 @@ interface Props {
 const { href, frontmatter, slug, secHeading = true, dataTestId } = Astro.props;
 const { title, pubDate, description, tags } = frontmatter;
 const date = formatDate(pubDate);
-
-const cardClasses =
-	'border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
-
-const tagClasses =
-	'inline-block font-ui text-[0.7rem] font-semibold uppercase tracking-wider py-[0.35rem] px-3 border-2 border-line bg-fill text-base no-underline transition-all duration-150 hover:bg-accent hover:text-inverted hover:border-accent hover:-translate-x-px hover:-translate-y-px hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]';
-
-const linkClasses =
-	'text-accent underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:decoration-[3px]';
-
-const noUnderlineClasses = 'no-underline hover:no-underline';
 ---
 
-<article class={`${cardClasses} p-5 sm:p-6 group`} transition:name={slug}>
+<article
+	class="group border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))] sm:p-6"
+	transition:name={slug}
+>
 	<div class="mb-4 flex flex-wrap items-center gap-2">
-		<span class={tagClasses}>
+		<span
+			class="inline-block border-2 border-line bg-fill px-3 py-[0.35rem] font-ui text-[0.7rem] font-semibold tracking-wider text-base uppercase no-underline transition-all duration-150 hover:-translate-x-px hover:-translate-y-px hover:border-accent hover:bg-accent hover:text-inverted hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]"
+		>
 			{date}
 		</span>
 		{
 			tags.slice(0, 3).map((tag) => (
 				<a
 					href={`/tags/${tag}`}
-					class={`${tagClasses} hover:-translate-x-px hover:-translate-y-px`}
+					class="inline-block border-2 border-line bg-fill px-3 py-[0.35rem] font-ui text-[0.7rem] font-semibold tracking-wider text-base uppercase no-underline transition-all duration-150 hover:-translate-x-px hover:-translate-y-px hover:border-accent hover:bg-accent hover:text-inverted hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]"
 				>
 					{tag}
 				</a>
@@ -44,7 +38,7 @@ const noUnderlineClasses = 'no-underline hover:no-underline';
 
 	<a
 		href={href}
-		class={`block ${noUnderlineClasses}`}
+		class="block no-underline hover:no-underline"
 		data-test-id={dataTestId}
 	>
 		{
@@ -67,7 +61,7 @@ const noUnderlineClasses = 'no-underline hover:no-underline';
 	<div class="mt-4 flex items-center gap-2">
 		<a
 			href={href}
-			class={`${linkClasses} group/link inline-flex items-center gap-1 font-ui text-sm font-semibold uppercase tracking-wider`}
+			class="group/link inline-flex items-center gap-1 font-ui text-sm font-semibold tracking-wider text-accent uppercase underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:decoration-[3px]"
 			data-test-id={`${dataTestId}-read-more`}
 		>
 			Read more

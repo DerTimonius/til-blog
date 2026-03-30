@@ -59,27 +59,9 @@ try {
 	// biome-ignore lint/suspicious/noConsole: okay to use
 	console.error('Error:', e);
 }
-
-const containerClasses = 'font-body';
-
-const linkClasses =
-	'inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 border-2 border-accent bg-fill text-accent no-underline transition-all duration-150 hover:bg-accent hover:text-inverted hover:no-underline';
-
-const boxClasses =
-	'flex flex-col items-center gap-3 p-8 border-[3px] border-line bg-card text-center text-base';
-
-const errorBoxClasses = 'border-accent';
-
-const commentClasses =
-	'border-[3px] border-line bg-card p-4 transition-all duration-150 hover:shadow-[4px_4px_0_0_rgb(var(--color-text-base))]';
-
-const repliesClasses =
-	'mt-4 pl-6 border-l-[3px] border-accent flex flex-col gap-3';
-
-const replyClasses = 'p-3 bg-fill/50 border-2 border-line';
 ---
 
-<div class={containerClasses}>
+<div class="font-body">
 	<div
 		class="mb-6 flex items-center justify-between border-b-[3px] border-line pb-4"
 	>
@@ -88,7 +70,7 @@ const replyClasses = 'p-3 bg-fill/50 border-2 border-line';
 			href={blueskyLink}
 			target="_blank"
 			rel="noopener noreferrer"
-			class={linkClasses}
+			class="inline-flex items-center gap-2 border-2 border-accent bg-fill px-4 py-2 font-ui text-sm font-semibold tracking-wider text-accent uppercase no-underline transition-all duration-150 hover:bg-accent hover:text-inverted hover:no-underline"
 		>
 			<span>Reply on Bluesky</span>
 			<svg
@@ -112,7 +94,7 @@ const replyClasses = 'p-3 bg-fill/50 border-2 border-line';
 
 	{
 		error && (
-			<div class={`${boxClasses} ${errorBoxClasses}`}>
+			<div class="flex flex-col items-center gap-3 border-[3px] border-accent bg-card p-8 text-center text-base">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
@@ -138,7 +120,7 @@ const replyClasses = 'p-3 bg-fill/50 border-2 border-line';
 
 	{
 		!error && comments.length === 0 && (
-			<div class={boxClasses}>
+			<div class="flex flex-col items-center gap-3 border-[3px] border-line bg-card p-8 text-center text-base">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="32"
@@ -166,7 +148,7 @@ const replyClasses = 'p-3 bg-fill/50 border-2 border-line';
 		!error && comments.length > 0 && (
 			<div class="comments-list space-y-4">
 				{comments.map((comment) => (
-					<div class={commentClasses}>
+					<div class="border-[3px] border-line bg-card p-4 transition-all duration-150 hover:shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
 						<div class="flex items-start gap-4">
 							<Image
 								inferSize
@@ -251,9 +233,9 @@ const replyClasses = 'p-3 bg-fill/50 border-2 border-line';
 						</div>
 
 						{comment.replies && comment.replies.length > 0 && (
-							<div class={repliesClasses}>
+							<div class="mt-4 flex flex-col gap-3 border-l-[3px] border-accent pl-6">
 								{comment.replies.map((reply) => (
-									<div class={replyClasses}>
+									<div class="border-2 border-line bg-fill/50 p-3">
 										<div class="flex items-start gap-3">
 											<Image
 												src={reply.post.author.avatar}

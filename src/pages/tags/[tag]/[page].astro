@@ -33,12 +33,6 @@ const { tag } = Astro.params;
 const { page } = Astro.props;
 
 const Icon = tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.fallback;
-
-const tagLabelClasses =
-	'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.35rem] px-3 border-2 border-line bg-accent text-inverted';
-
-const tagIconClasses =
-	'flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))] [&_svg]:w-10 [&_svg]:h-10 [&_svg]:stroke-base sm:[&_svg]:w-12 sm:[&_svg]:h-12';
 ---
 
 <Layout title={`Tag: ${tag} | ${site.title}`}>
@@ -52,7 +46,10 @@ const tagIconClasses =
 			>
 				<div>
 					<div class="mb-3 flex items-center gap-2">
-						<span class={tagLabelClasses}>Tag</span>
+						<span
+							class="inline-block border-2 border-line bg-accent px-3 py-[0.35rem] font-ui text-xs font-semibold tracking-wider text-inverted uppercase"
+							>Tag</span
+						>
 						<span
 							class="font-ui text-sm font-semibold tracking-wider text-accent uppercase"
 						>
@@ -67,7 +64,10 @@ const tagIconClasses =
 					</h1>
 				</div>
 
-				<div class={tagIconClasses} transition:name={`icon-${tag}`}>
+				<div
+					class="flex h-20 w-20 items-center justify-center border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.75 hover:-translate-y-0.75 hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))] sm:h-24 sm:w-24 [&_svg]:h-10 [&_svg]:w-10 [&_svg]:stroke-base sm:[&_svg]:h-12 sm:[&_svg]:w-12"
+					transition:name={`icon-${tag}`}
+				>
 					<Icon />
 				</div>
 			</div>

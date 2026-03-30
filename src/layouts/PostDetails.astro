@@ -40,15 +40,6 @@ const updatedDate = formatDate(updatedAt!);
 const relatedArticles = relatedPosts ? await getRelatedPosts(relatedPosts) : [];
 const { Content, remarkPluginFrontmatter, headings } = await render(post);
 const time = remarkPluginFrontmatter.minutesRead;
-
-const backBtnClasses =
-	'inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 border-2 border-line bg-fill text-base transition-all duration-150 cursor-pointer hover:bg-card hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px';
-
-const sidebarSectionClasses =
-	'border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
-
-const relatedLinkClasses =
-	'block font-ui py-1 text-base no-underline underline decoration-1 underline-offset-[3px] transition-all duration-150 hover:text-accent hover:decoration-2 hover:pl-2';
 ---
 
 <Layout
@@ -66,7 +57,10 @@ const relatedLinkClasses =
 			<div class="mx-auto max-w-4xl">
 				<!-- Breadcrumb/Back -->
 				<div class="mb-6 flex items-center gap-2">
-					<button class={backBtnClasses} onclick="history.back()">
+					<button
+						class="inline-flex cursor-pointer items-center gap-2 border-2 border-line bg-fill px-4 py-2 font-ui text-sm font-semibold tracking-wider text-base uppercase transition-all duration-150 hover:-translate-x-px hover:-translate-y-px hover:bg-card hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))]"
+						onclick="history.back()"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="18"
@@ -116,7 +110,7 @@ const relatedLinkClasses =
 					<div class="sticky top-8 space-y-6">
 						{
 							headings.length ? (
-								<div class={sidebarSectionClasses}>
+								<div class="border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]">
 									<h2 class="mb-4 font-display text-xl tracking-wide">
 										Contents
 									</h2>
@@ -127,7 +121,7 @@ const relatedLinkClasses =
 
 						{
 							relatedArticles.length ? (
-								<div class={sidebarSectionClasses}>
+								<div class="border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]">
 									<h2 class="mb-4 font-display text-xl tracking-wide">
 										Related
 									</h2>
@@ -136,7 +130,7 @@ const relatedLinkClasses =
 											<li>
 												<Link
 													href={`/posts/${post.id}`}
-													className={`${relatedLinkClasses} text-sm`}
+													className="block font-ui py-1 text-base no-underline hover:underline decoration-1 underline-offset-[3px] transition-all duration-150 hover:text-accent hover:decoration-2 hover:pl-2 text-sm"
 												>
 													{post.data.title}
 												</Link>
@@ -154,8 +148,8 @@ const relatedLinkClasses =
 					<!-- Mobile TOC Accordion -->
 					{
 						headings.length ? (
-							<details class="mobile-toc-accordion lg:hidden mb-6 border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))]">
-								<summary class="mobile-toc-summary list-none cursor-pointer inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wider py-2 px-4 bg-fill text-base transition-all duration-150 hover:bg-card w-full border-b-[3px] border-line">
+							<details class="mobile-toc-accordion mb-6 border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] lg:hidden">
+								<summary class="mobile-toc-summary inline-flex w-full cursor-pointer list-none items-center gap-2 border-b-[3px] border-line bg-fill px-4 py-2 font-ui text-sm font-semibold tracking-wider text-base uppercase transition-all duration-150 hover:bg-card">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="18"

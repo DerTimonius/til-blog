@@ -3,24 +3,6 @@ import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
 import Layout from '~/layouts/Layout.astro';
 import { site } from '~/utils/config';
-
-const tagClasses =
-	'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-accent text-inverted';
-
-const tagOutlineClasses =
-	'inline-block font-ui text-xs font-semibold uppercase tracking-wider py-[0.4rem] px-[0.9rem] border-2 border-line bg-transparent text-base';
-
-const listBoxClasses =
-	'my-8 border-[3px] border-line bg-card p-6 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]';
-
-const sidebarBoxClasses =
-	'border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5';
-
-const sidebarBoxAccentClasses =
-	'border-[3px] border-line bg-fill p-5 shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5';
-
-const sidebarLinkClasses =
-	'flex items-center gap-2 font-ui text-sm font-medium p-2 border-2 border-transparent text-base no-underline transition-all duration-150 hover:border-line hover:bg-fill hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] hover:-translate-x-px hover:-translate-y-px hover:no-underline';
 ---
 
 <Layout title={`About | ${site.title}`}>
@@ -30,8 +12,14 @@ const sidebarLinkClasses =
 		<section class="border-b-[3px] border-line px-4 py-12 sm:px-6 sm:py-16">
 			<div class="mx-auto max-w-4xl">
 				<div class="mb-6 flex items-center gap-3">
-					<span class={tagClasses}>About</span>
-					<span class={tagOutlineClasses}>The author</span>
+					<span
+						class="inline-block border-2 border-line bg-accent px-[0.9rem] py-[0.4rem] font-ui text-xs font-semibold tracking-wider text-inverted uppercase"
+						>About</span
+					>
+					<span
+						class="inline-block border-2 border-line bg-transparent px-[0.9rem] py-[0.4rem] font-ui text-xs font-semibold tracking-wider text-base uppercase"
+						>The author</span
+					>
 				</div>
 				<h1 class="font-display text-5xl tracking-wide sm:text-6xl lg:text-7xl">
 					Timon<br />Jurschitsch
@@ -62,7 +50,9 @@ const sidebarLinkClasses =
 							help me in a few ways:
 						</p>
 
-						<div class={listBoxClasses}>
+						<div
+							class="my-8 border-[3px] border-line bg-card p-6 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgb(var(--color-accent-rgb))]"
+						>
 							<ul class="space-y-4">
 								<li class="flex gap-4">
 									<span class="flex-shrink-0 font-display text-2xl text-accent"
@@ -138,10 +128,15 @@ const sidebarLinkClasses =
 
 					<!-- Sidebar -->
 					<div class="space-y-6">
-						<div class={sidebarBoxClasses}>
+						<div
+							class="border-[3px] border-line bg-card p-5 shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5"
+						>
 							<h3 class="mb-4 font-display text-xl tracking-wide">Connect</h3>
 							<div class="space-y-3">
-								<a href="/posts" class={sidebarLinkClasses}>
+								<a
+									href="/posts"
+									class="flex items-center gap-2 border-2 border-transparent p-2 font-ui text-sm font-medium text-base no-underline transition-all duration-150 hover:-translate-x-px hover:-translate-y-px hover:border-line hover:bg-fill hover:no-underline hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="18"
@@ -163,7 +158,10 @@ const sidebarLinkClasses =
 									</svg>
 									<span>All Posts</span>
 								</a>
-								<a href="/search" class={sidebarLinkClasses}>
+								<a
+									href="/search"
+									class="flex items-center gap-2 border-2 border-transparent p-2 font-ui text-sm font-medium text-base no-underline transition-all duration-150 hover:-translate-x-px hover:-translate-y-px hover:border-line hover:bg-fill hover:no-underline hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="18"
@@ -183,7 +181,9 @@ const sidebarLinkClasses =
 							</div>
 						</div>
 
-						<div class={sidebarBoxAccentClasses}>
+						<div
+							class="border-[3px] border-line bg-fill p-5 shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5"
+						>
 							<h3 class="mb-3 font-display text-xl tracking-wide text-accent">
 								Status
 							</h3>
