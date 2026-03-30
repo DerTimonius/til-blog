@@ -12,6 +12,8 @@ import vercel from '@astrojs/vercel';
 import { pluginLanguageLogo } from 'ec-lang-logo';
 import { pluginMagicMove } from 'ec-magic-move';
 
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
 	devToolbar: { enabled: false },
@@ -46,6 +48,7 @@ export default defineConfig({
 		}),
 		svelte(),
 		mdx(),
+		icon({ iconDir: 'src/icon' }),
 	],
 
 	image: {
@@ -63,3 +66,4 @@ export default defineConfig({
 	adapter: vercel(),
 	vite: { plugins: [tailwindcss()] },
 });
+

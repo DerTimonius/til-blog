@@ -1,6 +1,7 @@
 ---
 import { socials } from '~/utils/config';
 import { socialIcons } from '~/assets/socialIcons';
+import { Icon } from 'astro-icon/components';
 import classNames from 'classnames';
 
 export interface Props {
@@ -26,7 +27,7 @@ const socialsDisplay = socials.filter((s) => s.active);
 				rel="noopener noreferrer"
 				data-test-id={`social-link-${social.name}`}
 			>
-				<Fragment set:html={socialIcons[social.name]} />
+				<Icon name={socialIcons[social.name]} />
 			</a>
 		))
 	}

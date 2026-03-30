@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 import Card from '~/components/Card.astro';
@@ -32,7 +33,7 @@ const { tag } = Astro.params;
 
 const { page } = Astro.props;
 
-const Icon = tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.fallback;
+const icon = tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.fallback;
 ---
 
 <Layout title={`Tag: ${tag} | ${site.title}`}>
@@ -68,7 +69,7 @@ const Icon = tagIcons[tag as keyof typeof tagIcons] ?? tagIcons.fallback;
 					class="flex h-20 w-20 items-center justify-center border-[3px] border-line bg-card shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:-translate-x-0.75 hover:-translate-y-0.75 hover:shadow-[7px_7px_0_0_rgb(var(--color-accent-rgb))] sm:h-24 sm:w-24 [&_svg]:h-10 [&_svg]:w-10 [&_svg]:stroke-base sm:[&_svg]:h-12 sm:[&_svg]:w-12"
 					transition:name={`icon-${tag}`}
 				>
-					<Icon />
+					<Icon name={icon} />
 				</div>
 			</div>
 		</div>

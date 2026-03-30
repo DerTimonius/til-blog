@@ -2,6 +2,7 @@
 import classNames from 'classnames';
 import type { Tag } from '~/utils/getTags';
 import { tagIcons } from '~/utils/tagIcons';
+import { Icon } from 'astro-icon/components';
 
 export interface Props {
 	tag: Tag;
@@ -25,7 +26,7 @@ const linkClasses = classNames(
 
 // Get icon for this tag if it exists
 const tagIcon = tagIcons[tag.name as keyof typeof tagIcons] ?? null;
-const Icon = tagIcon || tagIcons.fallback;
+const icon = tagIcon || tagIcons.fallback;
 ---
 
 <li class={size === 'sm' ? 'inline-block' : 'inline-block m-1'}>
@@ -37,6 +38,7 @@ const Icon = tagIcon || tagIcons.fallback;
 	>
 		<Icon
 			class="inline-flex h-[1.2rem] w-[1.2rem] items-center justify-center [&_svg]:h-full [&_svg]:w-full [&_svg]:fill-current group-hover:[&_svg]:fill-inverted"
+			name={icon}
 		/>
 		<span>{tag.name.toLowerCase()}</span>
 	</a>

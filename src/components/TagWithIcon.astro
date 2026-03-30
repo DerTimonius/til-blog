@@ -1,13 +1,14 @@
 ---
 import type { Tag } from '~/utils/getTags';
 import { tagIcons } from '~/utils/tagIcons';
+import { Icon } from 'astro-icon/components';
 
 export interface Props {
 	tag: Tag;
 }
 
 const { tag } = Astro.props;
-const Icon = tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.fallback;
+const icon = tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.fallback;
 ---
 
 <li class="group">
@@ -21,7 +22,7 @@ const Icon = tagIcons[tag.name as keyof typeof tagIcons] ?? tagIcons.fallback;
 			class="flex h-16 w-16 items-center justify-center border-2 border-line bg-card transition-all duration-150 group-hover:border-accent group-hover:bg-accent [&_svg]:h-8 [&_svg]:w-8 [&_svg]:stroke-base group-hover:[&_svg]:stroke-inverted"
 			transition:name={`icon-${tag.name}`}
 		>
-			<Icon />
+			<Icon name={icon} />
 		</div>
 		<div class="flex flex-col items-center gap-1 text-center">
 			<span
