@@ -1,6 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -8,10 +8,12 @@
 	--stroke-transparent: transparent;
 	--fill-transparent: transparent;
 
-	--font-mono: Fira Mono, monospace;
-	--font-neon: Monaspace Neon, monospace;
+	--font-display: 'Space Grotesk', sans-serif;
+	--font-body: 'Fira Mono', monospace;
+	--font-ui: 'Space Grotesk', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
 
-	/* Theme color utilities - these will create text-*, bg-*, border-*, fill-*, stroke-*, divide-* utilities */
+	/* Theme color utilities */
 	--color-base: rgb(var(--color-text-base));
 	--color-accent: rgb(var(--color-accent-rgb));
 	--color-inverted: rgb(var(--color-fill-rgb));
@@ -21,21 +23,14 @@
 	--color-light: rgb(var(--color-border-dashed));
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+/* Geometric border reset */
 @layer base {
 	*,
 	::after,
 	::before,
 	::backdrop,
 	::file-selector-button {
-		border-color: var(--color-gray-200, currentcolor);
+		border-color: rgb(var(--color-border-rgb));
 	}
 }
 
@@ -45,12 +40,32 @@
 
 @utility focus-outline {
 	outline-width: 2px;
-	outline-offset: 1px;
+	outline-offset: 3px;
 
 	&:focus-visible {
 		text-decoration: none;
-		outline-style: dashed;
+		outline-style: solid;
+		outline-color: rgb(var(--color-accent-rgb));
 	}
+}
+
+/* Geometric utilities */
+@utility geo-shadow {
+	box-shadow: 8px 8px 0 0 rgb(var(--color-accent-rgb));
+}
+
+@utility geo-shadow-sm {
+	box-shadow: 4px 4px 0 0 rgb(var(--color-accent-rgb));
+}
+
+@utility geo-border {
+	border-width: 2px;
+	border-style: solid;
+}
+
+@utility geo-border-thick {
+	border-width: 3px;
+	border-style: solid;
 }
 
 @layer utilities {
@@ -66,31 +81,30 @@
 
 	.shiki-magic-move-item {
 		display: inline-block;
-		transition: color var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition: color var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
 	}
 
 	.shiki-magic-move-move {
-		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
 	}
 
 	.shiki-magic-move-enter-active,
 	.shiki-magic-move-leave-active {
-		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
 	}
 
 	.shiki-magic-move-container-resize,
 	.shiki-magic-move-container-restyle {
-		transition: all var(--smm-duration, 0.5s) var(--smm-easing, "ease");
+		transition: all var(--smm-duration, 0.5s) var(--smm-easing, 'ease');
 		transition-delay: calc(
-			var(--smm-duration, 0.5s) *
-			var(--smm-delay-container, 1)
+			var(--smm-duration, 0.5s) * var(--smm-delay-container, 1)
 		);
 	}
 
 	.shiki-magic-move-move {
 		transition-delay: calc(
 			calc(var(--smm-duration, 0.5s) * var(--smm-delay-move, 1)) +
-			var(--smm-stagger, 0)
+				var(--smm-stagger, 0)
 		);
 		z-index: 1;
 	}
@@ -98,7 +112,7 @@
 	.shiki-magic-move-enter-active {
 		transition-delay: calc(
 			calc(var(--smm-duration, 0.5s) * var(--smm-delay-enter, 1)) +
-			var(--smm-stagger, 0)
+				var(--smm-stagger, 0)
 		);
 		z-index: 1;
 	}
@@ -106,7 +120,7 @@
 	.shiki-magic-move-leave-active {
 		transition-delay: calc(
 			calc(var(--smm-duration, 0.5s) * var(--smm-delay-leave, 1)) +
-			var(--smm-stagger, 0)
+				var(--smm-stagger, 0)
 		);
 	}
 
@@ -119,62 +133,101 @@
 		display: none;
 	}
 }
+
 @layer base {
 	:root,
 	html {
-		/* RGB values for color composition */
-		--color-fill-rgb: 247, 247, 247;
-		--color-text-base: 40, 39, 40;
-		--color-accent-rgb: 65, 107, 149;
-		--color-card-rgb: 230, 230, 230;
-		--color-card-muted: 205, 205, 205;
-		--color-border-rgb: 236, 233, 233;
-		--color-border-dashed: 200, 200, 200;
+		--color-fill-rgb: 245, 245, 240;
+		--color-text-base: 26, 26, 26;
+		--color-accent-rgb: 255, 3, 0;
+		--color-card-rgb: 235, 235, 230;
+		--color-card-muted: 220, 220, 215;
+		--color-border-rgb: 26, 26, 26;
+		--color-border-dashed: 180, 180, 170;
 	}
-	html[class="dark"] {
-		/* RGB values for color composition */
-		--color-fill-rgb: 13, 19, 35;
-		--color-text-base: 234, 237, 243;
-		--color-accent-rgb: 220, 81, 81;
-		--color-card-rgb: 52, 63, 96;
-		--color-card-muted: 138, 51, 2;
-		--color-border-rgb: 220, 81, 81;
-		--color-border-dashed: 199, 80, 80;
+
+	html[class='dark'] {
+		--color-fill-rgb: 26, 26, 26;
+		--color-text-base: 232, 232, 227;
+		--color-accent-rgb: 100, 149, 237;
+		--color-card-rgb: 45, 45, 45;
+		--color-card-muted: 60, 60, 60;
+		--color-border-rgb: 232, 232, 227;
+		--color-border-dashed: 100, 100, 95;
 	}
+
 	body {
 		display: flex;
 		min-height: 100svh;
 		flex-direction: column;
 		background-color: rgb(var(--color-fill-rgb));
-		padding: 1rem;
-		font-family:
-			Fira Mono,
-			monospace;
+		font-family: 'Fira Mono', monospace;
 		color: rgb(var(--color-text-base));
+		line-height: 1.7;
+		/* Account for fixed header */
+		padding-top: 70px;
+		max-width: 100vw;
 	}
 
+	/* Selection */
 	body::selection,
 	body *::selection {
-		background-color: rgba(var(--color-accent-rgb), 0.7);
+		background-color: rgb(var(--color-accent-rgb));
 		color: rgb(var(--color-fill-rgb));
 	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: 'Space Grotesk', sans-serif;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	h1 {
+		font-size: clamp(3rem, 10vw, 7rem);
+	}
+
+	h2 {
+		font-size: clamp(2rem, 5vw, 3.5rem);
+	}
+
+	h3 {
+		font-size: clamp(1.5rem, 4vw, 2.5rem);
+	}
+
+	/* Section constraints */
 	section,
 	footer {
 		margin-left: auto;
 		margin-right: auto;
 		max-width: 56rem;
 	}
+
+	/* Geometric link style */
 	a {
-		outline-width: 2px;
-		outline-offset: 1px;
-		outline-color: rgb(var(--color-accent-rgb));
+		font-family: 'Space Grotesk', sans-serif;
+		font-weight: 500;
+		text-decoration: none;
+		color: rgb(var(--color-text-base));
+		transition: all 0.2s ease;
+	}
+
+	a:hover {
+		color: rgb(var(--color-accent-rgb));
 	}
 
 	a:focus-visible {
-		text-decoration: none;
-		outline-style: dashed;
+		outline: 2px solid rgb(var(--color-accent-rgb));
+		outline-offset: 3px;
 	}
 
+	/* SVG icons */
 	svg {
 		display: inline-block;
 		height: 1.5rem;
@@ -189,12 +242,14 @@
 	:is(:where(.group):hover *) svg {
 		fill: rgb(var(--color-accent-rgb));
 	}
+
 	svg.tags {
 		display: inline-block;
 		height: 3rem;
 		width: 3rem;
 		fill: rgb(var(--color-text-base));
 	}
+
 	svg.custom {
 		display: inline-block;
 		height: 3rem;
@@ -206,6 +261,7 @@
 		fill: none;
 		stroke: rgb(var(--color-accent-rgb));
 	}
+
 	svg.icon-tabler {
 		display: inline-block;
 		height: 1.5rem;
@@ -226,61 +282,94 @@
 			scale: 1.1;
 		}
 	}
+
+	/* Prose content styling - Kept intact */
 	.prose :is(h1, h2, h3, h4, h5, h6) {
+		font-family: 'Space Grotesk', sans-serif;
+		font-weight: 700;
 		margin-bottom: 0.75rem !important;
 		color: rgb(var(--color-text-base)) !important;
+		text-transform: uppercase;
+		letter-spacing: -0.02em;
+	}
+
+	.prose h1 {
+		font-size: clamp(2rem, 6vw, 3.5rem);
 	}
 
 	.prose h2 {
+		font-size: clamp(1.6rem, 4vw, 2.5rem);
 		color: rgb(var(--color-accent-rgb)) !important;
 	}
 
 	.prose h3 {
-		font-style: italic;
+		font-size: clamp(1.3rem, 3vw, 1.8rem);
 	}
 
 	.prose p {
 		color: rgb(var(--color-text-base)) !important;
+		font-family: 'Fira Mono', monospace;
+		line-height: 1.7;
+		margin-bottom: 1.25rem;
 	}
 
 	.prose a {
-		color: rgb(var(--color-text-base)) !important;
-		text-decoration-style: dashed !important;
-		text-underline-offset: 8px;
+		font-family: 'Space Grotesk', sans-serif;
+		color: rgb(var(--color-accent-rgb)) !important;
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+		font-weight: 500;
 	}
 
-	.prose:hover a {
-		color: rgb(var(--color-accent-rgb));
+	.prose a:hover {
+		text-decoration-thickness: 3px;
+		background-color: rgba(var(--color-accent-rgb), 0.1);
+		padding: 0 2px;
+		margin: 0 -2px;
 	}
 
 	.prose blockquote {
-		border-left-color: rgba(var(--color-accent-rgb), 0.5) !important;
-		opacity: 0.8;
+		border-left-width: 3px !important;
+		border-left-color: rgb(var(--color-accent-rgb)) !important;
+		padding-left: 1.5rem;
+		font-style: italic;
+		background-color: rgba(var(--color-card-rgb), 0.5);
+		padding: 1rem 1.5rem;
+		margin: 1.5rem 0;
 	}
 
 	.prose figcaption {
 		color: rgb(var(--color-text-base)) !important;
 		opacity: 0.7;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.875rem;
 	}
 
 	.prose strong {
 		color: rgb(var(--color-text-base)) !important;
+		font-weight: 700;
 	}
 
 	.prose code {
-		border-radius: 0.125rem;
-		background-color: rgba(var(--color-card-rgb), 0.75);
-		padding: 0.25rem;
+		border-radius: 0;
+		background-color: rgb(var(--color-card-rgb));
+		padding: 0.2rem 0.4rem;
 		color: rgb(var(--color-text-base)) !important;
+		font-size: 0.9em;
+		border: 2px solid rgb(var(--color-border-rgb));
 	}
 
 	.prose code::before,
 	.prose code::after {
-		content: "" !important;
+		content: '' !important;
 	}
 
 	.prose pre {
 		color: rgb(var(--color-text-base)) !important;
+		border: 2px solid rgb(var(--color-border-rgb));
+		border-radius: 0;
+		background-color: rgb(var(--color-card-rgb));
 	}
 
 	.prose ol {
@@ -294,20 +383,30 @@
 
 	.prose li::marker {
 		color: rgb(var(--color-accent-rgb)) !important;
+		font-weight: 700;
 	}
 
 	.prose table {
 		color: rgb(var(--color-text-base));
+		border: 2px solid rgb(var(--color-border-rgb));
+		border-collapse: separate;
+		border-spacing: 0;
 	}
 
 	.prose th {
 		border-width: 1px;
 		border-color: rgb(var(--color-border-rgb));
+		background-color: rgb(var(--color-card-rgb));
+		font-family: 'Space Grotesk', sans-serif;
+		font-weight: 600;
+		text-transform: uppercase;
+		padding: 0.75rem;
 	}
 
 	.prose td {
 		border-width: 1px;
 		border-color: rgb(var(--color-border-rgb));
+		padding: 0.75rem;
 	}
 
 	.prose img {
@@ -316,18 +415,14 @@
 		margin-top: 0.5rem !important;
 		border-width: 2px;
 		border-color: rgb(var(--color-border-rgb));
+		box-shadow: 6px 6px 0 0 rgb(var(--color-accent-rgb));
 	}
 
 	.prose hr {
 		border-color: rgb(var(--color-border-rgb)) !important;
-	}
-	.prose a {
-		overflow-wrap: break-word;
+		border-width: 2px;
 	}
 
-	.prose a:hover {
-		color: rgb(var(--color-accent-rgb)) !important;
-	}
 	.prose h2 a {
 		color: rgb(var(--color-accent-rgb)) !important;
 		text-decoration: none !important;
@@ -335,43 +430,53 @@
 
 	.prose h2 a:hover {
 		text-decoration: underline !important;
-		text-decoration-style: dashed !important;
+		text-decoration-thickness: 3px !important;
 	}
+
 	.prose thead th:first-child,
 	tbody td:first-child,
 	tfoot td:first-child {
-		padding-left: 0.5714286em;
+		padding-left: 0.75rem;
 	}
+
 	.prose h2#table-of-contents {
 		margin-bottom: 0.5rem;
 	}
+
 	.prose details {
 		display: inline-block;
 		cursor: pointer;
 		user-select: none;
 		color: rgb(var(--color-text-base));
+		border: 2px solid rgb(var(--color-border-rgb));
+		padding: 0.5rem 1rem;
+		background-color: rgb(var(--color-card-rgb));
 	}
+
 	.prose summary {
 		outline-width: 2px;
 		outline-offset: 1px;
+		font-family: 'Space Grotesk', sans-serif;
+		font-weight: 600;
 	}
 
 	.prose summary:focus-visible {
 		text-decoration: none;
 		outline-style: dashed;
 	}
+
 	.prose h2#table-of-contents + p {
 		display: none;
 	}
 
-	/* ===== scrollbar ===== */
+	/* ===== scrollbar - Geometric style ===== */
 	html {
 		overflow-y: scroll;
 	}
 
 	/* width */
 	::-webkit-scrollbar {
-		width: 0.75rem;
+		width: 8px;
 	}
 
 	/* Track */
@@ -381,12 +486,12 @@
 
 	/* Handle */
 	::-webkit-scrollbar-thumb {
-		background-color: rgb(var(--color-card-rgb));
+		background-color: rgb(var(--color-border-rgb));
 	}
 
 	/* Handle on hover */
 	::-webkit-scrollbar-thumb:hover {
-		background-color: rgb(var(--color-card-muted));
+		background-color: rgb(var(--color-accent-rgb));
 	}
 
 	code,

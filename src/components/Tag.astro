@@ -1,6 +1,8 @@
 ---
 import classNames from 'classnames';
 import type { Tag } from '~/utils/getTags';
+import { tagIcons } from '~/utils/tagIcons';
+import { Icon } from 'astro-icon/components';
 
 export interface Props {
 	tag: Tag;
@@ -8,26 +10,36 @@ export interface Props {
 }
 
 const { tag, size = 'sm' } = Astro.props;
+
 const linkClasses = classNames(
-	' pr-2 group relative underline decoration-dashed hover:-top-0.5 hover:text-accent  focus-visible:p-1',
+	'inline-flex items-center gap-2 font-ui font-semibold tracking-wider uppercase',
+	'border-2 border-line bg-fill px-[0.8rem] py-[0.4rem] text-base no-underline',
+	'shadow-[2px_2px_0_0_rgb(var(--color-text-base))] transition-all duration-150',
+	'hover:border-accent hover:bg-accent hover:text-inverted',
+	'hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_rgb(var(--color-text-base))]',
+	'hover:no-underline',
 	{
-		'text-sm': size === 'sm',
-		'text-lg': size === 'lg',
+		'text-xs': size === 'sm',
+		'text-sm': size === 'lg',
 	},
 );
+
+// Get icon for this tag if it exists
+const tagIcon = tagIcons[tag.name as keyof typeof tagIcons] ?? null;
+const icon = tagIcon || tagIcons.fallback;
 ---
 
-<li
-  class={`inline-block ${
-    size === 'sm' ? 'my-1 underline-offset-4' : 'my-3 mx-1 underline-offset-8'
-  }`}
->
-  <a
-    href={`/tags/${tag.name.toLowerCase()}`}
-    transition:name={tag.name.toLowerCase()}
-    class={linkClasses}
-    data-test-id="tag"
-  >
-    <span>{tag.name.toLowerCase()}</span>
-  </a>
+<li class={size === 'sm' ? 'inline-block' : 'inline-block m-1'}>
+	<a
+		href={`/tags/${tag.name.toLowerCase()}`}
+		transition:name={tag.name.toLowerCase()}
+		class={linkClasses}
+		data-test-id="tag"
+	>
+		<Icon
+			class="inline-flex h-[1.2rem] w-[1.2rem] items-center justify-center [&_svg]:h-full [&_svg]:w-full [&_svg]:fill-current group-hover:[&_svg]:fill-inverted"
+			name={icon}
+		/>
+		<span>{tag.name.toLowerCase()}</span>
+	</a>
 </li>

@@ -1,102 +1,167 @@
 ---
 import Footer from '~/components/Footer.astro';
 import Header from '~/components/Header.astro';
-import HomepageCard from '~/components/HomepageCard.astro';
-import Hr from '~/components/Hr.astro';
-import Link from '~/components/Link.astro';
+import Card from '~/components/Card.astro';
 import Layout from '~/layouts/Layout.astro';
-import { getFeaturedPosts, getLatestPosts } from '~/utils/sortPosts';
+import { getLatestPosts } from '~/utils/sortPosts';
 
-const latestPosts = await getLatestPosts();
-const featuredPosts = await getFeaturedPosts(3);
+const latestPosts = await getLatestPosts(5);
+
+const btnClasses =
+	'inline-flex items-center gap-2 font-ui font-semibold uppercase tracking-wider py-[0.875rem] px-6 border-[3px] border-line bg-base text-inverted shadow-[4px_4px_0_0_rgb(var(--color-accent-rgb))] transition-all duration-150 no-underline hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_rgb(var(--color-accent-rgb))] hover:text-inverted active:translate-x-1 active:translate-y-1 active:shadow-none';
 ---
 
 <Layout>
-  <Header />
-  <main id="main-content" class="px-6">
-    <section id="hero" class="pb-6 pt-8">
-      <h1
-        class="my-4 inline-block text-3xl font-bold text-accent sm:my-8 sm:text-5xl"
-      >
-        Today I learned
-      </h1>
+	<Header />
 
-      <p class="my-2">
-        A little blog that embraces the principles of <a
-          href="https://www.swyx.io/learn-in-public"
-          referrerpolicy="no-referrer"
-          target="_blank"
-        >
-          <i>learning in public</i></a
-        >. Why don't share your journey of getting better at stuff? Everyone
-        started somewehere.
-      </p><p>
-        I want to keep learning about interesting things, to keep getting better
-        at various topics.
-      </p>
-      <p class="mt-6">
-        The plan is to write about:
-        <ul class="mx-6">
-          <li>Web Development</li>
-          <li>Computer Science</li>
-          <li>Science related topics</li>
-          <li>...whatever I found interesting that day!</li>
-        </ul>
-      </p>
+	<main id="main-content" class="flex-1">
+		<!-- Hero Section -->
+		<section
+			id="hero"
+			class="border-b-[3px] border-line px-4 py-16 sm:px-6 sm:py-20"
+		>
+			<div class="mx-auto max-w-4xl">
+				<div
+					class="border-[3px] border-line bg-card p-6 shadow-[6px_6px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:shadow-[8px_8px_0_0_rgb(var(--color-accent-rgb))] sm:p-10"
+				>
+					<div class="mb-6 flex flex-wrap items-center gap-3">
+						<span
+							class="inline-block border-2 border-line bg-accent px-[0.9rem] py-[0.4rem] font-ui text-xs font-semibold tracking-wider text-inverted uppercase"
+							>Learning in Public</span
+						>
+						<span
+							class="inline-block border-2 border-line bg-transparent px-[0.9rem] py-[0.4rem] font-ui text-xs font-semibold tracking-wider text-base uppercase"
+							>Since 2024</span
+						>
+					</div>
 
-      <p class="my-4">Join me and let's have some fun!</p>
-    </section>
+					<h1
+						class="font-display text-5xl leading-none tracking-wide text-base sm:text-7xl lg:text-8xl"
+					>
+						Today I<br />Learned
+					</h1>
 
-    <Hr className="max-w-4xl" noPadding />
+					<div
+						class="mt-8 max-w-xl space-y-4 font-body text-lg leading-relaxed text-base/90"
+					>
+						<p>
+							A little blog that embraces the principles of
+							<a
+								href="https://www.swyx.io/learn-in-public"
+								class="font-ui font-medium text-accent decoration-2 underline-offset-[3px] transition-all duration-150 hover:-mx-0.5 hover:bg-accent/10 hover:px-0.5 hover:decoration-[3px]"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								learning in public
+							</a>. Why not share your journey of getting better at stuff?
+						</p>
+						<p>
+							Everyone started somewhere. I want to keep learning about
+							interesting things and getting better at various topics.
+						</p>
+					</div>
 
-    <section class="py-6">
-      <h2 class="text-3xl font-semibold tracking-wide">Featured Posts</h2>
-      <ul class="divide-y divide-light">
-        {
-          featuredPosts.map((post) => (
-            <HomepageCard
-              dataTestId={`featured-post-${post.id}`}
-              href={`/posts/${post.id}`}
-              frontmatter={post.data}
-              slug={post.id}
-            />
-          ))
-        }
-      </ul>
-    </section>
-    <Hr className="max-w-4xl" noPadding />
+					<div class="mt-8 flex flex-wrap gap-3">
+						<a
+							href="/posts"
+							class="inline-flex items-center gap-2 border-[3px] border-line bg-transparent px-6 py-[0.875rem] font-ui font-semibold tracking-wider text-base uppercase no-underline shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-card hover:text-base hover:no-underline hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]"
+						>
+							<span>Read all posts</span>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="18"
+								height="18"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2.5"
+								stroke-linecap="square"
+								stroke-linejoin="miter"
+							>
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+								<polyline points="12 5 19 12 12 19"></polyline>
+							</svg>
+						</a>
+						<a
+							href="/about"
+							class="inline-flex items-center gap-2 border-[3px] border-line bg-transparent px-6 py-[0.875rem] font-ui font-semibold tracking-wider text-base uppercase no-underline shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-card hover:text-base hover:no-underline hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]"
+						>
+							About me
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <section class="pb-6 pt-12">
-      <h2 class="text-3xl font-semibold tracking-wide">Latest Posts</h2>
-      <ul class="divide-y divide-light">
-        {
-          latestPosts.map((post) => (
-            <HomepageCard
-              dataTestId={`latest-post-${post.id}`}
-              href={`/posts/${post.id}`}
-              frontmatter={post.data}
-              slug={post.id}
-            />
-          ))
-        }
-      </ul>
-    </section>
+		<!-- Latest Posts Section -->
+		<section
+			class="border-t-[3px] border-line bg-card px-4 py-12 sm:px-6 sm:py-16"
+		>
+			<div class="mx-auto max-w-4xl">
+				<div
+					class="mb-8 flex items-end justify-between border-b-[3px] border-line pb-4"
+				>
+					<h2 class="font-display text-3xl tracking-wide sm:text-4xl">
+						Latest Posts
+					</h2>
+					<a
+						href="/posts"
+						class="inline-flex items-center gap-1 text-accent underline decoration-2 underline-offset-[3px] transition-all duration-150 hover:gap-2 hover:decoration-[3px]"
+					>
+						View all
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2.5"
+							stroke-linecap="square"
+							stroke-linejoin="miter"
+							class="inline-block"
+						>
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</a>
+				</div>
 
-    <section class="py-6">
-      <div class="my-8 text-center">
-        <Link href="/posts">
-          All Posts
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 fill-base"
-            ><path
-              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-            ></path>
-          </svg>
-        </Link>
-      </div>
-    </section>
-  </main>
+				<section class="space-y-4 divide-y-[3px] divide-line">
+					{
+						latestPosts.map((post) => (
+							<Card
+								dataTestId={`latest-post-${post.id}`}
+								href={`/posts/${post.id}`}
+								frontmatter={post.data}
+								slug={post.id}
+							/>
+						))
+					}
+				</section>
 
-  <Footer />
+				<div class="mt-10 text-center">
+					<a href="/posts" class={`${btnClasses} inline-flex`}>
+						<span>Explore all posts</span>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2.5"
+							stroke-linecap="square"
+							stroke-linejoin="miter"
+						>
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
 </Layout>

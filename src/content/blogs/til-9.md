@@ -28,7 +28,7 @@ Call the `useRef` hook with an `initialValue` - if you don't know the type of va
 import { useRef } from 'react';
 
 function App() {
-  const ref = useRef(null);
+	const ref = useRef(null);
 }
 ```
 
@@ -45,23 +45,23 @@ Let's build a quick form that uses a button to focus the input with ref:
 import { useRef, useState } from 'react';
 
 function App() {
-  const [value, setValue] = useState('');
-  const ref = useRef(null);
+	const [value, setValue] = useState('');
+	const ref = useRef(null);
 
-  const focusInput = () => {
-    ref.current.focus();
-  };
+	const focusInput = () => {
+		ref.current.focus();
+	};
 
-  return (
-    <div>
-      <input
-        onChange={(event) => setValue(event.target.value)}
-        ref={ref}
-        value={value}
-      />
-      <button onClick={focusInput}>Focus Input</button>
-    </div>
-  );
+	return (
+		<div>
+			<input
+				onChange={(event) => setValue(event.target.value)}
+				ref={ref}
+				value={value}
+			/>
+			<button onClick={focusInput}>Focus Input</button>
+		</div>
+	);
 }
 ```
 
@@ -75,7 +75,7 @@ Let's say that in the example above you wrap the input in a separate component:
 
 ```jsx title="MyInput.tsx"
 export default function MyInput({ value, onChange }) {
-  return <input value={value} onChange={onChange} />;
+	return <input value={value} onChange={onChange} />;
 }
 ```
 
@@ -85,7 +85,7 @@ If you now still want to use the button to focus the input, you need to wrap the
 import { forwardRef } from 'react';
 
 const MyInput = forwardRef(({ value, onChange }, ref) => {
-  return <input value={value} onChange={onChange} ref={ref} />;
+	return <input value={value} onChange={onChange} ref={ref} />;
 });
 
 export default MyInput;
@@ -111,14 +111,14 @@ Typing `formardRef` is a bit more complicated and expects two parameters:
 import { forwardRef, type Dispatch, type SetStateAction } from 'react';
 
 interface MyInputProps {
-  value?: string;
-  onChange: Dispatch<SetStateAction<string>>;
+	value?: string;
+	onChange: Dispatch<SetStateAction<string>>;
 }
 
 const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
-  ({ value, onChange }, ref) => {
-    return <input value={value} onChange={onChange} ref={ref} />;
-  },
+	({ value, onChange }, ref) => {
+		return <input value={value} onChange={onChange} ref={ref} />;
+	},
 );
 
 export default MyInput;

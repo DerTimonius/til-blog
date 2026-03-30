@@ -18,40 +18,40 @@ But if we take a look at the actual code, we can find the culprit:
 
 ```js
 Array.prototype.every = function (callbackfn, thisArg) {
-  'use strict';
-  var T, k;
+	'use strict';
+	var T, k;
 
-  if (this == null) {
-    throw new TypeError('this is null or not defined');
-  }
+	if (this == null) {
+		throw new TypeError('this is null or not defined');
+	}
 
-  var O = Object(this);
+	var O = Object(this);
 
-  var len = O.length >>> 0;
+	var len = O.length >>> 0;
 
-  if (typeof callbackfn !== 'function') {
-    throw new TypeError();
-  }
+	if (typeof callbackfn !== 'function') {
+		throw new TypeError();
+	}
 
-  if (arguments.length > 1) {
-    T = thisArg;
-  }
+	if (arguments.length > 1) {
+		T = thisArg;
+	}
 
-  k = 0;
+	k = 0;
 
-  while (k < len) {
-    var kValue;
+	while (k < len) {
+		var kValue;
 
-    if (k in O) {
-      kValue = O[k];
-      var testResult = callbackfn.call(T, kValue, k, O);
-      if (!testResult) {
-        return false;
-      }
-    }
-    k++;
-  }
-  return true;
+		if (k in O) {
+			kValue = O[k];
+			var testResult = callbackfn.call(T, kValue, k, O);
+			if (!testResult) {
+				return false;
+			}
+		}
+		k++;
+	}
+	return true;
 };
 ```
 

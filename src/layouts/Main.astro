@@ -18,25 +18,28 @@ interface ArrayTitleProp {
 export type Props = StringTitleProp | ArrayTitleProp;
 
 const { props } = Astro;
-const descriptionClasses = classNames('mb-6 mt-2 italic', {
-	'sr-only': props.screenReaderOnly,
-});
+const descriptionClasses = classNames(
+	'mt-4 mb-8 max-w-2xl font-body text-lg leading-relaxed text-base/80',
+	{ 'sr-only': props.screenReaderOnly },
+);
 ---
 
 <Breadcrumbs />
-<main class="mx-auto w-full max-w-4xl px-8 pb-12 sm:px-4">
-  {
-    'titleTransition' in props ? (
-      <h1 class="text-2xl font-semibold sm:text-3xl">
-        {props.pageTitle[0]}
-        <span transition:name={props.titleTransition}>
-          {props.pageTitle[1]}
-        </span>
-      </h1>
-    ) : (
-      <h1 class="text-2xl font-semibold">{props.pageTitle}</h1>
-    )
-  }
-  <p class={descriptionClasses}>{props.pageDesc}</p>
-  <slot />
+<main class="mx-auto w-full max-w-4xl px-4 pb-16 sm:px-6">
+	{
+		'titleTransition' in props ? (
+			<h1 class="font-display text-4xl tracking-wide sm:text-5xl lg:text-6xl">
+				{props.pageTitle[0]}
+				<span transition:name={props.titleTransition} class="text-accent">
+					{props.pageTitle[1]}
+				</span>
+			</h1>
+		) : (
+			<h1 class="font-display text-4xl tracking-wide sm:text-5xl lg:text-6xl">
+				{props.pageTitle}
+			</h1>
+		)
+	}
+	{props.pageDesc && <p class={descriptionClasses}>{props.pageDesc}</p>}
+	<slot />
 </main>

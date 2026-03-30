@@ -19,16 +19,9 @@ export type SocialObjects = {
 	linkTitle: string;
 }[];
 
-export type SocialIcons = Record<SocialMedia, string>;
+export type SocialIcons = Record<SocialMedia, unknown>;
 
-export type SocialMedia =
-	| 'Github'
-	| 'Instagram'
-	| 'LinkedIn'
-	| 'Reddit'
-	| 'RSS'
-	| 'BlueSky'
-	| 'Mail';
+export type SocialMedia = 'Github' | 'LinkedIn' | 'RSS' | 'BlueSky' | 'Mail';
 
 export interface SearchList {
 	data: CollectionEntry<'blogs'>['data'];

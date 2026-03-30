@@ -33,7 +33,7 @@ A better way is `binary search`: check the middle value and compare it against t
 
 ```ts
 const arr = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ];
 const target = 13;
 ```
@@ -44,25 +44,25 @@ Here is a recursive implementation of the `binarySearch` in Typescript that work
 
 ```ts
 function binarySearch(
-  arr: number[],
-  val: number,
-  low: number,
-  high: number,
+	arr: number[],
+	val: number,
+	low: number,
+	high: number,
 ): number {
-  if (low >= high) {
-    return -1;
-  }
+	if (low >= high) {
+		return -1;
+	}
 
-  const middle = Math.floor(low + (high - low) / 2);
-  const middleVal = arr[middle];
+	const middle = Math.floor(low + (high - low) / 2);
+	const middleVal = arr[middle];
 
-  if (middleVal === val) {
-    return middle;
-  } else if (middleVal > val) {
-    return binarySearch(arr, val, low, middle);
-  } else {
-    return binarySearch(arr, val, middle + 1, high);
-  }
+	if (middleVal === val) {
+		return middle;
+	} else if (middleVal > val) {
+		return binarySearch(arr, val, low, middle);
+	} else {
+		return binarySearch(arr, val, middle + 1, high);
+	}
 }
 ```
 

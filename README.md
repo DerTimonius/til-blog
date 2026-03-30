@@ -20,7 +20,6 @@ The plan is to write about:
 - [Astro](https://astro.build)
 - [MDX](https://mdxjs.com)
 - [TailwindCSS](https://tailwindcss.com/)
-  - The design is heavily inspired by [AstroPaper](https://github.com/satnaing/astro-paper)
 - [Prettier](https://prettier.io/), [ESLint](https://eslint.org)
 
 ## Local Development
@@ -29,11 +28,13 @@ If you found an error, either in my posts or anywhere else in the page, feel fre
 
 1. Fork the repo and clone it locally
 2. Install the dependencies
+
 ```sh
 pnpm install
 ```
-3. Run the dev server, which runs on port 4321
+
+1. Run the dev server, which runs on port 4321
+
 ```sh
 pnpm run dev
 ```
-

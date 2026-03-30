@@ -12,8 +12,11 @@ import vercel from '@astrojs/vercel';
 import { pluginLanguageLogo } from 'ec-lang-logo';
 import { pluginMagicMove } from 'ec-magic-move';
 
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
+	devToolbar: { enabled: false },
 	prefetch: {
 		prefetchAll: true,
 	},
@@ -27,20 +30,25 @@ export default defineConfig({
 			plugins: [
 				pluginErrorPreview(),
 				pluginLanguageLogo({
-					color: 'mono',
+					color: 'theme',
 					excludedLangs: ['json'],
 				}),
 				pluginMagicMove({
-					theme: 'catppuccin-mocha',
+					theme: 'poimandres',
 					duration: 400,
 					stagger: 5,
 				}),
 			],
-			themes: ['catppuccin-mocha', 'catppuccin-latte'],
+			styleOverrides: {
+				codeFontFamily:
+					"'Monaspace Neon', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+			},
+			themes: ['poimandres', 'rose-pine-dawn'],
 			themeCssSelector: (theme) => `[data-theme='${theme.type}']`,
 		}),
 		svelte(),
 		mdx(),
+		icon({ iconDir: 'src/icon' }),
 	],
 
 	image: {
@@ -58,3 +66,4 @@ export default defineConfig({
 	adapter: vercel(),
 	vite: { plugins: [tailwindcss()] },
 });
+

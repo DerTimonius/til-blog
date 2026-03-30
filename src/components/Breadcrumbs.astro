@@ -4,29 +4,75 @@ const breadcrumbList = currentUrlPath.split('/').slice(1);
 const breadcrumbListLength = breadcrumbList.length;
 ---
 
-<nav class="mx-auto mb-4 mt-6 w-full max-w-4xl px-4" aria-label="breadcrumb">
-  <ul class="flex">
-    <li class="inline">
-      <a class="capitalize opacity-70" href="/">Home</a>
-      <span aria-hidden="true" class="opacity-70">&nbsp;&gt;&nbsp;</span>
-    </li>
-    {
-      breadcrumbList.map((breadcrumb, index) =>
-        index + 1 === breadcrumbListLength ? (
-          <li>
-            <span class="lowercase" aria-current="page">
-              {breadcrumb}
-            </span>
-          </li>
-        ) : (
-          <li class="capitalize">
-            <a href={`/${breadcrumb}`}>{breadcrumb}</a>
-            <span aria-hidden="true" class="opacity-70">
-              &nbsp;&gt;&nbsp;
-            </span>
-          </li>
-        ),
-      )
-    }
-  </ul>
+<nav
+	class="mx-auto mt-8 mb-6 w-full max-w-4xl px-4 sm:px-6"
+	aria-label="breadcrumb"
+>
+	<ul
+		class="flex flex-wrap items-center gap-2 font-ui text-sm font-medium tracking-wider uppercase"
+	>
+		<li class="inline">
+			<a
+				class="inline-block border-2 border-transparent px-3 py-[0.35rem] text-base no-underline opacity-70 transition-all duration-150 hover:-translate-x-px hover:-translate-y-px hover:border-line hover:bg-card hover:opacity-100 hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]"
+				href="/"
+			>
+				Home
+			</a>
+		</li>
+		<li aria-hidden="true" class="text-accent">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="14"
+				height="14"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2.5"
+				stroke-linecap="square"
+				stroke-linejoin="miter"
+			>
+				<polyline points="9 18 15 12 9 6"></polyline>
+			</svg>
+		</li>
+		{
+			breadcrumbList.map((breadcrumb, index) =>
+				index + 1 === breadcrumbListLength ? (
+					<li>
+						<span
+							class="inline-block border-2 border-line bg-accent px-3 py-[0.35rem] text-inverted"
+							aria-current="page"
+						>
+							{breadcrumb.replace(/-/g, ' ')}
+						</span>
+					</li>
+				) : (
+					<>
+						<li>
+							<a
+								href={`/${breadcrumb}`}
+								class="inline-block border-2 border-transparent px-3 py-[0.35rem] text-base no-underline opacity-70 transition-all duration-150 hover:-translate-x-px hover:-translate-y-px hover:border-line hover:bg-card hover:opacity-100 hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))]"
+							>
+								{breadcrumb.replace(/-/g, ' ')}
+							</a>
+						</li>
+						<li aria-hidden="true" class="text-accent">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="14"
+								height="14"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2.5"
+								stroke-linecap="square"
+								stroke-linejoin="miter"
+							>
+								<polyline points="9 18 15 12 9 6" />
+							</svg>
+						</li>
+					</>
+				),
+			)
+		}
+	</ul>
 </nav>

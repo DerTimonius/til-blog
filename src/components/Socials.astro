@@ -1,7 +1,7 @@
 ---
 import { socials } from '~/utils/config';
 import { socialIcons } from '~/assets/socialIcons';
-import Link from './Link.astro';
+import { Icon } from 'astro-icon/components';
 import classNames from 'classnames';
 
 export interface Props {
@@ -9,33 +9,26 @@ export interface Props {
 }
 
 const { centered = false } = Astro.props;
-const divClasses = classNames(
-	'flex flex-wrap justify-center gap-1 items-center',
-	{
-		flex: centered,
-	},
-);
+const divClasses = classNames('flex flex-wrap items-center gap-2', {
+	'justify-center': centered,
+});
 
 const socialsDisplay = socials.filter((s) => s.active);
 ---
 
 <div class={divClasses}>
-  {
-    socialsDisplay.map((social, index) => (
-      <>
-        <Link
-          dataTestId={`social-link${social.name}`}
-          href={social.href}
-          className="p-2 hover:rotate-6 sm:p-1"
-          title={social.linkTitle}
-          newTab
-        >
-          <Fragment set:html={socialIcons[social.name]} />
-        </Link>
-        {index !== socialsDisplay.length - 1 ? (
-          <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-        ) : null}
-      </>
-    ))
-  }
+	{
+		socialsDisplay.map((social) => (
+			<a
+				href={social.href}
+				class="group inline-flex h-10 w-10 items-center justify-center border-2 border-line bg-fill text-base transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-inverted hover:shadow-[3px_3px_0_0_rgb(var(--color-text-base))] [&_svg]:h-5 [&_svg]:w-5 [&_svg]:stroke-base hover:[&_svg]:stroke-inverted"
+				title={social.linkTitle}
+				target="_blank"
+				rel="noopener noreferrer"
+				data-test-id={`social-link-${social.name}`}
+			>
+				<Icon name={socialIcons[social.name]} />
+			</a>
+		))
+	}
 </div>

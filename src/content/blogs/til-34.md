@@ -22,20 +22,20 @@ But first, we have to look at the appeal of enums. From the [TypeScript handbook
 ```ts
 // numeric enum
 enum RequestMethodNumeric {
-  GET,
-  POST,
-  PUT,
-  PATCH,
-  DELETE,
+	GET,
+	POST,
+	PUT,
+	PATCH,
+	DELETE,
 }
 
 // string enum
 enum RequestMethodString {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
+	GET = 'GET',
+	POST = 'POST',
+	PUT = 'PUT',
+	PATCH = 'PATCH',
+	DELETE = 'DELETE',
 }
 ```
 
@@ -82,11 +82,11 @@ Again, let's look at the simple version of the string-based enum first.
 ```js
 var RequestMethodString;
 (function (RequestMethodString) {
-  RequestMethodString['GET'] = 'GET';
-  RequestMethodString['POST'] = 'POST';
-  RequestMethodString['PUT'] = 'PUT';
-  RequestMethodString['PATCH'] = 'PATCH';
-  RequestMethodString['DELETE'] = 'DELETE';
+	RequestMethodString['GET'] = 'GET';
+	RequestMethodString['POST'] = 'POST';
+	RequestMethodString['PUT'] = 'PUT';
+	RequestMethodString['PATCH'] = 'PATCH';
+	RequestMethodString['DELETE'] = 'DELETE';
 })(RequestMethodString || (RequestMethodString = {}));
 ```
 
@@ -101,11 +101,11 @@ This will change when we look at numeric enums.
 ```js
 var RequestMethodNumeric;
 (function (RequestMethodNumeric) {
-  RequestMethodNumeric[(RequestMethodNumeric['GET'] = 0)] = 'GET';
-  RequestMethodNumeric[(RequestMethodNumeric['POST'] = 1)] = 'POST';
-  RequestMethodNumeric[(RequestMethodNumeric['PUT'] = 2)] = 'PUT';
-  RequestMethodNumeric[(RequestMethodNumeric['PATCH'] = 3)] = 'PATCH';
-  RequestMethodNumeric[(RequestMethodNumeric['DELETE'] = 4)] = 'DELETE';
+	RequestMethodNumeric[(RequestMethodNumeric['GET'] = 0)] = 'GET';
+	RequestMethodNumeric[(RequestMethodNumeric['POST'] = 1)] = 'POST';
+	RequestMethodNumeric[(RequestMethodNumeric['PUT'] = 2)] = 'PUT';
+	RequestMethodNumeric[(RequestMethodNumeric['PATCH'] = 3)] = 'PATCH';
+	RequestMethodNumeric[(RequestMethodNumeric['DELETE'] = 4)] = 'DELETE';
 })(RequestMethodNumeric || (RequestMethodNumeric = {}));
 ```
 
@@ -121,11 +121,11 @@ In our example, let's say that `RequestMethodString` is a `const` enum.
 
 ```ts
 const enum RequestMethodString {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
+	GET = 'GET',
+	POST = 'POST',
+	PUT = 'PUT',
+	PATCH = 'PATCH',
+	DELETE = 'DELETE',
 }
 
 console.log(RequestMethodString.GET);
@@ -162,11 +162,11 @@ I just can't keep hating on enums without actually providing useful alternatives
 
 ```ts
 const requestMethods = {
-  Get: 'GET',
-  Post: 'POST',
-  Put: 'PUT',
-  Patch: 'PATCH',
-  Delete: 'DELETE',
+	Get: 'GET',
+	Post: 'POST',
+	Put: 'PUT',
+	Patch: 'PATCH',
+	Delete: 'DELETE',
 } as const;
 
 type RequestMethod = (typeof requestMethods)[keyof typeof requestMethods];

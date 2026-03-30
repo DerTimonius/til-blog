@@ -1,41 +1,54 @@
 <button
-  id="btt"
-  class="enter focus-outline fixed bottom-12 right-12 hidden whitespace-nowrap py-1 hover:opacity-75"
+	id="btt"
+	class="group fixed right-8 bottom-8 z-50 hidden h-14 w-14 cursor-pointer items-center justify-center border-[3px] border-line bg-fill text-inverted shadow-[4px_4px_0_0_rgb(var(--color-text-base))] transition-all duration-150 hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-accent hover:shadow-[2px_2px_0_0_rgb(var(--color-text-base))] active:translate-x-1 active:translate-y-1 active:shadow-none [&.block]:flex"
+	aria-label="Back to top"
 >
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-6 w-6 rotate-90 fill-accent"
-  >
-    <path
-      d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-    ></path>
-  </svg>
-  <span class="sr-only">Back to Top</span>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		class="stroke-accent group-hover:stroke-fill"
+		fill="none"
+		stroke-width="2.5"
+		stroke-linecap="square"
+		stroke-linejoin="miter"
+	>
+		<line x1="12" y1="19" x2="12" y2="5"></line>
+		<polyline points="5 12 12 5 19 12"></polyline>
+	</svg>
 </button>
 
 <script>
-  const button = document.getElementById('btt');
-  function visible() {
-    if (
-      document.body.scrollTop > 360 ||
-      document.documentElement.scrollTop > 360
-    ) {
-      button?.classList.add('block');
-      button?.classList.remove('hidden');
-    } else {
-      button?.classList.remove('block');
-      button?.classList.add('hidden');
-    }
-  }
-  window.onscroll = function () {
-    visible();
-  };
+	const button = document.getElementById('btt');
+	function visible() {
+		if (
+			document.body.scrollTop > 360 ||
+			document.documentElement.scrollTop > 360
+		) {
+			button?.classList.add('block');
+			button?.classList.remove('hidden');
+		} else {
+			button?.classList.remove('block');
+			button?.classList.add('hidden');
+		}
+	}
+	window.onscroll = function () {
+		visible();
+	};
 
-  function backToTop() {
-    button?.addEventListener('click', () => {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    });
-  }
-  backToTop();
+	function backToTop() {
+		button?.addEventListener('click', () => {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+	}
+	backToTop();
+
+	// Re-run on view transitions
+	document.addEventListener('astro:after-swap', () => {
+		window.onscroll = function () {
+			visible();
+		};
+		backToTop();
+	});
 </script>

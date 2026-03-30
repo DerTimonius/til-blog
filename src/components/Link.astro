@@ -21,19 +21,20 @@ const {
 	newTab = false,
 } = Astro.props;
 const linkClasses = classNames(
-	'group inline-block hover:text-accent',
+	'inline-flex items-center gap-1 font-ui font-semibold transition-all duration-150',
 	className,
 );
 ---
 
 <a
-  data-test-id={dataTestId}
-  href={disabled ? '#' : href}
-  class={linkClasses}
-  aria-label={ariaLabel ?? title}
-  title={title}
-  aria-disabled={disabled}
-  target={newTab ? '_blank' : '_self'}
+	data-test-id={dataTestId}
+	href={disabled ? '#' : href}
+	class={linkClasses}
+	aria-label={ariaLabel ?? title}
+	title={title}
+	aria-disabled={disabled}
+	target={newTab ? '_blank' : '_self'}
+	rel={newTab ? 'noopener noreferrer' : undefined}
 >
-  <slot />
+	<slot />
 </a>

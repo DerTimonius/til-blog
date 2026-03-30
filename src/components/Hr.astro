@@ -14,12 +14,15 @@ const {
 	className,
 	lineColor,
 } = Astro.props;
-const divClasses = classNames('w-full mx-auto', className, {
+const divClasses = classNames('mx-auto w-full', className, {
 	'px-0': noPadding,
 	'px-4': !noPadding,
 });
 ---
 
 <div class={divClasses}>
-  <hr class={lineColor ?? 'border-line'} aria-hidden={ariaHidden} />
+	<hr
+		class={lineColor ?? 'border-[3px] border-line'}
+		aria-hidden={ariaHidden}
+	/>
 </div>

@@ -26,7 +26,7 @@ With the release of `v1.42.0` [Playwright](https://playwright.dev) introduced th
 
 ```ts title="navigation.spec.ts"
 test('simple navigation test', { tags: '@navigation' }, async ({ page }) => {
-  // ...
+	// ...
 });
 ```
 
