@@ -116,10 +116,10 @@ While `create-t3-app` takes care of that for you, when you setup a project by yo
 
 ```ts title="src/api/trpc.ts"
 export const createTRPCContext = async (opts: { headers: Headers }) => {
- return {
-  db,
-  ...opts,
- };
+	return {
+		db,
+		...opts,
+	};
 };
 ```
 
@@ -127,17 +127,17 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
 
 ```ts title="src/api/trpc.ts"
 const t = initTRPC.context<typeof createTRPCContext>().create({
- transformer: superjson,
- errorFormatter({ shape, error }) {
-  return {
-   ...shape,
-   data: {
-    ...shape.data,
-    zodError:
-     error.cause instanceof ZodError ? error.cause.flatten() : null,
-   },
-  };
- },
+	transformer: superjson,
+	errorFormatter({ shape, error }) {
+		return {
+			...shape,
+			data: {
+				...shape.data,
+				zodError:
+					error.cause instanceof ZodError ? error.cause.flatten() : null,
+			},
+		};
+	},
 });
 ```
 
@@ -154,7 +154,7 @@ The next step is to define a router that "hosts" your queries and mutations. To 
 
 ```ts title="src/api/routers/todo.ts"
 export const todoRouter = createTRPCRouter({
- // Rest of the code
+	// Rest of the code
 });
 ```
 
@@ -164,22 +164,22 @@ The first thing I did after creating the `todoRouter` was to write a query that 
 
 ```ts hide-badge magic-move-before={1-3} magic-move-after={4-18}
 export const todoRouter = createTRPCRouter({
- // Rest of the code
+	// Rest of the code
 });
 export const todoRouter = createTRPCRouter({
- createTodo: publicProcedure
-  .input(z.object({ name: z.string(), description: z.string().nullable() }))
-  .mutation(async ({ ctx, input }) => {
-   return ctx.db.todo.create({
-    data: {
-     description: input.description,
-     name: input.name,
-    },
-   });
-  }),
- getAllTodos: publicProcedure.query(async ({ ctx }) => {
-  return ctx.db.todo.findMany({ orderBy: { createdAt: 'asc' } });
- }),
+	createTodo: publicProcedure
+		.input(z.object({ name: z.string(), description: z.string().nullable() }))
+		.mutation(async ({ ctx, input }) => {
+			return ctx.db.todo.create({
+				data: {
+					description: input.description,
+					name: input.name,
+				},
+			});
+		}),
+	getAllTodos: publicProcedure.query(async ({ ctx }) => {
+		return ctx.db.todo.findMany({ orderBy: { createdAt: 'asc' } });
+	}),
 });
 ```
 
@@ -204,22 +204,22 @@ But this query currently won't return anything - there are no todos yet. So in t
 ```ts
 // CreateTodo.tsx
 const createTodo = api.todo.createTodo.useMutation({
- onError: () => {
-  toast({
-   title: 'Oops',
-   description: 'Creation of todo was not possible',
-   variant: 'destructive',
-  });
- },
- onSuccess: (ctx) => {
-  router.refresh();
-  setName('');
-  setDescription('');
-  toast({
-   title: 'Todo created',
-   description: `Todo ${ctx.name} successfully created`,
-  });
- },
+	onError: () => {
+		toast({
+			title: 'Oops',
+			description: 'Creation of todo was not possible',
+			variant: 'destructive',
+		});
+	},
+	onSuccess: (ctx) => {
+		router.refresh();
+		setName('');
+		setDescription('');
+		toast({
+			title: 'Todo created',
+			description: `Todo ${ctx.name} successfully created`,
+		});
+	},
 });
 ```
 
