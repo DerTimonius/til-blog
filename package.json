@@ -46,7 +46,7 @@
 		"@fontsource/space-grotesk": "^5.2.10",
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.2.1",
-		"astro": "^6.1.1",
+		"astro": "^6.1.2",
 		"astro-expressive-code": "^0.41.7",
 		"astro-icon": "^1.1.5",
 		"classnames": "^2.5.1",
