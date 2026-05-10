@@ -386,15 +386,11 @@ I need to use _client:only_ as the MagicMoveRenderer needs access to the `docume
 
 ## Adding Autoanimation
 
-<Aside>
-	The Autoanimation feature has not been added to the plugin, but it is planned.
-</Aside>
-
 The last thing I want to add is the option to autoanimate the code block. But I can't just animate the code when the element is mounted, as a lot of elements are probably not visible in the viewport.
 
 What is the best way to check if an element is in the viewport? Enter the `IntersectionObserver`.
 
-```svelte hide-badge magic-move-before={1-28} magic-move-after={29-82}
+```svelte hide-badge magic-move-before={1-28} magic-move-after={29-82} autoanimate
 <script lang="ts">
 import { getHighlighter } from 'shiki';
 import MagicMove from './MagicMove.svelte';
@@ -483,7 +479,7 @@ This way the animation automatically starts whenever the code block is 200px off
 
 But there is one thing we have to keep in mind. Some people have problems with motion, they might get distracted at best or nauseous at worst. Therefore I added a check if the user prefers reduced motion (meaning if they set it in their system settings) and not do anything with the IntersectionObserver in that case.
 
-```ts hide-badge magic-move-before={1-17} magic-move-after={18-40}
+```ts hide-badge magic-move-before={1-17} magic-move-after={18-40} autoanimate
 const observer = new IntersectionObserver(
 	(entries) => {
 		entries.forEach((entry) => {

@@ -63,11 +63,11 @@ importers:
         specifier: ^1.11.20
         version: 1.11.20
       ec-lang-logo:
-        specifier: ^1.1.0
-        version: 1.1.0(@expressive-code/core@0.41.7)
+        specifier: latest
+        version: 1.0.5(@expressive-code/core@0.41.7)
       ec-magic-move:
-        specifier: ^1.0.1
-        version: 1.0.1(@expressive-code/core@0.41.7)(@expressive-code/plugin-shiki@0.41.7)(svelte@5.55.5)
+        specifier: latest
+        version: 1.1.0(@expressive-code/core@0.41.7)(@expressive-code/plugin-shiki@0.41.7)(svelte@5.55.5)
       fuse.js:
         specifier: ^7.3.0
         version: 7.3.0
@@ -1454,13 +1454,13 @@ packages:
     resolution: {integrity: sha512-2QF/g9/zTaPDc3BjNcVTGoBbXBgYfMTTceLaYcFJ/W9kggFUkhxD/hMEeuLKbugyef9SqAx8cpgwlIP/jinUTA==}
     engines: {node: '>=4'}
 
-  ec-lang-logo@1.1.0:
-    resolution: {integrity: sha512-cTF9XYvCXz+3TrNBe8Xai8TRSaCCqZDEgHhqh/y3nqjXPO9LEAzhaJxYNr0K+88qzk0oq+/nLpwyJPXBSrWfYg==}
+  ec-lang-logo@1.0.5:
+    resolution: {integrity: sha512-sVtaIyeaaefRp+GzYqPbyjIILNgW/QV5O3hWtrVoluwhT+2frV9sXLmPRb32bKQH6lkkgooEypfGGdYKmIK1KQ==}
     peerDependencies:
       '@expressive-code/core': ^0.41.3
 
-  ec-magic-move@1.0.1:
-    resolution: {integrity: sha512-iLEU5y7JCxPJ3Bsvt24K+/gzivDN4Ks0431ysc9ZGMivf9MZWB9x+LKCZ28LbIlBnZZRYIakCX81+KuneqXo/Q==}
+  ec-magic-move@1.1.0:
+    resolution: {integrity: sha512-v9qG2Y0VfUFx5mXg0KW/5OnTCFjI4ICwSWz9V7HKFI0fSEM5GkB3bAvTVCKt2+uKRYttmbLzy93no5Qw1sTGGg==}
     peerDependencies:
       '@expressive-code/core': ^0.41.7
       '@expressive-code/plugin-shiki': ^0.41.7
@@ -4345,12 +4345,12 @@ snapshots:
 
   dset@3.1.4: {}
 
-  ec-lang-logo@1.1.0(@expressive-code/core@0.41.7):
+  ec-lang-logo@1.0.5(@expressive-code/core@0.41.7):
     dependencies:
       '@expressive-code/core': 0.41.7
       simple-icons: 16.10.0
 
-  ec-magic-move@1.0.1(@expressive-code/core@0.41.7)(@expressive-code/plugin-shiki@0.41.7)(svelte@5.55.5):
+  ec-magic-move@1.1.0(@expressive-code/core@0.41.7)(@expressive-code/plugin-shiki@0.41.7)(svelte@5.55.5):
     dependencies:
       '@expressive-code/core': 0.41.7
       '@expressive-code/plugin-shiki': 0.41.7
