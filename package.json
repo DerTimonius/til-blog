@@ -22,7 +22,7 @@
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/svelte": "^8.1.0",
-    "@astrojs/vercel": "^10.0.6",
+    "@astrojs/vercel": "^11.0.3",
     "@fontsource/fira-mono": "^5.2.7",
     "@fontsource/monaspace-neon": "^5.2.5",
     "@fontsource/space-grotesk": "^5.2.10",
